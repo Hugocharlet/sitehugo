@@ -56,6 +56,6 @@ if __name__ == '__main__':
     save_to_json(images, output_file)
     
     # Convertir les guillemets doubles en guillemets simples
-    convert_json_guillemets_simples(output_file)
+  
     
     print(f"Liste des noms des images sauvegardée dans {output_file}")

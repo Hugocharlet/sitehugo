@@ -163,100 +163,86 @@
         <p>©️2024 hugocharletdesign</p>
     </div>
 
-    <script>
-	
-
-	
-	
-	
-	
-	
-	
-
-	// Fonction pour mélanger les éléments d'un tableau
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-}
-
-// Fonction pour ajouter un effet de survol aux images
-function addHoverEffectToImages() {
-    console.log('addHoverEffectToImages function called');
-    const galleryItems = document.querySelectorAll('.gallery-item img');
-    console.log('Images found:', galleryItems);
-
-    galleryItems.forEach(img => {
-        img.addEventListener('mouseover', () => {
-            console.log('Image hovered:', img);
-            setTimeout(() => {
-                img.classList.add('rotate');
-            }, 0);
-        });
-
-        img.addEventListener('mouseout', () => {
-            console.log('Mouseout event triggered for image:', img);
-            setTimeout(() => {
-                img.classList.remove('rotate');
-            }, 2000); // Délai de 2 secondes avant de retirer la classe
-        });
-    });
-}
-
-// Fonction pour générer la galerie à partir des noms d'images
-async function generateGallery() {
-    try {
-        // Chemin vers le fichier JSON contenant les noms des images
-        const jsonFilePath = 'images.json';
-        
-        // Récupérer les noms des images depuis le fichier JSON
-        const response = await fetch(jsonFilePath);
-        if (!response.ok) {
-            throw new Error('Erreur lors de la récupération du fichier JSON');
+       <script>
+        // Fonction pour mélanger les éléments d'un tableau
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
         }
-        const imageFiles = await response.json();
-        
-        // Mélanger les images
-        const shuffledImages = shuffleArray(imageFiles);
 
-        // Référencer l'élément de la galerie dans le DOM
-        const gallery = document.getElementById('gallery');
-        gallery.innerHTML = ''; // Vider la galerie existante
+        // Fonction pour ajouter un effet de survol aux images
+        function addHoverEffectToImages() {
+            console.log('addHoverEffectToImages function called');
+            const galleryItems = document.querySelectorAll('.gallery-item img');
+            console.log('Images found:', galleryItems);
 
-        // Générer les éléments HTML pour chaque image
-        shuffledImages.forEach(img => {
-            const galleryItem = document.createElement('div');
-            galleryItem.className = 'gallery-item';
+            galleryItems.forEach(img => {
+                img.addEventListener('mouseover', () => {
+                    console.log('Image hovered:', img);
+                    setTimeout(() => {
+                        img.classList.add('rotate');
+                    }, 0);
+                });
 
-            const linkElement = document.createElement('a');
-            linkElement.href = `img/${img}`;
-            linkElement.target = '_blank';
+                img.addEventListener('mouseout', () => {
+                    console.log('Mouseout event triggered for image:', img);
+                    setTimeout(() => {
+                        img.classList.remove('rotate');
+                    }, 2000); // Délai de 2 secondes avant de retirer la classe
+                });
+            });
+        }
 
-            const imgElement = document.createElement('img');
-            imgElement.src = `img/${img}`;
-            imgElement.alt = 'Image aléatoire';
+        // Fonction pour générer la galerie à partir des noms d'images
+        async function generateGallery() {
+            try {
+                // Chemin vers le fichier JSON contenant les noms des images
+                const jsonFilePath = 'imagesCarrousel.json';
+                
+                // Récupérer les noms des images depuis le fichier JSON
+                const response = await fetch(jsonFilePath);
+                if (!response.ok) {
+                    throw new Error('Erreur lors de la récupération du fichier JSON');
+                }
+                const imageFiles = await response.json();
+                
+                // Mélanger les images
+                const shuffledImages = shuffleArray(imageFiles);
 
-            linkElement.appendChild(imgElement);
-            galleryItem.appendChild(linkElement);
-            gallery.appendChild(galleryItem);
-        });
+                // Référencer l'élément de la galerie dans le DOM
+                const gallery = document.getElementById('gallery');
+                gallery.innerHTML = ''; // Vider la galerie existante
 
-        console.log('Galerie générée, ajout de l\'effet de survol');
-        addHoverEffectToImages();
-    } catch (error) {
-        console.error('Erreur lors de la génération de la galerie:', error);
-    }
-}
+                // Générer les éléments HTML pour chaque image
+                shuffledImages.forEach(img => {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.className = 'gallery-item';
 
-// Générer la galerie lorsque le document est chargé
-window.onload = generateGallery;
+                    const linkElement = document.createElement('a');
+                    linkElement.href = `imgCarrousel/${img}`;
+                    linkElement.target = '_blank';
 
+                    const imgElement = document.createElement('img');
+                    imgElement.src = `imgCarrousel/${img}`;
+                    imgElement.alt = 'Image aléatoire';
 
-    
+                    linkElement.appendChild(imgElement);
+                    galleryItem.appendChild(linkElement);
+                    gallery.appendChild(galleryItem);
+                });
 
+                console.log('Galerie générée, ajout de l\'effet de survol');
+                addHoverEffectToImages();
+            } catch (error) {
+                console.error('Erreur lors de la génération de la galerie:', error);
+            }
+        }
 
+        // Générer la galerie lorsque le document est chargé
+        window.onload = generateGallery;
     </script>
 	<script src="couleur.js"></script>
 </body>
