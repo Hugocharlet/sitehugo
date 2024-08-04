@@ -163,7 +163,10 @@
         <p>©️2024 hugocharletdesign</p>
     </div>
 
-       <script>
+    <script>
+	
+	
+	
         // Fonction pour mélanger les éléments d'un tableau
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -222,11 +225,11 @@
                     galleryItem.className = 'gallery-item';
 
                     const linkElement = document.createElement('a');
-                    linkElement.href = `imgCarrousel/${img}`;
+                    linkElement.href = `img/${img}`;
                     linkElement.target = '_blank';
 
                     const imgElement = document.createElement('img');
-                    imgElement.src = `imgCarrousel/${img}`;
+                    imgElement.src = `img/${img}`;
                     imgElement.alt = 'Image aléatoire';
 
                     linkElement.appendChild(imgElement);
@@ -243,6 +246,7 @@
 
         // Générer la galerie lorsque le document est chargé
         window.onload = generateGallery;
+
     </script>
 	<script src="couleur.js"></script>
 </body>
