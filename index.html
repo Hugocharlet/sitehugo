@@ -154,78 +154,103 @@
         <a href="index.html" class="svg-link">             <img src="grid-large.svg" alt="Grid Large" class="svg-item">
         </a>
     </div>
-	 <div class="carousel-container">
+	
+    <div class="carousel-container">
+        <img class="arrowleft" src="arrowleft.svg" alt="Flèche gauche" onclick="previousImage()">
+		<div class="image-container" id="carousel-images">
 			
-			<img class="arrowleft" src="arrowleft.svg" alt="Flèche gauche" onclick="previousImage()">
-			<div class="image-container">
-				<img id="galleryImage" src="img/image1.jpg" alt="Gallery Image"onclick="nextImage()">
-			</div>
-			<img class="arrowright" src="arrowright.svg" alt="Flèche droite" onclick="nextImage()">
+            <!-- Les images seront insérées ici par JavaScript -->
+			<img id="imageid" src="imgCarrousel\icone.jpg" alt="Gallery Image"onclick="nextImage()">
+			
+        </div>
+		<img class="arrowright" src="arrowright.svg" alt="Flèche droite" onclick="nextImage()">    
+		
 		</div>
 		
 		<div class="copyright">
 				<p>©️2024 hugocharletdesign</p>
 			</div>
 
-    <script>
-			   // Tableau contenant les chemins vers les images
-		let images = [];
-
-		// Récupérer toutes les images du dossier 'img/'
-		fetchImages();
-
-		function fetchImages() {
-			const jsonFilePath = 'imagesCarrousel.json'; // Chemin vers le fichier JSON contenant les chemins des images
-			
-			fetch(jsonFilePath)
-				.then(response => {
-					if (!response.ok) {
-						throw new Error('Réponse réseau non ok');
-					}
-					return response.json();
-				})
-				.then(data => {
-					if (Array.isArray(data)) {
-						images = data; // Assigner la liste des images récupérées depuis le JSON
-						// Initialiser l'affichage de l'image
-						showRandomImage();
-					} else {
-						console.warn('Le fichier JSON ne contient pas une liste d\'images valide.');
-					}
-				})
-				.catch(error => {
-					console.error('Une erreur s\'est produite lors du chargement du fichier JSON :', error);
-				});
-		}
-		let currentImageIndex = 0;
-
-		function showRandomImage() {
-		  currentImageIndex = getRandomIndex();
-		  showImage(currentImageIndex);
-		}
+<script>
+		let imagesCarrousel = [
+    "imgCarrousel/ai leornardo.jpg",
+    "imgCarrousel/annot\u00e9 enf.jpg",
+    "imgCarrousel/ANN_8024cretouch\u00e9p.jpg",
+    "imgCarrousel/anton 12.jpg",
+    "imgCarrousel/anton 6.jpg",
+    "imgCarrousel/Anton 8.jpg",
+    "imgCarrousel/BLURRED1.jpg",
+    "imgCarrousel/CADRree.jpg",
+    "imgCarrousel/DE9C1026 (2).jpg",
+    "imgCarrousel/fc4fc0fb-418d-4a47-a259-62e7e357bd11.jpg",
+    "imgCarrousel/format carte postale3.jpg",
+    "imgCarrousel/hugo portrait.jpg",
+    "imgCarrousel/icone.jpg",
+    "imgCarrousel/image10.jpg",
+    "imgCarrousel/image11.jpg",
+    "imgCarrousel/image12.jpg",
+    "imgCarrousel/image13.jpg",
+    "imgCarrousel/image15.jpg",
+    "imgCarrousel/image3.jpg",
+    "imgCarrousel/image4.jpg",
+    "imgCarrousel/image5.jpg",
+    "imgCarrousel/image6.jpg",
+    "imgCarrousel/image7.JPG",
+    "imgCarrousel/image8.JPG",
+    "imgCarrousel/IMG-0392.jpg",
+    "imgCarrousel/IMG_1985.jpg",
+    "imgCarrousel/IMG_20240714_0002.jpg",
+    "imgCarrousel/IMG_5675.jpg",
+    "imgCarrousel/IMG_8821.jpg",
+    "imgCarrousel/IMG_9433.jpg",
+    "imgCarrousel/IMG_9486.jpg",
+    "imgCarrousel/IMG_9621.jpg",
+    "imgCarrousel/IMG_9627.jpg",
+    "imgCarrousel/IMG_9665compressed.jpg",
+    "imgCarrousel/IMG_9918.jpg",
+    "imgCarrousel/mistral 2.jpg",
+    "imgCarrousel/new BH 13.jpg",
+    "imgCarrousel/perspective 1.jpg",
+    "imgCarrousel/presentation fermob.png",
+    "imgCarrousel/Table.jpg",
+    "imgCarrousel/TAURUS1 (1).jpg",
+    "imgCarrousel/tomeo emplil\u00e9e hd.jpg",
+    "imgCarrousel/t\u00e9o1.jpg",
+    "imgCarrousel/t\u00e9o2.jpg",
+    "imgCarrousel/untitled14-1.jpg",
+    "imgCarrousel/untitled22.jpg",
+    "imgCarrousel/wegner15 19.jpg",
+    "imgCarrousel/wegner15 21.jpg"
+]
+;
+		let currentIndex = 0;
 
 		function showImage(index) {
-		  const imgElement = document.getElementById('galleryImage');
-		  imgElement.src = images[index];
-		}
+			const image = document.getElementById('imageid');
+				image.src = imagesCarrousel[index];
+				}
 
-		function nextImage() {
-		  currentImageIndex = (currentImageIndex + 1) % images.length;
-		  showImage(currentImageIndex);
-		}
+        function previousImage() {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : imagesCarrousel.length - 1;
+            showImage(currentIndex);
+        }
 
-		function previousImage() {
-		  currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-		  showImage(currentImageIndex);
-		}
+        function nextImage() {
+            currentIndex = (currentIndex < imagesCarrousel.length - 1) ? currentIndex + 1 : 0;
+            showImage(currentIndex);
+        }
 
-		function getRandomIndex() {
-		  return Math.floor(Math.random() * images.length);
-		}
-
-		// Initialisation de l'affichage de l'image aléatoire
-		showRandomImage();
-
+        // Appeler fetchImages pour initialiser le carrousel
+       
+		document.addEventListener('DOMContentLoaded', () => {
+			showImage(currentIndex);
+		});
+				
+		
+		
+		
+		
     </script>
 </body>
 </html>
+		
