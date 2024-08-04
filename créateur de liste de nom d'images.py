@@ -4,11 +4,17 @@ import json
 def list_image_files(directory, image_extensions):
     image_files = []
     try:
+        # Vérifiez si le répertoire existe
+        if not os.path.isdir(directory):
+            raise FileNotFoundError(f"Le répertoire spécifié n'existe pas : {directory}")
+
+        # Parcourir les fichiers dans le répertoire
         for filename in os.listdir(directory):
             if filename.lower().endswith(image_extensions):
-                image_files.append(os.path.join(directory, filename))  # Inclure le chemin complet des fichiers
+                # Ajouter seulement le nom du fichier à la liste
+                image_files.append(filename)
     except FileNotFoundError as e:
-        print(f"Erreur : Le répertoire spécifié est introuvable - {e}")
+        print(f"Erreur : {e}")
     except PermissionError as e:
         print(f"Erreur : Problème de permission - {e}")
     except Exception as e:
@@ -37,8 +43,8 @@ def convert_json_guillemets_simples(file_path):
 
 if __name__ == '__main__':
     # Demander à l'utilisateur de saisir le chemin du répertoire et le nom du fichier JSON
-    images_dir = input('Entrez le chemin complet du répertoire contenant les images : ')
-    output_file = input('Entrez le nom du fichier JSON à créer (par exemple, "imagesCarrousel.json") : ')
+    images_dir = input('Entrez le chemin complet du répertoire contenant les images : ').strip()
+    output_file = input('Entrez le nom du fichier JSON à créer (par exemple, "imagesCarrousel.json") : ').strip()
 
     # Liste des extensions d'image à inclure
     image_extensions = ('.jpg', '.jpeg', '.png', '.gif')
@@ -52,4 +58,4 @@ if __name__ == '__main__':
     # Convertir les guillemets doubles en guillemets simples
     convert_json_guillemets_simples(output_file)
     
-    print(f"Liste des images sauvegardée dans {output_file}")
+    print(f"Liste des noms des images sauvegardée dans {output_file}")
