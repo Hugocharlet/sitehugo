@@ -12,8 +12,19 @@
     
 	<!-- impoter Menu générale -->
 	<div id="menu-placeholder"></div>
-  
-
+    <!-- Script pour importer le menu -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        fetch('menugenerale.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('menu-placeholder').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Erreur lors du chargement du menu :', error);
+            });
+    });
+    </script>
     <!--flèche page précédente -->
     <div class="svg-container">
         <a href="#" id="svg-back-button" class="svg-link">
@@ -51,7 +62,7 @@ Mounted on an elegant four-star base made of die cast aluminium, the chair can b
                 <div class="texte">3D Model wood chair</div>
             </div>
             <div class="icon-container">
-                <a href="#" data-model-src="glb/antonswivelchair.glb" class="icon-link" id="ouvrir-model-viewer">
+                <a href="#" data-model-src="glb/antonswivel.glb" class="icon-link" id="ouvrir-model-viewer">
                     <img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
                 </a>
                 <div class="texte">3D Model swivel chair</div>
@@ -69,7 +80,7 @@ Mounted on an elegant four-star base made of die cast aluminium, the chair can b
                 </div>
                 <div class="carousel-container">
                     <div class="image-container" id="mediaContainer">
-                        <img id="galleryImage" src="img/image1.jpg" alt="Gallery Image" style="display: none;" onclick="nextMedia()">
+                        <img id="imageid" src="img/image1.jpg" alt="Gallery Image" style="display: none;" onclick="nextMedia()">
                         <video id="galleryVideo" controls style="display: none;" onclick="nextMedia()"></video>
                     </div>
                     <div class="nav-wrapper" id="carouselIndicators"></div>
@@ -78,100 +89,53 @@ Mounted on an elegant four-star base made of die cast aluminium, the chair can b
 			
 			
 <!-- copyrights -->   
-        <p class="copyright">©️2024 hugocharletdesign</p>
+        
     </div>
-    
+    <p class="copyright">©️2024 hugocharletdesign</p>
 <script>
 
     // Importer le menu
 	
-	document.addEventListener('DOMContentLoaded', () => {
-        // Importer le menu
-        fetch('menugenerale.html')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.text();
-            })
-            .then(data => {
-                document.getElementById('menu-placeholder').innerHTML = data;
+let mediaFiles = [
+    "pages/anton/image1.jpg",
+    "pages/anton/image2.jpg",
+    "pages/anton/image3.jpg",
+    "pages/anton/image4.jpg",
+    "pages/anton/image5.jpg",
+    "pages/anton/image6.jpg",
+    "pages/anton/image7.jpg",
+    "pages/anton/image8.jpg",
+    "pages/anton/image9.jpg",
+	"pages/anton/video1.mov",
 
-                // Ajouter les gestionnaires d'événements après que le menu est chargé
-                const svgBackButton = document.getElementById('svg-back-button');
-                const menuBackButton = document.getElementById('menu-back-button');
+];
 
-                function goBack(event) {
-                    event.preventDefault(); // Empêche le lien de suivre son href
-                    window.history.back(); // Retourne à la page précédente
-                }
+  
 
-                if (svgBackButton) {
-                    svgBackButton.addEventListener('click', goBack);
-                } else {
-                    console.warn('Element with ID "svg-back-button" not found.');
-                }
-
-                if (menuBackButton) {
-                    menuBackButton.addEventListener('click', goBack);
-                } else {
-                    console.warn('Element with ID "menu-back-button" not found.');
-                }
-            })
-            .catch(error => {
-                console.error('Erreur lors du chargement du menu :', error);
-            });
-
- // Charger les médias
-        fetchMedia();
-    });
-
-    let mediaFiles = [];
+  
     let currentMediaIndex = 0;
 
-    function fetchMedia() {
-        const folderPath = 'pages/anton/'; // Chemin vers le dossier des images et vidéos
-        fetch(folderPath)
-            .then(response => response.text())
-            .then(data => {
-                const parser = new DOMParser();
-                const htmlDocument = parser.parseFromString(data, 'text/html');
-                const fileElements = htmlDocument.getElementsByTagName('a');
+	function showMedia(index) {
+		const image = document.getElementById('imageid');
+		const video = document.getElementById('galleryVideo');
 
-                mediaFiles = [];
-                for (let i = 0; i < fileElements.length; i++) {
-                    const filename = fileElements[i].getAttribute('href');
-                    if (filename.endsWith('.jpg') || filename.endsWith('.jpeg') || filename.endsWith('.png') || filename.endsWith('.gif') ||
-                        filename.endsWith('.mp4') || filename.endsWith('.webm') || filename.endsWith('.ogg') || filename.endsWith('.mov')) {
-                        mediaFiles.push(folderPath + filename);
-                    }
-                }
+		if (mediaFiles[index].endsWith('.jpg') || mediaFiles[index].endsWith('.png')) {
+			image.src = mediaFiles[index];
+			image.style.display = 'block';
+			video.style.display = 'none';
+		} else if (mediaFiles[index].endsWith('.mov')) {
+			video.src = mediaFiles[index];
+			video.style.display = 'block';
+			image.style.display = 'none';
+		}
+		updateIndicators(); // Mettre à jour les indicateurs du carousel
+	}
 
-                // Initialiser l'affichage du média et des indicateurs
-                updateIndicators();
-                showMedia(currentMediaIndex);
-            })
-            .catch(error => {
-                console.error('Une erreur s\'est produite lors du chargement des médias :', error);
-            });
-    }
+	document.addEventListener('DOMContentLoaded', () => {
+		showMedia(currentMediaIndex); // Initialisez l'affichage du média
+	});
 
-    function showMedia(index) {
-        const imgElement = document.getElementById('galleryImage');
-        const videoElement = document.getElementById('galleryVideo');
-        const mediaFile = mediaFiles[index];
 
-        if (mediaFile.endsWith('.mp4') || mediaFile.endsWith('.webm') || mediaFile.endsWith('.ogg') || mediaFile.endsWith('.mov')) {
-            imgElement.style.display = 'none';
-            videoElement.style.display = 'block';
-            videoElement.src = mediaFile;
-        } else {
-            videoElement.style.display = 'none';
-            imgElement.style.display = 'block';
-            imgElement.src = mediaFile;
-        }
-        updateIndicators(); // Mettre à jour les numéros pour refléter le média actuel
-    }
 
     function nextMedia() {
         currentMediaIndex = (currentMediaIndex + 1) % mediaFiles.length;
@@ -229,6 +193,7 @@ Mounted on an elegant four-star base made of die cast aluminium, the chair can b
     //     modelContainer.classList.remove('show');
     // });
 });
+	
 	
 	
 	</script>
