@@ -156,11 +156,11 @@
     </div>
 	 <div class="carousel-container">
 			
-			<img class="arrowleft" src="https://cdn.glitch.global/4037963e-70f9-4d97-b1e9-67f8d9e615cd/FAVICONFichier%206.svg?v=1721162660053" alt="Flèche gauche" onclick="previousImage()">
+			<img class="arrowleft" src="arrowleft.svg" alt="Flèche gauche" onclick="previousImage()">
 			<div class="image-container">
 				<img id="galleryImage" src="img/image1.jpg" alt="Gallery Image"onclick="nextImage()">
 			</div>
-			<img class="arrowright" src="https://cdn.glitch.global/4037963e-70f9-4d97-b1e9-67f8d9e615cd/FAVICONFichier%205.svg?v=1721162660384" alt="Flèche droite" onclick="nextImage()">
+			<img class="arrowright" src="arrowright.svg" alt="Flèche droite" onclick="nextImage()">
 		</div>
 		
 		<div class="copyright">
@@ -175,30 +175,28 @@
 		fetchImages();
 
 		function fetchImages() {
-		  const folderPath = 'imgCarrousel/'; // Chemin vers le dossier des images
-		  fetch(folderPath)
-			.then(response => response.text())
-			.then(data => {
-			  const parser = new DOMParser();
-			  const htmlDocument = parser.parseFromString(data, 'text/html');
-			  const imageElements = htmlDocument.getElementsByTagName('a');
-
-			  images = [];
-			  for (let i = 0; i < imageElements.length; i++) {
-				const filename = imageElements[i].getAttribute('href');
-				if (filename.endsWith('.jpg') || filename.endsWith('.jpeg') || filename.endsWith('.png') || filename.endsWith('.gif')) {
-				  images.push(folderPath + filename);
-				}
-			  }
-
-			  // Initialiser l'affichage de l'image
-			  showRandomImage();
-			})
-			.catch(error => {
-			  console.error('Une erreur s\'est produite lors du chargement des images :', error);
-			});
+			const jsonFilePath = 'imagesCarrousel.json'; // Chemin vers le fichier JSON contenant les chemins des images
+			
+			fetch(jsonFilePath)
+				.then(response => {
+					if (!response.ok) {
+						throw new Error('Réponse réseau non ok');
+					}
+					return response.json();
+				})
+				.then(data => {
+					if (Array.isArray(data)) {
+						images = data; // Assigner la liste des images récupérées depuis le JSON
+						// Initialiser l'affichage de l'image
+						showRandomImage();
+					} else {
+						console.warn('Le fichier JSON ne contient pas une liste d\'images valide.');
+					}
+				})
+				.catch(error => {
+					console.error('Une erreur s\'est produite lors du chargement du fichier JSON :', error);
+				});
 		}
-
 		let currentImageIndex = 0;
 
 		function showRandomImage() {
