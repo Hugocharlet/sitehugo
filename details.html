@@ -341,7 +341,26 @@ body {
     <div class="copyright">
         <p>©️2024 hugocharletdesign</p>
     </div>
+<script>
 
+document.addEventListener('DOMContentLoaded', () => {
+    const sousmenuLinks = document.querySelectorAll('.sousmenu-link');
+
+    sousmenuLinks.forEach(link => {
+        link.addEventListener('mousemove', (event) => {
+            const img = link.querySelector('img');
+            if (img) {
+                // Ajuste la position de l'image pour qu'elle suive la souris
+
+                img.style.left = `${event.pageX }px`;
+                img.style.center = `${event.pageY }px`;
+            }
+        });
+
+
+    });
+});
+</script>
 <script src="couleur.js"></script>
 
 </body>
