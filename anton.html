@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu avec Trois Choix</title>
+    <link rel="stylesheet" href="csspages.css">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+<body>
+    
+	<!-- impoter Menu générale -->
+	<div id="menu-placeholder"></div>
+  
+
+    <!--flèche page précédente -->
+    <div class="svg-container">
+        <a href="#" id="svg-back-button" class="svg-link">
+            <img src="arrowback.svg" alt="Retour" class="svg-item">
+        </a>  
+    </div>
+
+    <!-- deux colonnes -->        
+    <div class="Colonnes-container">
+	 <!-- colonne 1 -->   
+        <div class="colonne-fixed">
+            <div class="Title">ANTON</div>
+            <div class="Subtitle">Executive armchair 2023</div>
+            <div class="textebox-container">
+                <div class="texte">Dimensions: </div>
+                <div class="texte">For this new Anton chair and armchair project, I spent much effort in finding the most gentle and refined line possible. This work follows a broader research that I have been conducting for several months on shells made out molded injected foam. This technique allows us to create really modern forms and designs thanks to the total freedom of shape. Using this particular technique makes it possible to design very beautiful and subtle armchairs, usually dedicated for the high-end market.
+
+The Anton series with its delicate, modern and timeless look aims to become a collection of references to furnish the most distinguished and luxurious places.  High-quality covers in leather or fabric encase the shell of the back as well as the seat itself.
+
+A concealed integrated mechanism is fixed under the seat inside the conic metallic shell which connects the cushion and the leg. An handle will allow to adjust the chair in high as well as the back inclinaison.
+
+Mounted on an elegant four-star base made of die cast aluminium, the chair can be rotated 360°. </div>
+            </div>
+            
+            <div class="icon-container">
+                <a href="#" data-model-src="glb/anton.glb" class="icon-link" id="ouvrir-model-viewer">
+                    <img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
+                </a>
+                <div class="texte"> 3D Model armchair</div>
+            </div>
+            <div class="icon-container">
+                <a href="#" data-model-src="glb/antonchair.glb" class="icon-link" id="ouvrir-model-viewer">
+                    <img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
+                </a>
+                <div class="texte">3D Model wood chair</div>
+            </div>
+            <div class="icon-container">
+                <a href="#" data-model-src="glb/antonswivel.glb" class="icon-link" id="ouvrir-model-viewer">
+                    <img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
+                </a>
+                <div class="texte">3D Model swivel chair</div>
+            </div>
+            </div>
+			
+			<!-- colonne 2 -->   
+            <div class="colonne-flexible">
+                <div id="modelContainer">
+                    <button class="close-button" id="closeModelViewer">
+                        <img src="cross.svg" alt="Close">
+                    </button>
+                    <model-viewer id="modelViewer" src='glb/anton.glb' autoplay loading="eager" ar ar-modes="webxr scene-viewer quick-look" ar-status="not-presenting" auto-rotate bounds="tight" rotation-per-second="1deg" environment-image="glb/studio.hdr" exposure="0.7" camera-controls interpolation-decay="200" shadow-intensity="1" interaction-prompt="none" camera-orbit="-40deg 82deg 12m" min-camera-orbit="auto 40deg a">
+                    </model-viewer>
+                </div>
+                <div class="carousel-container">
+                    <div class="image-container" id="mediaContainer">
+                        <img id="galleryImage" src="img/image1.jpg" alt="Gallery Image" style="display: none;" onclick="nextMedia()">
+                        <video id="galleryVideo" controls style="display: none;" onclick="nextMedia()"></video>
+                    </div>
+                    <div class="nav-wrapper" id="carouselIndicators"></div>
+                </div>
+            </div>
+			
+			
+<!-- copyrights -->   
+        <p class="copyright">©️2024 hugocharletdesign</p>
+    </div>
+    
+<script>
+
+    // Importer le menu
+	
+	document.addEventListener('DOMContentLoaded', () => {
+        // Importer le menu
+        fetch('menugenerale.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('menu-placeholder').innerHTML = data;
+
+                // Ajouter les gestionnaires d'événements après que le menu est chargé
+                const svgBackButton = document.getElementById('svg-back-button');
+                const menuBackButton = document.getElementById('menu-back-button');
+
+                function goBack(event) {
+                    event.preventDefault(); // Empêche le lien de suivre son href
+                    window.history.back(); // Retourne à la page précédente
+                }
+
+                if (svgBackButton) {
+                    svgBackButton.addEventListener('click', goBack);
+                } else {
+                    console.warn('Element with ID "svg-back-button" not found.');
+                }
+
+                if (menuBackButton) {
+                    menuBackButton.addEventListener('click', goBack);
+                } else {
+                    console.warn('Element with ID "menu-back-button" not found.');
+                }
+            })
+            .catch(error => {
+                console.error('Erreur lors du chargement du menu :', error);
+            });
+
+ // Charger les médias
+        fetchMedia();
+    });
+
+    let mediaFiles = [];
+    let currentMediaIndex = 0;
+
+    function fetchMedia() {
+        const folderPath = 'pages/anton/'; // Chemin vers le dossier des images et vidéos
+        fetch(folderPath)
+            .then(response => response.text())
+            .then(data => {
+                const parser = new DOMParser();
+                const htmlDocument = parser.parseFromString(data, 'text/html');
+                const fileElements = htmlDocument.getElementsByTagName('a');
+
+                mediaFiles = [];
+                for (let i = 0; i < fileElements.length; i++) {
+                    const filename = fileElements[i].getAttribute('href');
+                    if (filename.endsWith('.jpg') || filename.endsWith('.jpeg') || filename.endsWith('.png') || filename.endsWith('.gif') ||
+                        filename.endsWith('.mp4') || filename.endsWith('.webm') || filename.endsWith('.ogg') || filename.endsWith('.mov')) {
+                        mediaFiles.push(folderPath + filename);
+                    }
+                }
+
+                // Initialiser l'affichage du média et des indicateurs
+                updateIndicators();
+                showMedia(currentMediaIndex);
+            })
+            .catch(error => {
+                console.error('Une erreur s\'est produite lors du chargement des médias :', error);
+            });
+    }
+
+    function showMedia(index) {
+        const imgElement = document.getElementById('galleryImage');
+        const videoElement = document.getElementById('galleryVideo');
+        const mediaFile = mediaFiles[index];
+
+        if (mediaFile.endsWith('.mp4') || mediaFile.endsWith('.webm') || mediaFile.endsWith('.ogg') || mediaFile.endsWith('.mov')) {
+            imgElement.style.display = 'none';
+            videoElement.style.display = 'block';
+            videoElement.src = mediaFile;
+        } else {
+            videoElement.style.display = 'none';
+            imgElement.style.display = 'block';
+            imgElement.src = mediaFile;
+        }
+        updateIndicators(); // Mettre à jour les numéros pour refléter le média actuel
+    }
+
+    function nextMedia() {
+        currentMediaIndex = (currentMediaIndex + 1) % mediaFiles.length;
+        showMedia(currentMediaIndex);
+    }
+
+    function previousMedia() {
+        currentMediaIndex = (currentMediaIndex - 1 + mediaFiles.length) % mediaFiles.length;
+        showMedia(currentMediaIndex);
+    }
+
+    function updateIndicators() {
+        const indicatorsContainer = document.getElementById('carouselIndicators');
+        indicatorsContainer.innerHTML = ''; // Vider le conteneur existant
+
+        mediaFiles.forEach((_, index) => {
+            const span = document.createElement('span');
+            span.className = 'indicator';
+            span.textContent = index + 1; // Ajouter le numéro à l'indicateur
+            if (index === currentMediaIndex) {
+                span.classList.add('active');
+            }
+            span.addEventListener('click', () => {
+                currentMediaIndex = index;
+                showMedia(currentMediaIndex);
+            });
+            indicatorsContainer.appendChild(span);
+        });
+    }
+    
+	document.addEventListener('DOMContentLoaded', () => {
+    const modelViewerLink = document.querySelectorAll('#ouvrir-model-viewer');
+    const modelContainer = document.getElementById('modelContainer');
+    const closeButton = document.getElementById('closeModelViewer');
+    const modelViewer = document.getElementById('modelViewer');
+
+    modelViewerLink.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const modelSrc = link.getAttribute('data-model-src');
+            if (modelSrc) {
+                modelViewer.setAttribute('src', modelSrc);
+                modelContainer.classList.toggle('show');
+            }
+        });
+    });
+
+    closeButton.addEventListener('click', () => {
+        modelContainer.classList.remove('show');
+    });
+
+    // Vous n'avez pas d'élément 'overlay' dans votre HTML actuel
+    // Si vous avez un élément d'overlay, décommentez ces lignes :
+    // overlay.addEventListener('click', () => {
+    //     modelContainer.classList.remove('show');
+    // });
+});
+	
+	
+	</script>
+</body>
+</html>

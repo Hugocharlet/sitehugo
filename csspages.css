@@ -1,0 +1,367 @@
+        body {
+            margin: 0;
+            font-family: 'Space Mono', monospace;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400&display=swap');
+        @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
+
+ 
+        /* Ajustement du conteneur SVG */
+        .svg-container {
+            padding: 10px 8%; /* Padding à droite et à gauche pour correspondre à la marge du menu */
+            display: flex;
+            justify-content: flex-end; /* Aligner les SVG à droite du conteneur */
+            gap: 10px; /* Espace entre les SVG */
+            box-sizing: border-box; /* Inclure le padding dans la largeur totale du conteneur */
+        }
+
+        .svg-link {
+            transition: filter 0.3s ease; /* Transition pour l'effet de survol */
+        }
+
+        .svg-link:hover .svg-item {
+            filter: brightness(0); /* Assombrit le SVG au survol */
+        }
+
+        .svg-item {
+            width: 50px; /* Largeur fixe pour chaque SVG */
+            height: auto; /* Hauteur automatique pour maintenir les proportions */
+			
+        }
+		.icon-container {
+			
+		  margin-top: 10px;
+		  display: flex;            /* Utilise Flexbox pour aligner les éléments en ligne */
+		  align-items: center;      /* Centre verticalement les éléments */
+		  gap: 20px;                /* Espacement de 20 px entre les éléments */
+		}
+
+		.icon-link {
+		  display: flex;            /* Assure que le contenu à l'intérieur du lien est également en ligne */
+		  align-items: center;      /* Centre le contenu à l'intérieur du lien */
+		}
+
+		.icon-item {
+		  width: 30px;              /* Ajustez la largeur du logo selon vos besoins */
+		  height: auto;             /* Hauteur automatique pour maintenir les proportions */
+		}
+
+		
+		.icon-link:hover .icon-item {
+            filter: brightness(0); /* Assombrit le SVG au survol */
+        }	
+        
+        
+        .copyright {
+            font-family: 'Roboto';
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+        }
+        .Colonnes-container {
+            display: flex;
+			padding: 20px 8%;
+        }
+        .colonne-fixed {
+            width: 30%;
+            
+        }
+        .colonne-flexible {
+            flex-grow: 1;
+               align-items: center; /* Centre les éléments horizontalement */
+        }
+			
+        .textebox-container {
+            margin-top: 30px;
+            display: flex; /* Alignement en ligne */
+			justify-content: flex-start; /* Aligne les éléments à gauche */
+			width: 80%;
+            flex-direction: column; /* Aligner les éléments verticalement */
+            gap: 10px; /* Espace entre les éléments */
+			margin-bottom:30px;
+        }
+		
+		.textebox-container > * {
+            align-self: flex-start; /* Aligne chaque élément enfant à gauche */
+        }
+		
+        .Title {
+           
+            font-family: 'Helvetica', sans serif;
+            font-size: 30px;
+            text-align: left;
+            font-weight: 400;
+            color: #000;
+            margin-bottom: 0;
+        }
+		
+		.texte {
+           
+            padding: 10 px ;
+            font-size: 12px;
+            font-family: 'Space Mono', sans-serif;
+            color: #000;
+        }
+
+        .Subtitle {
+            padding: 2px ;
+            font-size: 15px;
+            font-family: 'Space Mono', sans-serif;
+            color: #000;
+        }
+		
+
+		.carousel-container {
+			
+			height: 77vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+		}
+
+		.image-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100%;
+			overflow: hidden;
+			position: relative;
+		}
+		
+		.image-container video {
+			max-height: 100%; /* Limite la hauteur au conteneur */
+			max-width: 100%;  /* Limite la largeur au conteneur */
+			object-fit: contain; /* Ajuste le contenu sans déformation */
+		}
+
+
+		
+
+		img {
+			max-height: 100%;
+			max-width: 100%;
+		}
+
+		.arrowleft {
+			position: absolute;
+			top: 50%;
+			left: 0px;
+			user-select: none;
+			width: 30px;
+			height: 30px;
+			cursor: pointer;
+		}
+
+		.arrowright {
+			position: absolute;
+			top: 50%;
+			right: 0px;
+			user-select: none;
+			width: 30px;
+			height: 30px;
+			cursor: pointer;
+		}
+		
+		
+		.nav-wrapper {
+			position: absolute;
+			bottom: -30px;
+			
+			display: flex;
+			gap: 5px;
+		  }
+
+		  .indicator {
+			cursor: pointer;
+			padding: 5px;
+			font-size: 12px;
+            font-family: 'Space Mono', sans-serif;
+			color: #AFAFAF;
+			
+			
+			width: 20px;
+			height: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		  }
+
+		  .indicator.active {
+			color: #000;
+			
+		  }
+		#modelContainer {
+			display: none; /* Initialement caché */
+			position: absolute; /* Positionnement absolu pour le superposer */
+			top: 50%; /* Centrer verticalement */
+			right: 8%; /* Aligner à droite avec une marge de 8% de la largeur de l'écran */
+			transform: translateY(-50%); /* Ajuster pour centrer verticalement */
+			width: 80%; /* Ajustez la largeur selon vos besoins */
+			height: 77%;
+			max-width: 50%; /* Largeur maximale pour s'adapter à l'écran */
+			height: 75vh; /* Hauteur du modèle */
+			background-color: rgba(255, 255, 255, 0.88); /* Couleur de fond semi-transparente */
+			border-radius: 0px; /* Coins arrondis pour le modèle */
+			padding: 20px; /* Padding intérieur */
+			box-sizing: border-box; /* Inclure padding dans les dimensions */
+			z-index: 1000; /* Assurez-vous que le modèle est au-dessus du carrousel */
+		}
+				
+		#modelViewer {
+			width: 100%;
+			height: 100%;
+			display: block;
+			}
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            
+            z-index: 999; /* Juste en dessous du modelContainer */
+        }
+
+        .show {
+            display: block !important; /* Afficher lorsqu'on ajoute la classe show */
+        }
+		
+		.close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px; 
+            width: 20px;
+            height: 20px;
+			background: transparent;
+            cursor: pointer;
+
+            border: none;
+            padding: 0;
+            z-index: 1001; /* Assurez-vous que le bouton est au-dessus du modèle */
+        }
+		
+		
+		
+		
+		/* Styles pour les écrans de petite taille (smartphones en portrait) */
+@media (max-width: 600px) {
+		.menu-container {
+            padding: 0 4%;
+            margin-top: 5px;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .menu-item {
+            font-size: 14px;
+            font-family: 'Space Mono', sans-serif;
+            color: #AFAFAF;
+            flex: 1;
+            text-align: center;
+        }
+		
+		
+		
+		
+		
+		.Title {
+           
+            font-family: 'Helvetica', sans serif;
+            font-size: 16px;
+            text-align: left;
+            font-weight: 400;
+            color: #000;
+            margin-bottom: 0;
+        }
+		
+		.texte {
+           
+            padding: 10 px ;
+            font-size: 9px;
+            font-family: 'Space Mono', sans-serif;
+            color: #000;
+        }
+
+        .Subtitle {
+            padding: 2px ;
+            font-size: 9px;
+            font-family: 'Space Mono', sans-serif;
+            color: #000;
+        }
+		.Colonnes-container {
+            flex-direction: column;
+			padding: 20px 4%;
+        }
+        .colonne-fixed {
+            width: 100%;
+            
+        }
+        .colonne-flexible {
+            flex-grow: 1;
+               align-items: center; /* Centre les éléments horizontalement */
+        }
+			
+        .textebox-container {
+            margin-top: 30px;
+            display: flex; /* Alignement en ligne */
+			justify-content: flex-start; /* Aligne les éléments à gauche */
+			width: 90%;
+            flex-direction: column; /* Aligner les éléments verticalement */
+            gap: 10px; /* Espace entre les éléments */
+			margin-bottom:30px;
+        }
+		
+		.textebox-container > * {
+            align-self: flex-start; /* Aligne chaque élément enfant à gauche */
+        }
+		.indicator {
+			cursor: pointer;
+			padding: 5px;
+			font-size: 8px;
+            font-family: 'Space Mono', sans-serif;
+			color: #AFAFAF;
+			
+			
+			width: 20px;
+			height: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		  }
+		  
+		  		.carousel-container {
+			
+			height: 50vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+			margin-top: 30px; 
+			margin-bottom: 30px; 
+		}
+		        .copyright {
+					display: none;
+            font-family: 'Roboto';
+            font-size: 9px;
+            color: #666;
+            text-align: center;
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+        }
+		
+
+}

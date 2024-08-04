@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu avec Trois Choix</title>
+    <style>
+		body {
+			margin: 0;
+			font-family: 'Space Mono', monospace;
+		}
+
+		@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400&display=swap');
+		@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
+
+
+
+
+		/* Ajustement du conteneur SVG */
+		.svg-container {
+			padding: 20px 8%; /* Padding à droite et à gauche pour correspondre à la marge du menu */
+			display: flex;
+			justify-content: flex-end; /* Aligner les SVG à droite du conteneur */
+			gap: 10px; /* Espace entre les SVG */
+			box-sizing: border-box; /* Inclure le padding dans la largeur totale du conteneur */
+		}
+
+		.svg-link {
+			transition: filter 0.3s ease; /* Transition pour l'effet de survol */
+		}
+
+		.svg-link:hover .svg-item {
+			filter: brightness(0); /* Assombrit le SVG au survol */
+		}
+
+		.svg-item {
+			width: 22px; /* Largeur fixe pour chaque SVG */
+			height: auto; /* Hauteur automatique pour maintenir les proportions */
+		}
+
+		.carousel-container {
+			margin: 45px 8% 0px;
+			height: 80vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+		}
+
+		.image-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100%;
+			overflow: hidden;
+			position: relative;
+		}
+
+		img {
+			max-height: 100%;
+			max-width: 100%;
+		}
+
+		.arrowleft {
+			position: absolute;
+			top: 50%;
+			left: 30px;
+			user-select: none;
+			width: 30px;
+			height: 30px;
+			cursor: pointer;
+		}
+
+		.arrowright {
+			position: absolute;
+			top: 50%;
+			right: 30px;
+			user-select: none;
+			width: 30px;
+			height: 30px;
+			cursor: pointer;
+		}
+
+		.copyright {
+			font-family: 'Roboto';
+			padding: 35px;
+			font-size: 12px;
+			color: #666;
+			text-align: center;
+			margin: 0;
+		}
+
+		.gallery {
+			margin-top: 0px;
+			padding: 0 8%;
+			display: grid;
+			grid-template-columns: repeat(6, 1fr);
+			gap: 20px;
+		}
+
+		.gallery-item {
+			position: relative;
+			overflow: hidden;
+		}
+
+		.gallery-item img {
+			width: 100%;
+			height: auto;
+			object-fit: cover;
+			transition: transform 2s ease;
+		}
+
+		.gallery-item a {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+
+		.gallery-item:hover::after {
+			opacity: 1;
+		}
+
+		.rotate {
+			transform: scaleX(-1) rotate(360deg); /* Effet miroir horizontal */
+			transition: transform 2s !important;
+			background-color: rgba(0, 0, 0, 0.5); /* Ajout d'un voile gris si besoin */
+		}
+
+    </style>
+</head>
+<body>
+	<!-- impoter Menu générale -->
+	<div id="menu-placeholder"></div>
+    <!-- Script pour importer le menu -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        fetch('menugenerale.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('menu-placeholder').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Erreur lors du chargement du menu :', error);
+            });
+    });
+    </script>
+    <!-- SVG Container -->
+    <div class="svg-container">
+        <a href="details.html" class="svg-link">             <img src="grid-details.svg" alt="Grid Details" class="svg-item">
+        </a>
+        <a href="grid.html" class="svg-link">             <img src="grid-square.svg" alt="Grid Square" class="svg-item">
+        </a>
+        <a href="carrousel.html" class="svg-link">             <img src="grid-large.svg" alt="Grid Large" class="svg-item">
+        </a>
+    </div>
+	
+    <div class="gallery" id="gallery">
+        <!-- Les images seront insérées ici par JavaScript -->
+    </div>
+    
+    <div class="copyright">
+        <p>©️2024 hugocharletdesign</p>
+    </div>
+
+    <script>
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+		function addHoverEffectToImages() {
+			console.log('addHoverEffectToImages function called');
+			const galleryItems = document.querySelectorAll('.gallery-item img');
+			console.log('Images found:', galleryItems);
+
+			galleryItems.forEach(img => {
+				img.addEventListener('mouseover', () => {
+					console.log('Image hovered:', img);
+					setTimeout(() => {
+						img.classList.add('rotate');
+				});
+
+				img.addEventListener('mouseout', () => {
+					console.log('Mouseout event triggered for image:', img);
+					setTimeout(() => {
+						img.classList.remove('rotate');
+					}, 2000); // Délai de 1 seconde avant de retirer la classe
+				});
+				});
+			});
+		}
+		function generateGallery(images) {
+			const gallery = document.getElementById('gallery');
+			const shuffledImages = shuffleArray(images);
+
+			shuffledImages.forEach(img => {
+				const galleryItem = document.createElement('div');
+				galleryItem.className = 'gallery-item';
+
+				const linkElement = document.createElement('a');
+				linkElement.href = `img/${img}`;
+				linkElement.target = '_blank';
+
+				const imgElement = document.createElement('img');
+				imgElement.src = `img/${img}`;
+				imgElement.alt = 'Image aléatoire';
+
+				linkElement.appendChild(imgElement);
+				galleryItem.appendChild(linkElement);
+				gallery.appendChild(galleryItem);
+			});
+
+			console.log('Galerie générée, ajout de l\'effet de survol'); // Ajoutez ce log pour vérifier le moment de l'appel
+			addHoverEffectToImages();
+		}
+        window.onload = function() {
+            fetch('/sitehugo/list_images.php') // Adapter le chemin ici
+                .then(response => response.json())
+                .then(images => generateGallery(images))
+                .catch(error => console.error('Erreur lors de la récupération des images:', error));
+        };
+		
+		
+
+
+    </script>
+	<script src="couleur.js"></script>
+</body>
+</html>
