@@ -218,7 +218,7 @@
 			addHoverEffectToImages();
 		}
         window.onload = function() {
-            fetch('/sitehugo/list_images.php') // Adapter le chemin ici
+            fetch('img') // Adapter le chemin ici
                 .then(response => response.json())
                 .then(images => generateGallery(images))
                 .catch(error => console.error('Erreur lors de la récupération des images:', error));
