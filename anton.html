@@ -14,48 +14,22 @@
 	<div id="menu-placeholder"></div>
     <!-- Script pour importer le menu -->
     <script>
-    // Importer le menu
-	
-	document.addEventListener('DOMContentLoaded', () => {
-        // Importer le menu
+    document.addEventListener('DOMContentLoaded', () => {
         fetch('menugenerale.html')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.text();
-            })
+            .then(response => response.text())
             .then(data => {
                 document.getElementById('menu-placeholder').innerHTML = data;
-
-                // Ajouter les gestionnaires d'événements après que le menu est chargé
-                const svgBackButton = document.getElementById('svg-back-button');
-                const menuBackButton = document.getElementById('menu-back-button');
-
-                function goBack(event) {
-                    event.preventDefault(); // Empêche le lien de suivre son href
-                    window.history.back(); // Retourne à la page précédente
-                }
-
-                if (svgBackButton) {
-                    svgBackButton.addEventListener('click', goBack);
-                } else {
-                    console.warn('Element with ID "svg-back-button" not found.');
-                }
-
-                if (menuBackButton) {
-                    menuBackButton.addEventListener('click', goBack);
-                } else {
-                    console.warn('Element with ID "menu-back-button" not found.');
-                }
             })
             .catch(error => {
                 console.error('Erreur lors du chargement du menu :', error);
             });
+    });
+	
+
     </script>
     <!--flèche page précédente -->
     <div class="svg-container">
-        <a href="#" id="svg-back-button" class="svg-link">
+        <a href="details.html" class="svg-link">
             <img src="arrowback.svg" alt="Retour" class="svg-item">
         </a>  
     </div>
