@@ -8,13 +8,14 @@
 
  
         /* Ajustement du conteneur SVG */
-        .svg-container {
-            padding: 10px 8%; /* Padding à droite et à gauche pour correspondre à la marge du menu */
-            display: flex;
-            justify-content: flex-end; /* Aligner les SVG à droite du conteneur */
-            gap: 10px; /* Espace entre les SVG */
-            box-sizing: border-box; /* Inclure le padding dans la largeur totale du conteneur */
-        }
+		.svg-container {
+			padding: 10px 8%;	
+			display: flex;
+			justify-content: flex-end; /* Aligner les SVG à droite du conteneur */
+			gap: 10px; /* Espace entre les SVG */
+			box-sizing: border-box; /* Inclure le padding dans la largeur totale du conteneur */
+		}
+
 
         .svg-link {
             transition: filter 0.3s ease; /* Transition pour l'effet de survol */
@@ -66,7 +67,7 @@
 		}
         .Colonnes-container {
             display: flex;
-			padding: 20px 8%;
+			padding: 0px 8%;
         }
         .colonne-fixed {
             width: 30%;
