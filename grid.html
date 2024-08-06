@@ -218,19 +218,18 @@ async function generateGallery() {
         const shuffledImages = shuffleArray(imageFiles);
 
         const gallery = document.getElementById('gallery');
-        gallery.innerHTML = '';
+        gallery.innerHTML = ''; // Vider la galerie existante
 
         shuffledImages.forEach(img => {
             const galleryItem = document.createElement('div');
             galleryItem.className = 'gallery-item';
 
             const linkElement = document.createElement('a');
-            linkElement.href = `img/${img.url}`;
+            linkElement.href = `${img.url}`; // Utiliser directement l'URL du fichier HTML
             linkElement.target = '_blank';
 
             const imgElement = document.createElement('img');
-            imgElement.src = `img/${img.src}`;
-            imgElement.alt = 'Image aléatoire';
+            imgElement.src = `img/${img.src}`; // Chemin vers l'image
 
             linkElement.appendChild(imgElement);
             galleryItem.appendChild(linkElement);
@@ -240,6 +239,8 @@ async function generateGallery() {
         console.error('Erreur lors de la génération de la galerie:', error);
     }
 }
+
+
 
 
         window.onload = generateGallery;
