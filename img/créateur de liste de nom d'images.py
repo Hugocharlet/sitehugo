@@ -43,8 +43,8 @@ def convert_json_guillemets_simples(file_path):
 
 if __name__ == '__main__':
     # Demander à l'utilisateur de saisir le chemin du répertoire et le nom du fichier JSON
-    images_dir = input('Entrez le chemin complet du répertoire contenant les images : ').strip()
-    output_file = input('Entrez le nom du fichier JSON à créer (par exemple, "imagesCarrousel.json") : ').strip()
+    images_dir = r"C:\Users\hugo_\OneDrive\Documents\Sitehugo\sitehugo\img"
+    output_file = "images.json"
 
     # Liste des extensions d'image à inclure
     image_extensions = ('.jpg', '.jpeg', '.png', '.gif')
@@ -55,7 +55,7 @@ if __name__ == '__main__':
     # Sauvegarder la liste des fichiers dans un fichier JSON
     save_to_json(images, output_file)
     
-    # Convertir les guillemets doubles en guillemets simples
+   
   
     
     print(f"Liste des noms des images sauvegardée dans {output_file}")
