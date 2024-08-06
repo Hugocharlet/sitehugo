@@ -109,31 +109,36 @@
 }
 
 .gallery-item:hover img {
-    
-	border-radius: 5px;
-
+    border-radius: 5px;
     z-index: 10;
     filter: none;
     opacity: 1;
     position: relative; /* Position relative pour que l'ombre soit visible */
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.75); /* Ombre plus grande, centrée et intense au survol */
-	animation: zoom 30s infinite; /* Applique l'animation de zoom */
-}
-.animation-class {
-     animation: animation-name duration linear;
+    animation: rotate 0.6s, zoom 30s;
+    animation-delay: 0s, 0.6s; /* Délai de 0s pour rotate et 0.6s pour zoom */
 	
 }
 
-@keyframes zoom {
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg)scale(1.5)scaleX(-1);
+    }
 
- 
+}
+
+@keyframes zoom {
     0%, 100% {
-        transform: scale(1.5);
+        transform: scale(1.5)scaleX(-1);
     }
     50% {
-        transform: scale(2);
+        transform: scale(2)scaleX(-1);
     }
 }
+
 
 
 
