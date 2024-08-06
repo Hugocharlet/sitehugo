@@ -13,6 +13,21 @@
     
 	<!-- impoter Menu générale -->
 	<div id="menu-placeholder"></div>
+	<!-- Script pour importer le menu -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        fetch('menugenerale.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('menu-placeholder').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Erreur lors du chargement du menu :', error);
+            });
+    });
+	
+
+    </script>
   
 
     <!--flèche page précédente -->
