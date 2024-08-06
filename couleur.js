@@ -30,7 +30,7 @@ function applyRandomColor() {
 }
 
 // Appliquer une couleur aléatoire au chargement de la page
-document.addEventListener('DOMContentLoaded', applyRandomColor);
+//document.addEventListener('DOMContentLoaded', applyRandomColor);
 
 // Mettre à jour la couleur toutes les 10 secondes
-setInterval(applyRandomColor, 10000);
+//setInterval(applyRandomColor, 10000);
