@@ -44,11 +44,14 @@ body {
     justify-content: center;
     z-index: 1; /* Met l'image en dessous du texte */
 }
+.sousmenu.first-line {
+    margin-bottom: 25px; /* Espacement spécifique pour la première ligne */
+}
 
 .sousmenu {
     display: flex;
     justify-content: space-between;  
-    margin-bottom: 10px; /* Espacement général entre les lignes */
+    margin-bottom: 5px; /* Espacement général entre les lignes */
     position: relative;
     transition: background-color 0.3s ease; /* Ajout d'une transition pour le survol */
     z-index: 1; /* Met l'image en dessous du texte */
@@ -207,15 +210,12 @@ body {
     </div>
 	<!-- tableau -->		
 <div class="menu-container">
-    <div class="sousmenu">
+    <div class="sousmenu.first-line">
         <div class="sousmenu-item">YEAR</div>
         <div class="sousmenu-item">NAME</div>
         <div class="sousmenu-item">TYPOLOGIE</div>
     </div>
     
-    <div class="">
-        <p></p>
-    </div>
     
     <a href="helena.html" class="sousmenu-link">
         <div class="sousmenu">
