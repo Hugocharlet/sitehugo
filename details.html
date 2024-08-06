@@ -131,15 +131,18 @@ body {
         transform: translate(-50%, -50%) scale(1.5);
     }
 }
+
 .copyright {
-	font-family: 'Roboto';
+	font-family: 'Roboto', sans-serif;
 	font-size: 12px;
 	color: #666;
 	text-align: center;
-	position: fixed;
-	bottom: 20px;
+	position: relative; /* Utiliser relative pour que le texte suive le flux normal du document */
+	margin-top: 40px; /* Espacement au-dessus du copyright */
 	width: 100%;
-        }
+	padding: 10px 0; /* Espacement autour du texte, si nécessaire */
+	box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+}
 		
 @media (max-width: 600px) {
 
@@ -152,15 +155,18 @@ body {
     align-items: center; /* Centrer le texte verticalement */
 	z-index: 2; /* Assure que le texte est au-dessus de l'image */
 }
-
 .copyright {
-	font-family: 'Roboto';
+	font-family: 'Roboto', sans-serif;
 	font-size: 9px;
 	color: #666;
 	text-align: center;
-	position: fixed;
-	bottom: 20px;
+	position: relative; /* Utiliser relative pour que le texte suive le flux normal du document */
+	margin-top: 20px; /* Espacement au-dessus du copyright */
 	width: 100%;
+	padding: 10px 0; /* Espacement autour du texte, si nécessaire */
+	box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+}
+
 	
 .sousmenu-link:hover .sousmenu img {
     display: none;
