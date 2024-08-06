@@ -131,15 +131,38 @@ body {
         transform: translate(-50%, -50%) scale(1.5);
     }
 }
-        .copyright {
-            font-family: 'Roboto';
-            font-size: 12px;
-            color: #666;
-            text-align: center;
-            position: fixed;
-            bottom: 20px;
-            width: 100%;
+.copyright {
+	font-family: 'Roboto';
+	font-size: 12px;
+	color: #666;
+	text-align: center;
+	position: fixed;
+	bottom: 20px;
+	width: 100%;
         }
+		
+@media (max-width: 600px) {
+
+.sousmenu-item {
+    font-size: 9px;
+    font-family: 'Space Mono', sans-serif;
+    color: #000;
+    flex: 1; /* Chaque élément prend une largeur égale */
+    display: flex;
+    align-items: center; /* Centrer le texte verticalement */
+	z-index: 2; /* Assure que le texte est au-dessus de l'image */
+}
+
+.copyright {
+	font-family: 'Roboto';
+	font-size: 9px;
+	color: #666;
+	text-align: center;
+	position: fixed;
+	bottom: 20px;
+	width: 100%;
+
+
     </style>
 </head>
 <body>
