@@ -117,6 +117,8 @@ let mediaFiles = [
   
 
   
+
+  
     let currentMediaIndex = 0;
 
 	function showMedia(index) {
@@ -188,13 +190,13 @@ let mediaFiles = [
     });
 
     closeButton.addEventListener('click', () => {
-        modelContainer.classList.helenave('show');
+        modelContainer.classList.remove('show');
     });
 
     // Vous n'avez pas d'élément 'overlay' dans votre HTML actuel
     // Si vous avez un élément d'overlay, décommentez ces lignes :
     // overlay.addEventListener('click', () => {
-    //     modelContainer.classList.helenave('show');
+    //     modelContainer.classList.remove('show');
     // });
 });
 	
