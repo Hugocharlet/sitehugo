@@ -207,9 +207,9 @@
             return array;
         }
 
- async function generateGallery() {
+async function generateGallery() {
     try {
-        const jsonFilePath = 'img/images.json';
+        const jsonFilePath = 'img/images.json'; // Chemin vers le fichier JSON
         const response = await fetch(jsonFilePath);
         if (!response.ok) {
             throw new Error('Erreur lors de la récupération du fichier JSON');
@@ -220,16 +220,16 @@
         const gallery = document.getElementById('gallery');
         gallery.innerHTML = '';
 
-        shuffledImages.forEach(item => {
+        shuffledImages.forEach(img => {
             const galleryItem = document.createElement('div');
             galleryItem.className = 'gallery-item';
 
             const linkElement = document.createElement('a');
-            linkElement.href = item.url; // Utilisez l'URL de l'objet JSON
-            linkElement.target = '_blank'; // Ouvre le lien dans un nouvel onglet
+            linkElement.href = `img/${img.url}`;
+            linkElement.target = '_blank';
 
             const imgElement = document.createElement('img');
-            imgElement.src = `img/${item.src}`; // Utilisez la source de l'objet JSON
+            imgElement.src = `img/${img.src}`;
             imgElement.alt = 'Image aléatoire';
 
             linkElement.appendChild(imgElement);
