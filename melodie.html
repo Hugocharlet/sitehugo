@@ -2,22 +2,38 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu avec Trois Choix</title>
+    <title>MELODIE</title>
     <link rel="stylesheet" href="csspages.css">
+	<link rel="icon" type="image/png" href="favicon.png" />
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body>
     
 	<!-- impoter Menu générale -->
 	<div id="menu-placeholder"></div>
+	<!-- Script pour importer le menu -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        fetch('menugenerale.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('menu-placeholder').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Erreur lors du chargement du menu :', error);
+            });
+    });
+	
+
+    </script>
   
 
     <!--flèche page précédente -->
     <div class="svg-container">
-        <a href="#" id="svg-back-button" class="svg-link">
+         <a href="details.html" class="svg-link">
             <img src="arrowback.svg" alt="Retour" class="svg-item">
         </a>  
     </div>
@@ -38,16 +54,16 @@
 			
 			<!-- colonne 2 -->   
             <div class="colonne-flexible">
-                <div id="modelContainer">
+                <!--<div id="modelContainer">
                     <button class="close-button" id="closeModelViewer">
-                        <img src="cross.svg" alt="Close">
+                        <img src="crosss.svg" alt="Close">
                     </button>
                     <model-viewer id="modelViewer" src='glb/anton.glb' autoplay loading="eager" ar ar-modes="webxr scene-viewer quick-look" ar-status="not-presenting" auto-rotate bounds="tight" rotation-per-second="1deg" environment-image="glb/studio.hdr" exposure="0.7" camera-controls interpolation-decay="200" shadow-intensity="1" interaction-prompt="none" camera-orbit="-40deg 82deg 12m" min-camera-orbit="auto 40deg a">
                     </model-viewer>
-                </div>
+                </div>--> 
                 <div class="carousel-container">
                     <div class="image-container" id="mediaContainer">
-                        <img id="galleryImage" src="img/image1.jpg" alt="Gallery Image" style="display: none;" onclick="nextMedia()">
+                        <img id="imageid" src="pages/louise/1.jpg" alt="Gallery Image" style="display: none;" onclick="nextMedia()">
                         <video id="galleryVideo" controls style="display: none;" onclick="nextMedia()"></video>
                     </div>
                     <div class="nav-wrapper" id="carouselIndicators"></div>
@@ -56,100 +72,58 @@
 			
 			
 <!-- copyrights -->   
-        <p class="copyright">©️2024 hugocharletdesign</p>
+        
     </div>
+	<p class="copyright">©️2024 hugocharletdesign</p>
     
 <script>
 
     // Importer le menu
 	
-	document.addEventListener('DOMContentLoaded', () => {
-        // Importer le menu
-        fetch('menugenerale.html')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.text();
-            })
-            .then(data => {
-                document.getElementById('menu-placeholder').innerHTML = data;
+let mediaFiles = [
+    "pages/louise/1.jpg",
+    "pages/louise/2.jpg",
+    "pages/louise/3.jpg",
+    "pages/louise/4.jpg",
+    "pages/louise/5.jpg",
+    "pages/louise/6.jpg",
+    "pages/louise/7.jpg",    
+	"pages/louise/8.jpg",
+	"pages/louise/9.jpg",
+    "pages/louise/10.jpg",
+    "pages/louise/11.jpg",
+    "pages/louise/12.jpg",    
+	
 
-                // Ajouter les gestionnaires d'événements après que le menu est chargé
-                const svgBackButton = document.getElementById('svg-back-button');
-                const menuBackButton = document.getElementById('menu-back-button');
 
-                function goBack(event) {
-                    event.preventDefault(); // Empêche le lien de suivre son href
-                    window.history.back(); // Retourne à la page précédente
-                }
+];
 
-                if (svgBackButton) {
-                    svgBackButton.addEventListener('click', goBack);
-                } else {
-                    console.warn('Element with ID "svg-back-button" not found.');
-                }
+  
 
-                if (menuBackButton) {
-                    menuBackButton.addEventListener('click', goBack);
-                } else {
-                    console.warn('Element with ID "menu-back-button" not found.');
-                }
-            })
-            .catch(error => {
-                console.error('Erreur lors du chargement du menu :', error);
-            });
-
- // Charger les médias
-        fetchMedia();
-    });
-
-    let mediaFiles = [];
+  
     let currentMediaIndex = 0;
 
-    function fetchMedia() {
-        const folderPath = 'pages/melodie/'; // Chemin vers le dossier des images et vidéos
-        fetch(folderPath)
-            .then(response => response.text())
-            .then(data => {
-                const parser = new DOMParser();
-                const htmlDocument = parser.parseFromString(data, 'text/html');
-                const fileElements = htmlDocument.getElementsByTagName('a');
+	function showMedia(index) {
+		const image = document.getElementById('imageid');
+		const video = document.getElementById('galleryVideo');
 
-                mediaFiles = [];
-                for (let i = 0; i < fileElements.length; i++) {
-                    const filename = fileElements[i].getAttribute('href');
-                    if (filename.endsWith('.jpg') || filename.endsWith('.jpeg') || filename.endsWith('.png') || filename.endsWith('.gif') ||
-                        filename.endsWith('.mp4') || filename.endsWith('.webm') || filename.endsWith('.ogg') || filename.endsWith('.mov')) {
-                        mediaFiles.push(folderPath + filename);
-                    }
-                }
+		if (mediaFiles[index].endsWith('.jpg') || mediaFiles[index].endsWith('.png')) {
+			image.src = mediaFiles[index];
+			image.style.display = 'block';
+			video.style.display = 'none';
+		} else if (mediaFiles[index].endsWith('.mov')) {
+			video.src = mediaFiles[index];
+			video.style.display = 'block';
+			image.style.display = 'none';
+		}
+		updateIndicators(); // Mettre à jour les indicateurs du carousel
+	}
 
-                // Initialiser l'affichage du média et des indicateurs
-                updateIndicators();
-                showMedia(currentMediaIndex);
-            })
-            .catch(error => {
-                console.error('Une erreur s\'est produite lors du chargement des médias :', error);
-            });
-    }
+	document.addEventListener('DOMContentLoaded', () => {
+		showMedia(currentMediaIndex); // Initialisez l'affichage du média
+	});
 
-    function showMedia(index) {
-        const imgElement = document.getElementById('galleryImage');
-        const videoElement = document.getElementById('galleryVideo');
-        const mediaFile = mediaFiles[index];
 
-        if (mediaFile.endsWith('.mp4') || mediaFile.endsWith('.webm') || mediaFile.endsWith('.ogg') || mediaFile.endsWith('.mov')) {
-            imgElement.style.display = 'none';
-            videoElement.style.display = 'block';
-            videoElement.src = mediaFile;
-        } else {
-            videoElement.style.display = 'none';
-            imgElement.style.display = 'block';
-            imgElement.src = mediaFile;
-        }
-        updateIndicators(); // Mettre à jour les numéros pour refléter le média actuel
-    }
 
     function nextMedia() {
         currentMediaIndex = (currentMediaIndex + 1) % mediaFiles.length;
@@ -209,6 +183,8 @@
 });
 	
 	
+	
 	</script>
+		<script src="couleur.js"></script>
 </body>
 </html>
