@@ -11,34 +11,19 @@
     <style>
      @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400&display=swap');
      
-	.colonne-container {
-		width: 40%; 
-		margin-top: 25px;
-		margin-left: calc(38% + 20px); /* Utilisation de 'calc' pour les calculs de marge */
-		position: relative; /* Correction de 'fixe' en 'fixed' */
+	.colonne-container{
+		width: 100;
+		animation: slideToRight 3s forwards;
+		animation-delay:0.3s;
+		margin-top:25px;
+		position: fixe;
 		
-		
-		
-		/* animation: slideToRight 3s forwards, fading 2.3s; */
-		/* animation-delay: 0s; */
-	}
-.greybox {
-    
-    margin-top: 25px; /* Ajout de ; manquant */
-    margin-left: 8%;
-    margin-right: 8%;
-    position: absolute;
-    width: 84%; /* Ajustement de la largeur pour tenir compte des marges */
-    height: 100%;
-    z-index: 1;
-    animation: fadeout 3s forwards;
-}
-	 
-	 
+		}
+     
 	.texte-container {
 
-		width: 100%; /* Largeur fixe du conteneur de texte */
-
+		width: 40%; /* Largeur fixe du conteneur de texte */
+		
 		z-index: 1;
 		flex-direction: column; /* Affiche les éléments en colonne */
 				
@@ -51,7 +36,7 @@
          margin-bottom: 10px;
 		  
 		 animation: backgroundcolor 3s forwards;
-		 animation-delay:0.3s 
+		 animation-delay:2.3s 
      }  
 	 .titre1 {
 		 font-family: 'Space Mono', monospace;
@@ -60,7 +45,7 @@
 		 margin-top: 25px;
 		 margin-bottom: 10px;
 		 animation: backgroundcolor 3s forwards;
-		 animation-delay:0.3s; 
+		 animation-delay:2.3s; 
 		}  
      
      
@@ -91,7 +76,7 @@
 	 
      .fond {
          position: absolute;
-		 /*animation: fading 5s;*/
+		 animation: fading 5s;
          top: 0;
          left: 0;
          width: 100%;
@@ -108,19 +93,19 @@
      }
 @keyframes slideToRight {
     0% {
-        transform: translateX(0); 
+        transform: translateX(8%); 
     }
     100% {
-        transform: translateX(calc(30% + 20px));
+        transform: translateX(calc(38% + 20px));
     }
 }
 
-@keyframes fadeout {
+@keyframes fading {
  0% {
-	 background-color: white; 
+	 opacity: 0.25; 
  }
  100% {
-	 background-color: transparent; 
+	 opacity: 1; 
  }
  }
  
@@ -207,12 +192,10 @@
     });
     </script>
     <!-- flèche page précédente -->
-
 <div class="image-container"> 
 	<img class="fond" src="pages/infos/fond.jpg" alt="image fond"> <!-- JPEG en dessous -->
 	<img class="profile" src="pages/infos/profile.png" alt="image profile"> <!-- PNG au-dessus -->
 </div> 
-<div class="greybox"> </div> 
     <!-- colonnes -->
 
         <!-- 2ème colonne -->
