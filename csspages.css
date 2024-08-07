@@ -5,6 +5,7 @@
 
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400&display=swap');
         @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
+		@import url('https://fonts.googleapis.com/css?family=Hanken+Grotesk:400,500,700&display=swap');
 
  
         /* Ajustement du conteneur SVG */
@@ -94,7 +95,7 @@
 		
         .Title {
            
-            font-family: 'Helvetica', sans serif;
+            font-family: "Hanken Grotesk", sans-serif;
             font-size: 30px;
             text-align: left;
             font-weight: 400;
