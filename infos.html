@@ -127,44 +127,51 @@
             margin: 0;
         }
 		
-@media (max-width: 600px) {
+    @media (max-width: 600px) {
+        .titre {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            margin-bottom: 5px;
+            animation: backgroundcolor 3s forwards;
+            animation-delay: 2.3s;
+        }
 
-     .titre {
-         font-family: 'Space Mono', monospace;
-         font-size: 9px;
-         margin-bottom: 5px;
-		  
-		 animation: backgroundcolor 3s forwards;
-		 animation-delay:2.3s 
-     }  
-	 .titre1 {
-		 font-family: 'Space Mono', monospace;
-		 font-size: 9px;
-		 
-		 margin-top: 20px;
-		 margin-bottom: 10px;
-		 animation: backgroundcolor 3s forwards;
-		 animation-delay:2.3s; 
-		}  
-     
-     
-     .texte {
-         font-family: 'Space Mono', monospace;
-         font-size: 9px;
-		 
-     .image-container {
-		display:none;
+        .titre1 {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            animation: backgroundcolor 3s forwards;
+            animation-delay: 2.3s;
+        }
 
-	.colonne-container{
-		width: 100;
-		padding: 20px 4%;
-		margin-top:25px;
-		position: fixe;
+        .texte {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+        }
+
+        .image-container {
+            display: none;
+        }
+
+        .colonne-container {
+            width: 100;
+            margin-left:8%;
+			margin-right:8%;
+            margin-top: 25px;
+            position: fixe;
+			animation: none;
+	
+	.texte-container {
+
+		width: 100%; /* Largeur fixe du conteneur de texte */
 		
-		}
-     }
-
-}
+		z-index: 1;
+		flex-direction: column; /* Affiche les éléments en colonne */
+				
+	}		
+        }
+    }
 
     </style>
 </head>
