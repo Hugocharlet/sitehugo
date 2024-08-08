@@ -50,6 +50,7 @@ body {
     margin-bottom: 25px; /* Espacement spécifique pour la première ligne */
 	font-family: 'Hanken Grotesk', sans-serif;
 	font-weight:700;
+	font-size: 13px;
 }
 
 .sousmenu {
@@ -59,14 +60,14 @@ body {
     position: relative;
     transition: background-color 0.3s ease; /* Ajout d'une transition pour le survol */
     z-index: 1; /* Met l'image en dessous du texte */
+	font-family: 'Hanken Grotesk', sans-serif;
+	font-weight:400;
+	font-size: 13px;
 }
 
 /* Assurez-vous que chaque colonne prend une largeur égale */
 .sousmenu-item {
-    font-size: 13px;
-    font-family: 'Hanken Grotesk', sans-serif;
-	font-weight:400;
-    color: #000;
+    
     flex: 1; /* Chaque élément prend une largeur égale */
     display: flex;
     align-items: center; /* Centrer le texte verticalement */
@@ -154,22 +155,31 @@ body {
 		
 @media (max-width: 600px) {
 
-.sousmenu-item {
-    font-size: 9px;
-    font-family: 'Hanken Grotesk', sans-serif;
-	font-weight:400;
-    color: #000;
-    flex: 1; /* Chaque élément prend une largeur égale */
-    display: flex;
-    align-items: center; /* Centrer le texte verticalement */
-	z-index: 2; /* Assure que le texte est au-dessus de l'image */
-}
+.svg-container {
+    padding: 20px 4%; /* Padding à droite et à gauche pour correspondre à la marge du menu */
+
+
 
 .sousmenu-link:hover .sousmenu {
     text-decoration: underline; /* Soulignement lors du survol */
 	background-color: rgba(0, 0, 120, 0.06);
 	
 }
+.sousmenu {
+font-size:9px;
+}
+
+.sousmenu-first-line {
+    display: flex; /* Ajouté pour aligner les éléments horizontalement */
+    justify-content: space-between;
+    margin-bottom: 25px; /* Espacement spécifique pour la première ligne */
+	font-family: 'Hanken Grotesk', sans-serif;
+	font-weight: 700;
+	font-size: 9px;
+}
+
+
+
 
 .copyright {
 	font-family: 'Roboto', sans-serif;
@@ -188,6 +198,9 @@ body {
     display: none;
     animation: zoom 30s infinite; /* Applique l'animation de zoom */
 }
+
+
+
 }
     </style>
 </head>
