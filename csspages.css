@@ -387,6 +387,11 @@
             bottom: 20px;
             width: 100%;
         }
-		
+		#modelContainer {
+
+			width: 92%; /* Largeur maximale pour s'adapter à l'écran */
+			right: 4%; /* Aligner à droite avec une marge de 8% de la largeur de l'écran */
+			z-index: 1000; /* Assurez-vous que le modèle est au-dessus du carrousel */
+		}	
 
 }
