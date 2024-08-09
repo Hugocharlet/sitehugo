@@ -1,172 +1,157 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+   <link rel="icon" type="image/png" href="favicon.png" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANTON</title>
     <link rel="stylesheet" href="csspages.css">
-		<link rel="icon" type="image/png" href="favicon.png" />
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body>
     
 	<!-- impoter Menu générale -->
 	<div id="menu-placeholder"></div>
-    <!-- Script pour importer le menu -->
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        fetch('menugenerale.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('menu-placeholder').innerHTML = data;
-            })
-            .catch(error => {
-                console.error('Erreur lors du chargement du menu :', error);
-            });
-    });
+	<div id="svgmenupages-placeholder"></div>
 	
+    <!-- Script pour importer le menu -->
 
-    </script>
-    <!--flèche page précédente -->
-    <div class="svg-container">
-        <a href="details.html" class="svg-link">
-            <img src="arrowback.svg" alt="Retour" class="svg-item">
-        </a>  
-    </div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Importer le menu général
+    fetch('menugenerale.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('menu-placeholder').innerHTML = data;
+            console.log('Menu général chargé');
+        })
+        .catch(error => {
+            console.error('Erreur lors du chargement du menu général :', error);
+        });
+
+    // Importer le menu SVG
+	fetch('svgmenupages.html')
+		.then(response => {
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
+			return response.text();
+		})
+		.then(data => {
+			console.log(data);  // Log le contenu pour vérifier ce qui est chargé
+			document.getElementById('svgmenupages-placeholder').innerHTML = data;
+			console.log('Menu SVG chargé');
+		})
+		.catch(error => {
+			console.error('Erreur lors du chargement du menu SVG :', error);
+		});
+		console.log('Scripts de chargement des menus initialisés');
+	});
+</script>
 
     <!-- deux colonnes -->        
-	 <!-- colonne 1 -->   
-    <div class="Colonnes-container">
-        <div class="colonne-fixed">
+   
+	<div class="colonne-fixed">
             <div class="Title">ANTON</div>
             <div class="Subtitle">Executive armchair 2023</div>
             <div class="textebox-container">
-                <div class="texte">Dimensions: </div>
-                <div class="texte">For this new Anton chair and armchair project, I spent much effort in finding the most gentle and refined line possible. This work follows a broader research that I have been conducting for several months on shells made out molded injected foam. This technique allows us to create really modern forms and designs thanks to the total freedom of shape. Using this particular technique makes it possible to design very beautiful and subtle armchairs, usually dedicated for the high-end market.
-
-The Anton series with its delicate, modern and timeless look aims to become a collection of references to furnish the most distinguished and luxurious places.  High-quality covers in leather or fabric encase the shell of the back as well as the seat itself.
-
-  </div>
+                <div class="texte">Dimension: 531 x 508 x 704 cm</div>
+                <div class="texte">For this new Anton chair and armchair project, I spent much effort in finding the most gentle and refined line possible. This work follows a broader research that I have been conducting for several months on shells made out molded injected foam. This technique allows us to create really modern forms and designs thanks to the total freedom of shape. Using this particular technique makes it possible to design very beautiful and subtle armchairs, usually dedicated for the high-end market. The Anton series with its delicate, modern and timeless look aims to become a collection of references to furnish the most distinguished and luxurious places. High-quality covers in leather or fabric encase the shell of the back as well as the seat itself.</div>
             </div>
             
             <div class="icon-container">
                 <a href="#" data-model-src="glb/anton.glb" class="icon-link" id="ouvrir-model-viewer">
                     <img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
                 </a>
-                <div class="texte"> 3D Model armchair</div>
+                <div class="texte"> 3D Model chair</div>
             </div>
             <div class="icon-container">
-                <a href="#" data-model-src="glb/antonchair.glb" class="icon-link" id="ouvrir-model-viewer">
+                <a href="#" data-model-src="glb/antonarmchair.glb" class="icon-link" id="ouvrir-model-viewer">
                     <img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
                 </a>
-                <div class="texte">3D Model wood chair</div>
+                <div class="texte">3D Model armchair</div>
             </div>
+			
             <div class="icon-container">
-                <a href="#" data-model-src="glb/antonsw.glb" class="icon-link" id="ouvrir-model-viewer">
+                <a href="#" data-model-src="glb/antonswivel.glb" class="icon-link" id="ouvrir-model-viewer">
                     <img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
                 </a>
-                <div class="texte">3D Model swivel chair</div>
-            </div>
+                <div class="texte">3D Model loungechair</div>
+            </div>			
+      
             </div>
 			
 			<!-- colonne 2 -->   
-            <div class="colonne-flexible">
-                <div id="modelContainer">
-                    <button class="close-button" id="closeModelViewer">
-                        <img src="crosss.svg" alt="Close">
-                    </button>
-                    <model-viewer id="modelViewer" src='glb/anton.glb' autoplay loading="eager" ar ar-modes="webxr scene-viewer quick-look" ar-status="not-presenting" auto-rotate bounds="tight" rotation-per-second="1deg" environment-image="glb/studio.hdr" exposure="0.7" camera-controls interpolation-decay="200" shadow-intensity="1" interaction-prompt="none" camera-orbit="-40deg 82deg 12m" min-camera-orbit="auto 40deg a">
-                    </model-viewer>
-                </div>
-                <div class="carousel-container">
-                    <div class="image-container" id="mediaContainer">
-                        <img id="imageid" src="img/image1.jpg" alt="Gallery Image" style="display: none;" onclick="nextMedia()">
-                        <video id="galleryVideo" controls style="display: none;" onclick="nextMedia()"></video>
-                    </div>
-                    <div class="nav-wrapper" id="carouselIndicators"></div>
-                </div>
-            </div>
+		
+			<div id="modelContainer">
+				<button class="close-button" id="closeModelViewer">
+					<img src="cross.svg" alt="Close">
+				</button>
+				<model-viewer id="modelViewer" src='glb/anton.glb' autoplay loading="eager" ar ar-modes="webxr scene-viewer quick-look" ar-status="not-presenting" auto-rotate bounds="tight" rotation-per-second="1deg" environment-image="glb/studio.hdr" exposure="0.7" camera-controls interpolation-decay="200" shadow-intensity="1" interaction-prompt="none" camera-orbit="-40deg 82deg 12m" min-camera-orbit="auto 40deg a">
+				</model-viewer>
+			</div>
 			
+			<img class="imagemain" src="pages/anton/main.jpg" alt="main">
+			<div id="image-container"></div>
 			
-<!-- copyrights -->   
-        
-    </div>
-    <p class="copyright">©️2024 hugocharletdesign</p>
+		
+			
+
+    
 <script>
 
-    // Importer le menu
-	
-let mediaFiles = [
-    "pages/anton/image1.jpg",
-    "pages/anton/image2.jpg",
-    "pages/anton/image3.jpg",
-    "pages/anton/image4.jpg",
-    "pages/anton/image5.jpg",
-    "pages/anton/image6.jpg",
-    "pages/anton/image7.jpg",
-    "pages/anton/image8.jpg",
-    "pages/anton/image9.jpg",
-	
-
-];
-
-  
-
-  
-    let currentMediaIndex = 0;
-
-	function showMedia(index) {
-		const image = document.getElementById('imageid');
-		const video = document.getElementById('galleryVideo');
-
-		if (mediaFiles[index].endsWith('.jpg') || mediaFiles[index].endsWith('.png')) {
-			image.src = mediaFiles[index];
-			image.style.display = 'block';
-			video.style.display = 'none';
-		} else if (mediaFiles[index].endsWith('.mov')) {
-			video.src = mediaFiles[index];
-			video.style.display = 'block';
-			image.style.display = 'none';
-		}
-		updateIndicators(); // Mettre à jour les indicateurs du carousel
-	}
-
-	document.addEventListener('DOMContentLoaded', () => {
-		showMedia(currentMediaIndex); // Initialisez l'affichage du média
-	});
 
 
+// Importer les images en lignes
+		let mediaFiles = [
+			"pages/anton/1.jpg",
+			"pages/anton/2.jpg",
+			"pages/anton/3.jpg",
+			"pages/anton/4.jpg",
+			"pages/anton/5.jpg",
+			"pages/anton/6.jpg",
+			"pages/anton/7.jpg",
+			"pages/anton/9.jpg",
+			"pages/anton/10.jpg",
+			"pages/anton/11.jpg",
+			"pages/anton/12.jpg",
+			"pages/anton/13.jpg",
+			"pages/anton/14.jpg",
+			"pages/anton/15.jpg",
+			"pages/anton/16.jpg",
+			"pages/anton/17.jpg"
+		];
 
-    function nextMedia() {
-        currentMediaIndex = (currentMediaIndex + 1) % mediaFiles.length;
-        showMedia(currentMediaIndex);
-    }
+    let imageContainer = document.getElementById('image-container');
 
-    function previousMedia() {
-        currentMediaIndex = (currentMediaIndex - 1 + mediaFiles.length) % mediaFiles.length;
-        showMedia(currentMediaIndex);
-    }
-
-    function updateIndicators() {
-        const indicatorsContainer = document.getElementById('carouselIndicators');
-        indicatorsContainer.innerHTML = ''; // Vider le conteneur existant
-
-        mediaFiles.forEach((_, index) => {
-            const span = document.createElement('span');
-            span.className = 'indicator';
-            span.textContent = index + 1; // Ajouter le numéro à l'indicateur
-            if (index === currentMediaIndex) {
-                span.classList.add('active');
-            }
-            span.addEventListener('click', () => {
-                currentMediaIndex = index;
-                showMedia(currentMediaIndex);
+    mediaFiles.forEach(function(file) {
+        fetch(file, { method: 'HEAD' })
+            .then(response => {
+                if (response.ok) {
+                    let img = document.createElement('img');
+                    img.src = file;
+                    img.classList.add('imagelarge');
+                    imageContainer.appendChild(img);
+                    console.log('Image trouvée et chargée : ' + file);
+                } else {
+                    console.warn('Image non trouvée : ' + file);
+                }
+            })
+            .catch(error => {
+                console.error('Erreur lors de la vérification de l\'image :', error);
             });
-            indicatorsContainer.appendChild(span);
-        });
-    }
-    
+    });
+
+		
+		//model viewer
+
 	document.addEventListener('DOMContentLoaded', () => {
     const modelViewerLink = document.querySelectorAll('#ouvrir-model-viewer');
     const modelContainer = document.getElementById('modelContainer');
@@ -196,8 +181,7 @@ let mediaFiles = [
 });
 	
 	
-	
 	</script>
-		<script src="couleur.js"></script>
+	<script src="couleur.js"></script>
 </body>
 </html>

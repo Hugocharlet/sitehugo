@@ -10,29 +10,7 @@
         @import url('https://fonts.googleapis.com/css?family=Fira mono:400,500,700&display=swap');
 
  
-        /* Ajustement du conteneur SVG */
-		.svg-container {
-			padding: 10px 8%;	
-			display: flex;
-			justify-content: flex-end; /* Aligner les SVG à droite du conteneur */
-			gap: 10px; /* Espace entre les SVG */
-			box-sizing: border-box; /* Inclure le padding dans la largeur totale du conteneur */
-		}
 
-
-        .svg-link {
-            transition: filter 0.3s ease; /* Transition pour l'effet de survol */
-        }
-
-        .svg-link:hover .svg-item {
-            filter: brightness(0); /* Assombrit le SVG au survol */
-        }
-
-        .svg-item {
-            width: 50px; /* Largeur fixe pour chaque SVG */
-            height: auto; /* Hauteur automatique pour maintenir les proportions */
-			
-        }
 		.icon-container {
 			
 		  margin-top: 10px;
@@ -57,32 +35,46 @@
         }	
         
         
-		.copyright {
-			display:none;
-			font-family: 'Roboto', sans-serif;
-			font-size: 12px;
-			color: #666;
-			text-align: center;
-			position: relative; /* Utiliser relative pour que le texte suive le flux normal du document */
-			margin-top: 30px;
-			bottom: 10px; /* Espacement au-dessus du copyright */
-			width: 100%;
-			
-			
-		}
-        .Colonnes-container {
-            display: flex;
-			padding: 10px 8%;
-        }
+
+
         .colonne-fixed {
             width: 30%;
+			z-index:10;
+			position:fixed;
+			padding: 10px 8%;
+			top: 18%; /* Positionner à la moitié de l'écran en hauteur */
             
         }
-        .colonne-flexible {
-            flex-grow: 1;
-               align-items: center; /* Centre les éléments horizontalement */
-        }
-			
+		/* Conteneur d'images */
+		#image-container {
+			display: flex; /* Utilise Flexbox pour la mise en page */
+			flex-direction: column; /* Aligne les éléments en colonne */
+			align-items: flex-end; /* Aligne les éléments à gauche */
+			margin-left: auto; /* Utilise marges automatiques pour ajuster la position */
+			margin-left: 38%;
+			margin-right: 18%; 	/* Ajuste la position pour qu'il soit au 2/3 du conteneur */
+			padding: 10px; /* Padding à l'intérieur du conteneur */
+		   
+		}
+		.imagemain {
+			width: 100vw;   /* L'image prend 100% de la largeur de la fenêtre */
+			height: auto;   /* La hauteur est ajustée automatiquement pour garder les proportions */
+			display: block; /* Supprime les espaces indésirables en dessous de l'image */
+			margin: 0;      /* Supprime les marges par défaut */
+			padding: 0;     /* Supprime les padding par défaut */
+			object-fit: cover; /* Couvre toute la largeur sans déformer l'image (si besoin) */
+			max-width: 100%; /* S'assure que l'image ne dépasse pas 100% de la largeur */
+		}
+
+		/* Styles pour les images */
+		.imagelarge {
+			width: 100%; /* Définir la largeur de l'image */
+			max-width: 850px; /* Largeur maximale de l'image */
+			height: auto; /* Hauteur automatique pour maintenir le ratio d'aspect */
+			margin-bottom: 20px; /* Espacement en bas de l'image */
+			/* Pas besoin de marges gauche ou droite ici car align-items gère cela */
+		}
+
         .textebox-container {
             margin-top: 30px;
             display: flex; /* Alignement en ligne */
@@ -124,96 +116,26 @@
             color: #000;
         }
 		
-
-		.carousel-container {
-			
-			height: 77vh;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			position: relative;
-		}
-
-		.image-container {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 100%;
-			overflow: hidden;
-			position: relative;
-		}
 		
-		.image-container video {
-			max-height: 100%; /* Limite la hauteur au conteneur */
-			max-width: 100%;  /* Limite la largeur au conteneur */
-			object-fit: contain; /* Ajuste le contenu sans déformation */
-		}
+
 
 
 		
 
-		img {
-			max-height: 100%;
-			max-width: 100%;
-		}
 
-		.arrowleft {
-			position: absolute;
-			top: 50%;
-			left: 0px;
-			user-select: none;
-			width: 30px;
-			height: 30px;
-			cursor: pointer;
-		}
-
-		.arrowright {
-			position: absolute;
-			top: 50%;
-			right: 0px;
-			user-select: none;
-			width: 30px;
-			height: 30px;
-			cursor: pointer;
-		}
 		
-		
-		.nav-wrapper {
-			position: absolute;
-			bottom: -30px;
-			
-			display: flex;
-			gap: 5px;
-		  }
 
-		  .indicator {
-			cursor: pointer;
-			padding: 5px;
-			font-size: 12px;
-            font-family: 'Fira mono', sans-serif;
-			color: #AFAFAF;
-			
-			
-			width: 20px;
-			height: 20px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		  }
 
-		  .indicator.active {
-			color: #000;
-			
-		  }
+
 		#modelContainer {
 			display: none; /* Initialement caché */
-			position: absolute; /* Positionnement absolu pour le superposer */
+			position: fixed; /* Positionnement absolu pour le superposer */
 			top: 50%; /* Centrer verticalement */
 			right: 8%; /* Aligner à droite avec une marge de 8% de la largeur de l'écran */
 			transform: translateY(-50%); /* Ajuster pour centrer verticalement */
 			width: 80%; /* Ajustez la largeur selon vos besoins */
 			height: 77%;
-			max-width: 50%; /* Largeur maximale pour s'adapter à l'écran */
+			max-width: 84%; /* Largeur maximale pour s'adapter à l'écran */
 			height: 75vh; /* Hauteur du modèle */
 			background-color: rgba(255, 255, 255, 0.88); /* Couleur de fond semi-transparente */
 			border-radius: 0px; /* Coins arrondis pour le modèle */
@@ -257,8 +179,19 @@
             z-index: 1001; /* Assurez-vous que le bouton est au-dessus du modèle */
         }
 		
-		
-		
+		.copyright {
+			display:none;
+			font-family: 'Roboto', sans-serif;
+			font-size: 12px;
+			color: #666;
+			text-align: center;
+			position: relative; /* Utiliser relative pour que le texte suive le flux normal du document */
+			margin-top: 30px;
+			bottom: 10px; /* Espacement au-dessus du copyright */
+			width: 100%;
+			
+			
+		}
 		
 		/* Styles pour les écrans de petite taille (smartphones en portrait) */
 @media (max-width: 600px) {
@@ -326,16 +259,8 @@
 			padding: 0 4%;
 			
         }
-        .colonne-fixed {
-            width: 100%;
-			margin-bottom:15px;
-            
-        }
-        .colonne-flexible {
-            flex-grow: 1;
-               align-items: center; /* Centre les éléments horizontalement */
-        }
-			
+  
+
         .textebox-container {
             margin-top: 15px;
 			margin-bottom: 15px;
@@ -393,5 +318,16 @@
 			right: 4%; /* Aligner à droite avec une marge de 8% de la largeur de l'écran */
 			z-index: 1000; /* Assurez-vous que le modèle est au-dessus du carrousel */
 		}	
+		
+		#image-container {
+			display: flex; /* Utilise Flexbox pour la mise en page */
+			flex-direction: column; /* Aligne les éléments en colonne */
+			align-items: flex-end; /* Aligne les éléments à gauche */
+			margin-left: auto; /* Utilise marges automatiques pour ajuster la position */
+			margin-left: 38%;
+			margin-right: 4%; 	/* Ajuste la position pour qu'il soit au 2/3 du conteneur */
+			padding: 10px; /* Padding à l'intérieur du conteneur */
+		   
+		}
 
 }

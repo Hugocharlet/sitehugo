@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu avec Trois Choix</title>
+    <style>
+		body {
+			margin: 0;
+			font-family: 'Space Mono', monospace;
+		}
+
+		@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400&display=swap');
+		@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
+
+
+		/* Ajustement du conteneur SVG */
+		.svg-container {
+			padding: 20px 8%; /* Padding à droite et à gauche pour correspondre à la marge du menu */
+			display: flex;
+			justify-content: flex-end; /* Aligner les SVG à droite du conteneur */
+			gap: 10px; /* Espace entre les SVG */
+			box-sizing: border-box; /* Inclure le padding dans la largeur totale du conteneur */
+			margin-bottom:0px
+		}
+
+		.svg-link {
+			transition: filter 0.3s ease; /* Transition pour l'effet de survol */
+		}
+
+		.svg-link:hover .svg-item {
+			filter: brightness(0); /* Assombrit le SVG au survol */
+		}
+
+		.svg-item {
+			width: 22px; /* Largeur fixe pour chaque SVG */
+			height: auto; /* Hauteur automatique pour maintenir les proportions */
+		}
+
+		.carousel-container {
+			margin: 0px 8% 0px;
+			height: 77vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+		}
+
+		.image-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100%;
+			overflow: hidden;
+			position: relative;
+		}
+
+		img {
+			max-height: 100%;
+			max-width: 100%;
+		}
+
+		.arrowleft {
+			position: absolute;
+			top: 50%;
+			left: 30px;
+			user-select: none;
+			width: 30px;
+			height: 30px;
+			cursor: pointer;
+		}
+
+		.arrowright {
+			position: absolute;
+			top: 50%;
+			right: 30px;
+			user-select: none;
+			width: 30px;
+			height: 30px;
+			cursor: pointer;
+		}
+
+        .copyright {
+            font-family: 'Roboto';
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+        }
+
+		.gallery {
+			margin-top: 0px;
+			padding: 0 8%;
+			display: grid;
+			grid-template-columns: repeat(5, 1fr);
+			gap: 20px;
+		}
+
+		.gallery-item {
+			position: relative;
+			overflow: hidden;
+		}
+
+		.gallery-item img {
+			width: 100%;
+			height: auto;
+			object-fit: cover;
+			transition: transform 2s ease;
+		}
+
+		.gallery-item a {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+
+		.gallery-item:hover::after {
+			opacity: 1;
+		}
+
+		.rotate {
+			transform: scaleX(-1) rotate(360deg); /* Effet miroir horizontal */
+			transition: transform 2s !important;
+			background-color: rgba(0, 0, 0, 0.5); /* Ajout d'un voile gris si besoin */
+		}
+
+    </style>
+</head>
+<body>
+	<!-- impoter Menu générale -->
+	<div id="menu-placeholder"></div>
+    <!-- Script pour importer le menu -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        fetch('menugenerale.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('menu-placeholder').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Erreur lors du chargement du menu :', error);
+            });
+    });
+    </script>
+	    <!-- SVG Container -->
+    <div class="svg-container">
+        <a href="details.html" class="svg-link">             <img src="grid-details.svg" alt="Grid Details" class="svg-item">
+        </a>
+        <a href="grid.html" class="svg-link">             <img src="grid-square.svg" alt="Grid Square" class="svg-item">
+        </a>
+        <a href="index.html" class="svg-link">             <img src="grid-large.svg" alt="Grid Large" class="svg-item">
+        </a>
+    </div>
+	
+    <div class="carousel-container">
+        <img class="arrowleft" src="arrowleft.svg" alt="Flèche gauche" onclick="previousImage()">
+		<div class="image-container" id="carousel-images">
+			
+            <!-- Les images seront insérées ici par JavaScript -->
+			<img id="imageid" src="imgCarrousel\icone.jpg" alt="Gallery Image"onclick="nextImage()">
+			
+        </div>
+		<img class="arrowright" src="arrowright.svg" alt="Flèche droite" onclick="nextImage()">    
+		
+		</div>
+		
+		<div class="copyright">
+				<p>©️2024 hugocharletdesign</p>
+			</div>
+
+<script>
+		let imagesCarrousel = [
+    "imgCarrousel/ai leornardo.jpg",
+    "imgCarrousel/annot\u00e9 enf.jpg",
+    "imgCarrousel/ANN_8024cretouch\u00e9p.jpg",
+    "imgCarrousel/anton 12.jpg",
+    "imgCarrousel/anton 6.jpg",
+    "imgCarrousel/Anton 8.jpg",
+    "imgCarrousel/BLURRED1.jpg",
+    "imgCarrousel/CADRree.jpg",
+    "imgCarrousel/DE9C1026 (2).jpg",
+    "imgCarrousel/fc4fc0fb-418d-4a47-a259-62e7e357bd11.jpg",
+    "imgCarrousel/format carte postale3.jpg",
+    "imgCarrousel/hugo portrait.jpg",
+    "imgCarrousel/icone.jpg",
+    "imgCarrousel/image10.jpg",
+    "imgCarrousel/image11.jpg",
+    "imgCarrousel/image12.jpg",
+    "imgCarrousel/image13.jpg",
+    "imgCarrousel/image15.jpg",
+    "imgCarrousel/image3.jpg",
+    "imgCarrousel/image4.jpg",
+    "imgCarrousel/image5.jpg",
+    "imgCarrousel/image6.jpg",
+    "imgCarrousel/image7.JPG",
+    "imgCarrousel/image8.JPG",
+    "imgCarrousel/IMG-0392.jpg",
+    "imgCarrousel/IMG_1985.jpg",
+    "imgCarrousel/IMG_20240714_0002.jpg",
+    "imgCarrousel/IMG_5675.jpg",
+    "imgCarrousel/IMG_8821.jpg",
+    "imgCarrousel/IMG_9433.jpg",
+    "imgCarrousel/IMG_9486.jpg",
+    "imgCarrousel/IMG_9621.jpg",
+    "imgCarrousel/IMG_9627.jpg",
+    "imgCarrousel/IMG_9665compressed.jpg",
+    "imgCarrousel/IMG_9918.jpg",
+    "imgCarrousel/mistral 2.jpg",
+    "imgCarrousel/new BH 13.jpg",
+    "imgCarrousel/perspective 1.jpg",
+    "imgCarrousel/presentation fermob.png",
+    "imgCarrousel/Table.jpg",
+    "imgCarrousel/TAURUS1 (1).jpg",
+    "imgCarrousel/tomeo emplil\u00e9e hd.jpg",
+    "imgCarrousel/t\u00e9o1.jpg",
+    "imgCarrousel/t\u00e9o2.jpg",
+    "imgCarrousel/untitled14-1.jpg",
+    "imgCarrousel/untitled22.jpg",
+    "imgCarrousel/wegner15 19.jpg",
+    "imgCarrousel/wegner15 21.jpg"
+]
+;
+		let currentIndex = 0;
+
+		function showImage(index) {
+			const image = document.getElementById('imageid');
+				image.src = imagesCarrousel[index];
+				}
+
+        function previousImage() {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : imagesCarrousel.length - 1;
+            showImage(currentIndex);
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex < imagesCarrousel.length - 1) ? currentIndex + 1 : 0;
+            showImage(currentIndex);
+        }
+
+        // Appeler fetchImages pour initialiser le carrousel
+       
+		document.addEventListener('DOMContentLoaded', () => {
+			showImage(currentIndex);
+		});
+				
+		
+		
+		
+		
+    </script>
+</body>
+</html>
+		

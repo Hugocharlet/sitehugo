@@ -1,50 +1,69 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+   <link rel="icon" type="image/png" href="favicon.png" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TOMEO</title>
     <link rel="stylesheet" href="csspages.css">
-		<link rel="icon" type="image/png" href="favicon.png" />
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body>
     
 	<!-- impoter Menu générale -->
 	<div id="menu-placeholder"></div>
-    <!-- Script pour importer le menu -->
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        fetch('menugenerale.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('menu-placeholder').innerHTML = data;
-            })
-            .catch(error => {
-                console.error('Erreur lors du chargement du menu :', error);
-            });
-    });
+	<div id="svgmenupages-placeholder"></div>
 	
+    <!-- Script pour importer le menu -->
 
-    </script>
-    <!--flèche page précédente -->
-    <div class="svg-container">
-        <a href="details.html" class="svg-link">
-            <img src="arrowback.svg" alt="Retour" class="svg-item">
-        </a>  
-    </div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Importer le menu général
+    fetch('menugenerale.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('menu-placeholder').innerHTML = data;
+            console.log('Menu général chargé');
+        })
+        .catch(error => {
+            console.error('Erreur lors du chargement du menu général :', error);
+        });
+
+    // Importer le menu SVG
+	fetch('svgmenupages.html')
+		.then(response => {
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
+			return response.text();
+		})
+		.then(data => {
+			console.log(data);  // Log le contenu pour vérifier ce qui est chargé
+			document.getElementById('svgmenupages-placeholder').innerHTML = data;
+			console.log('Menu SVG chargé');
+		})
+		.catch(error => {
+			console.error('Erreur lors du chargement du menu SVG :', error);
+		});
+		console.log('Scripts de chargement des menus initialisés');
+	});
+</script>
+
     <!-- deux colonnes -->        
-    <div class="Colonnes-container">
-	 <!-- colonne 1 -->   
-        <div class="colonne-fixed">
+   
+	<div class="colonne-fixed">
             <div class="Title">TOMEO</div>
             <div class="Subtitle">Metal outdoor chairs 2020</div>
             <div class="textebox-container">
-                <div class="texte">Dimensions: 510 x 560 x 820 cm </div>
-                <div class="texte">Tomeo is an outdoor metal chair made from bent metal pipes. It is a light and stackable chair initially designed for restaurant terraces as an alternative to plastic chairs. The aim was to design a chair that would be appealing both in the eyes of the consumer but also in the eyes of the industrialist. Considerable effort was dedicated to keep the chair relatively easy to manufacture.
-
-Tomeo’s uniqueness comes from its original structure. Considerable attention was dedicated to the look, which had to be simple but contemporary. Indeed, many pieces of metallic furniture on the market are strongly inspired from older designs from the 20th century. Tomeo is truly different from what already exists because the design itself questions the traditional chair structure.   </div>
+                <div class="texte">Dimensions: 510 x 560 x 820 cm</div>
+                <div class="texte">Tomeo is an outdoor metal chair made from bent metal pipes. It is a light and stackable chair initially designed for restaurant terraces as an alternative to plastic chairs. The aim was to design a chair that would be appealing both in the eyes of the consumer but also in the eyes of the industrialist. Considerable effort was dedicated to keep the chair relatively easy to manufacture. Tomeo’s uniqueness comes from its original structure. Considerable attention was dedicated to the look, which had to be simple but contemporary. Indeed, many pieces of metallic furniture on the market are strongly inspired from older designs from the 20th century. Tomeo is truly different from what already exists because the design itself questions the traditional chair structure.</div>
             </div>
             
             <div class="icon-container">
@@ -59,113 +78,73 @@ Tomeo’s uniqueness comes from its original structure. Considerable attention w
                 </a>
                 <div class="texte">3D Model armchair</div>
             </div>
-
+      
             </div>
 			
 			<!-- colonne 2 -->   
-            <div class="colonne-flexible">
-                <div id="modelContainer">
-                    <button class="close-button" id="closeModelViewer">
-                        <img src="crosss.svg" alt="Close">
-                    </button>
-                    <model-viewer id="modelViewer" src='glb/anton.glb' autoplay loading="eager" ar ar-modes="webxr scene-viewer quick-look" ar-status="not-presenting" auto-rotate bounds="tight" rotation-per-second="1deg" environment-image="glb/studio.hdr" exposure="0.7" camera-controls interpolation-decay="200" shadow-intensity="1" interaction-prompt="none" camera-orbit="-40deg 82deg 12m" min-camera-orbit="auto 40deg a">
-                    </model-viewer>
-                </div>
-                <div class="carousel-container">
-                    <div class="image-container" id="mediaContainer">
-                        <img id="imageid" src="pages/tomeo/1.jpg" alt="Gallery Image" style="display: none;" onclick="nextMedia()">
-                        <video id="galleryVideo" controls style="display: none;" onclick="nextMedia()"></video>
-                    </div>
-                    <div class="nav-wrapper" id="carouselIndicators"></div>
-                </div>
-            </div>
+		
+			<div id="modelContainer">
+				<button class="close-button" id="closeModelViewer">
+					<img src="cross.svg" alt="Close">
+				</button>
+				<model-viewer id="modelViewer" src='glb/anton.glb' autoplay loading="eager" ar ar-modes="webxr scene-viewer quick-look" ar-status="not-presenting" auto-rotate bounds="tight" rotation-per-second="1deg" environment-image="glb/studio.hdr" exposure="0.7" camera-controls interpolation-decay="200" shadow-intensity="1" interaction-prompt="none" camera-orbit="-40deg 82deg 12m" min-camera-orbit="auto 40deg a">
+				</model-viewer>
+			</div>
 			
+			<img class="imagemain" src="pages/tomeo/main.jpg" alt="main">
+			<div id="image-container"></div>
 			
- 
-        
-    </div>
-	
-	 <p class="copyright">©️2024 hugocharletdesign</p>
+		
+			
+
     
 <script>
 
-    // Importer le menu
-	
-let mediaFiles = [
-    "pages/tomeo/1.jpg",
-    "pages/tomeo/2.jpg",
-    "pages/tomeo/3.jpg",
-    "pages/tomeo/4.jpg",
-    "pages/tomeo/5.jpg",
-    "pages/tomeo/6.jpg",
-    "pages/tomeo/6.jpg",    
-	"pages/tomeo/7.jpg",
-	"pages/tomeo/8.jpg",
-	"pages/tomeo/9.jpg",
-	"pages/tomeo/10.jpg",
-	"pages/tomeo/11.jpg",
 
 
-];
+// Importer les images en lignes
+		let mediaFiles = [
+			"pages/tomeo/1.jpg",
+			"pages/tomeo/2.jpg",
+			"pages/tomeo/3.jpg",
+			"pages/tomeo/4.jpg",
+			"pages/tomeo/5.jpg",
+			"pages/tomeo/6.jpg",
+			"pages/tomeo/7.jpg",
+			"pages/tomeo/9.jpg",
+			"pages/tomeo/10.jpg",
+			"pages/tomeo/11.jpg",
+			"pages/tomeo/12.jpg",
+			"pages/tomeo/13.jpg",
+			"pages/tomeo/14.jpg",
+			"pages/tomeo/15.jpg",
+			"pages/tomeo/16.jpg",
+			"pages/tomeo/17.jpg"
+		];
 
-  
+    let imageContainer = document.getElementById('image-container');
 
-  
-
-  
-    let currentMediaIndex = 0;
-
-	function showMedia(index) {
-		const image = document.getElementById('imageid');
-		const video = document.getElementById('galleryVideo');
-
-		if (mediaFiles[index].endsWith('.jpg') || mediaFiles[index].endsWith('.png')) {
-			image.src = mediaFiles[index];
-			image.style.display = 'block';
-			video.style.display = 'none';
-		} else if (mediaFiles[index].endsWith('.mov')) {
-			video.src = mediaFiles[index];
-			video.style.display = 'block';
-			image.style.display = 'none';
-		}
-		updateIndicators(); // Mettre à jour les indicateurs du carousel
-	}
-
-	document.addEventListener('DOMContentLoaded', () => {
-		showMedia(currentMediaIndex); // Initialisez l'affichage du média
-	});
-
-
-
-    function nextMedia() {
-        currentMediaIndex = (currentMediaIndex + 1) % mediaFiles.length;
-        showMedia(currentMediaIndex);
-    }
-
-    function previousMedia() {
-        currentMediaIndex = (currentMediaIndex - 1 + mediaFiles.length) % mediaFiles.length;
-        showMedia(currentMediaIndex);
-    }
-
-    function updateIndicators() {
-        const indicatorsContainer = document.getElementById('carouselIndicators');
-        indicatorsContainer.innerHTML = ''; // Vider le conteneur existant
-
-        mediaFiles.forEach((_, index) => {
-            const span = document.createElement('span');
-            span.className = 'indicator';
-            span.textContent = index + 1; // Ajouter le numéro à l'indicateur
-            if (index === currentMediaIndex) {
-                span.classList.add('active');
-            }
-            span.addEventListener('click', () => {
-                currentMediaIndex = index;
-                showMedia(currentMediaIndex);
+    mediaFiles.forEach(function(file) {
+        fetch(file, { method: 'HEAD' })
+            .then(response => {
+                if (response.ok) {
+                    let img = document.createElement('img');
+                    img.src = file;
+                    img.classList.add('imagelarge');
+                    imageContainer.appendChild(img);
+                    console.log('Image trouvée et chargée : ' + file);
+                } else {
+                    console.warn('Image non trouvée : ' + file);
+                }
+            })
+            .catch(error => {
+                console.error('Erreur lors de la vérification de l\'image :', error);
             });
-            indicatorsContainer.appendChild(span);
-        });
-    }
-    
+    });
+
+		
+		//model viewer
+
 	document.addEventListener('DOMContentLoaded', () => {
     const modelViewerLink = document.querySelectorAll('#ouvrir-model-viewer');
     const modelContainer = document.getElementById('modelContainer');
@@ -195,8 +174,7 @@ let mediaFiles = [
 });
 	
 	
-	
 	</script>
-		<script src="couleur.js"></script>
+	<script src="couleur.js"></script>
 </body>
 </html>

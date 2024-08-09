@@ -11,12 +11,7 @@
     <style>
      @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400&display=swap');
      
-.colonne-container {
-    margin-top: 25px;
-    margin-right:  8%;
-    margin-left: calc(38% + 20px);
-    position: relative; /* Mettre en relative pour être un parent positionné */
-}
+
 
 .greybox {
     margin-top: 25px;
@@ -69,13 +64,20 @@
          font-size: 12px;
 		 text-color:black;
      }
-     
+
+	.colonne-container {
+		margin-top: 25px;
+		margin-right:  8%;
+		margin-left: calc(38% + 20px);
+		position: relative; /* Mettre en relative pour être un parent positionné */
+	}
+
      .image-container {
          margin-top:25px;
 		 margin-left:8%;
 		 position: absolute;
          width: 30%; /* Largeur fixe du conteneur d'images */
- 
+		height:800px;
          aspect-ratio: 1 / 1; /* Ajuste la hauteur en fonction de la largeur */
      }
      
@@ -91,7 +93,7 @@
 	 
      .fond {
          position: absolute;
-		 /*animation: fading 5s;*/
+	
          top: 0;
          left: 0;
          width: 100%;

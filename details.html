@@ -16,29 +16,10 @@ body {
 
 
 
-/* Ajustement du conteneur SVG */
-.svg-container {
-    padding: 20px 8%; /* Padding à droite et à gauche pour correspondre à la marge du menu */
-    display: flex;
-    justify-content: flex-end; /* Aligner les SVG à droite du conteneur */
-    gap: 10px; /* Espace entre les SVG */
-    box-sizing: border-box; /* Inclure le padding dans la largeur totale du conteneur */
-}
 
-.svg-link {
-    transition: filter 0.3s ease; /* Transition pour l'effet de survol */
-}
-
-.svg-link:hover .svg-item {
-    filter: brightness(0); /* Assombrit le SVG au survol */
-}
-
-.svg-item {
-    width: 22px; /* Largeur fixe pour chaque SVG */
-    height: auto; /* Hauteur automatique pour maintenir les proportions */
-}
 
 .sousmenu-container {
+	margin-top: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -52,7 +33,13 @@ body {
 	font-weight:700;
 	font-size: 13px;
 }
+.sousmenu-container {
 
+	padding: 20px 8%;
+	
+	} 
+	
+	
 .sousmenu {
     display: flex;
     justify-content: space-between;  
@@ -155,8 +142,7 @@ body {
 		
 @media (max-width: 600px) {
 
-.svg-container {
-    padding: 20px 4%; /* Padding à droite et à gauche pour correspondre à la marge du menu */
+
 
 
 
@@ -207,28 +193,54 @@ font-size:9px;
 <body>
 	<!-- impoter Menu générale -->
 	<div id="menu-placeholder"></div>
+	<div id="svgmenu-placeholder"></div>
+	
     <!-- Script pour importer le menu -->
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        fetch('menugenerale.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('menu-placeholder').innerHTML = data;
-            })
-            .catch(error => {
-                console.error('Erreur lors du chargement du menu :', error);
-            });
-    });
-    </script>
 
-    <!-- SVG Container -->
-    <div class="svg-container">
-        <a href="details.html" class="svg-link"><img src="grid-details.svg" alt="Grid Details" class="svg-item"></a>
-        <a href="grid.html" class="svg-link"><img src="grid-square.svg" alt="Grid Square" class="svg-item"></a>
-        <a href="index.html" class="svg-link"><img src="grid-large.svg" alt="Grid Large" class="svg-item"></a>
-    </div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Importer le menu général
+    fetch('menugenerale.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('menu-placeholder').innerHTML = data;
+            console.log('Menu général chargé');
+        })
+        .catch(error => {
+            console.error('Erreur lors du chargement du menu général :', error);
+        });
+
+    // Importer le menu SVG
+    fetch('svgmenu.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('svgmenu-placeholder').innerHTML = data;
+            console.log('Menu SVG chargé');
+        })
+        .catch(error => {
+            console.error('Erreur lors du chargement du menu SVG :', error);
+        });
+
+    console.log('Scripts de chargement des menus initialisés');
+});
+</script>
+
+
+
 	<!-- tableau -->		
-<div class="menu-container">
+<div class="sousmenu-container">
     <div class="sousmenu-first-line">
         <div class="sousmenu-item">YEAR</div>
         <div class="sousmenu-item">NAME</div>
@@ -420,6 +432,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 </script>
+
+
 <script src="couleur.js"></script>
 
 </body>

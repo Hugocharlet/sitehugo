@@ -1,157 +1,140 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-
+   <link rel="icon" type="image/png" href="favicon.png" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MISTRAL</title>
     <link rel="stylesheet" href="csspages.css">
-	<link rel="icon" type="image/png" href="favicon.png" />
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body>
     
 	<!-- impoter Menu générale -->
 	<div id="menu-placeholder"></div>
-	<!-- Script pour importer le menu -->
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        fetch('menugenerale.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('menu-placeholder').innerHTML = data;
-            })
-            .catch(error => {
-                console.error('Erreur lors du chargement du menu :', error);
-            });
-    });
+	<div id="svgmenupages-placeholder"></div>
 	
+    <!-- Script pour importer le menu -->
 
-    </script>
-  
 
-    <!--flèche page précédente -->
-    <div class="svg-container">
-         <a href="details.html" class="svg-link">
-            <img src="arrowback.svg" alt="Retour" class="svg-item">
-        </a>  
-    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Importer le menu général
+    fetch('menugenerale.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('menu-placeholder').innerHTML = data;
+            console.log('Menu général chargé');
+        })
+        .catch(error => {
+            console.error('Erreur lors du chargement du menu général :', error);
+        });
+
+    // Importer le menu SVG
+	fetch('svgmenupages.html')
+		.then(response => {
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
+			return response.text();
+		})
+		.then(data => {
+			console.log(data);  // Log le contenu pour vérifier ce qui est chargé
+			document.getElementById('svgmenupages-placeholder').innerHTML = data;
+			console.log('Menu SVG chargé');
+		})
+		.catch(error => {
+			console.error('Erreur lors du chargement du menu SVG :', error);
+		});
+		console.log('Scripts de chargement des menus initialisés');
+	});
+</script>
 
     <!-- deux colonnes -->        
-    <div class="Colonnes-container">
-	 <!-- colonne 1 -->   
-        <div class="colonne-fixed">
+   
+	<div class="colonne-fixed">
             <div class="Title">MISTRAL</div>
             <div class="Subtitle">Modern storm lamp 2022</div>
             <div class="textebox-container">
-                <div class="texte">Dimension: 490 x 240 x 240 mm </div>
-                <div class="texte"> Mistral is a modern lamp that takes up the image of the storm lantern in a contemporary style. This lamp used suspended above a table, for example, instantly creates an atmosphere of discreet and enveloping warmth. She lays a blanket of warm Scandinavian minimalism over the atmosphere of the room
-
-​
-
-This lamp is ingeniously designed because the outer arch makes it possible to maintain the lower part of the lamp by very easily inserting the two arches inside the two holes provided for this purpose. It is important to me to design products that are both well drawn but intelligently designed, realistics and therefore, easy to put into production. </div>
+                <div class="texte">Dimension: 490 x 240 x 240 mm</div>
+                <div class="texte">Mistral is a modern lamp that takes up the image of the storm lantern in a contemporary style. This lamp used suspended above a table, for example, instantly creates an atmosphere of discreet and enveloping warmth. She lays a blanket of warm Scandinavian minimalism over the atmosphere of the room​This lamp is ingeniously designed because the outer arch makes it possible to maintain the lower part of the lamp by very easily inserting the two arches inside the two holes provided for this purpose. It is important to me to design products that are both well drawn but intelligently designed, realistics and therefore, easy to put into production.</div>
             </div>
             
-     
+  
+	
+      
             </div>
 			
 			<!-- colonne 2 -->   
-            <div class="colonne-flexible">
-                <!--<div id="modelContainer">
-                    <button class="close-button" id="closeModelViewer">
-                        <img src="crosss.svg" alt="Close">
-                    </button>
-                    <model-viewer id="modelViewer" src='glb/anton.glb' autoplay loading="eager" ar ar-modes="webxr scene-viewer quick-look" ar-status="not-presenting" auto-rotate bounds="tight" rotation-per-second="1deg" environment-image="glb/studio.hdr" exposure="0.7" camera-controls interpolation-decay="200" shadow-intensity="1" interaction-prompt="none" camera-orbit="-40deg 82deg 12m" min-camera-orbit="auto 40deg a">
-                    </model-viewer>
-                </div>--> 
-                <div class="carousel-container">
-                    <div class="image-container" id="mediaContainer">
-                        <img id="imageid" src="pages/mistral/1.jpg" alt="Gallery Image" style="display: none;" onclick="nextMedia()">
-                        <video id="galleryVideo" controls style="display: none;" onclick="nextMedia()"></video>
-                    </div>
-                    <div class="nav-wrapper" id="carouselIndicators"></div>
-                </div>
-            </div>
+		
+			<div id="modelContainer">
+				<button class="close-button" id="closeModelViewer">
+					<img src="cross.svg" alt="Close">
+				</button>
+				<model-viewer id="modelViewer" src='glb/mistral.glb' autoplay loading="eager" ar ar-modes="webxr scene-viewer quick-look" ar-status="not-presenting" auto-rotate bounds="tight" rotation-per-second="1deg" environment-image="glb/studio.hdr" exposure="0.7" camera-controls interpolation-decay="200" shadow-intensity="1" interaction-prompt="none" camera-orbit="-40deg 82deg 12m" min-camera-orbit="auto 40deg a">
+				</model-viewer>
+			</div>
 			
+			<img class="imagemain" src="pages/mistral/main.jpg" alt="main">
+			<div id="image-container"></div>
 			
-<!-- copyrights -->   
-        
-    </div>
-	<p class="copyright">©️2024 hugocharletdesign</p>
+		
+			
+
     
 <script>
 
-    // Importer le menu
-	
-let mediaFiles = [
-    "pages/mistral/1.jpg",
-    "pages/mistral/2.jpg",
-    "pages/mistral/3.jpg",
-    "pages/mistral/4.jpg",
 
 
-	
+// Importer les images en lignes
+		let mediaFiles = [
+			"pages/mistral/1.jpg",
+			"pages/mistral/2.jpg",
+			"pages/mistral/3.jpg",
+			"pages/mistral/4.jpg",
+			"pages/mistral/5.jpg",
+			"pages/mistral/6.jpg",
+			"pages/mistral/7.jpg",
+			"pages/mistral/9.jpg",
+			"pages/mistral/10.jpg",
+			"pages/mistral/11.jpg",
+			"pages/mistral/12.jpg",
+			"pages/mistral/13.jpg",
+			"pages/mistral/14.jpg",
+			"pages/mistral/15.jpg",
+			"pages/mistral/16.jpg",
+			"pages/mistral/17.jpg"
+		];
 
+    let imageContainer = document.getElementById('image-container');
 
-];
-
-  
-
-  
-    let currentMediaIndex = 0;
-
-	function showMedia(index) {
-		const image = document.getElementById('imageid');
-		const video = document.getElementById('galleryVideo');
-
-		if (mediaFiles[index].endsWith('.jpg') || mediaFiles[index].endsWith('.png')) {
-			image.src = mediaFiles[index];
-			image.style.display = 'block';
-			video.style.display = 'none';
-		} else if (mediaFiles[index].endsWith('.mov')) {
-			video.src = mediaFiles[index];
-			video.style.display = 'block';
-			image.style.display = 'none';
-		}
-		updateIndicators(); // Mettre à jour les indicateurs du carousel
-	}
-
-	document.addEventListener('DOMContentLoaded', () => {
-		showMedia(currentMediaIndex); // Initialisez l'affichage du média
-	});
-
-
-
-    function nextMedia() {
-        currentMediaIndex = (currentMediaIndex + 1) % mediaFiles.length;
-        showMedia(currentMediaIndex);
-    }
-
-    function previousMedia() {
-        currentMediaIndex = (currentMediaIndex - 1 + mediaFiles.length) % mediaFiles.length;
-        showMedia(currentMediaIndex);
-    }
-
-    function updateIndicators() {
-        const indicatorsContainer = document.getElementById('carouselIndicators');
-        indicatorsContainer.innerHTML = ''; // Vider le conteneur existant
-
-        mediaFiles.forEach((_, index) => {
-            const span = document.createElement('span');
-            span.className = 'indicator';
-            span.textContent = index + 1; // Ajouter le numéro à l'indicateur
-            if (index === currentMediaIndex) {
-                span.classList.add('active');
-            }
-            span.addEventListener('click', () => {
-                currentMediaIndex = index;
-                showMedia(currentMediaIndex);
+    mediaFiles.forEach(function(file) {
+        fetch(file, { method: 'HEAD' })
+            .then(response => {
+                if (response.ok) {
+                    let img = document.createElement('img');
+                    img.src = file;
+                    img.classList.add('imagelarge');
+                    imageContainer.appendChild(img);
+                    console.log('Image trouvée et chargée : ' + file);
+                } else {
+                    console.warn('Image non trouvée : ' + file);
+                }
+            })
+            .catch(error => {
+                console.error('Erreur lors de la vérification de l\'image :', error);
             });
-            indicatorsContainer.appendChild(span);
-        });
-    }
-    
+    });
+
+		
+		//model viewer
+
 	document.addEventListener('DOMContentLoaded', () => {
     const modelViewerLink = document.querySelectorAll('#ouvrir-model-viewer');
     const modelContainer = document.getElementById('modelContainer');
@@ -181,8 +164,7 @@ let mediaFiles = [
 });
 	
 	
-	
 	</script>
-		<script src="couleur.js"></script>
+	<script src="couleur.js"></script>
 </body>
 </html>
