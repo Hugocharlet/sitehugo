@@ -11,29 +11,23 @@
     <style>
      @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400&display=swap');
      
-	.colonne-container {
-		
-		margin-top: 25px;
-		margin-right: 8%;
-		margin-left: calc(38% + 20px); /* Utilisation de 'calc' pour les calculs de marge */
-		position: relative; /* Correction de 'fixe' en 'fixed' */
-		
-		
-		
-		/* animation: slideToRight 3s forwards, fading 2.3s; */
-		/* animation-delay: 0s; */
-	}
-.greybox {
-    
-    margin-top: 25px; /* Ajout de ; manquant */
+.colonne-container {
+    margin-top: 25px;
+    margin-right:  8%;
     margin-left: calc(38% + 20px);
-    margin-right: 8%;
+    position: relative; /* Mettre en relative pour être un parent positionné */
+}
+
+.greybox {
+    margin-top: 25px;
+    left: 0; /* Supprimer margin-left et définir left à 0 */
+    right: 0; /* Assure que la greybox s'étende jusqu'à la limite droite */
     position: absolute;
-    width: 84%; /* Ajustement de la largeur pour tenir compte des marges */
+    width: 100%; /* Utiliser 100% de largeur par rapport à son parent */
     height: 100%;
     z-index: 1;
     animation: fadeout 3s forwards;
-	pointer-events: none; /* Empêche la greybox de bloquer les interactions */
+    pointer-events: none;
 }
 	 
 	 
