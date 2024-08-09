@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-   
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="favicon.png" />
@@ -89,60 +89,34 @@
             margin-top: 0px;
             padding: 0 8%;
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 0px;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 20px;
         }
-
-
 
 .gallery-item {
     position: relative;
     overflow: visible; /* Permet aux images de déborder */
-	    margin: 0; /* Assure qu'il n'y a pas de marge entre les éléments */
-    padding: 0; /* Assure qu'il n'y a pas de padding */
 }
+
 .gallery-item img {
-    display: block; /* Élimine les espaces blancs sous l'image */
-    margin: 0; /* Assure qu'il n'y a pas de marge sous l'image */
-    padding: 0; /* Assure qu'il n'y a pas de padding autour de l'image */
     width: 100%;
     height: auto;
     object-fit: cover;
-    filter: grayscale(0%);
-    transition: opacity 0.3s, transform 0.5s;
-}
-
-.titre {
-    position: absolute; /* Positionne le texte au-dessus de l'image */
-    top: 50%; /* Positionne verticalement au milieu */
-    left: 50%; /* Positionne horizontalement au milieu */
-    transform: translate(-50%, -50%); /* Centre le texte */
-    font-family: 'Hanken Grotesk', sans-serif;
-z-index:11;
-    font-size: 18px;
-    font-weight: 500;
-    color: #F1F1F1; /* Assure que la couleur contraste avec le fond */
-    opacity: 0; /* Caché par défaut */
-    visibility: hidden; /* Caché par défaut */
-    transition: opacity 0.3s, visibility 0.3s; /* Transition douce */
+    transition: transform 0.3s, filter 0s, opacity 0s;
+    opacity:0.7;
+	
    
-    padding: 5px; /* Espacement autour du texte */
 }
 
 .gallery-item:hover img {
-    filter: grayscale(100%)brightness(38%);
- animation:  zoomquick 0.3s forwards;
-    
-
-    z-index:10;
+    border-radius: 5px;
+    z-index: 10;
+    filter: none;
     opacity: 1;
-    position: relative; 
-
-}
-
-.gallery-item:hover .titre {
-    opacity: 1; /* Affiche la légende lors du survol */
-    visibility: visible; /* Affiche la légende lors du survol */
+    position: relative; /* Position relative pour que l'ombre soit visible */
+    box-shadow: 0 12px 24px #AFAFAF; /* Ombre plus grande, centrée et intense au survol */
+    animation: zoomquick 0.5s, zoomslow 30s;
+    animation-delay: 0s, 0.5s; /* Délai de 0s pour zoomquick et 0.5s pour zoomslow */
 }
 
 @keyframes zoomquick {
@@ -150,16 +124,16 @@ z-index:11;
         transform: scale(1);
     }
     100% {
-        transform: scale(1.01);
+        transform: scale(1.5);
     }
 }
 
 @keyframes zoomslow {
     0%, 100% {
-        transform: scale(1.01);
+        transform: scale(1.5);
     }
     50% {
-        transform: scale(1.5);
+        transform: scale(2);
     }
 }
 
@@ -236,42 +210,37 @@ z-index:11;
             }
             return array;
         }
+
 async function generateGallery() {
     try {
-        const jsonFilePath = 'img/images.json';
+        const jsonFilePath = 'img/images.json'; // Chemin vers le fichier JSON
         const response = await fetch(jsonFilePath);
         if (!response.ok) {
             throw new Error('Erreur lors de la récupération du fichier JSON');
         }
         const imageFiles = await response.json();
-        console.log('Données récupérées:', imageFiles); // Affiche les données récupérées pour vérifier
-		const shuffledImages = shuffleArray(imageFiles);
+        const shuffledImages = shuffleArray(imageFiles);
 
         const gallery = document.getElementById('gallery');
-        gallery.innerHTML = '';
+        gallery.innerHTML = ''; // Vider la galerie existante
 
         shuffledImages.forEach(img => {
-            console.log('Image actuelle:', img); // Affiche chaque objet image
-
             const galleryItem = document.createElement('div');
             galleryItem.className = 'gallery-item';
 
             const linkElement = document.createElement('a');
-            linkElement.href = `${img.url}`;
+            linkElement.href = `${img.url}`; // Utiliser directement l'URL du fichier HTML
 
             const imgElement = document.createElement('img');
-            imgElement.src = `img/${img.src}`;
+            imgElement.src = `img/${img.src}`; // Chemin vers l'image
 
             const titleElement = document.createElement('div');
             titleElement.className = 'titre';
-            titleElement.textContent = img.title || 'Titre non défini'; // Utilise le titre du JSON ou un texte par défaut
-
-            console.log('Titre ajouté :', titleElement.textContent); // Vérifie le titre ajouté
+            titleElement.textContent = img.title; // Titre du projet
 
             linkElement.appendChild(imgElement);
             galleryItem.appendChild(linkElement);
-            galleryItem.appendChild(titleElement);
-
+            galleryItem.appendChild(titleElement); // Ajouter le titre sous l'image
             gallery.appendChild(galleryItem);
         });
     } catch (error) {
