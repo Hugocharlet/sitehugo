@@ -87,50 +87,56 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 			
 
-    
 <script>
 
 
 
 // Importer les images en lignes
-		let mediaFiles = [
-			"pages/mistral/1.jpg",
-			"pages/mistral/2.jpg",
-			"pages/mistral/3.jpg",
-			"pages/mistral/4.jpg",
-			"pages/mistral/5.jpg",
-			"pages/mistral/6.jpg",
-			"pages/mistral/7.jpg",
-			"pages/mistral/9.jpg",
-			"pages/mistral/10.jpg",
-			"pages/mistral/11.jpg",
-			"pages/mistral/12.jpg",
-			"pages/mistral/13.jpg",
-			"pages/mistral/14.jpg",
-			"pages/mistral/15.jpg",
-			"pages/mistral/16.jpg",
-			"pages/mistral/17.jpg"
-		];
+function preloadImages(imageUrls) {
+    return Promise.all(imageUrls.map(url => {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.src = url;
+            img.onload = () => resolve(img); // Résoudre avec l'image chargée
+            img.onerror = () => resolve(null); // Ignorer les erreurs et résoudre avec null
+        });
+    }));
+}
 
-    let imageContainer = document.getElementById('image-container');
+document.addEventListener('DOMContentLoaded', () => {
+    let mediaFiles = [
+        "pages/mistral/1.jpg",
+        "pages/mistral/2.jpg",
+        "pages/mistral/3.jpg",
+        "pages/mistral/4.jpg",
+        "pages/mistral/5.jpg",
+        "pages/mistral/6.jpg",
+        "pages/mistral/7.jpg",
+        "pages/mistral/9.jpg",
+        "pages/mistral/10.jpg",
+        "pages/mistral/11.jpg",
+        "pages/mistral/12.jpg",
+        "pages/mistral/13.jpg",
+        "pages/mistral/14.jpg",
+        "pages/mistral/15.jpg",
+        "pages/mistral/16.jpg",
+        "pages/mistral/17.jpg"
+    ];
 
-    mediaFiles.forEach(function(file) {
-        fetch(file, { method: 'HEAD' })
-            .then(response => {
-                if (response.ok) {
-                    let img = document.createElement('img');
-                    img.src = file;
-                    img.classList.add('imagelarge');
-                    imageContainer.appendChild(img);
-                    console.log('Image trouvée et chargée : ' + file);
-                } else {
-                    console.warn('Image non trouvée : ' + file);
-                }
-            })
-            .catch(error => {
-                console.error('Erreur lors de la vérification de l\'image :', error);
-            });
+    preloadImages(mediaFiles).then(images => {
+        let imageContainer = document.getElementById('image-container');
+        images.forEach(img => {
+            if (img) { // Ajouter uniquement les images valides
+                img.classList.add('imagelarge');
+                imageContainer.appendChild(img);
+            } else {
+                console.warn('Une image est manquante ou a échoué à se charger.');
+            }
+        });
+    }).catch(error => {
+        console.error('Erreur lors du préchargement des images :', error);
     });
+});
 
 		
 		//model viewer
