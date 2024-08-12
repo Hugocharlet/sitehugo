@@ -172,15 +172,12 @@
             display: none;
         }
 
-        .colonne-container {
-            width: 100%;
-            margin-left:8%;
-			margin-right:8%;
-            margin-top: 45px;
-            position: fixed;
-			animation: none;
-			
-			}
+	.colonne-container {
+		margin-top: 45px;
+		margin-right:  4%;
+		margin-left: 4%;
+		position: relative; /* Mettre en relative pour être un parent positionné */
+	}
 			
 		.greybox {
 			margin-top: 45px;
@@ -195,7 +192,7 @@
 		}
 	.texte-container {
 
-		width: 100%; /* Largeur fixe du conteneur de texte */
+		/* Largeur fixe du conteneur de texte */
 		
 		z-index: 1;
 		flex-direction: column; /* Affiche les éléments en colonne */
