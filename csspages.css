@@ -60,7 +60,7 @@
 			width: 100vw;   /* L'image prend 100% de la largeur de la fenêtre */
 			height: auto;   /* La hauteur est ajustée automatiquement pour garder les proportions */
 			display: block; /* Supprime les espaces indésirables en dessous de l'image */
-			margin: 0;      /* Supprime les marges par défaut */
+			margin-top: 90px;      /* Supprime les marges par défaut */
 			padding: 0;     /* Supprime les padding par défaut */
 			object-fit: cover; /* Couvre toute la largeur sans déformer l'image (si besoin) */
 			max-width: 100%; /* S'assure que l'image ne dépasse pas 100% de la largeur */

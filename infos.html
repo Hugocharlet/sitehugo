@@ -13,17 +13,6 @@
      
 
 
-.greybox {
-    margin-top: 25px;
-    left: calc(38% + 20px);; /* Supprimer margin-left et définir left à 0 */
-    right: 0; /* Assure que la greybox s'étende jusqu'à la limite droite */
-    position: absolute;
-    width: 84%; /* Utiliser 100% de largeur par rapport à son parent */
-    height: 100%;
-    z-index: 1;
-    animation: fadeout 3s forwards;
-    pointer-events: none;
-}
 	 
 	 
 	.texte-container {
@@ -62,25 +51,37 @@
      .texte {
          font-family: 'Space Mono', monospace;
          font-size: 12px;
-		 text-color:black;
+		 color:black;
      }
 
 	.colonne-container {
-		margin-top: 25px;
+		margin-top: 40px;
 		margin-right:  8%;
 		margin-left: calc(38% + 20px);
 		position: relative; /* Mettre en relative pour être un parent positionné */
 	}
 
      .image-container {
-         margin-top:25px;
+         margin-top:40px;
 		 margin-left:8%;
 		 position: absolute;
          width: 30%; /* Largeur fixe du conteneur d'images */
 		height:800px;
          aspect-ratio: 1 / 1; /* Ajuste la hauteur en fonction de la largeur */
      }
-     
+	 
+
+	.greybox {
+		margin-top: 40px;
+		left: calc(38% + 20px);; /* Supprimer margin-left et définir left à 0 */
+		right: 0; /* Assure que la greybox s'étende jusqu'à la limite droite */
+		position: absolute;
+		width: 84%; /* Utiliser 100% de largeur par rapport à son parent */
+		height: 100%;
+		z-index: 1;
+		animation: fadeout 3s forwards;
+		pointer-events: none;
+	}
      .profile{
          position: absolute;
 		 
@@ -144,7 +145,7 @@
             margin: 0;
         }
 		
-    @media (max-width: 600px) {
+@media (max-width: 600px) {
         .titre {
             font-family: 'Space Mono', monospace;
             font-size: 9px;
@@ -172,13 +173,26 @@
         }
 
         .colonne-container {
-            width: 100;
+            width: 100%;
             margin-left:8%;
 			margin-right:8%;
-            margin-top: 25px;
-            position: fixe;
+            margin-top: 45px;
+            position: fixed;
 			animation: none;
-	
+			
+			}
+			
+		.greybox {
+			margin-top: 45px;
+			left: 0;
+			right: 0; /* Assure que la greybox s'étende jusqu'à la limite droite */
+			position: absolute;
+			width: 100%; /* Utiliser 100% de largeur par rapport à son parent */
+			height: 100%;
+			z-index: 1;
+			animation: fadeout 3s forwards;
+			pointer-events: none;
+		}
 	.texte-container {
 
 		width: 100%; /* Largeur fixe du conteneur de texte */
@@ -194,20 +208,51 @@
 </head>
 <body>
     <!-- importer Menu générale -->
-    <div id="menu-placeholder"></div>
+	<!-- impoter Menu générale -->
+	<div id="menu-placeholder"></div>
+	
+	
     <!-- Script pour importer le menu -->
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        fetch('menugenerale.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('menu-placeholder').innerHTML = data;
-            })
-            .catch(error => {
-                console.error('Erreur lors du chargement du menu :', error);
-            });
-    });
-    </script>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Importer le menu général
+    fetch('menugenerale.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('menu-placeholder').innerHTML = data;
+            console.log('Menu général chargé');
+        })
+        .catch(error => {
+            console.error('Erreur lors du chargement du menu général :', error);
+        });
+
+    // Importer le menu SVG
+    fetch('svgmenu.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('svgmenu-placeholder').innerHTML = data;
+            console.log('Menu SVG chargé');
+        })
+        .catch(error => {
+            console.error('Erreur lors du chargement du menu SVG :', error);
+        });
+
+    console.log('Scripts de chargement des menus initialisés');
+});
+</script>
     <!-- flèche page précédente -->
 
 <div class="image-container"> 
@@ -240,6 +285,8 @@ His technical background provides him with a strong understanding of the technic
 		<div class="texte"> 33000 Bordeaux </div>
 		
 		<a class="texte" href="mailto:info@hugocharlet.com">info[at]hugocharlet.com </a>
+		<a class="texte" href="https://www.instagram.com/hugocharletb/">INSTAGRAM </a>
+		
 		<div class="titre1"> Awards: </div>
 		<div class="texte"> -A'Design award 2021 (for Tomeo collection) </div>
 		
