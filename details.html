@@ -1,18 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-
-	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-E5KFLGR0PL"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-
-	  gtag('config', 'G-E5KFLGR0PL');
-	</script>
-
-
 	<meta name="google-site-verification" content="TFJ2QVqKrajBwgc__AghOgYWPc70H3iU-8vP4ABX6Hg" />
 	<link rel="icon" type="image/png" href="favicon.png" />
     <meta charset="UTF-8">
@@ -32,7 +20,8 @@ body {
 
 
 .sousmenu-container {
-	margin-top: 30px;
+	padding: 20px 8%;
+	margin-top: 15px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -46,26 +35,27 @@ body {
 	font-weight:700;
 	font-size: 13px;
 }
-.sousmenu-container {
 
-	padding: 20px 8%;
-	
-	} 
-	
 	
 .sousmenu {
     display: flex;
     justify-content: space-between;  
-    margin-bottom: 5px; /* Espacement général entre les lignes */
+    padding: 4px;
+	margin-bottom: 0px; /* Espacement général entre les lignes */
     position: relative;
     transition: background-color 0.3s ease; /* Ajout d'une transition pour le survol */
-    z-index: 1; /* Met l'image en dessous du texte */
+
 	font-family: 'Hanken Grotesk', sans-serif;
 	font-weight:400;
 	font-size: 13px;
 }
 
-/* Assurez-vous que chaque colonne prend une largeur égale */
+
+.sousmenu-grise .sousmenu {
+    color: rgb(175,175,175); /* Couleur du texte en gris pour les éléments survolés */
+}
+
+
 .sousmenu-item {
     
     flex: 1; /* Chaque élément prend une largeur égale */
@@ -114,17 +104,17 @@ body {
 }
 
 .sousmenu img {
-    display: none;
+    display: none; /* L'image est cachée par défaut */
     position: absolute;
-    top: 50%; /* Ajuste la position verticale */
-    left: 50%; /* Ajuste la position horizontale */
-    transform: translate(-50%, -50%) scale(1); /* Centre l'image et définit la taille initiale */
+    top: 150px;
+    left: 150px;
+	
     width: 300px;
     height: 300px;
     object-fit: cover;
-    pointer-events: none; /* Pour que l'image n'interfère pas avec le survol */
-    z-index: 0; /* Met l'image en dessous du texte */
-    transition: transform 0.3s ease; /* Transition pour l'effet de zoom */
+    pointer-events: none; /* L'image ne bloque pas les interactions avec le texte */
+    z-index: 10000; /* Assure que l'image est au-dessus du texte */
+    transition: transform 0.3s ease; /* Effet de transition pour le zoom */
 }
 
 .sousmenu-link:hover .sousmenu img {
@@ -420,13 +410,13 @@ document.addEventListener('DOMContentLoaded', () => {
             <img src="img/TEO1.jpg" alt="téo">
         </div>
     </a>
+	
 </div>
 
     <div class="copyright">
         <p>©️2024 hugocharletdesign</p>
     </div>
 <script>
-
 document.addEventListener('DOMContentLoaded', () => {
     const sousmenuLinks = document.querySelectorAll('.sousmenu-link');
 
@@ -434,16 +424,46 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('mousemove', (event) => {
             const img = link.querySelector('img');
             if (img) {
-                // Ajuste la position de l'image pour qu'elle suive la souris
+                // Obtenir la position du conteneur par rapport à la fenêtre
+                const rect = link.getBoundingClientRect();
 
-                img.style.left = `${event.pageX }px`;
-                img.style.center = `${event.pageY }px`;
+                // Calcule la position de la souris relative au conteneur
+                const mouseX = event.clientX - rect.left;
+                const mouseY = event.clientY - rect.top;
+
+                // Appliquer la position à l'image en prenant en compte les offsets
+                img.style.left = `${mouseX}px`;
+                img.style.top = `${mouseY}px`;
+
+                // Assurez-vous que l'image est affichée
+                img.style.display = 'block';
+
+                // Ajouter la classe .sousmenu-grise à toutes les autres lignes
+                sousmenuLinks.forEach(otherLink => {
+                    if (otherLink !== link) {
+                        otherLink.classList.add('sousmenu-grise');
+                    }
+                });
             }
         });
 
+        // Cache l'image lorsqu'on ne survole plus l'élément
+        link.addEventListener('mouseleave', () => {
+            const img = link.querySelector('img');
+            if (img) {
+                img.style.display = 'none';
+            }
 
+            // Retirer la classe .sousmenu-grise de toutes les lignes
+            sousmenuLinks.forEach(otherLink => {
+                otherLink.classList.remove('sousmenu-grise');
+            });
+        });
     });
 });
+
+
+
 </script>
 
 
