@@ -96,20 +96,39 @@ body {
 }
 
 
+.instagram-logo {
+    position: fixed;
+    bottom: 35px;
+    right: 35px;
+    z-index: 10;
+    width: 1.9%; /* Ajuste la taille du logo si besoin */
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    display: block; /* Assure que le logo est affiché par défaut */
+}
 
+.instagram-logo:hover {
+    filter: brightness(0);
+}
+	
+	
 @media (max-width: 600px) {
     .menu-container {
         padding: 0 4%; /* Ajuste le padding pour les petits écrans */
     }
-	
-	.menu {
-    gap: 5px;
-	}
-	
-	.menu-item {
-    font-size: 13px;
-	}
-}
+    
+    .menu {
+        gap: 5px;
+    }
+    
+    .menu-item {
+        font-size: 13px;
+    }
+
+    .instagram-logo {
+        display: none; /* Masque le logo sur les petits écrans */
+    }
 
     </style>
 </head>
@@ -123,5 +142,10 @@ body {
             <div class="menu-item"><a href="mailto:info@hugocharlet.com">CONTACT</a></div>
         </div>
     </div>
+	
+	<a href="https://www.instagram.com/hugocharletb/" target="_blank">
+    <img src="insta.svg" alt="Instagram" class="instagram-logo">
+	</a>
+	
 </body>
 </html>
