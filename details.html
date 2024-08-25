@@ -10,7 +10,7 @@
 body {
     margin: 0;
     font-family: 'Space Mono', monospace;
-	
+
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400&display=swap');
@@ -100,6 +100,7 @@ body {
 
 .sousmenu-link:hover .sousmenu {
     text-decoration: underline; /* Soulignement lors du survol */
+	
 	background-color: rgba(0, 0, 120, 0.06);
 	
 }
@@ -206,7 +207,7 @@ font-size:9px;
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     // Importer le menu général
-    fetch('menugenerale.html')
+    fetch('menugeneraleWORK.html')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -222,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     // Importer le menu SVG
-    fetch('svgmenu.html')
+    fetch('svgmenulist.html')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');

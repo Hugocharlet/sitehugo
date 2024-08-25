@@ -2,16 +2,6 @@
 <html lang="fr">
 <head>
    
-	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-E5KFLGR0PL"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-
-	  gtag('config', 'G-E5KFLGR0PL');
-	</script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="favicon.png" />
@@ -196,7 +186,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     // Importer le menu général
-    fetch('menugenerale.html')
+    fetch('menugeneraleWORK.html')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -212,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     // Importer le menu SVG
-    fetch('svgmenu.html')
+    fetch('svgmenugrid.html')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');

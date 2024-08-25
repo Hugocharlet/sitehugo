@@ -1,18 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-
-	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-E5KFLGR0PL"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-
-	  gtag('config', 'G-E5KFLGR0PL');
-	</script>
-
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INFOS</title>
@@ -39,7 +27,7 @@
      
      .titre {
         font-family: 'Hanken Grotesk', sans-serif;
-         font-size: 13px;
+         font-size: 14px;
 		 font-weight:700;
 
          margin-bottom: 10px;
@@ -49,7 +37,7 @@
      }  
 	 .titre1 {
         font-family: 'Hanken Grotesk', sans-serif;
-         font-size: 13px;
+         font-size: 14px;
 		 font-weight:700;
 
 		 
@@ -61,8 +49,9 @@
      
      
      .texte {
-         font-family: 'Space Mono', monospace;
-         font-size: 12px;
+         font-family: 'Hanken Grotesk', sans-serif;
+         font-size: 13px;
+		 font-weight:300;
 		 color:black;
      }
 
@@ -159,7 +148,7 @@
 		
 @media (max-width: 600px) {
         .titre {
-            font-family: 'Space Mono', monospace;
+            font-family: 'Hanken Grotesk', sans-serif;
             font-size: 9px;
             margin-bottom: 5px;
             animation: backgroundcolor 3s forwards;
@@ -167,7 +156,7 @@
         }
 
         .titre1 {
-            font-family: 'Space Mono', monospace;
+            font-family: 'Hanken Grotesk', sans-serif;
             font-size: 9px;
             margin-top: 20px;
             margin-bottom: 10px;
@@ -176,7 +165,7 @@
         }
 
         .texte {
-            font-family: 'Space Mono', monospace;
+            font-family: 'Hanken Grotesk', sans-serif;
             font-size: 9px;
         }
 
@@ -228,7 +217,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     // Importer le menu général
-    fetch('menugenerale.html')
+    fetch('menugeneraleINFOS.html')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -276,9 +265,9 @@ document.addEventListener('DOMContentLoaded', () => {
         <!-- 1ère colonne -->    
 <div class="colonne-container"> 
 		<div class="texte-container"> 
-			<div class="titre"> About: </div>
+			<div class="titre"> Bio: </div>
 			<div class="texte"> 
-Hugo Charlet is a French designer with extensive experience in the furniture industry. After obtaining a degree in material engineering, his passion for design drove him to Milan where he pursued a Master's degree in Furniture Design at the renowned university Politecnico Milano. After completing his studies, he joined <strong>Michele De Lucchi's design office</strong> in Milan and worked on projects for top brands such as Artemide, Alessi or Poltrona frau. He also collaborated for 2years with renowned designer <strong>Emmanuel Gallina</strong> on several innovative furniture projects for international brands like Poliform, Porada, AMPM, and Roche Bobois. More recently, he has worked at <strong>Claudio Bellini design office</strong> on several outdoor projects.  He also collaborated with contemporary lighting companies and high end furniture brands. 
+Hugo Charlet is a French designer with extensive experience in the furniture industry. After obtaining a degree in material engineering, his passion for design drove him to Milan where he pursued a Master's degree in Furniture Design at the renowned university Politecnico Milano. After completing his studies, he joined <span style="color: #FF3200; font-weight:400">Michele De Lucchi's design office</span> in 2019 at is office of Milan and worked on projects for top brands such as Artemide, Alessi or Poltrona frau. He also collaborated for 2years with renowned designer <span style="color: #FF3200; font-weight:400">Emmanuel Gallina</span> on several innovative furniture projects for international brands like Poliform, Porada, AMPM, and Roche Bobois. More recently, he has worked at <span style="color: #FF3200; font-weight:400">Claudio Bellini design office</span> on several outdoor projects.  He also collaborated with contemporary lighting companies and high end furniture brands. 
 
  
 
@@ -289,13 +278,13 @@ Hugo Charlet is a determined and passionate designer who continues to develop an
 His technical background provides him with a strong understanding of the technical and material constraints involved in the production of his designs. This knowledge allows him to create feasible projects that balance both form and function. Through his collaborations with esteemed designers like Michele De Lucchi and Emmanuel Gallina, he has learnt the profession and developed a deep understanding of the codes of contemporary furniture design. </div>
 		
 		<div class="titre1"> Contact: </div>
-		<div class="texte"> Hugo Charlet design studio </div>
-		<div class="texte"> 8 rue du commandant Arnould </div>
-		<div class="texte"> 33000 Bordeaux </div>
-		
-		<a class="texte" href="mailto:info@hugocharlet.com">info[at]hugocharlet.com </a>
-		<div class="texte">  </div>
-		<a class="texte" href="https://www.instagram.com/hugocharletb/">INSTAGRAM </a>
+		<div class="texte"> Hugo Charlet design studio <br />
+							8 rue du commandant Arnould <br />
+							33000 Bordeaux <br />
+							<br />
+		<a class="texte" href="mailto:info@hugocharlet.com">info@hugocharlet.com </a>
+
+	
 		
 		<div class="titre1"> Awards: </div>
 		<div class="texte"> -A'Design award 2021 <a class="texte" href="https://competition.adesignaward.com/gooddesign.php?ID=101890">(for Tomeo collection)</a> </div>
