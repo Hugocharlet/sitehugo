@@ -80,7 +80,10 @@ body {
 }
 
 
-
+.menu-item:nth-child(2){
+	border-bottom: 1px solid;
+	border-bottom-color: #AFAFAF;
+	}
 
 
 .menu-item a {
@@ -90,9 +93,10 @@ body {
     transition: color 0.3s ease;
 }
 
-.menu-item a:hover {
+.menu-item :hover {
 	
     color: #000;
+	border-bottom: 1px solid;
 }
 
 
@@ -137,7 +141,7 @@ body {
         <div class="menu">
             <div class="menu-item"><a href="index.html"><span class="bold">Hugo Charlet</span></a></div>
 			
-            <div class="menu-item"><a style="color:#000 ; font-weight:400" href="details.html">WORK</a></div>
+            <div class="menu-item"><a href="details.html">WORK</a></div>
             <div class="menu-item"><a href="infos.html">ABOUT</a></div>
             <div class="menu-item"><a  href="mailto:info@hugocharlet.com">CONTACT</a></div>
         </div>
