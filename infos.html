@@ -10,199 +10,187 @@
     
     <style>
      @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400&display=swap');
-     
 
-
-	 
-	 
-	.texte-container {
-
-		width: 100%; /* Largeur fixe du conteneur de texte */
-
+	 .texte-container {
+		width: 100%; 
 		z-index: 1;
-		flex-direction: column; /* Affiche les éléments en colonne */
-				
-	}
+		flex-direction: column;
+	 }
 
-     
      .titre {
-        font-family: 'space-mono', monospace;
-         font-size: 13px;
-		 font-weight:500;
-		color: #808080;
-         margin-bottom: 10px;
-		  
-		 animation: backgroundcolor 3s forwards;
-		 animation-delay:0.3s 
-     }  
-	 .titre1 {
-        font-family: 'space-mono', monospace;
+        font-family: 'Space Mono', monospace;
          font-size: 13px;
 		 font-weight:500;
 		 color: #808080;
-
-		 
+         margin-bottom: 10px;
+		 animation: backgroundcolor 3s forwards;
+		 animation-delay: 0.3s;
+     }  
+	 .titre1 {
+        font-family: 'Space Mono', monospace;
+         font-size: 13px;
+		 font-weight:500;
+		 color: #808080;
 		 margin-top: 25px;
 		 margin-bottom: 10px;
 		 animation: backgroundcolor 3s forwards;
-		 animation-delay:0.3s; 
+		 animation-delay: 0.3s;
 		}  
-     
      
      .texte {
          font-family: 'Hanken Grotesk', sans-serif;
          font-size: 13px;
-		 font-weight:300;
-		 color:black;
+		 font-weight: 300;
+		 color: black;
      }
 
-	.colonne-container {
+	 .colonne-container {
 		margin-top: 40px;
-		margin-right:  8%;
+		margin-right: 8%;
 		margin-left: calc(38% + 20px);
-		position: relative; /* Mettre en relative pour être un parent positionné */
-	}
+		position: relative; 
+	 }
 
      .image-container {
-         margin-top:40px;
-		 margin-left:8%;
+         margin-top: 40px;
+		 margin-left: 8%;
 		 position: absolute;
-         width: 30%; /* Largeur fixe du conteneur d'images */
-		height:800px;
-         aspect-ratio: 1 / 1; /* Ajuste la hauteur en fonction de la largeur */
+         width: 30%; 
+         height: 800px;
+         aspect-ratio: 1 / 1;
      }
-	 
 
-	.greybox {
+	 .greybox {
 		margin-top: 40px;
-		left: calc(38% + 20px);; /* Supprimer margin-left et définir left à 0 */
-		right: 0; /* Assure que la greybox s'étende jusqu'à la limite droite */
+		left: calc(38% + 20px); 
+		right: 0;
 		position: absolute;
-		width: 84%; /* Utiliser 100% de largeur par rapport à son parent */
+		width: 84%;
 		height: 100%;
 		z-index: 1;
 		animation: fadeout 3s forwards;
 		pointer-events: none;
-	}
-     .profile{
+	 }
+
+	 .profile, .fond {
          position: absolute;
-		 
          top: 0;
          left: 0;
          width: 100%;
          height: 100%;
-         object-fit: cover; /* Assure que les images remplissent le conteneur sans déformation */
+         object-fit: cover;
+     }
+
+	 .profile {
+         z-index: 2; 
      }
 	 
-     .fond {
-         position: absolute;
-	
-         top: 0;
-         left: 0;
-         width: 100%;
-         height: 100%;
-         object-fit: cover; /* Assure que les images remplissent le conteneur sans déformation */
+	 .fond {
+         z-index: 0;
+         opacity: 0;
+         animation-fill-mode: forwards;
      }
-     
-     .profile {
-         z-index: 2; /* PNG au-dessus du JPEG */
-     }
-     
-     .fond {
-         z-index: 0; /* JPEG en dessous du PNG */
-     }
-@keyframes slideToRight {
-    0% {
-        transform: translateX(0); 
-    }
-    100% {
-        transform: translateX(calc(30% + 20px));
-    }
-}
 
-@keyframes fadeout {
- 0% {
-	 background-color: white; 
- }
- 100% {
-	 background-color: transparent; 
- }
- }
+	 .fond4 {
+		animation: showImage 0.3s 0.9s forwards;
+		z-index: 4;
+	 }
+
+	 .fond3 {
+		animation: showImage 0.3s 0.6s forwards;
+		z-index: 3;
+	 }
+
+	 .fond2 {
+		animation: showImage 0.3s 0.3s forwards;
+		z-index: 2;
+	 }
+
+	 .fond1 {
+		animation: showImage 0.5s 0s forwards;
+		z-index: 1;
+	 }
+
+	 @keyframes showImage {
+		0% { opacity: 0; }
+		100% { opacity: 1; }
+	 }
  
- @keyframes backgroundcolor {
- 0% {
-	 background-color: transparent; 
- }
- 100% {
-	 background-color: #F1F1F1; 
- }
- }
+	 @keyframes slideToRight {
+		0% { transform: translateX(0); }
+		100% { transform: translateX(calc(30% + 20px)); }
+	 }
+
+	 @keyframes fadeout {
+		0% { background-color: white; }
+		100% { background-color: transparent; }
+	 }
+	 
+	 @keyframes backgroundcolor {
+		0% { background-color: transparent; }
+		100% { background-color: #F1F1F1; }
+	 }
  
-        .copyright {
-            font-family: 'Roboto';
-            padding: 200px;
-            font-size: 12px;
-            color: #666;
-            text-align: center;
-            margin: 0;
-        }
-		
-@media (max-width: 600px) {
-        .titre {
-            font-family: 'Hanken Grotesk', sans-serif;
-            font-size: 9px;
-            margin-bottom: 5px;
-            animation: backgroundcolor 3s forwards;
-            animation-delay: 2.3s;
-        }
+     .copyright {
+         font-family: 'Roboto';
+         padding: 200px;
+         font-size: 12px;
+         color: #666;
+         text-align: center;
+         margin: 0;
+     }
 
-        .titre1 {
-            font-family: 'Hanken Grotesk', sans-serif;
-            font-size: 9px;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            animation: backgroundcolor 3s forwards;
-            animation-delay: 2.3s;
-        }
+	 @media (max-width: 600px) {
+		.titre {
+			font-family: 'Hanken Grotesk', sans-serif;
+			font-size: 9px;
+			margin-bottom: 5px;
+			animation: backgroundcolor 3s forwards;
+			animation-delay: 2.3s;
+		}
 
-        .texte {
-            font-family: 'Hanken Grotesk', sans-serif;
-            font-size: 9px;
-        }
+		.titre1 {
+			font-family: 'Hanken Grotesk', sans-serif;
+			font-size: 9px;
+			margin-top: 20px;
+			margin-bottom: 10px;
+			animation: backgroundcolor 3s forwards;
+			animation-delay: 2.3s;
+		}
 
-        .image-container {
-            display: none;
-        }
+		.texte {
+			font-family: 'Hanken Grotesk', sans-serif;
+			font-size: 9px;
+		}
 
-	.colonne-container {
-		margin-top: 45px;
-		margin-right:  4%;
-		margin-left: 4%;
-		position: relative; /* Mettre en relative pour être un parent positionné */
-	}
+		.image-container {
+			display: none;
+		}
+
+		.colonne-container {
+			margin-top: 45px;
+			margin-right: 4%;
+			margin-left: 4%;
+			position: relative;
+		}
 			
 		.greybox {
 			margin-top: 45px;
 			left: 0;
-			right: 0; /* Assure que la greybox s'étende jusqu'à la limite droite */
+			right: 0;
 			position: absolute;
-			width: 100%; /* Utiliser 100% de largeur par rapport à son parent */
+			width: 100%;
 			height: 100%;
 			z-index: 1;
 			animation: fadeout 3s forwards;
 			pointer-events: none;
 		}
-	.texte-container {
 
-		/* Largeur fixe du conteneur de texte */
-		
-		z-index: 1;
-		flex-direction: column; /* Affiche les éléments en colonne */
-				
-	}		
-        }
-    }
-
+		.texte-container {
+			z-index: 1;
+			flex-direction: column;
+		}		
+	 }
     </style>
 </head>
 <body>
@@ -255,9 +243,13 @@ document.addEventListener('DOMContentLoaded', () => {
     <!-- flèche page précédente -->
 
 <div class="image-container"> 
-	<img class="fond" src="pages/infos/fond.jpg" alt="image fond"> <!-- JPEG en dessous -->
+    <img class="fond fond4" src="pages/infos/fond.jpg" alt="image fond">
+    <img class="fond fond3" src="pages/infos/fond1.jpg" alt="image fond1">
+    <img class="fond fond2" src="pages/infos/fond2.jpg" alt="image fond2">
+    <img class="fond fond1" src="pages/infos/fond3.jpg" alt="image fond3">
+</div> <!-- JPEG en dessous -->
 	
-</div> 
+ 
 <div class="greybox"> </div> 
     <!-- colonnes -->
 
