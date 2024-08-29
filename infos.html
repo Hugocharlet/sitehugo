@@ -10,17 +10,25 @@
     
     <style>
      @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400&display=swap');
+     
 
-	 .texte-container {
-		width: 100%; 
+
+	 
+	 
+	.texte-container {
+
+		width: 100%; /* Largeur fixe du conteneur de texte */
+
 		z-index: 1;
-		flex-direction: column;
-	 }
+		flex-direction: column; /* Affiche les éléments en colonne */
+				
+	}
 
+     
      .titre {
         font-family: 'space-mono', monospace;
          font-size: 13px;
-		 font-weight:400;
+		 font-weight:500;
 		color: #808080;
          margin-bottom: 10px;
 		  
@@ -30,7 +38,7 @@
 	 .titre1 {
         font-family: 'space-mono', monospace;
          font-size: 13px;
-		 font-weight:400;
+		 font-weight:500;
 		 color: #808080;
 
 		 
@@ -40,40 +48,42 @@
 		 animation-delay:0.3s; 
 		}  
      
+     
      .texte {
          font-family: 'Hanken Grotesk', sans-serif;
          font-size: 13px;
-		 font-weight: 300;
-		 color: black;
+		 font-weight:300;
+		 color:black;
      }
 
-	 .colonne-container {
+	.colonne-container {
 		margin-top: 40px;
-		margin-right: 8%;
+		margin-right:  8%;
 		margin-left: calc(38% + 20px);
-		position: relative; 
-	 }
+		position: relative; /* Mettre en relative pour être un parent positionné */
+	}
 
      .image-container {
-         margin-top: 40px;
-		 margin-left: 8%;
+         margin-top:40px;
+		 margin-left:8%;
 		 position: absolute;
-         width: 30%; 
-         height: 800px;
-         aspect-ratio: 1 / 1;
+         width: 30%; /* Largeur fixe du conteneur d'images */
+		height:800px;
+         aspect-ratio: 1 / 1; /* Ajuste la hauteur en fonction de la largeur */
      }
+	 
 
-	 .greybox {
+	.greybox {
 		margin-top: 40px;
-		left: calc(38% + 20px); 
-		right: 0;
+		left: calc(38% + 20px);; /* Supprimer margin-left et définir left à 0 */
+		right: 0; /* Assure que la greybox s'étende jusqu'à la limite droite */
 		position: absolute;
-		width: 84%;
+		width: 84%; /* Utiliser 100% de largeur par rapport à son parent */
 		height: 100%;
 		z-index: 1;
 		animation: fadeout 3s forwards;
 		pointer-events: none;
-	 }
+	}
 
 	 .profile, .fond {
          position: absolute;
