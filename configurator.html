@@ -48,6 +48,10 @@
             margin-bottom: 0px; /* Ajoute un espace entre les lignes */
         }
 
+        .column {
+            margin-bottom: 80px;
+        }
+
         .group {
             margin-bottom: 10px;
         }
@@ -60,10 +64,13 @@
             font-family: 'Avenir', sans-serif;
             margin-top: 20px;
         }
-        model-viewer {
-            width: 650px;
-            height: 650px;
-        }
+		model-viewer {
+			width: 50vw; /* 50% de la largeur de l'écran */
+			height: 70vh; /* 70% de la hauteur de l'écran */
+			max-width: 50vw; /* Largeur maximale de 50% */
+			border: 1px solid #ccc; 
+			background-color: #F5F5F5;
+		}
 
         .thumbnail {
             width: 30px;
