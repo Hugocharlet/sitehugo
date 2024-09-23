@@ -1,177 +1,74 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://hugocharlet.github.io/sitehugo/</loc>
-    <lastmod>2024-08-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <loc>https://www.hugocharlet.com/</loc>
+    <priority>1.00</priority>
   </url>
-  
-  
   <url>
-    <loc>https://hugocharlet.github.io/sitehugo/index.html</loc>
-    <lastmod>2024-08-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <loc>https://www.hugocharlet.com/grid.html</loc>
+    <priority>0.80</priority>
   </url>
-  
   <url>
-    <loc>https://hugocharlet.github.io/sitehugo/details.html</loc>
-    <lastmod>2024-08-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://www.hugocharlet.com/infos.html</loc>
+    <priority>0.80</priority>
   </url>
-  
   <url>
-    <loc>https://hugocharlet.github.io/sitehugo/grid.html</loc>
-    <lastmod>2024-08-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url> 
-  
-  <url>
-    <loc>https://hugocharlet.github.io/sitehugo/infos.html</loc>
-    <lastmod>2024-08-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>  
-  <!-- Ajoutez d'autres entrées ici -->
-  
-  <url>
-    <loc>https://hugocharlet.github.io/sitehugo/helena.html</loc>
-    <lastmod>2024-08-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>   
-
-  
-    <url>
-    <loc>https://hugocharlet.github.io/sitehugo/belvedere.html</loc>
-    <lastmod>2024-08-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url> 
-
-  
-    <url>
-    <loc>https://hugocharlet.github.io/sitehugo/remo.html</loc>
-    <lastmod>2024-08-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://www.hugocharlet.com/contact.html</loc>
+    <priority>0.80</priority>
   </url>
-
-  
-    <url>
-    <loc>https://hugocharlet.github.io/sitehugo/anton.html</loc>
-    <lastmod>2024-08-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url> 
-
-  
-    <url>
-    <loc>https://hugocharlet.github.io/sitehugo/dieter.html</loc>
-    <lastmod>2024-08-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url> 
-
-  
-    <url>
-    <loc>https://hugocharlet.github.io/sitehugo/louise.html</loc>
-    <lastmod>2024-08-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>  
-
-  
-    <url>
-    <loc>https://hugocharlet.github.io/sitehugo/tropical.html</loc>
-    <lastmod>2024-08-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url> 
-
-  
-    <url>
-    <loc>https://hugocharlet.github.io/sitehugo/melodie.html</loc>
-    <lastmod>2024-08-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>    
-   
-    <url>
-    <loc>https://hugocharlet.github.io/sitehugo/taurus.html</loc>
-    <lastmod>2024-08-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>    
-
-  
-    <url>
-    <loc>https://hugocharlet.github.io/sitehugo/mistral.html</loc>
-    <lastmod>2024-08-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url> 
-  
-    <url>
-    <loc>https://hugocharlet.github.io/sitehugo/enzo.html</loc>
-    <lastmod>2024-08-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>     
-  
-  
-    <url>
-    <loc>https://hugocharlet.github.io/sitehugo/loop.html</loc>
-    <lastmod>2024-08-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>   
-
-    <url>
-    <loc>https://hugocharlet.github.io/sitehugo/pixa.html</loc>
-    <lastmod>2024-08-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>     
-
-        <url>
-    <loc>https://hugocharlet.github.io/sitehugo/tomeo.html</loc>
-    <lastmod>2024-08-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>  
-         
-
-    <url>
-    <loc>https://hugocharlet.github.io/sitehugo/kaktus.html</loc>
-    <lastmod>2024-08-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url> 
-
-      <url>
-    <loc>https://hugocharlet.github.io/sitehugo/bureauk.html</loc>
-    <lastmod>2024-08-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>  
-  
-  
-    <url>
-    <loc>https://hugocharlet.github.io/sitehugo/teo.html</loc>
-    <lastmod>2024-08-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>  
-  
-
-
- 
-
-
-
-  
+  <url>
+    <loc>https://www.hugocharlet.com/helena.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://www.hugocharlet.com/pixa.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://www.hugocharlet.com/belvedere.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://www.hugocharlet.com/anton.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://www.hugocharlet.com/tomeo.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://www.hugocharlet.com/enzo.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://www.hugocharlet.com/remo.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://www.hugocharlet.com/tropical.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://www.hugocharlet.com/kaktus.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://www.hugocharlet.com/bureauk.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://www.hugocharlet.com/mistral.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://www.hugocharlet.com/louise.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://www.hugocharlet.com/dieter.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://www.hugocharlet.com/melodie.html</loc>
+    <priority>0.70</priority>
+  </url>
 </urlset>
