@@ -59,7 +59,8 @@
 	.colonne-container {
 		margin-top: 40px;
 		margin-right:  8%;
-		margin-left: calc(38% + 20px);
+		margin-left: max(520px, calc(38% + 20px));
+		
 		position: relative; /* Mettre en relative pour être un parent positionné */
 	}
 
@@ -68,22 +69,13 @@
 		 margin-left:8%;
 		 position: absolute;
          width: 30%; /* Largeur fixe du conteneur d'images */
+		 min-width:400px;
 		height:800px;
          aspect-ratio: 1 / 1; /* Ajuste la hauteur en fonction de la largeur */
      }
 	 
 
-	.greybox {
-		margin-top: 40px;
-		left: calc(38% + 20px);; /* Supprimer margin-left et définir left à 0 */
-		right: 0; /* Assure que la greybox s'étende jusqu'à la limite droite */
-		position: absolute;
-		width: 84%; /* Utiliser 100% de largeur par rapport à son parent */
-		height: 100%;
-		z-index: 1;
-		animation: fadeout 3s forwards;
-		pointer-events: none;
-	}
+
 
 	 .profile, .fond {
          position: absolute;
@@ -138,17 +130,7 @@
 			position: relative;
 		}
 			
-		.greybox {
-			margin-top: 45px;
-			left: 0;
-			right: 0;
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			z-index: 1;
-			animation: fadeout 3s forwards;
-			pointer-events: none;
-		}
+
 
 		.texte-container {
 			z-index: 1;
