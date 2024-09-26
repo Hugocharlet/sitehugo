@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Avenir:wght@300&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <style>
+        /* Nouveaux styles pour les cases à cocher personnalisées */
+
+        input[type="radio"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            border: 2px solid #000;
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        input[type="radio"]:checked {
+            background-color: #000; /* Le fond devient entièrement noir lorsque la case est cochée */
+        }
+
+
+        h1, h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+			margin-top:0px;
+			margin-bottom: 30px;
+			padding:0px;
+        }
+        label {
+            font-family: 'Avenir', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            align-items: center; /* Centre verticalement les éléments enfants */
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px; /* Ajoute un espace entre les lignes */
+        }
+		
+    .color-circle {
+        width: 30px;         
+        height: 30px;        
+        border-radius: 50%;  /* Cercle parfait */
+        display: inline-block;
+        margin-left: 10px; 
+		margin-right: 10px; 		
+		
+    }
+
+        .column {
+            margin-bottom: 80px;
+
+			
+        }
+
+
+        button {
+            font-size: 13px;
+            font-family: 'Avenir', sans-serif;
+        }
+        #modelUrl {
+            font-size: 13px;
+            font-family: 'Avenir', sans-serif;
+            margin-top: 20px;
+        }
+		model-viewer {
+			width: 50vw; /* 50% de la largeur de l'écran */
+			height: 70vh; /* 70% de la hauteur de l'écran */
+			max-width: 50vw; /* Largeur maximale de 50% */
+			border: 1px solid #ccc; 
+			background-color: #F5F5F5;
+		}
+
+        .thumbnail {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 0 10px; /* Espace entre la case à cocher et le texte */
+			
+        }
+		
+		.thumbnail1 {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            margin: 0 10px; /* Espace entre la case à cocher et le texte */
+			
+        }
+
+        .container {
+			margin-top : 100px;
+			margin-bottom : 100px;
+			margin-left : 8%;
+            position: absolute;
+            align-items: flex-start;
+
+        }
+
+        .main-container {
+	        display: flex;
+	        position: relative;
+			align-items: flex-start; 
+            gap: 40px; /* Espacement entre les colonnes */
+
+   
+		}
+		
+		@media (max-width: 600px) {
+			.main-container {
+				display: block; /* Met chaque élément en ligne */
+			}
+			}
+    </style>
+  
+
+</head>
+<body>
+
+    
+	<!-- impoter Menu générale -->
+	<div id="menu-placeholder"></div>
+	<div id="svgmenupages-placeholder"></div>
+	
+    <!-- Script pour importer le menu -->
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Importer le menu général depuis la racine
+    fetch('../../menugenerale.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erreur de chargement du menu général : ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('menu-placeholder').innerHTML = data;
+            console.log('Menu général chargé');
+        })
+        .catch(error => {
+            console.error('Erreur lors du chargement du menu général :', error);
+        });
+
+    // Importer le menu SVG depuis la racine
+    fetch('../../svgmenupages.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erreur de chargement du menu SVG : ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('svgmenupages-placeholder').innerHTML = data;
+            console.log('Menu SVG chargé');
+        })
+        .catch(error => {
+            console.error('Erreur lors du chargement du menu SVG :', error);
+        });
+});
+
+</script>
+
+<body>
+    <div class="container">
+        <h3>PIXA 3D Configurator :</h3>
+		<div class="main-container">
+			<div class="column">
+				<model-viewer id="modelViewer" src="" auto-rotate camera-controls></model-viewer>
+			</div>
+			
+			<div class="column">
+				<h3> Frêne tinté :</h3>
+				<label><input type="radio" name="color" value="frene_huile_1" checked><img src="naturalash.jpg" class="thumbnail"> Frêne tinté - Naturel</label>
+				<label><input type="radio" name="color" value="frene_huile_2"><img src="blackash.jpg" class="thumbnail"> Frêne tinté - Noir</label>
+				<label><input type="radio" name="color" value="frene_huile_3"><img src="greenash.jpg" class="thumbnail"> Frêne tinté - Vert</label>
+				<label><input type="radio" name="color" value="frene_huile_4"><img src="redash.jpg" class="thumbnail"> Frêne tinté - ocre</label>
+				<label><input type="radio" name="color" value="frene_huile_5"><img src="blueash.jpg" class="thumbnail"> Frêne tinté - washed blue</label>
+			</div>
+			<div class="column">
+                <h3> Peuplier laqué :</h3>
+                <label><input type="radio" name="color" value="peuplier_laque_1"><span class="color-circle" style="background-color: #B8B8B8;"></span> Peuplier Laqué - gris</label>
+                <label><input type="radio" name="color" value="peuplier_laque_2"><span class="color-circle" style="background-color: #2F644D;"></span> Peuplier Laqué - Vert</label>
+                <label><input type="radio" name="color" value="peuplier_laque_3"><span class="color-circle" style="background-color: #B7C3A1;"></span> Peuplier Laqué - Romarin</label>
+                <label><input type="radio" name="color" value="peuplier_laque_4"><span class="color-circle" style="background-color: #EDB195;"></span> Peuplier Laqué - Pêche</label>
+                <label><input type="radio" name="color" value="peuplier_laque_5"><span class="color-circle" style="background-color: #B44A40;"></span> Peuplier Laqué - Rouge</label>
+                <label><input type="radio" name="color" value="peuplier_laque_6"><span class="color-circle" style="background-color: #562526;"></span> Peuplier Laqué - Ocre</label>
+                <label><input type="radio" name="color" value="peuplier_laque_7"><span class="color-circle" style="background-color: #2F325C;"></span> Peuplier Laqué - Blueberry</label>
+                <label><input type="radio" name="color" value="peuplier_laque_8"><span class="color-circle" style="background-color: #597087;"></span> Peuplier Laqué - bleu clair</label>
+                <label><input type="radio" name="color" value="peuplier_laque_9"><span class="color-circle" style="background-color: #29518C;"></span> Peuplier Laqué - bleu </label>
+                <label><input type="radio" name="color" value="peuplier_laque_10"><span class="color-circle" style="background-color: #f1f1f1; border: 1px solid #ccc;"></span> Peuplier Laqué - Blanc</label>
+            </div>
+		</div>
+    </div>
+    
+
+    <script>
+        // Matrice unique avec 18 coloris (5 frêne huilé, 10 peuplier laqué)
+        const modelMatrix = {
+            'frene_huile_1': 'naturalash.glb',
+            'frene_huile_2': 'blackash.glb',
+            'frene_huile_3': 'greenash.glb',
+            'frene_huile_4': 'redash.glb',
+            'frene_huile_5': 'blueash.glb',
+            'peuplier_laque_1': 'greylaq.glb',
+            'peuplier_laque_2': 'greenlaq.glb',
+            'peuplier_laque_3': 'rosemarylaq.glb',
+            'peuplier_laque_4': 'peachlaq.glb',
+            'peuplier_laque_5': 'redlaq.glb',
+            'peuplier_laque_6': 'winelaq.glb',
+            'peuplier_laque_7': 'blueberrylaq.glb',
+            'peuplier_laque_8': 'bluelaq.glb',
+            'peuplier_laque_9': 'bluedlaq.glb',
+            'peuplier_laque_10': 'whitelaq.glb'
+        };
+
+        function updateModelViewer() {
+            const selectedColor = document.querySelector('input[name="color"]:checked').value;
+            const modelUrl = modelMatrix[selectedColor];
+            document.getElementById('modelViewer').setAttribute('src', modelUrl);
+        }
+
+        document.querySelectorAll('input[name="color"]').forEach(input => {
+            input.addEventListener('change', updateModelViewer);
+        });
+
+        // Initialiser le modèle avec la première sélection par défaut
+        updateModelViewer();
+    </script>
+</body>
+</html>
