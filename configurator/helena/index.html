@@ -117,9 +117,21 @@
 		}
 		
 		@media (max-width: 600px) {
-			.main-container {
-				display: block; /* Met chaque élément en ligne */
-			}
+    .container {
+        width: 92%; /* Prend toute la largeur de l'écran */
+        margin-left: 4%; /* Marge de 4% à gauche */
+        margin-right: 4%; /* Marge de 4% à droite */
+          
+    }
+    .main-container {
+        display: block; /* Met les éléments en ligne verticale */
+            }
+    model-viewer {
+        width: 100%;
+		max-width:100%; /* Le modèle occupe toute la largeur disponible */
+        border: 1px solid #ccc;
+        background-color: #F5F5F5;
+    }
 			}
     </style>
   
