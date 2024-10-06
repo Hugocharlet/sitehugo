@@ -34,7 +34,7 @@ body {
     display: flex;
     align-items: center;
     padding: 10px 0;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 0px solid #ccc;
     gap: 30px;
     margin-bottom: 5px;
 	margin-top: 10px;
@@ -42,6 +42,7 @@ body {
 
 .menu > a:first-child {
     margin-right: auto;
+	
 }
 
 .menu > a {
@@ -56,7 +57,7 @@ body {
 .menu-item {
     font-size: 14px;
     font-family: "Hanken Grotesk", sans-serif;
-    font-weight: 400;
+    font-weight: 600;
     flex: 1;
     text-align: right;
     margin-top:10px;
@@ -70,20 +71,23 @@ body {
 	font-family: "Hanken Grotesk", sans-serif;
     font-size: 22px;
 	font-weight:800;
-    color: black; /* Couleur du texte pour contraste avec fond bleu */
+    color: #303030; /* Couleur du texte pour contraste avec fond bleu */
 
 	
 	}
 	
 
-	
-.menu-item:not(:first-child):hover {
-    transform: translateY(-2px);
-    background-color: #ff6034;
-    border-radius: 5px;
-    color: white;
-    border-bottom: none;
+.menu-item:not(:first-child) {
+    transition: transform 0.3s ease, background-color 0s ease;
 }
+.menu-item:not(:first-child):hover {
+
+    transform: translateY(-3px);
+    background-color: ;
+	color: #303030;
+    border-radius: 15px;
+}
+
 
 .menu-item:first-child {
     text-align: left;
@@ -92,7 +96,7 @@ body {
 .menu-item:first-child a {
     font-family: "Hanken Grotesk", sans-serif;
     font-size: 22px;
-    color: black;
+    color: red;
     text-decoration: none;
     background-color: none;
 }
@@ -100,6 +104,7 @@ body {
 .menu-item:first-child a .bold {
     font-weight: 800;
 }
+
 
 .instagram-logo {
     position: fixed;
@@ -119,7 +124,6 @@ body {
 .instagram-logo:hover {
     filter: none;
 }
-
 
 @media (max-width: 600px) {
     .menu-container {
