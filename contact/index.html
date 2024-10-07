@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INFOS</title>
+    <link rel="stylesheet" href="csspages.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    
+    <style>
+     @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400&display=swap');
+     
+	body {
+		background-color: #e5e5e5; 
+	}
+	 
+	.texte-container {
+		width: 100%;
+		z-index: 1;
+		flex-direction: column;
+	}
+
+     .titre {
+        font-family: 'Hanken Grotesk', sans-serif;
+        font-size: 14px;
+		font-weight: 600;
+		color: #303030;
+        margin-bottom: 10px;
+		border-bottom: 1px solid #303030;
+     }  
+	 .titre1 {
+        font-family: 'Hanken Grotesk', sans-serif;
+        font-size: 14px;
+		font-weight: 600;
+		color: #303030;
+		border-bottom: 1px solid #303030;
+		margin-top: 25px;
+		margin-bottom: 10px;
+	}  
+     
+     .texte {
+         font-family: 'Hanken Grotesk', sans-serif;
+         font-size: 14px;
+		 font-weight: 400;
+		 margin-right: 90px;
+		 color: #303030;
+     }
+
+	.colonne-container {
+		margin-top: 40px;
+		margin-right: 8%;
+		margin-left: max(520px, calc(38% + 20px));
+		position: relative;
+	}
+
+    .image-container {
+        margin-top: 40px;
+		margin-left: 8%;
+		position: absolute;
+        width: 30%;
+		min-width: 400px;
+		height: 800px;
+        aspect-ratio: 1 / 1;
+    }
+
+	.profile, .fond {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+	.contact-container {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		gap: 20px; /* Espace entre l'adresse et l'image */
+	}
+
+	.contact-info {
+		flex: 1; /* Prend toute la place disponible */
+	}
+
+	.small-image {
+      
+		
+		position: relative;
+        width: 30%;
+		min-width: 400px;
+
+  
+	}
+
+    .copyright {
+        font-family: 'Roboto';
+        padding: 200px;
+        font-size: 12px;
+        color: #666;
+        text-align: center;
+        margin: 0;
+    }
+
+	@media (max-width: 600px) {
+		.image-container {
+			display: none;
+		}
+
+		.colonne-container {
+			margin-top: 45px;
+			margin-right: 4%;
+			margin-left: 4%;
+			position: relative;
+		}
+
+		.contact-container {
+			flex-direction: column; /* En colonne sur petit écran */
+		}
+
+		.small-image {
+			width: 100%; /* L'image prend toute la largeur sur petit écran */
+		}
+	}
+    </style>
+</head>
+<body>
+    <!-- importer Menu générale -->
+	<div id="menu-placeholder"></div>
+    
+    <!-- Script pour importer le menu -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Importer le menu général
+        fetch('../menugeneraleINFOS.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('menu-placeholder').innerHTML = data;
+                console.log('Menu général chargé');
+            })
+            .catch(error => {
+                console.error('Erreur lors du chargement du menu général :', error);
+            });
+    });
+    </script>
+
+    <div class="image-container"> 
+        <img class="small-image" src="carte.jpg" alt="image fond">
+    </div>
+
+    <div class="colonne-container"> 
+        <div class="texte-container"></div>
+        <div class="titre1"> CONTACT: </div><br />
+
+        <!-- Conteneur pour l'adresse et l'image côte à côte -->
+        <div class="contact-container">
+            <div class="contact-info texte">
+                Hugo Charlet design studio <br />
+                8 rue du commandant Arnould <br />
+                33000 Bordeaux [France] <br /><br />
+                <a class="texte" style="text-decoration:none" href="mailto:info@hugocharlet.com">E-mail:<span style="color: #808080"> info@hugocharlet.com</span></a><br />
+                <a class="texte" style="text-decoration:none" href="https://www.instagram.com/hugocharletb/">IG:<span style="color: #808080"> @hugocharletb</span></a>
+            </div>
+
+            
+        </div>
+
+        
+    </div>
+</body>
+</html>
