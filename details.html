@@ -10,6 +10,8 @@
 body {
     margin: 0;
     font-family: 'Space Mono', monospace;
+	background-color:#F4F4F4;
+	color:#303030;
 
 }
 
@@ -207,7 +209,7 @@ font-size:9px;
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     // Importer le menu général
-    fetch('menugeneraleWORK.html')
+    fetch('menugeneraleLIST.html')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
