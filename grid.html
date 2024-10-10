@@ -140,38 +140,63 @@
 
 
 
+@media (max-width: 600px) {
 
-        @media (max-width: 600px) {
-		
-		
-			.gallery-item img {
-			width: 100%;
-			height: auto;
-			object-fit: cover;
-			transition: transform 0.3s, filter 0s, opacity 0s;
-			opacity:0.7;
-		   
-		}
-            .copyright {
-                font-family: 'Roboto', sans-serif;
-                font-size: 9px;
-                color: #666;
-                text-align: center;
-                position: relative;
-                margin-top: 20px;
-                width: 100%;
-                padding: 10px 0;
-                box-sizing: border-box;
-            }
+    .gallery-item {
+        display: flex;
+        flex-direction: column; 
+        width: 100%;
+        text-align: center; 
+		justify-content:center;
+    }
 
-            .gallery {
-                margin-top: 0px;
-                padding: 0 8%;
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 5px;
-            }
-        }
+    .gallery-item img {
+        width: 100%; 
+        height: auto; 
+        object-fit: cover;
+        opacity: 1;
+    }
+
+    .gallery-item .titre {
+        visibility:visible;
+		opacity:1;
+		transform: translate(0%,0%);
+		
+		padding:5px;
+		
+        font-family: "Hanken Grotesk", sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+        color: #303030;
+        position: static;
+        z-index: 1;
+        width: 100%; 
+        
+		text-align: center; 
+        
+    }
+
+    .gallery {
+        margin-top: 0;
+        padding: 0 4%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px; 
+    }
+
+    .copyright {
+        font-family: 'Roboto', sans-serif;
+        font-size: 9px;
+        color: #666;
+        text-align: center;
+        margin-top: 20px;
+        width: 100%;
+        padding: 10px 0;
+        box-sizing: border-box;
+    }
+}
+
+
     </style>
 </head>
 <body>
