@@ -1,18 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-
-	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-E5KFLGR0PL"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-
-	  gtag('config', 'G-E5KFLGR0PL');
-	</script>
-
-
    <link rel="icon" type="image/png" href="favicon.png" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -98,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				</model-viewer>
 			</div>
 			
-			<DIV class="imagemain" ></div>
+			<img class="imagemain" src="pages/kaktus/main.jpg" alt="main">
 			<div id="image-container"></div>
 			
 		
@@ -187,8 +175,16 @@ document.addEventListener('DOMContentLoaded', () => {
     //     modelContainer.classList.remove('show');
     // });
 });
-	
-	
+	document.addEventListener('scroll', function() {
+		const fixedElement = document.querySelector('.colonne-fixed');
+		const scrollY = window.scrollY || document.documentElement.scrollTop;
+
+		// Calcule un effet de rattrapage en fonction du défilement
+		const targetMarginTop = 50 +scrollY * 1; // Facteur de ralentissement
+
+		// Appliquer le mouvement avec transition
+		fixedElement.style.marginTop = `${targetMarginTop}px`;
+	});
 	</script>
 	<script src="couleur.js"></script>
 </body>

@@ -192,8 +192,16 @@ document.addEventListener('DOMContentLoaded', () => {
     //     modelContainer.classList.remove('show');
     // });
 });
-	
-	
+	document.addEventListener('scroll', function() {
+		const fixedElement = document.querySelector('.colonne-fixed');
+		const scrollY = window.scrollY || document.documentElement.scrollTop;
+
+		// Calcule un effet de rattrapage en fonction du défilement
+		const targetMarginTop = 50 +scrollY * 1; // Facteur de ralentissement
+
+		// Appliquer le mouvement avec transition
+		fixedElement.style.marginTop = `${targetMarginTop}px`;
+	});
 	</script>
 	<script src="couleur.js"></script>
 </body>

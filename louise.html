@@ -1,23 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-
-	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-E5KFLGR0PL"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-
-	  gtag('config', 'G-E5KFLGR0PL');
-	</script>
-
-
     <link rel="icon" type="image/png" href="favicon.png" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOUISE</title>
-    <link rel="stylesheet" href="csspages.css">
+    <link rel="stylesheet" href="../csspages.css">
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body>
@@ -33,7 +21,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     // Importer le menu général
-    fetch('menugenerale.html')
+    fetch('../menugenerale.html')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -49,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     // Importer le menu SVG
-fetch('svgmenupages.html')
+fetch('../svgmenupages.html')
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -103,7 +91,7 @@ fetch('svgmenupages.html')
 				</model-viewer>
 			</div>
 			
-			<img class="imagemain" src="pages/louise/main.jpg" alt="main">
+			<img class="imagemain" src="main.jpg" alt="main">
 			<div id="image-container"></div>
 			
 		
@@ -128,22 +116,22 @@ function preloadImages(imageUrls) {
 
 document.addEventListener('DOMContentLoaded', () => {
     let mediaFiles = [
-        "pages/louise/1.jpg",
-        "pages/louise/2.jpg",
-        "pages/louise/3.jpg",
-        "pages/louise/4.jpg",
-        "pages/louise/5.jpg",
-        "pages/louise/6.jpg",
-        "pages/louise/7.jpg",
-        "pages/louise/9.jpg",
-        "pages/louise/10.jpg",
-        "pages/louise/11.jpg",
-        "pages/louise/12.jpg",
-        "pages/louise/13.jpg",
-        "pages/louise/14.jpg",
-        "pages/louise/15.jpg",
-        "pages/louise/16.jpg",
-        "pages/louise/17.jpg"
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg",
+        "9.jpg",
+        "10.jpg",
+        "11.jpg",
+        "12.jpg",
+        "13.jpg",
+        "14.jpg",
+        "15.jpg",
+        "16.jpg",
+        "17.jpg"
     ];
 
     preloadImages(mediaFiles).then(images => {
@@ -191,8 +179,16 @@ document.addEventListener('DOMContentLoaded', () => {
     //     modelContainer.classList.remove('show');
     // });
 });
-	
-	
+	document.addEventListener('scroll', function() {
+		const fixedElement = document.querySelector('.colonne-fixed');
+		const scrollY = window.scrollY || document.documentElement.scrollTop;
+
+		// Calcule un effet de rattrapage en fonction du défilement
+		const targetMarginTop = 50 +scrollY * 1; // Facteur de ralentissement
+
+		// Appliquer le mouvement avec transition
+		fixedElement.style.marginTop = `${targetMarginTop}px`;
+	});
 	</script>
 	<script src="couleur.js"></script>
 </body>
