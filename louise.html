@@ -21,7 +21,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     // Importer le menu général
-    fetch('../menugenerale.html')
+    fetch('menugenerale.html')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     // Importer le menu SVG
-fetch('../svgmenupages.html')
+fetch('svgmenupages.html')
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -116,22 +116,22 @@ function preloadImages(imageUrls) {
 
 document.addEventListener('DOMContentLoaded', () => {
     let mediaFiles = [
-        "1.jpg",
-        "2.jpg",
-        "3.jpg",
-        "4.jpg",
-        "5.jpg",
-        "6.jpg",
-        "7.jpg",
-        "9.jpg",
-        "10.jpg",
-        "11.jpg",
-        "12.jpg",
-        "13.jpg",
-        "14.jpg",
-        "15.jpg",
-        "16.jpg",
-        "17.jpg"
+        "pages/louise/1.jpg",
+        "pages/louise/2.jpg",
+        "pages/louise/3.jpg",
+        "pages/louise/4.jpg",
+        "pages/louise/5.jpg",
+        "pages/louise/6.jpg",
+        "pages/louise/7.jpg",
+        "pages/louise/9.jpg",
+        "pages/louise/10.jpg",
+        "pages/louise/11.jpg",
+        "pages/louise/12.jpg",
+        "pages/louise/13.jpg",
+        "pages/louise/14.jpg",
+        "pages/louise/15.jpg",
+        "pages/louise/16.jpg",
+        "pages/louise/17.jpg"
     ];
 
     preloadImages(mediaFiles).then(images => {
