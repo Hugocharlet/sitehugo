@@ -57,7 +57,7 @@ fetch('svgmenupages.html')
 </script>
 
     <!-- deux colonnes -->        
-   
+   <img class="imagemain" src="pages/pixa/main.jpg" alt="main">
 	<div class="colonne-fixed">
             <div class="Title">PIXA</div>
             <div class="Subtitle">Outdoor Furniture Collection 2020</div>
@@ -103,7 +103,7 @@ The collection is made exclusively made from an unique format of plank. A pressu
 				</model-viewer>
 			</div>
 			
-			<img class="imagemain" src="pages/pixa/main.jpg" alt="main">
+			
 			<div id="image-container"></div>
 			
 		
@@ -196,12 +196,16 @@ document.addEventListener('DOMContentLoaded', () => {
 		const fixedElement = document.querySelector('.colonne-fixed');
 		const scrollY = window.scrollY || document.documentElement.scrollTop;
 
-		// Calcule un effet de rattrapage en fonction du défilement
-		const targetMarginTop = 50 +scrollY * 1; // Facteur de ralentissement
+		// Désactiver l'effet si la largeur de l'écran est inférieure à 768px (taille smartphone)
+		if (window.innerWidth >= 768) {
+			// Calcule un effet de rattrapage en fonction du défilement
+			const targetMarginTop = 50 + scrollY * 1; // Facteur de ralentissement
 
-		// Appliquer le mouvement avec transition
-		fixedElement.style.marginTop = `${targetMarginTop}px`;
+			// Appliquer le mouvement avec transition
+			fixedElement.style.marginTop = `${targetMarginTop}px`;
+		}
 	});
+
 	</script>
 	<script src="couleur.js"></script>
 </body>

@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     <!-- deux colonnes -->        
    
-	
+	<img class="imagemain" src="pages/helena/main.jpg" alt="main">
 		<div class="colonne-fixed">
             <div class="Title">HELENA</div>
             <div class="Subtitle">Wooden chairs 2024</div>
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				</model-viewer>
 			</div>
 			
-			<img class="imagemain" src="pages/helena/main.jpg" alt="main">
+			
 			<div id="image-container"></div>
 			
 		
@@ -207,17 +207,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // });
 });
 	document.addEventListener('scroll', function() {
-    const fixedElementLeft = document.querySelector('.colonne-fixed');
-    
+		const fixedElement = document.querySelector('.colonne-fixed');
 		const scrollY = window.scrollY || document.documentElement.scrollTop;
 
-		// Calcule un effet de rattrapage en fonction du défilement
-		const targetMarginTop = 50 +scrollY * 1; // Facteur de ralentissement
+		// Désactiver l'effet si la largeur de l'écran est inférieure à 768px (taille smartphone)
+		if (window.innerWidth >= 768) {
+			// Calcule un effet de rattrapage en fonction du défilement
+			const targetMarginTop = 50 + scrollY * 1; // Facteur de ralentissement
 
-		// Appliquer le mouvement avec transition
-    fixedElementLeft.style.marginTop = `${targetMarginTop}px`;
-	
+			// Appliquer le mouvement avec transition
+			fixedElement.style.marginTop = `${targetMarginTop}px`;
+		}
 	});
+
 	</script>
 	<script src="couleur.js"></script>
 </body>

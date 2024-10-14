@@ -16,7 +16,7 @@
 		.icon-container {
 			
 		  margin-top: 0px;
-		 
+		 display: flex; 
 		  gap: 5px;
 		  align-items: center;      /* Centre verticalement les éléments */
 		  
@@ -247,7 +247,13 @@
         }
 		
 		
-		
+		.colonne-fixed {
+			position:relative;
+			margin-left:4%;
+			margin-right:4%;
+			width:100%;
+			margin-top:20px;
+		}
 		
 		
 		.Title {
@@ -281,7 +287,8 @@
 			padding: 0 4%;
 			
         }
-  
+  		.sousmenu-wrapper { flex-direction: column; ; gap:5px;}
+		.texte-icon{display:block; position: relative; background-color: white}
 
         .textebox-container {
             margin-top: 15px;
@@ -337,7 +344,8 @@
 		#modelContainer {
 
 			width: 92%; /* Largeur maximale pour s'adapter à l'écran */
-			right: 4%; /* Aligner à droite avec une marge de 8% de la largeur de l'écran */
+			margin-right: 4%;
+			margin-left: 4%;			/* Aligner à droite avec une marge de 8% de la largeur de l'écran */
 			z-index: 1000; /* Assurez-vous que le modèle est au-dessus du carrousel */
 		}	
 		
@@ -345,11 +353,13 @@
 			display: flex; /* Utilise Flexbox pour la mise en page */
 			flex-direction: column; /* Aligne les éléments en colonne */
 			align-items: flex-end; /* Aligne les éléments à gauche */
-			margin-left: auto; /* Utilise marges automatiques pour ajuster la position */
-			margin-left: 38%;
+			
+			margin-left: 4%;
 			margin-right: 4%; 	/* Ajuste la position pour qu'il soit au 2/3 du conteneur */
 			padding: 10px; /* Padding à l'intérieur du conteneur */
 		   
 		}
+		
+
 
 }
