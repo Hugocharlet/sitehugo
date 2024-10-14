@@ -58,49 +58,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
     <!-- deux colonnes -->        
    
-	<div class="colonne-fixed">
+	
+		<div class="colonne-fixed">
             <div class="Title">HELENA</div>
             <div class="Subtitle">Wooden chairs 2024</div>
             <div class="textebox-container">
                 <div class="texte">Dimension: 531 x 508 x 704 cm</div>
                 <div class="texte">The Hélène collection, comprising a chair with armrest, a simple chair and an armchair, is a seating collection with an innovative design. It took me a long time to sculpt the material to give birth to this new product, which I hope will become a contemporary classic. A product with a strong, sleek design, but also with a singular language of its own.The backrest turns on itself like a ribbon to gradually form the armrests. The oval-section legs fit into the backrest, protruding slightly. This complex junction is made industrially possible using state-of-the-art tools. This assembly is the 2nd original detail that makes this chair unique.</div>
             </div>
-            
-            <div class="icon-container">
-                <a href="#" data-model-src="glb/helenachair.glb" class="icon-link" id="ouvrir-model-viewer">
-                    <img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
-                </a>
-                <div class="texte"> 3D Model chair</div>
-            </div>
-            <div class="icon-container">
-                <a href="#" data-model-src="glb/helenaarmchair.glb" class="icon-link" id="ouvrir-model-viewer">
-                    <img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
-                </a>
-                <div class="texte">3D Model armchair</div>
-            </div>
-			
-            <div class="icon-container">
-                <a href="#" data-model-src="glb/helenalounge.glb" class="icon-link" id="ouvrir-model-viewer">
-                    <img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
-                </a>
-                <div class="texte">3D Model loungechair</div>
-            </div>		<br />	
-      
-            <div class="icon-container">
-                <a href="pages/helena/HDimages.zip" class="icon-link">
-                    <img src="DL.svg" alt="Open Model Viewer" class="icon-item">
-                </a>
-                <div class="texte">HD images</div>
-            </div>	
-			
-            <div class="icon-container">
-                <a href="https://www.hugocharlet.com/configurator/helena/" class="icon-link">
-                    <img src="config.svg" alt="Open Model Viewer" class="icon-item">
-                </a>
-                <div class="texte">3D configurator </div>
-            </div>	
-	  
-            </div>
+		
+			<div class="sousmenu-wrapper">
+				<div class="icon-container">
+					<a href="#" data-model-src="glb/helenachair.glb" class="icon-link" id="ouvrir-model-viewer">
+						<img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
+					</a>
+					<div class="texte texte-icon ">3D Model chair</div>
+				</div>
+				<div class="icon-container">
+					<a href="#" data-model-src="glb/helenaarmchair.glb" class="icon-link" id="ouvrir-model-viewer">
+						<img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
+					</a>
+					<div class="texte texte texte-icon ">3D Model armchair</div>
+				</div>
+				
+				<div class="icon-container">
+					<a href="#" data-model-src="glb/helenalounge.glb" class="icon-link" id="ouvrir-model-viewer">
+						<img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
+					</a>
+					<div class="texte texte-icon ">3D Model loungechair</div>
+				</div>		<br />	
+		  
+				
+				<div class="icon-container">
+					<a href="https://www.hugocharlet.com/configurator/helena/" class="icon-link">
+						<img src="config.svg" alt="Open Model Viewer" class="icon-item">
+					</a>
+					<div class="texte texte-icon ">3D configurator </div>
+				</div>	
+				
+				<div class="icon-container">
+					<a href="pages/helena/HDimages.zip" class="icon-link">
+						<img src="DL.svg" alt="Open Model Viewer" class="icon-item">
+					</a>
+					<div class="texte texte-icon ">HD images</div>
+				</div>	
+				
+		  
+				</div>
+			</div>
+		
 			
 			<!-- colonne 2 -->   
 		
@@ -201,14 +207,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // });
 });
 	document.addEventListener('scroll', function() {
-		const fixedElement = document.querySelector('.colonne-fixed');
+    const fixedElementLeft = document.querySelector('.colonne-fixed');
+    
 		const scrollY = window.scrollY || document.documentElement.scrollTop;
 
 		// Calcule un effet de rattrapage en fonction du défilement
 		const targetMarginTop = 50 +scrollY * 1; // Facteur de ralentissement
 
 		// Appliquer le mouvement avec transition
-		fixedElement.style.marginTop = `${targetMarginTop}px`;
+    fixedElementLeft.style.marginTop = `${targetMarginTop}px`;
+	
 	});
 	</script>
 	<script src="couleur.js"></script>

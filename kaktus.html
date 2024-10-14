@@ -65,14 +65,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="texte">Dimension:  cm</div>
                 <div class="texte">The Kaktus teapot is a funny and ironic object inspired from Richard Hutten’s mug. This is supposed to be a porcelain teapot but could also be made from plastic .</div>
             </div>
-            
+            <div class="sousmenu-wrapper">
             <div class="icon-container">
                 <a href="#" data-model-src="glb/kaktus.glb" class="icon-link" id="ouvrir-model-viewer">
                     <img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
                 </a>
-                <div class="texte"> 3D Model chair</div>
+                <div class="texte texte-icon"> 3D Model teapot</div>
             </div>
-	
+			</div>
       
             </div>
 			
@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const scrollY = window.scrollY || document.documentElement.scrollTop;
 
 		// Calcule un effet de rattrapage en fonction du défilement
-		const targetMarginTop = 50 +scrollY * 1; // Facteur de ralentissement
+		const targetMarginTop = 100 +scrollY * 1; // Facteur de ralentissement
 
 		// Appliquer le mouvement avec transition
 		fixedElement.style.marginTop = `${targetMarginTop}px`;
