@@ -15,11 +15,12 @@
 
 		.icon-container {
 			
-		  margin-top: 10px;
-		  display: flex;            /* Utilise Flexbox pour aligner les éléments en ligne */
+		  margin-top: 0px;
+		 
+		  gap: 5px;
 		  align-items: center;      /* Centre verticalement les éléments */
-		  gap: 20px; 
-		    /* Espacement de 20 px entre les éléments */
+		  
+		    
 		}
 
 		.icon-link {
@@ -37,19 +38,27 @@
 		.icon-link:hover .icon-item {
             filter: brightness(0); /* Assombrit le SVG au survol */
         }	
-        
-        
 
-
-        .colonne-fixed {
-            width: 30%;
+        .colonne-fixed{
+            width: 28%;
 			z-index:10;
+			margin-left: 8%;
+			padding:10px;
 			position:absolute;
-			padding: 10px 8%;
 			margin-top: 80px; /* Positionner à la moitié de l'écran en hauteur */
 			transition: margin-top 0.9s ease-out;
-            
+			border-radius:15px;
+			backdrop-filter: blur(15px);
+			background-color: rgba(255,255,255,0.5) ;
         }
+		.sousmenu-wrapper {
+			margin-top:20px;
+			display: flex; /* Utilisation de Flexbox pour afficher les éléments en ligne */
+			flex-direction: row; /* Les éléments sont affichés en ligne */
+			padding: 10px;
+			gap: 10px; /* Espace entre les éléments */
+		}
+				
 		/* Conteneur d'images */
 		#image-container {
 			display: flex; /* Utilise Flexbox pour la mise en page */
@@ -84,10 +93,11 @@
             margin-top: 30px;
             display: flex; /* Alignement en ligne */
 			justify-content: flex-start; /* Aligne les éléments à gauche */
-			width: 80%;
+			width: 100%;
+			
             flex-direction: column; /* Aligner les éléments verticalement */
             gap: 10px; /* Espace entre les éléments */
-			margin-bottom:30px;
+			margin-bottom:0px;
         }
 		
 		.textebox-container > * {
@@ -102,6 +112,7 @@
             font-weight: 500;
             color: #000;
             margin-bottom: 0;
+			
         }
 		
 		.texte {
@@ -112,7 +123,23 @@
 			font-weight: 300;
             color: #000;
         }
-
+		.texte-icon {
+			margin-top:10px;
+			position: absolute;
+			display: none;
+			padding:5px 8px;
+			border-radius:15px;
+			backdrop-filter: blur(15px);
+			background-color: #f1f1f1 ;
+			font-weight: 600;
+			color: #303030;
+		}
+		
+		.icon-link:hover + .texte-icon {
+		  
+		display: block;		  /* Affiche ce texte uniquement lors du survol de l'icône */
+		}
+		
         .Subtitle {
             padding: 2px ;
             font-size: 15px;
@@ -121,16 +148,6 @@
             color: #000;
         }
 		
-		
-
-
-
-		
-
-
-		
-
-
 
 		#modelContainer {
 			display: none; /* Initialement caché */
