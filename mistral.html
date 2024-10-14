@@ -169,19 +169,34 @@ document.addEventListener('DOMContentLoaded', () => {
     //     modelContainer.classList.remove('show');
     // });
 });
-	document.addEventListener('scroll', function() {
-		const fixedElement = document.querySelector('.colonne-fixed');
-		const scrollY = window.scrollY || document.documentElement.scrollTop;
+document.addEventListener('DOMContentLoaded', function() {
+    const fixedElement = document.querySelector('.colonne-fixed');
+    const mainImage = document.querySelector('.imagemain'); // Sélectionne l'image 'main'
 
-		// Désactiver l'effet si la largeur de l'écran est inférieure à 768px (taille smartphone)
-		if (window.innerWidth >= 768) {
-			// Calcule un effet de rattrapage en fonction du défilement
-			const targetMarginTop = 50 + scrollY * 1; // Facteur de ralentissement
+    // Fonction pour calculer et ajuster la position
+    const adjustFixedColumnPosition = () => {
+        const scrollY = window.scrollY || document.documentElement.scrollTop;
+        const imageHeight = mainImage.offsetHeight; // Hauteur de l'image 'main'
 
-			// Appliquer le mouvement avec transition
-			fixedElement.style.marginTop = `${targetMarginTop}px`;
-		}
-	});
+        // Désactiver l'effet si la largeur de l'écran est inférieure à 768px (taille smartphone et iPad)
+        if (window.innerWidth >= 768) {
+            // Calcule une nouvelle position en soustrayant la hauteur de l'image
+            const targetMarginTop = -imageHeight + 50+ scrollY * 1; // Ajuster en fonction du défilement
+
+            // Appliquer le mouvement avec transition
+            fixedElement.style.marginTop = `${targetMarginTop}px`;
+        } else {
+            // Réinitialiser la position pour les petits écrans
+            fixedElement.style.marginTop = '20px'; // La position initiale par défaut pour les petits écrans
+        }
+    };
+
+    // Exécuter la fonction lors du défilement
+    document.addEventListener('scroll', adjustFixedColumnPosition);
+
+    // Exécuter la fonction au chargement pour une position initiale correcte
+    adjustFixedColumnPosition();
+});
 
 	</script>
 	<script src="couleur.js"></script>
