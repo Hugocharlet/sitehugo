@@ -105,9 +105,9 @@ The collection is made exclusively made from an unique format of plank. A pressu
 			
 			
 			<div id="image-container"></div>
-			
-		
-			
+			<div id="loader">
+   				 <div class="spinner"></div>
+			</div>
 
     
 <script>
@@ -147,21 +147,26 @@ document.addEventListener('DOMContentLoaded', () => {
         "pages/pixa/17.jpg"
     ];
 
+    const loader = document.getElementById('loader');
+
     preloadImages(mediaFiles).then(images => {
         let imageContainer = document.getElementById('image-container');
         images.forEach(img => {
-            if (img) { // Ajouter uniquement les images valides
+            if (img) {
                 img.classList.add('imagelarge');
                 imageContainer.appendChild(img);
             } else {
                 console.warn('Une image est manquante ou a échoué à se charger.');
             }
         });
+
+        // Cacher le loader après le chargement des images
+        loader.style.display = 'none';
     }).catch(error => {
         console.error('Erreur lors du préchargement des images :', error);
+	    loader.style.display = 'none';
     });
 });
-
 		
 		//model viewer
 
