@@ -158,9 +158,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Cacher le loader après le chargement des images
-        loader.classList.add('hidden');
+        loader.style.display = 'none';
     }).catch(error => {
         console.error('Erreur lors du préchargement des images :', error);
+	    loader.style.display = 'none';
     });
 });
 
