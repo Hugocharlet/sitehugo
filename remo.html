@@ -100,6 +100,8 @@ fetch('svgmenupages.html')
     
 <script>
 
+
+
 // Importer les images en lignes
 // Fonction pour précharger les images
 function preloadImages(imageUrls) {
@@ -113,26 +115,25 @@ function preloadImages(imageUrls) {
     }));
 }
 
-// Importer les images en lignes
-		let mediaFiles = [
-			"pages/remo/1.jpg",
-			"pages/remo/2.jpg",
-			"pages/remo/3.jpg",
-			"pages/remo/4.jpg",
-			"pages/remo/5.jpg",
-			"pages/remo/6.jpg",
-			"pages/remo/7.jpg",
-			"pages/remo/8.jpg",
-			"pages/remo/9.jpg",
-			"pages/remo/10.jpg",
-			"pages/remo/11.jpg",
-			"pages/remo/12.jpg",
-			"pages/remo/13.jpg",
-			"pages/remo/14.jpg",
-			"pages/remo/15.jpg",
-			"pages/remo/16.jpg",
-			"pages/remo/17.jpg"
-		];
+document.addEventListener('DOMContentLoaded', () => {
+    let mediaFiles = [
+        "pages/remo/1.jpg",
+        "pages/remo/2.jpg",
+        "pages/remo/3.jpg",
+        "pages/remo/4.jpg",
+        "pages/remo/5.jpg",
+        "pages/remo/6.jpg",
+        "pages/remo/7.jpg",
+        "pages/remo/9.jpg",
+        "pages/remo/10.jpg",
+        "pages/remo/11.jpg",
+        "pages/remo/12.jpg",
+        "pages/remo/13.jpg",
+        "pages/remo/14.jpg",
+        "pages/remo/15.jpg",
+        "pages/remo/16.jpg",
+        "pages/remo/17.jpg"
+    ];
 
     const loader = document.getElementById('loader');
 
@@ -185,6 +186,7 @@ function preloadImages(imageUrls) {
     //     modelContainer.classList.remove('show');
     // });
 });
+	
 document.addEventListener('DOMContentLoaded', function() {
     const fixedElement = document.querySelector('.colonne-fixed');
     const mainImage = document.querySelector('.imagemain'); // Sélectionne l'image 'main'
@@ -214,6 +216,8 @@ document.addEventListener('DOMContentLoaded', function() {
     adjustFixedColumnPosition();
 });
 
+		
+	
 	</script>
 	<script src="couleur.js"></script>
 </body>
