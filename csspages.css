@@ -47,7 +47,7 @@
 			position:absolute;
 			margin-top: 80px; /* Positionner à la moitié de l'écran en hauteur */
 			transition: margin-top 0.9s ease-out;
-			border-radius:15px;
+			border-radius:10px;
 			backdrop-filter: blur(15px);
 			background-color: rgba(255,255,255,0.5) ;
         }
@@ -129,7 +129,7 @@
 			display: none;
 			padding:5px 8px;
 			border-radius:15px;
-			backdrop-filter: blur(15px);
+			
 			background-color: #f1f1f1 ;
 			font-weight: 600;
 			color: #303030;
