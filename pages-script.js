@@ -81,6 +81,71 @@ fetch('svgmenupages.html')
     // });
 });
 	
+	
+	
+		//Images du projets
+	
+function preloadImages(imageUrls) {
+    return Promise.all(imageUrls.map(url => {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.src = url;
+            img.onload = () => resolve(img); // Résoudre avec l'image chargée
+            img.onerror = () => resolve(null); // Ignorer les erreurs et résoudre avec null
+        });
+    }));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+	let mediaFiles = [
+		`${newUrl}1.jpeg`,
+		`${newUrl}2.jpg`,
+		`${newUrl}3.jpg`,
+		`${newUrl}4.jpg`,
+		`${newUrl}5.jpg`,
+		`${newUrl}6.jpg`,
+		`${newUrl}7.jpg`,
+		`${newUrl}8.jpg`,
+		`${newUrl}9.jpg`,
+		`${newUrl}10.jpg`,
+		`${newUrl}11.jpg`,
+		`${newUrl}12.jpg`,
+		`${newUrl}13.jpg`,
+		`${newUrl}14.jpg`,
+		`${newUrl}15.jpg`,
+		`${newUrl}16.jpg`,
+		`${newUrl}17.jpg`
+	];
+
+
+    const loader = document.getElementById('loader');
+
+    preloadImages(mediaFiles).then(images => {
+        let imageContainer = document.getElementById('image-container');
+        images.forEach(img => {
+            if (img) {
+                img.classList.add('imagelarge');
+                imageContainer.appendChild(img);
+            } else {
+                console.warn('Une image est manquante ou a échoué à se charger.');
+            }
+        });
+
+        // Cacher le loader après le chargement des images
+        loader.style.display = 'none';
+    }).catch(error => {
+        console.error('Erreur lors du préchargement des images :', error);
+	    loader.style.display = 'none';
+    });
+});
+		
+	
+	
+	
+	
+	
+	
+	
 document.addEventListener('DOMContentLoaded', function() {
     const fixedElement = document.querySelector('.colonne-fixed');
     const mainImage = document.querySelector('.imagemain'); // Sélectionne l'image 'main'

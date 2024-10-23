@@ -61,74 +61,14 @@ The collection is made exclusively made from an unique format of plank. A pressu
 				<model-viewer id="modelViewer" src='glb/pixa.glb' autoplay loading="eager" ar ar-modes="webxr scene-viewer quick-look" ar-status="not-presenting" auto-rotate bounds="tight" rotation-per-second="1deg" environment-image="glb/studio.hdr" exposure="0.7" camera-controls interpolation-decay="200" shadow-intensity="1" interaction-prompt="none" camera-orbit="-40deg 82deg 12m" min-camera-orbit="auto 40deg a">
 				</model-viewer>
 			</div>
-			
-			
+
 			<div id="image-container"></div>
 			<div id="loader">
    				 <div class="spinner"></div>
 			</div>
 
     
-<script>
 
-
-
-// Importer les images en lignes
-function preloadImages(imageUrls) {
-    return Promise.all(imageUrls.map(url => {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.src = url;
-            img.onload = () => resolve(img); // Résoudre avec l'image chargée
-            img.onerror = () => resolve(null); // Ignorer les erreurs et résoudre avec null
-        });
-    }));
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    let mediaFiles = [
-        "pages/pixa/1.jpg",
-        "pages/pixa/2.jpg",
-        "pages/pixa/3.jpg",
-        "pages/pixa/4.jpg",
-        "pages/pixa/5.jpg",
-        "pages/pixa/6.jpg",
-        "pages/pixa/7.jpg",
-		        "pages/pixa/8.jpg",
-        "pages/pixa/9.jpg",
-        "pages/pixa/10.jpg",
-        "pages/pixa/11.jpg",
-        "pages/pixa/12.jpg",
-        "pages/pixa/13.jpg",
-        "pages/pixa/14.jpg",
-        "pages/pixa/15.jpg",
-        "pages/pixa/16.jpg",
-        "pages/pixa/17.jpg"
-    ];
-
-    const loader = document.getElementById('loader');
-
-    preloadImages(mediaFiles).then(images => {
-        let imageContainer = document.getElementById('image-container');
-        images.forEach(img => {
-            if (img) {
-                img.classList.add('imagelarge');
-                imageContainer.appendChild(img);
-            } else {
-                console.warn('Une image est manquante ou a échoué à se charger.');
-            }
-        });
-
-        // Cacher le loader après le chargement des images
-        loader.style.display = 'none';
-    }).catch(error => {
-        console.error('Erreur lors du préchargement des images :', error);
-	    loader.style.display = 'none';
-    });
-});
-		
-	
-	</script>
 	<script src="pages-script.js"></script>
 </body>
 </html>
