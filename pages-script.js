@@ -1,3 +1,19 @@
+// Récupérer le nom du dépôt (si présent) et le fichier actuel sans l'extension
+const pathParts = window.location.pathname.split('/');
+
+// Vérifier si le dépôt est inclus dans le chemin
+const isGitHubPages = pathParts[1] === "sitehugo"; // Remplacer par le nom de ton dépôt
+
+// Récupérer le nom de la page (fichier HTML sans extension)
+const currentPage = isGitHubPages ? pathParts.pop().split('.')[0] : pathParts.pop().split('.')[0];
+
+// Créer l'URL en utilisant ce nom
+const newUrl = `pages/${currentPage}/`;
+
+// Afficher une description dans la console
+console.log(`L'URL générée est : ${newUrl}`);
+
+
 document.addEventListener('DOMContentLoaded', () => {
     // Importer le menu général
     fetch('menugenerale.html')
