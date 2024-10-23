@@ -47,67 +47,6 @@
    				 <div class="spinner"></div>
 			</div>
 
-<script>
-
-
-
-// Importer les images en lignes
-function preloadImages(imageUrls) {
-    return Promise.all(imageUrls.map(url => {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.src = url;
-            img.onload = () => resolve(img); // Résoudre avec l'image chargée
-            img.onerror = () => resolve(null); // Ignorer les erreurs et résoudre avec null
-        });
-    }));
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    let mediaFiles = [
-        "pages/mistral/1.jpg",
-        "pages/mistral/2.jpg",
-        "pages/mistral/3.jpg",
-        "pages/mistral/4.jpg",
-        "pages/mistral/5.jpg",
-        "pages/mistral/6.jpg",
-        "pages/mistral/7.jpg",
-		        "pages/mistral/8.jpg",
-        "pages/mistral/9.jpg",
-        "pages/mistral/10.jpg",
-        "pages/mistral/11.jpg",
-        "pages/mistral/12.jpg",
-        "pages/mistral/13.jpg",
-        "pages/mistral/14.jpg",
-        "pages/mistral/15.jpg",
-        "pages/mistral/16.jpg",
-        "pages/mistral/17.jpg"
-    ];
-
-    const loader = document.getElementById('loader');
-
-    preloadImages(mediaFiles).then(images => {
-        let imageContainer = document.getElementById('image-container');
-        images.forEach(img => {
-            if (img) {
-                img.classList.add('imagelarge');
-                imageContainer.appendChild(img);
-            } else {
-                console.warn('Une image est manquante ou a échoué à se charger.');
-            }
-        });
-
-        // Cacher le loader après le chargement des images
-        loader.style.display = 'none';
-    }).catch(error => {
-        console.error('Erreur lors du préchargement des images :', error);
-	    loader.style.display = 'none';
-    });
-});
-
-		
-	
-	</script>
 	<script src="pages-script.js"></script>
 </body>
 </html>

@@ -57,67 +57,7 @@
    				 <div class="spinner"></div>
 			</div>
 
-    
-<script>
 
-
-
-// Importer les images en lignes
-// Fonction pour précharger les images
-function preloadImages(imageUrls) {
-    return Promise.all(imageUrls.map(url => {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.src = url;
-            img.onload = () => resolve(img); // Résoudre avec l'image chargée
-            img.onerror = () => resolve(null); // Ignorer les erreurs et résoudre avec null
-        });
-    }));
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    let mediaFiles = [
-        "pages/remo/1.jpg",
-        "pages/remo/2.jpg",
-        "pages/remo/3.jpg",
-        "pages/remo/4.jpg",
-        "pages/remo/5.jpg",
-        "pages/remo/6.jpg",
-        "pages/remo/7.jpg",
-        "pages/remo/9.jpg",
-        "pages/remo/10.jpg",
-        "pages/remo/11.jpg",
-        "pages/remo/12.jpg",
-        "pages/remo/13.jpg",
-        "pages/remo/14.jpg",
-        "pages/remo/15.jpg",
-        "pages/remo/16.jpg",
-        "pages/remo/17.jpg"
-    ];
-
-    const loader = document.getElementById('loader');
-
-    preloadImages(mediaFiles).then(images => {
-        let imageContainer = document.getElementById('image-container');
-        images.forEach(img => {
-            if (img) {
-                img.classList.add('imagelarge');
-                imageContainer.appendChild(img);
-            } else {
-                console.warn('Une image est manquante ou a échoué à se charger.');
-            }
-        });
-
-        // Cacher le loader après le chargement des images
-        loader.style.display = 'none';
-    }).catch(error => {
-        console.error('Erreur lors du préchargement des images :', error);
-	    loader.style.display = 'none';
-    });
-});
-
-	
-	</script>
 	<script src="pages-script.js"></script>
 </body>
 </html>

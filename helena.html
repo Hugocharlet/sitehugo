@@ -83,66 +83,7 @@
    				 <div class="spinner"></div>
 			</div>
 
-<script>
 
-
-
-// Importer les images en lignes
-function preloadImages(imageUrls) {
-    return Promise.all(imageUrls.map(url => {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.src = url;
-            img.onload = () => resolve(img); // Résoudre avec l'image chargée
-            img.onerror = () => resolve(null); // Ignorer les erreurs et résoudre avec null
-        });
-    }));
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    let mediaFiles = [
-        "pages/helena/1.jpg",
-        "pages/helena/2.jpg",
-        "pages/helena/3.jpg",
-        "pages/helena/4.jpg",
-        "pages/helena/5.jpg",
-        "pages/helena/6.jpg",
-        "pages/helena/7.jpg",
-		        "pages/helena/8.jpg",
-        "pages/helena/9.jpg",
-        "pages/helena/10.jpg",
-        "pages/helena/11.jpg",
-        "pages/helena/12.jpg",
-        "pages/helena/13.jpg",
-        "pages/helena/14.jpg",
-        "pages/helena/15.jpg",
-        "pages/helena/16.jpg",
-        "pages/helena/17.jpg"
-    ];
-
-    const loader = document.getElementById('loader');
-
-    preloadImages(mediaFiles).then(images => {
-        let imageContainer = document.getElementById('image-container');
-        images.forEach(img => {
-            if (img) {
-                img.classList.add('imagelarge');
-                imageContainer.appendChild(img);
-            } else {
-                console.warn('Une image est manquante ou a échoué à se charger.');
-            }
-        });
-
-        // Cacher le loader après le chargement des images
-        loader.style.display = 'none';
-    }).catch(error => {
-        console.error('Erreur lors du préchargement des images :', error);
-	    loader.style.display = 'none';
-    });
-});
-		
-		
-	</script>
 	<script src="pages-script.js"></script>
 </body>
 </html>

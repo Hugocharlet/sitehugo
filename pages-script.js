@@ -40,7 +40,7 @@ fetch('svgmenupages.html')
         return response.text();
     })
     .then(data => {
-        console.log(data);  // Log le contenu pour vérifier ce qui est chargé
+        
         document.getElementById('svgmenupages-placeholder').innerHTML = data;
         console.log('Menu SVG chargé');
     })
