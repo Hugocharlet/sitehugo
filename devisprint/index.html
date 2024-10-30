@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <style>
+            body {
+                font-family: "Poppins", sans-serif;
+                font-weight: 500;
+                color: #808080;
+                background-color: white;
+                padding: 0;
+                margin-left: 8%;
+            }
+            #devis {
+                text-align: left;
+                margin-bottom: 20px;
+                color: #1c1c1c;
+                font-weight: 900;
+                font-size: 45px;
+            }
+            #raison-sociale,
+            #objet {
+                font-family: "Poppins", sans-serif;
+                font-weight: 600;
+                font-size: 1.1em;
+                color: #585858;
+                border: none;
+            }
+            input,
+            button,
+            textarea {
+                border: 0px;
+                position: relative;
+                resize: none;
+                width: 100%;
+                font-family: poppins;
+                font-weight: 500;
+                color: #808080;
+            }
+            button {
+                border-radius: 15px;
+                width: auto;
+                border: none;
+            }
+
+            button :hover {
+                color: #303030;
+            }
+            .invoice-container {
+                width: 80%;
+                margin-top: 20px;
+                padding: 20px;
+            }
+            h2 {
+                text-align: left;
+                margin-bottom: 20px;
+                color: #585858;
+                font-size: 2.5em;
+            }
+            h3 {
+                margin-bottom: 60px;
+            }
+            table {
+                width: 100%;
+                margin: 20px auto;
+                border-collapse: separate;
+                border-spacing: 0;
+                border: 1px solid #c5c5c5;
+                border-radius: 15px;
+                overflow: hidden;
+            }
+            th,
+            td {
+                padding: 11px 15px;
+                text-align: left;
+                max-width: 25vw;
+                border-bottom: 1px solid #f1f1f1;
+                vertical-align: middle;
+            }
+            tr:last-child td {
+                border-bottom: none;
+            }
+            table thead {
+                border-radius: 10px 10px 0 0;
+            }
+            table tbody tr:last-child td {
+                border-radius: 0 0 10px 10px;
+            }
+            .invoice-header,
+            .invoice-footer {
+                display: flex;
+                justify-content: space-between;
+                gap: 40px;
+                margin-bottom: 30px;
+            }
+            .invoice-header-inside {
+                padding: 20px;
+                gap: 20px;
+                border-radius: 15px;
+                border: 1px solid #c5c5c5;
+            }
+            .invoice-header div,
+            .invoice-footer div {
+                width: 48%;
+            }
+            .gris {
+                background-color: #f1f1f1;
+                color: #585858;
+            }
+            .gris th {
+                background-color: #f1f1f1;
+                text-align: left;
+                padding: 10px;
+            }
+            .totals {
+                text-align: right;
+            }
+            @media print {
+                .gris,
+                .gras-gris {
+                    -webkit-print-color-adjust: exact;
+                    print-color-adjust: exact;
+                }
+                #ajouter-prestation {
+                    display: none; /* Masquer l'élément avec l'ID "ajouter-prestation" lors de l'impression */
+                }
+                button {
+                    display: none;
+                }
+            }
+        </style>
+        <title>Devis Frédéric Charlet: Guide de Haute montagne, travaux en Altitude</title>
+    </head>
+    <body>
+        <div class="invoice-container">
+            <h2>
+                <input id="devis" placeholder="Devis" />
+            </h2>
+            <h3>
+                <input id="raison-sociale" placeholder="Titre" /><br />
+                <input id="objet" placeholder="Objet du devis" />
+            </h3>
+            <!-- Informations de l'émetteur et du destinataire -->
+            <div class="invoice-header">
+                <div class="invoice-header-inside">
+                    <strong>De :</strong><br />
+                    <input id="client-nom" placeholder="Nom de l'émetteur" /><br />
+                    <input id="client-adresse" placeholder="Adresse de l'émetteur" /><br />
+                    <input id="client-zip" placeholder="Code postal, Ville" /><br />
+                    <input id="client-telephone" placeholder="Téléphone" /><br />
+                    <input id="client-siret" placeholder="SIRET" />
+                </div>
+                <div class="invoice-header-inside">
+                    <strong>À :</strong><br />
+                    <input id="destinataire-nom" placeholder="Nom du destinataire" /><br />
+                    <input id="destinataire-adresse" placeholder="Adresse du destinataire" /><br />
+                    <input id="destinataire-zip" placeholder="Code postal, Ville" /><br />
+                </div>
+            </div>
+
+            <!-- Informations de devis (Numéro et Date) -->
+            <table>
+                <thead>
+                    <tr class="gris">
+                        <th>Devis N°</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input id="devis-numero" placeholder="Numéro de devis" /></td>
+                        <td><input id="date" type="date" /></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Table des prestations -->
+            <table id="prestations-table">
+                <thead>
+                    <tr class="gris">
+                        <th style="width: 50%">Description</th>
+                        <th style="width: 10%"></th>
+                        <th style="width: 10%">Quantité</th>
+                        <th style="width: 20%">Prix Unitaire (€)</th>
+                        <th style="width: 20%">Total (€)</th>
+                    </tr>
+                </thead>
+                <tbody id="prestations-body">
+                    <!-- Les prestations seront ajoutées ici dynamiquement -->
+                </tbody>
+                <tfoot>
+                    <tr class="add-prestation-btn" id="ajouter-prestation">
+                        <td colspan="5" style="text-align: center; cursor: pointer">+ Ajouter une prestation</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="totals">Sous-total</td>
+                        <td id="sous-total">0.00 €</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="totals">TVA (20%)</td>
+                        <td id="tva">0.00 €</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="totals">Total</td>
+                        <td id="total">0.00 €</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+
+
+        <script>
+            $(document).ready(function () {
+                // Données initiales du devis
+                const devisData = {
+                    prestations: [
+                        { description: "Fourniture et pose d'un vitrage", quantite: 1, prix_unitaire: 920 },
+                        { description: "Visite sur place pour prise de mesures", quantite: 1, prix_unitaire: 350 }
+                    ]
+                };
+                const tvaRate = 0.2;
+
+                // Fonction pour afficher les prestations dans le tableau
+                function afficherPrestations() {
+                    const prestationsBody = $("#prestations-body");
+                    prestationsBody.empty(); // Vider le tableau des prestations
+
+                    devisData.prestations.forEach((prestation, index) => {
+                        const row = $(`
+            <tr data-index="${index}">
+                <td>
+                    <textarea rows="2" style="width: 100%;" class="description">${prestation.description}</textarea>
+                </td>
+                <td>
+                    <button class="btn-supprimer">suppr</button>
+                </td>
+                <td>
+                    <input type="number" value="${prestation.quantite}" min="1" class="quantite" />
+                </td>
+                <td>
+                    <input type="number" value="${prestation.prix_unitaire}" min="0" step="0.01" class="prix-unitaire" />
+                </td>
+                <td>${(prestation.quantite * prestation.prix_unitaire).toFixed(2)} €</td>
+            </tr>
+            `);
+                        prestationsBody.append(row);
+                    });
+
+                    calculerTotaux();
+                }
+
+                // Met à jour les informations d'une prestation
+                function updatePrestation(index, field, value) {
+                    devisData.prestations[index][field] = value;
+                    calculerTotaux(); // Met à jour les totaux
+                }
+
+                // Fonction pour ajouter une nouvelle prestation
+                function ajouterPrestation() {
+                    devisData.prestations.push({ description: "", quantite: 1, prix_unitaire: 0 });
+                    afficherPrestations();
+                    
+                    
+                }
+
+                // Fonction pour supprimer une prestation
+                function supprimerPrestation(index) {
+                    devisData.prestations.splice(index, 1); // Supprimer la prestation
+                    afficherPrestations(); // Met à jour l'affichage
+                }
+
+                // Calculer les totaux
+                function calculerTotaux() {
+                    let sousTotal = 0;
+
+                    $("#prestations-body tr").each(function () {
+                        const quantite = parseFloat($(this).find(".quantite").val()) || 0;
+                        const prixUnitaire = parseFloat($(this).find(".prix-unitaire").val()) || 0;
+                        const total = quantite * prixUnitaire;
+                        $(this)
+                            .find("td:last")
+                            .text(`${total.toFixed(2)} €`);
+                        sousTotal += total;
+                    });
+
+                    const tva = sousTotal * tvaRate;
+                    const total = sousTotal + tva;
+
+                    $("#sous-total").text(`${sousTotal.toFixed(2)} €`);
+                    $("#tva").text(`${tva.toFixed(2)} €`);
+                    $("#total").text(`${total.toFixed(2)} €`);
+                }
+
+                // Événements
+                $(document).on("click", "#ajouter-prestation", ajouterPrestation);
+
+                $(document).on("click", ".btn-supprimer", function () {
+                    const index = $(this).closest("tr").index();
+                    supprimerPrestation(index);
+                });
+
+                $(document).on("input", ".quantite, .prix-unitaire", function () {
+                    const index = $(this).closest("tr").index();
+                    const field = $(this).hasClass("quantite") ? "quantite" : "prix_unitaire";
+                    const value = $(this).val();
+                    updatePrestation(index, field, value);
+                    
+                    });
+                    
+                // Événement pour le textarea description
+                $(document).on("input", ".description", function () {
+                    const index = $(this).closest("tr").data("index"); // Récupère l'index depuis l'attribut data
+                    const value = $(this).val(); // Récupère la valeur du textarea
+                    updatePrestation(index, "description", value); // Met à jour le champ description
+               
+                    
+                });
+
+                // Initialiser l'affichage
+                afficherPrestations();
+            });
+        </script>
+    </body>
+</html>
