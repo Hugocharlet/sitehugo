@@ -21,6 +21,14 @@
                 font-weight: 900;
                 font-size: 45px;
             }
+            #devis_number {
+                color: black;
+                font-weight: 900;
+                font-size: 16px;
+                color: #808080;
+                background-color: transparent;
+                border:0px;
+            }
             #raison-sociale,
             #objet {
                 font-family: "Poppins", sans-serif;
@@ -46,20 +54,13 @@
                 border: none;
             }
 
-            button :hover {
-                color: #303030;
-            }
+
             .invoice-container {
                 width: 80%;
                 margin-top: 20px;
                 padding: 20px;
             }
-            h2 {
-                text-align: left;
-                margin-bottom: 20px;
-                color: #585858;
-                font-size: 2.5em;
-            }
+
             h3 {
                 margin-bottom: 60px;
             }
@@ -165,7 +166,7 @@
             <table>
                 <thead>
                     <tr class="gris">
-                        <th>Devis N°</th>
+                        <th><input id="devis_number" placeholder="Devis n°" /></th>
                         <th>Date</th>
                     </tr>
                 </thead>
