@@ -156,11 +156,11 @@
 			right: 8%; /* Aligner à droite avec une marge de 8% de la largeur de l'écran */
 			transform: translateY(-50%); /* Ajuster pour centrer verticalement */
 			width: 80%; /* Ajustez la largeur selon vos besoins */
-			height: 77%;
+			
 			max-width: 84%; /* Largeur maximale pour s'adapter à l'écran */
 			height: 75vh; /* Hauteur du modèle */
 			background-color: rgba(255, 255, 255, 0.88); /* Couleur de fond semi-transparente */
-			border-radius: 0px; /* Coins arrondis pour le modèle */
+
 			padding: 20px; /* Padding intérieur */
 			box-sizing: border-box; /* Inclure padding dans les dimensions */
 			z-index: 1000; /* Assurez-vous que le modèle est au-dessus du carrousel */
@@ -263,7 +263,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 10px 0;
-            border-bottom: 1px solid #ccc;
+            
         }
 
         .menu-item {
@@ -323,7 +323,7 @@
 			width: 90%;
             flex-direction: column; /* Aligner les éléments verticalement */
             gap: 10px; /* Espace entre les éléments */
-			margin-bottom:15px;
+			
         }
 		
 		.textebox-container > * {
@@ -353,7 +353,7 @@
 			justify-content: center;
 			align-items: center;
 			position: relative;
-			margin-top: 0px; 
+			
 			margin-bottom: 30px; 
 		}
 		        .copyright {
