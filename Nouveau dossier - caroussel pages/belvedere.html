@@ -14,7 +14,7 @@
 		<div id="svgmenupages-placeholder"></div>
 
 		<!-- deux colonnes -->
-		<img class="imagemain" src="pages/belvedere/main.jpg" alt="main" />
+		<!--<img class="imagemain" src="pages/belvedere/main.jpg" alt="main">-->
 		<div class="colonne-fixed">
 			<div class="Title">BELVEDERE</div>
 			<div class="Subtitle">Outdoor chairs 2024</div>
@@ -69,10 +69,20 @@
 				min-camera-orbit="auto 40deg a">
 			</model-viewer>
 		</div>
-
+		<!-- IMAGES PROJETS -->
 		<div id="image-container"></div>
+
+		<!-- loader -->
 		<div id="loader">
 			<div class="spinner"></div>
+		</div>
+
+		<!-- IMAGES carousel -->
+		<div id="carousel">
+			<div id="image-container-process">
+				<div class="index" id="index-container"></div>
+				<button class="arrowright" onclick="nextImage()">&#10095;</button>
+			</div>
 		</div>
 
 		<script src="pages-script.js"></script>

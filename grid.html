@@ -208,43 +208,7 @@
 
 
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    // Importer le menu général
-    fetch('menugeneraleGRID.html')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.text();
-        })
-        .then(data => {
-            document.getElementById('menu-placeholder').innerHTML = data;
-            console.log('Menu général chargé');
-        })
-        .catch(error => {
-            console.error('Erreur lors du chargement du menu général :', error);
-        });
-
-    // Importer le menu SVG
-    fetch('svgmenugrid.html')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.text();
-        })
-        .then(data => {
-            document.getElementById('svgmenu-placeholder').innerHTML = data;
-            console.log('Menu SVG chargé');
-        })
-        .catch(error => {
-            console.error('Erreur lors du chargement du menu SVG :', error);
-        });
-
-    console.log('Scripts de chargement des menus initialisés');
-});
-</script>
+    <script src="navbar.js"></script>
 
 
     
@@ -311,6 +275,6 @@ async function generateGallery() {
 
         window.onload = generateGallery;
     </script>
-    <script src="couleur.js"></script>
+    
 </body>
 </html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<link rel="icon" type="image/png" href="favicon.png" />
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>TOMEO</title>
+		<link rel="stylesheet" href="csspages.css" />
+		<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+	</head>
+	<body>
+		<!-- impoter Menu générale -->
+		<div id="menu-placeholder"></div>
+		<div id="svgmenupages-placeholder"></div>
+
+		<!-- deux colonnes -->
+		<!-- <img class="imagemain" src="pages/tomeo/main.jpg" alt="main">-->
+		<div id="carousel">
+			<div class="colonne-fixed">
+				<div class="Title">TOMEO</div>
+				<div class="Subtitle">Metal outdoor chairs 2020</div>
+				<div class="textebox-container">
+					<div class="texte">Dimensions: 510 x 560 x 820 cm</div>
+					<div class="texte">
+						Tomeo is an outdoor metal chair made from bent metal pipes. It is a light and stackable chair
+						initially designed for restaurant terraces as an alternative to plastic chairs. The aim was to
+						design a chair that would be appealing both in the eyes of the consumer but also in the eyes of
+						the industrialist. Considerable effort was dedicated to keep the chair relatively easy to
+						manufacture. Tomeo’s uniqueness comes from its original structure. Considerable attention was
+						dedicated to the look, which had to be simple but contemporary. Indeed, many pieces of metallic
+						furniture on the market are strongly inspired from older designs from the 20th century. Tomeo is
+						truly different from what already exists because the design itself questions the traditional
+						chair structure.
+					</div>
+				</div>
+				<div class="sousmenu-wrapper">
+					<div class="icon-container">
+						<a href="#" data-model-src="glb/tomeochair.glb" class="icon-link" id="ouvrir-model-viewer">
+							<img src="3DICON.svg" alt="Open Model Viewer" class="icon-item" />
+						</a>
+						<div class="texte texte-icon">3D Model chair</div>
+					</div>
+					<div class="icon-container">
+						<a href="#" data-model-src="glb/tomeoarmchair.glb" class="icon-link" id="ouvrir-model-viewer">
+							<img src="3DICON.svg" alt="Open Model Viewer" class="icon-item" />
+						</a>
+						<div class="texte texte-icon">3D Model armchair</div>
+					</div>
+					<div class="icon-container">
+						<a href="#" data-model-src="glb/tomeolounge.glb" class="icon-link" id="ouvrir-model-viewer">
+							<img src="3DICON.svg" alt="Open Model Viewer" class="icon-item" />
+						</a>
+						<div class="texte texte-icon">3D Model loungechair</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="image-container-process">
+				<button class="arrowright" onclick="nextImage()">&#10095;</button>
+			</div>
+			<div class="index-wrapper">
+				<div class="index">Category: chair</div>
+				<div class="index">Client: personnal project</div>
+				<div class="index" id="index-container"></div>
+			</div>
+		</div>
+		<!-- colonne 2 -->
+
+		<div id="modelContainer">
+			<button class="close-button" id="closeModelViewer">
+				<img src="crosss.svg" alt="Close" />
+			</button>
+			<model-viewer
+				id="modelViewer"
+				src="glb/tomeo.glb"
+				autoplay
+				loading="eager"
+				ar
+				ar-modes="webxr scene-viewer quick-look"
+				ar-status="not-presenting"
+				auto-rotate
+				bounds="tight"
+				rotation-per-second="1deg"
+				environment-image="glb/studio.hdr"
+				exposure="0.7"
+				camera-controls
+				interpolation-decay="200"
+				shadow-intensity="1"
+				interaction-prompt="none"
+				camera-orbit="-40deg 82deg 12m"
+				min-camera-orbit="auto 40deg a">
+			</model-viewer>
+		</div>
+
+		<!-- loader -->
+		<div id="loader">
+			<div class="spinner"></div>
+		</div>
+		<!-- IMAGES carousel -->
+
+		<!-- IMAGES carousel -->
+		<div class="background-color: #f4f4f4; height:100vh;">
+			<div class="texte texte-icon">3D Model loungechair</div>
+		</div>
+
+		<script src="pages-script.js"></script>
+	</body>
+</html>

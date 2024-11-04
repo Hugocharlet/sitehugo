@@ -1,21 +1,20 @@
-<!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>menu svg</title>
-    <style>
-        /* Réinitialiser les marges et les paddings par défaut */
-        body {
-            margin: 0;
-            padding: 0;
-        }
+    <head>
 
-        .top-container {
+        <title>menu svg</title>
+        
+        <style>
+            /* Réinitialiser les marges et les paddings par défaut */
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+         .top-container {
             position: relative; /* Fixe le menu en haut de la page */
            
             width: 100%; /* Le menu occupe toute la largeur de la page */
-            z-index: 2; /* Assure que le menu est au-dessus des autres éléments */
+            z-index: 2000; /* Assure que le menu est au-dessus des autres éléments */
             padding: 0 8%; /* Espacement horizontal du menu */
             box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
 			
@@ -26,7 +25,7 @@
             margin-bottom: 0px; 
 
             display: flex;
-			z-index: 0;
+			z-index: 2000;
             align-items: center; /* Centre les icônes verticalement */
             justify-content: flex-end; /* Aligne les SVG à droite du conteneur */
             gap: 13px; /* Espace entre les SVG */
@@ -59,20 +58,15 @@
 				padding: 20px 4%; /* Padding à droite et à gauche pour correspondre à la marge du menu */
             }
         }
-    </style>
-</head>
-<body>
-    <!-- SVG Container -->
-     
-	<div class="top-container"> 
-		 <div class="svg-container">
-			<a href="details.html" class="svg-link"><img src="grid-details.svg" alt="Grid Details" class="svg-item"></a>
-			<a href="grid.html" class="svg-link"><img src="grid-square.svg" alt="Grid Square" class="svg-item"></a>
-			<!-- <a href="index.html" class="svg-link"><img src="grid-large.svg" alt="Grid Large" class="svg-item"></a>-->
-		</div>
-	</div>
-	
- 
+        </style>
+    </head>
+    <body>
+        <!-- SVG Container -->
 
-</body>
+        <div class="top-container" >
+                <div class="svg-container" id="svgcontainer">
+                    
+                </div>   
+        </div>
+    </body>
 </html>

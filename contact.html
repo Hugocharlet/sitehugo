@@ -48,16 +48,16 @@
      }
 
 	.colonne-container {
-		margin-top: 40px;
+		margin-top: 100px;
 		margin-right: 8%;
 		margin-left: max(520px, calc(38% + 20px));
 		position: relative;
 	}
 
     .image-container {
-        margin-top: 40px;
+        
 		margin-left: 8%;
-		position: absolute;
+		position: fixed;
         width: 30%;
 		min-width: 400px;
 		height: 800px;
@@ -130,25 +130,7 @@
 	<div id="menu-placeholder"></div>
     
     <!-- Script pour importer le menu -->
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Importer le menu général
-        fetch('../menugeneraleCONTACT.html')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.text();
-            })
-            .then(data => {
-                document.getElementById('menu-placeholder').innerHTML = data;
-                console.log('Menu général chargé');
-            })
-            .catch(error => {
-                console.error('Erreur lors du chargement du menu général :', error);
-            });
-    });
-    </script>
+    <script src="navbar.js"></script>
 
     <div class="image-container"> 
         <img class="small-image" src="carte.jpg" alt="image fond">
