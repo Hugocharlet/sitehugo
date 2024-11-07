@@ -14,9 +14,9 @@ const navItems = `
                         <a style="text-decoration: none" href="https://www.hugocharlet.com/">
                             <span class="bold">Hugo Charlet</span>
                         </a>
-                        <a class="menu-item " href="https://www.hugocharlet.com/details">WORK</a>
-                        <a class="menu-item " href="https://www.hugocharlet.com/about/">ABOUT</a>
-                        <a class="menu-item " href="https://www.hugocharlet.com/contact/">CONTACT</a>
+                        <a class="menu-item " href="details">WORK</a>
+                        <a class="menu-item " href="about/">ABOUT</a>
+                        <a class="menu-item " href="contact/">CONTACT</a>
                     </div>
                 </div>
                 <a href="https://www.instagram.com/hugocharletb/" target="_blank" aria-label="Hugo Charlet Instagram">

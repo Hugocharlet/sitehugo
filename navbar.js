@@ -48,9 +48,9 @@ if (navbar) {
                         <a style="text-decoration: none" href="https://www.hugocharlet.com/">
                             <span class="bold">Hugo Charlet</span>
                         </a>
-                        <a class="menu-item ${activePage === pages.details ? "active" : ""}" href="https://www.hugocharlet.com/details">WORK</a>
-                        <a class="menu-item ${activePage === pages.about ? "active" : ""}" href="https://www.hugocharlet.com/about">ABOUT</a>
-                        <a class="menu-item ${activePage === pages.contact ? "active" : ""}" href="https://www.hugocharlet.com/contact">CONTACT</a>
+                        <a class="menu-item ${activePage === pages.details ? "active" : ""}" href="details">WORK</a>
+                        <a class="menu-item ${activePage === pages.about ? "active" : ""}" href="about">ABOUT</a>
+                        <a class="menu-item ${activePage === pages.contact ? "active" : ""}" href="contact">CONTACT</a>
                     </div>
                 </div>
                 <a href="https://www.instagram.com/hugocharletb/" target="_blank" aria-label="Hugo Charlet Instagram" style="display:none">
