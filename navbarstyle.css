@@ -134,7 +134,7 @@ body {
 
 .svg-link:hover .svg-item {
     filter: brightness(0); /* Assombrit le SVG au survol */
-    transform: translateX(-3px);
+    transform: scale(1.025) translateX(1px);
 }
 
 .svg-item {
@@ -176,7 +176,7 @@ body {
 
 @media (max-width: 600px) {
     .menu-container {
-        padding: 0 4%;
+        padding: 0 5%;
         box-sizing: border-box;
         z-index: 1000;
     }
