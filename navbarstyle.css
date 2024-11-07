@@ -135,6 +135,7 @@ body {
 
 .svg-link:hover .svg-item {
     filter: brightness(0); /* Assombrit le SVG au survol */
+    transform: translateY(-3px);
 }
 
 .svg-item {
@@ -144,6 +145,7 @@ body {
     margin: 0;
     padding: 3px;
 }
+
 /*----------------SVG PAGES STYLE----------------------*/
 
 .top-container-pages {
@@ -163,12 +165,12 @@ body {
     gap: 10px;
 }
 
-.svg-link {
+.svg-link-pages {
     display: flex;
     align-items: center;
 }
 
-.svg-item {
+.svg-item-pages {
     height: 11px;
     width: auto;
     display: block;
@@ -177,7 +179,7 @@ body {
     transition: transform 0.3s ease;
 }
 
-.svg-link:hover .svg-item {
+.svg-link-pages:hover .svg-item-pages {
     transform: translateX(-7px);
     filter: brightness(0);
 }
