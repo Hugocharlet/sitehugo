@@ -91,9 +91,10 @@ if (navbar) {
 }
 
 // Quand le CSS est chargé, rends le menu visible
-link.onload = () => {
+navbarStyle.onload = () => {
     // Sélectionne les éléments à afficher
     document.querySelectorAll('.menu-container, .instagram-logo').forEach(el => {
+        
         el.style.display = 'block';  // Rend le menu et l'icône Instagram visibles
     });
 };
