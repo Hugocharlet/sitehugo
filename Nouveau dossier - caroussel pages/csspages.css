@@ -1,0 +1,488 @@
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital@0;1&family=Lexend+Deca:wght@100..900&display=swap" rel="stylesheet">
+		body {
+            background-color: #e5e5e5;
+			margin: 0;
+            font-family: 'Fira mono', monospace;
+			
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400&display=swap');
+        @import url('https://fonts.googleapis.com/css?family=Fira mono:400,500,700&display=swap');
+
+ 
+
+		.icon-container {
+			
+		  margin-top: 0px;
+		  
+		  gap: 5px;
+		  align-items: center;      /* Centre verticalement les éléments */
+		  
+		    
+		}
+
+		.icon-link {
+		  display: flex;            /* Assure que le contenu à l'intérieur du lien est également en ligne */
+		  align-items: center;      /* Centre le contenu à l'intérieur du lien */
+		}
+
+		.icon-item {
+		  width: 30px;              /* Ajustez la largeur du logo selon vos besoins */
+		  height: auto;    
+		  transition: filter 0.3s ease;			  /* Hauteur automatique pour maintenir les proportions */
+		}
+
+		
+		.icon-link:hover .icon-item {
+            filter: brightness(0); /* Assombrit le SVG au survol */
+        }	
+
+        .colonne-fixed{
+            width: 23vw;
+			z-index:10;
+			margin-left:8%;
+			
+			position:relative;
+			margin-top: 20px;
+            margin-bottom: 20px;
+			margin-left:8%;
+			margin-right: 30px;
+
+			/* Positionner à la moitié de l'écran en hauteur */
+			transition: margin-top 0.9s ease-out;
+			border-radius:10px;
+			backdrop-filter: blur(15px);
+			background-color: rgba(255,255,255,0.5) ;
+        }
+		.sousmenu-wrapper {
+			margin-top:20px;
+			display: flex; /* Utilisation de Flexbox pour afficher les éléments en ligne */
+			flex-direction: row; /* Les éléments sont affichés en ligne */
+			padding: 10px;
+			gap: 10px; /* Espace entre les éléments */
+		}
+				
+		/* Conteneur d'images */
+		#image-container {
+			display: flex; /* Utilise Flexbox pour la mise en page */
+			flex-direction: column; /* Aligne les éléments en colonne */
+			align-items: flex-end; /* Aligne les éléments à gauche */
+			margin-left: auto; /* Utilise marges automatiques pour ajuster la position */
+			margin-left: 38%;
+			margin-right: 18%; 	/* Ajuste la position pour qu'il soit au 2/3 du conteneur */
+			padding: 10px; /* Padding à l'intérieur du conteneur */
+		   
+		}
+		.imagemain {
+			width: 100%;   /* L'image prend 100% de la largeur de la fenêtre */
+			height: auto;   /* La hauteur est ajustée automatiquement pour garder les proportions */
+			display: block; /* Supprime les espaces indésirables en dessous de l'image */
+			margin-top: 90px;      /* Supprime les marges par défaut */
+			padding: 0;     /* Supprime les padding par défaut */
+			object-fit: cover; /* Couvre toute la largeur sans déformer l'image (si besoin) */
+			max-width: 100%; /* S'assure que l'image ne dépasse pas 100% de la largeur */
+		}
+
+		/* Styles pour les images */
+		.imagelarge {
+			width: 100%; /* Définir la largeur de l'image */
+			max-width: 850px; /* Largeur maximale de l'image */
+			height: auto; /* Hauteur automatique pour maintenir le ratio d'aspect */
+			margin-bottom: 20px; /* Espacement en bas de l'image */
+			/* Pas besoin de marges gauche ou droite ici car align-items gère cela */
+		}
+
+        .textebox-container {
+            margin-top: 30px;
+            display: flex; /* Alignement en ligne */
+			justify-content: flex-start; /* Aligne les éléments à gauche */
+			width: 100%;
+			
+            flex-direction: column; /* Aligner les éléments verticalement */
+            gap: 10px; /* Espace entre les éléments */
+			margin-bottom:0px;
+        }
+		
+		.textebox-container > * {
+            align-self: flex-start; /* Aligne chaque élément enfant à gauche */
+        }
+		
+        .Title {
+           
+            font-family: "Hanken Grotesk", sans-serif;
+            font-size: 30px;
+            text-align: left;
+            font-weight: 500;
+            color: #000;
+            margin-bottom: 0;
+			
+        }
+		
+		.texte {
+           
+            padding: 10 px ;
+            font-size: 14px;
+            font-family: "Hanken Grotesk", sans-serif;
+			font-weight: 300;
+            color: #000;
+        }
+		.texte-icon {
+			margin-top:10px;
+			position: absolute;
+			display: none;
+			padding:5px 8px;
+			border-radius:15px;
+			
+			background-color: #f1f1f1 ;
+			font-weight: 600;
+			color: #303030;
+		}
+		
+		.icon-link:hover + .texte-icon {
+		  
+		display: block;		  /* Affiche ce texte uniquement lors du survol de l'icône */
+		}
+		
+        .Subtitle {
+            padding: 2px ;
+            font-size: 15px;
+			font-weight: 500;
+            font-family: "Hanken Grotesk", sans-serif;
+            color: #000;
+        }
+		
+
+		#modelContainer {
+			display: none; /* Initialement caché */
+			position: fixed; /* Positionnement absolu pour le superposer */
+			top: 50%; /* Centrer verticalement */
+			right: 8%; /* Aligner à droite avec une marge de 8% de la largeur de l'écran */
+			transform: translateY(-50%); /* Ajuster pour centrer verticalement */
+			width: 80%; /* Ajustez la largeur selon vos besoins */
+			height: 77%;
+			max-width: 84%; /* Largeur maximale pour s'adapter à l'écran */
+			height: 75vh; /* Hauteur du modèle */
+			background-color: rgba(255, 255, 255, 0.88); /* Couleur de fond semi-transparente */
+			border-radius: 0px; /* Coins arrondis pour le modèle */
+			padding: 20px; /* Padding intérieur */
+			box-sizing: border-box; /* Inclure padding dans les dimensions */
+			z-index: 1000; /* Assurez-vous que le modèle est au-dessus du carrousel */
+		}
+				
+		#modelViewer {
+			width: 100%;
+			height: 100%;
+			display: block;
+			}
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            
+            z-index: 999; /* Juste en dessous du modelContainer */
+        }
+
+        .show {
+            display: block !important; /* Afficher lorsqu'on ajoute la classe show */
+        }
+		
+		.close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px; 
+            width: 20px;
+            height: 20px;
+			background: transparent;
+            cursor: pointer;
+
+            border: none;
+            padding: 0;
+            z-index: 1001; /* Assurez-vous que le bouton est au-dessus du modèle */
+        }
+		
+		.copyright {
+			display:none;
+			font-family: 'Roboto', sans-serif;
+			font-size: 12px;
+			color: #666;
+			text-align: center;
+			position: relative; /* Utiliser relative pour que le texte suive le flux normal du document */
+			margin-top: 30px;
+			bottom: 10px; /* Espacement au-dessus du copyright */
+			width: 100%;
+			
+			
+		}
+		/* Style pour le loader */
+		#loader {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(255, 255, 255, 0.5);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			z-index: 9999;
+		}
+
+		.spinner {
+			border: 4px solid #f3f3f3; /* Light grey */
+			border-top: 4px solid #303030; /* Blue */
+			border-radius: 50%;
+			width: 20px;
+			height: 20px;
+			animation: spin 2s linear infinite;
+		}
+
+		@keyframes spin {
+			0% { transform: rotate(0deg); }
+			100% { transform: rotate(360deg); }
+		}
+
+
+		/* Styles pour les écrans de petite taille (smartphones en portrait) */
+		
+		#carousel {
+			position: relative;
+			/* Cache les débordements */
+			width: 100%;
+			overflow:hidden;
+		    display: flex;
+			Padding:0;
+			margin-top:130px;
+			height:auto;
+			
+			height: 35vw;
+			background-color:white;
+			/*border-top:2px solid  #606060;*/
+			/*border-bottom:2px solid  #606060;*/
+		}
+
+		#image-container-process {
+			position: relative; 
+			display: flex;
+			/* Centre horizontalement */
+			height:100%;
+			
+			
+			
+			/*border-left:2px solid #606060;*/
+			/*border-right:2px solid #606060;*/
+			
+		}
+
+		.imageLarge {
+			width: 100%; /* S'assure que l'image ne dépasse pas le conteneur */
+			height: auto;
+			
+            aspect-ration: 			/* Garde le ratio d'aspect */
+		}
+
+
+        .active {
+            display: block; /* Affiche l'image active */
+        }
+		
+		.arrowright {
+			position: absolute;
+			top: 50%;
+			right: -30px;
+			color: #AFAFAF; /* Corrigez la couleur ici avec un code hexadécimal valide */
+			background-color: transparent;
+			border: none;
+			cursor: pointer;
+			transition: color 0.3s ease, transform 0.3s ease; /* Ajoutez la transition pour la couleur et la transformation */
+		}
+
+		.arrowright:hover {
+			color: #303030; /* Changez la couleur au survol */
+			transform: scale(1.1) translateX(5px); /* Augmente légèrement la flèche au survol */
+			
+		}
+		
+		.index-wrapper{
+		position: relative;
+		display:flex;
+		flex-direction: column;
+        justify-content: flex-end;
+		padding : 10px 10px;
+		}
+	
+	
+		.index {
+			 /* Utiliser absolute pour le positionner par rapport à #image-container */
+			 /* Marge de 4px par rapport au bas */
+			margin-top: 0px;/* Marge de 4px par rapport à la droite */
+			padding: 5px 5px; /* Padding pour l'espace autour du texte */
+			z-index: 999; /* Correction de 'index' en 'z-index' */
+			font-family: 'Space Mono', sans-serif;
+			color: #AFAFAF;
+			font-size:12px;
+		}
+
+		.index span {
+			margin: 0 2px;
+			cursor: pointer;
+			transition: color 0.3s ease, transform 0.3s ease; /* Transition pour couleur et poids de la police */
+		}
+
+		.index span:hover {
+			transform: translateY(-3px);
+			color: #303030; /* Couleur au survol */
+			 /* Mettre en gras au survol */
+		}
+
+		
+@media (max-width: 600px) {
+
+		.svg-container {
+		padding: 10px 4%;	
+		display: flex;
+		justify-content: flex-end; /* Aligner les SVG à droite du conteneur */
+		gap: 10px; /* Espace entre les SVG */
+		box-sizing: border-box; /* Inclure le padding dans la largeur totale du conteneur */
+		}
+		.menu-container {
+            padding: 0 4%;
+            margin-top: 5px;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .menu-item {
+            font-size: 14px;
+            font-family: 'Fira mono', sans-serif;
+            color: #AFAFAF;
+            flex: 1;
+            text-align: center;
+        }
+		
+		
+		.colonne-fixed {
+			position:relative;
+			margin-left:4%;
+			margin-right:4%;
+			width:80%;
+			margin-top:20px;
+		}
+		
+		
+		.Title {
+           
+            font-family: "Hanken Grotesk", sans-serif;
+            font-size: 16px;
+            text-align: left;
+            font-weight: 500;
+            color: #000;
+            margin-bottom: 0;
+        }
+		
+		.texte {
+           
+            padding: 10 px ;
+            font-size: 9px;
+            font-family: "Hanken Grotesk", sans-serif;
+			font-weight: 300;
+            color: #000;
+        }
+
+        .Subtitle {
+            padding: 2px ;
+            font-size: 9px;
+            font-family: "Hanken Grotesk", sans-serif;
+			font-weight: 500;
+            color: #000;
+        }
+
+  		.sousmenu-wrapper { flex-direction: column; ; gap:5px;}
+		.texte-icon{display:block; position: relative; background-color: white}
+		.icon-container {display:flex}
+
+        .textebox-container {
+            margin-top: 15px;
+			margin-bottom: 15px;
+            display: flex; /* Alignement en ligne */
+			justify-content: flex-start; /* Aligne les éléments à gauche */
+			width: 90%;
+            flex-direction: column; /* Aligner les éléments verticalement */
+            gap: 10px; /* Espace entre les éléments */
+			margin-bottom:15px;
+        }
+		
+		.textebox-container > * {
+            align-self: flex-start; /* Aligne chaque élément enfant à gauche */
+        }
+		.indicator {
+			cursor: pointer;
+			padding: 5px;
+			font-size: 8px;
+            font-family: 'Fira mono', sans-serif;
+			color: #AFAFAF;
+			
+			
+			width: 20px;
+			height: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		  }
+		  
+
+		  
+		  	.carousel-container {
+			
+			height: 50vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+			margin-top: 0px; 
+			margin-bottom: 30px; 
+		}
+		        .copyright {
+			display: none;
+            font-family: 'Roboto';
+            font-size: 9px;
+            color: #666;
+            text-align: center;
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+        }
+		#modelContainer {
+			width: 100%; /* Largeur maximale pour s'adapter à l'écran */
+			margin: 0; /* Supprimer toutes les marges */
+			padding: 0; /* Supprimer les padding */
+			box-sizing: border-box; /* Inclure les paddings dans la largeur totale */
+			z-index: 1000; /* Assurez-vous que le modèle est au-dessus du carrousel */
+		}
+
+		
+		#image-container {
+			display: flex; /* Utilise Flexbox pour la mise en page */
+			flex-direction: column; /* Aligne les éléments en colonne */
+			align-items: flex-end; /* Aligne les éléments à gauche */
+			
+			margin-left: 0%;
+			margin-right: 0%; 	/* Ajuste la position pour qu'il soit au 2/3 du conteneur */
+			padding: 10px; /* Padding à l'intérieur du conteneur */
+		   
+		}
+		
+
+
+}

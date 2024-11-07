@@ -1,6 +1,4 @@
-
-    
-    // Importer son style:
+// Importer son style:
 const navbarStyle = document.createElement("link");
 navbarStyle.rel = "stylesheet";
 navbarStyle.href = "navbarstyle.css";
@@ -22,25 +20,23 @@ const navItems = `
                     </div>
                 </div>
                 <a href="https://www.instagram.com/hugocharletb/" target="_blank" aria-label="Hugo Charlet Instagram">
-                    <img id="instagramLogo" src="insta.svg" alt="Instagram" class="instagram-logo" />
+                    <img id="instagramLogo" src="insta.svg" alt="Instagram" class="instagram-logo" style="max-width: 30px;" />
                 </a>
             `;
 
 navbar.innerHTML = navItems;
-    
+
 const navsvg = document.getElementById("svgmenupages-placeholder");
 // Insérer les éléments de navigation dans la navbar
 const svgItems = `
-    <div class="top-container-pages">
+   
         <div class="svg-container-pages">
-            <a href="details" class="svg-link">
-                <img src="arrowback.svg" alt="backarrow" class="svg-item">
+            <a href="details">
+                <img src="arrowback.svg" alt="backarrow" class="svg-backarrow" style="height: 11px;">
             </a>
         </div>
-    </div>
             `;
 navsvg.innerHTML = svgItems;
-
 
 // Récupérer le nom du dépôt (si présent) et le fichier actuel sans l'extension
 const pathParts = window.location.pathname.split("/");
@@ -176,4 +172,3 @@ document.addEventListener("DOMContentLoaded", function () {
     // Exécuter la fonction au chargement pour une position initiale correcte
     adjustFixedColumnPosition();
 });
-

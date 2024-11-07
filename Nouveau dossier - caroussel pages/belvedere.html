@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<link rel="icon" type="image/png" href="favicon.png" />
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>BELVEDERE</title>
+		<link rel="stylesheet" href="csspages.css" />
+		<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+	</head>
+	<body>
+		<!-- impoter Menu générale -->
+		<div id="menu-placeholder"></div>
+		<div id="svgmenupages-placeholder"></div>
+
+		<!-- deux colonnes -->
+		<!--<img class="imagemain" src="pages/belvedere/main.jpg" alt="main">-->
+		<div class="colonne-fixed">
+			<div class="Title">BELVEDERE</div>
+			<div class="Subtitle">Outdoor chairs 2024</div>
+			<div class="textebox-container">
+				<div class="texte">Dimension: 525 x 475 x 860 cm</div>
+				<div class="texte">
+					The belvedere chair is a simple chair with a highly original structure that is unusual for a chair:
+					the back legs rise up to the level of the high back. This creates an original detail that gives the
+					chair a recognizable identity.
+				</div>
+			</div>
+			<div class="sousmenu-wrapper">
+				<div class="icon-container">
+					<a href="#" data-model-src="glb/belvederechair.glb" class="icon-link" id="ouvrir-model-viewer">
+						<img src="3DICON.svg" alt="Open Model Viewer" class="icon-item" />
+					</a>
+					<div class="texte texte-icon">3D Model chair</div>
+				</div>
+				<div class="icon-container">
+					<a href="#" data-model-src="glb/belvederearmchair.glb" class="icon-link" id="ouvrir-model-viewer">
+						<img src="3DICON.svg" alt="Open Model Viewer" class="icon-item" />
+					</a>
+					<div class="texte texte-icon">3D Model armchair</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- colonne 2 -->
+
+		<div id="modelContainer">
+			<button class="close-button" id="closeModelViewer">
+				<img src="crosss.svg" alt="Close" />
+			</button>
+			<model-viewer
+				id="modelViewer"
+				src="glb/belvedere.glb"
+				autoplay
+				loading="eager"
+				ar
+				ar-modes="webxr scene-viewer quick-look"
+				ar-status="not-presenting"
+				auto-rotate
+				bounds="tight"
+				rotation-per-second="1deg"
+				environment-image="glb/studio.hdr"
+				exposure="0.7"
+				camera-controls
+				interpolation-decay="200"
+				shadow-intensity="1"
+				interaction-prompt="none"
+				camera-orbit="-40deg 82deg 12m"
+				min-camera-orbit="auto 40deg a">
+			</model-viewer>
+		</div>
+		<!-- IMAGES PROJETS -->
+		<div id="image-container"></div>
+
+		<!-- loader -->
+		<div id="loader">
+			<div class="spinner"></div>
+		</div>
+
+		<!-- IMAGES carousel -->
+		<div id="carousel">
+			<div id="image-container-process">
+				<div class="index" id="index-container"></div>
+				<button class="arrowright" onclick="nextImage()">&#10095;</button>
+			</div>
+		</div>
+
+		<script src="pages-script.js"></script>
+	</body>
+</html>
