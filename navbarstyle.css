@@ -135,7 +135,7 @@ body {
 
 .svg-link:hover .svg-item {
     filter: brightness(0); /* Assombrit le SVG au survol */
-    transform: translateY(-3px);
+    transform: translateX(-3px);
 }
 
 .svg-item {
@@ -144,6 +144,7 @@ body {
     display: block; /* Assure que l'image ne génère pas d'espaces blancs en dessous */
     margin: 0;
     padding: 3px;
+    transition: transform 0.3s ease;
 }
 
 /*----------------SVG PAGES STYLE----------------------*/
