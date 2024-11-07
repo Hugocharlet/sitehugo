@@ -6,6 +6,13 @@ navbarStyle.rel = "stylesheet";
 navbarStyle.href = "navbarstyle.css";
 document.head.appendChild(navbarStyle);
 
+// Quand le CSS est chargé, rends le menu visible
+link.onload = () => {
+    // Sélectionne les éléments à afficher
+    document.querySelectorAll('.menu-container, .instagram-logo').forEach(el => {
+        el.style.display = 'block';  // Rend le menu et l'icône Instagram visibles
+    });
+};
 // séléctionner menu-placeholder
 const navbar = document.getElementById("menu-placeholder");
 
@@ -42,7 +49,7 @@ if (navbar) {
 
     // Insérer les éléments de navigation dans la navbar
     const navItems = `
-                <div class="menu-container ${activePage ? activePage : ""}">
+                <div class="menu-container ${activePage ? activePage : ""}" style="display:none">
                     <div class="menu">
                         <a style="text-decoration: none" href="https://www.hugocharlet.com/">
                             <span class="bold">Hugo Charlet</span>
@@ -52,7 +59,7 @@ if (navbar) {
                         <a class="menu-item ${activePage === pages.contact ? "active" : ""}" href="https://www.hugocharlet.com/contact">CONTACT</a>
                     </div>
                 </div>
-                <a href="https://www.instagram.com/hugocharletb/" target="_blank" aria-label="Hugo Charlet Instagram">
+                <a href="https://www.instagram.com/hugocharletb/" target="_blank" aria-label="Hugo Charlet Instagram" style="display:none">
                     <img id="instagramLogo" src="insta.svg" alt="Instagram" class="instagram-logo" style="max-width: 30px;" />
                 </a>
             `;
