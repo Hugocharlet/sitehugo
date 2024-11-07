@@ -1,24 +1,16 @@
-// Charger le contenu de menugenerale.html
-fetch('menugenerale.html')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.text();
-    })
-    .then(data => {
-        document.getElementById('menu-placeholder').innerHTML = data;
-        console.log('Contenu HTML chargé :');
 
-        // Une fois le contenu inséré, vérifier et remplir la navbar
-        const navbar = document.getElementById("navbar");
+    
+    // Importer son style:
+const navbarStyle = document.createElement("link");
+navbarStyle.rel = "stylesheet";
+navbarStyle.href = "navbarstyle.css";
+document.head.appendChild(navbarStyle);
 
-        if (navbar) {
-            console.log("Div navbar trouvée");
+// Une fois le contenu inséré, vérifier et remplir la navbar
+const navbar = document.getElementById("menu-placeholder");
 
-
-            // Insérer les éléments de navigation dans la navbar
-            const navItems = `
+// Insérer les éléments de navigation dans la navbar
+const navItems = `
                 <div class="menu-container article">
                     <div class="menu">
                         <a style="text-decoration: none" href="https://www.hugocharlet.com/">
@@ -29,38 +21,25 @@ fetch('menugenerale.html')
                         <a class="menu-item " href="https://www.hugocharlet.com/contact/">CONTACT</a>
                     </div>
                 </div>
+                <a href="https://www.instagram.com/hugocharletb/" target="_blank" aria-label="Hugo Charlet Instagram">
+                    <img id="instagramLogo" src="insta.svg" alt="Instagram" class="instagram-logo" />
+                </a>
             `;
 
-            navbar.innerHTML = navItems;
-        } else {
-            console.log("Div navbar non trouvée");
-        }
-    })
-    .catch(error => {
-        console.error('Erreur lors du chargement du menu général :', error);
-    });
-
-// Charger le contenu du menu SVG
-fetch('svgmenupages.html')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.text();
-    })
-    .then(data => {
-        const svgPlaceholder = document.getElementById('svgmenupages-placeholder');
-        if (svgPlaceholder) {
-            svgPlaceholder.innerHTML = data;
-            console.log('Menu SVG chargé');
-        } else {
-            console.log('Élément svgmenu-placeholder introuvable sur cette page');
-        }
-    })
-    .catch(error => {
-        console.error('Erreur lors du chargement du menu SVG :', error);
-    });
-
+navbar.innerHTML = navItems;
+    
+const navsvg = document.getElementById("svgmenupages-placeholder");
+// Insérer les éléments de navigation dans la navbar
+const svgItems = `
+    <div class="top-container-pages">
+        <div class="svg-container-pages">
+            <a href="details" class="svg-link">
+                <img src="arrowback.svg" alt="backarrow" class="svg-item">
+            </a>
+        </div>
+    </div>
+            `;
+navsvg.innerHTML = svgItems;
 
 
 // Récupérer le nom du dépôt (si présent) et le fichier actuel sans l'extension
@@ -77,9 +56,6 @@ const newUrl = `pages/${currentPage}/`;
 
 // Afficher une description dans la console
 console.log(`L'URL générée est : ${newUrl}`);
-
-
-  
 
 //model viewer
 

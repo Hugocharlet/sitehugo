@@ -1,280 +1,242 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-   
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="favicon.png" />
-    <title>Gallery</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Space Mono', monospace;
-        }
-
-        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400&display=swap');
-        @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
-
-
-
-
-        .image-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            overflow: hidden;
-            position: relative;
-        }
-
-        img {
-            max-height: 100%;
-            max-width: 100%;
-        }
-
-        .arrowleft, .arrowright {
-            position: absolute;
-            top: 50%;
-            user-select: none;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-        }
-
-        .arrowleft {
-            left: 30px;
-        }
-
-        .arrowright {
-            right: 30px;
-        }
-
-        .copyright {
-            font-family: 'Roboto';
-            padding: 35px;
-            font-size: 12px;
-            color: #666;
-            text-align: center;
-            margin: 0;
-        }
-
-        .gallery {
-            margin-top: 10px;
-            padding: 0 8%;
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 0px;
-        }
-
-
-
-.gallery-item {
-    position: relative;
-    overflow: visible; /* Permet aux images de déborder */
-	    margin: 0; /* Assure qu'il n'y a pas de marge entre les éléments */
-    padding: 0; /* Assure qu'il n'y a pas de padding */
-}
-.gallery-item img {
-    display: block; /* Élimine les espaces blancs sous l'image */
-    margin: 0; /* Assure qu'il n'y a pas de marge sous l'image */
-    padding: 0; /* Assure qu'il n'y a pas de padding autour de l'image */
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    filter: grayscale(0%);
-    transition: filter 0.5s ease, transform 0.5s ease;
-}
-
-.titre {
-    position: absolute; /* Positionne le texte au-dessus de l'image */
-    top: 50%; /* Positionne verticalement au milieu */
-    left: 50%; /* Positionne horizontalement au milieu */
-    transform: translate(-50%, -50%); /* Centre le texte */
-    font-family: 'Hanken Grotesk', sans-serif;
-	pointer-events: none;
-	z-index:11;
-    font-size: 18px;
-    font-weight: 500;
-    color: #F1F1F1; /* Assure que la couleur contraste avec le fond */
-    opacity: 0; /* Caché par défaut */
-    visibility: hidden; /* Caché par défaut */
-    transition: opacity 0.3s, visibility 0.3s; /* Transition douce */
-   
-    padding: 5px; /* Espacement autour du texte */
-}
-
-.gallery-item:hover img {
-    filter: grayscale(100%)brightness(38%);
- animation:  zoomquick 0.3s forwards;
-    
-
-    z-index:10;
-    opacity: 1;
-    position: relative; 
-
-}
-
-.gallery-item:hover .titre {
-    opacity: 1; /* Affiche la légende lors du survol */
-    visibility: visible; /* Affiche la légende lors du survol */
-}
-
-@keyframes zoomquick {
-    0% {
-        transform: scale(1);
-    }
-    100% {
-        transform: scale(1.01);
-    }
-}
-
-@keyframes zoomslow {
-    0%, 100% {
-        transform: scale(1.01);
-    }
-    50% {
-        transform: scale(1.5);
-    }
-}
-
-
-
-
-@media (max-width: 600px) {
-
-    .gallery-item {
-        display: flex;
-        flex-direction: column; 
-        width: 100%;
-        text-align: center; 
-		justify-content:center;
-    }
-
-    .gallery-item img {
-        width: 100%; 
-        height: auto; 
-        object-fit: cover;
-        opacity: 1;
-    }
-
-    .gallery-item .titre {
-        visibility:visible;
-		opacity:1;
-		transform: translate(0%,0%);
-		
-		padding:5px;
-		
-        font-family: "Hanken Grotesk", sans-serif;
-        font-weight: 600;
-        font-size: 14px;
-        color: #303030;
-        position: static;
-        z-index: 1;
-        width: 100%; 
-        
-		text-align: center; 
-        
-    }
-
-    .gallery {
-        margin-top: 0;
-        padding: 0 4%;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px; 
-    }
-
-    .copyright {
-        font-family: 'Roboto', sans-serif;
-        font-size: 9px;
-        color: #666;
-        text-align: center;
-        margin-top: 20px;
-        width: 100%;
-        padding: 10px 0;
-        box-sizing: border-box;
-    }
-}
-
-
-    </style>
-</head>
-<body>
-	<!-- impoter Menu générale -->
-	<div id="menu-placeholder"></div>
-	<div id="svgmenu-placeholder"></div>
-	
-    <!-- Script pour importer le menu -->
-
-
-
-    <script src="navbar.js"></script>
-
-
-    
-    <div class="gallery" id="gallery">
-        <!-- Les images seront insérées ici par JavaScript -->
-    </div>
-    
-    <div class="copyright">
-        <p>©️2024 hugocharletdesign</p>
-    </div>
-
-    <script>
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/png" href="favicon.png" />
+        <title>Gallery</title>
+        <style>
+            body {
+                font-family: "Hanken Grotesk", sans-serif;
+                color: #303030;
             }
-            return array;
-        }
-async function generateGallery() {
-    try {
-        const jsonFilePath = 'img/images.json';
-        const response = await fetch(jsonFilePath);
-        if (!response.ok) {
-            throw new Error('Erreur lors de la récupération du fichier JSON');
-        }
-        const imageFiles = await response.json();
-        console.log('Données récupérées:', imageFiles); // Affiche les données récupérées pour vérifier
-		const shuffledImages = shuffleArray(imageFiles);
 
-        const gallery = document.getElementById('gallery');
-        gallery.innerHTML = '';
+            .image-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                overflow: hidden;
+                position: relative;
+            }
 
-        shuffledImages.forEach(img => {
-            console.log('Image actuelle:', img); // Affiche chaque objet image
+            img {
+                max-height: 100%;
+                max-width: 100%;
+            }
 
-            const galleryItem = document.createElement('div');
-            galleryItem.className = 'gallery-item';
+            .copyright {
+                font-family: "Roboto";
+                padding: 35px;
+                font-size: 12px;
+                color: #303030;
+                text-align: center;
+                margin: 0;
+            }
 
-            const linkElement = document.createElement('a');
-            linkElement.href = `${img.url}`;
+            .gallery {
+                margin-top: 10px;
+                padding: 0 8%;
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                gap: 0px;
+            }
 
-            const imgElement = document.createElement('img');
-            imgElement.src = `img/${img.src}`;
+            .gallery-item {
+                position: relative;
+                overflow: visible; /* Permet aux images de déborder */
+                margin: 0; /* Assure qu'il n'y a pas de marge entre les éléments */
+                padding: 0; /* Assure qu'il n'y a pas de padding */
+            }
+            .gallery-item img {
+                display: block; /* Élimine les espaces blancs sous l'image */
+                margin: 0; /* Assure qu'il n'y a pas de marge sous l'image */
+                padding: 0; /* Assure qu'il n'y a pas de padding autour de l'image */
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+                filter: grayscale(0%);
+                transition:
+                    filter 0.5s ease,
+                    transform 0.5s ease;
+            }
 
-            const titleElement = document.createElement('div');
-            titleElement.className = 'titre';
-            titleElement.textContent = img.title || 'Titre non défini'; // Utilise le titre du JSON ou un texte par défaut
+            .name {
+                position: absolute; /* Positionne le texte au-dessus de l'image */
+                top: 50%; /* Positionne verticalement au milieu */
+                left: 50%; /* Positionne horizontalement au milieu */
+                transform: translate(-50%, -50%); /* Centre le texte */
+                font-family: "Hanken Grotesk", sans-serif;
+                pointer-events: none;
+                z-index: 11;
+                font-size: 18px;
+                font-weight: 500;
+                color: #f1f1f1; /* Assure que la couleur contraste avec le fond */
+                opacity: 0; /* Caché par défaut */
+                visibility: hidden; /* Caché par défaut */
+                transition:
+                    opacity 0.3s,
+                    visibility 0.3s; /* Transition douce */
 
-            console.log('Titre ajouté :', titleElement.textContent); // Vérifie le titre ajouté
+                padding: 5px; /* Espacement autour du texte */
+            }
 
-            linkElement.appendChild(imgElement);
-            galleryItem.appendChild(linkElement);
-            galleryItem.appendChild(titleElement);
+            .gallery-item:hover img {
+                filter: grayscale(100%) brightness(38%);
+                animation: zoomquick 0.3s forwards;
 
-            gallery.appendChild(galleryItem);
-        });
-    } catch (error) {
-        console.error('Erreur lors de la génération de la galerie:', error);
-    }
-}
+                z-index: 10;
+                opacity: 1;
+                position: relative;
+            }
 
+            .gallery-item:hover .name {
+                opacity: 1; /* Affiche la légende lors du survol */
+                visibility: visible; /* Affiche la légende lors du survol */
+            }
 
+            @keyframes zoomquick {
+                0% {
+                    transform: scale(1);
+                }
+                100% {
+                    transform: scale(1.01);
+                }
+            }
 
-        window.onload = generateGallery;
-    </script>
-    
-</body>
+            @keyframes zoomslow {
+                0%,
+                100% {
+                    transform: scale(1.01);
+                }
+                50% {
+                    transform: scale(1.5);
+                }
+            }
+
+            @media (max-width: 600px) {
+                .gallery-item {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    text-align: center;
+                    justify-content: center;
+                }
+
+                .gallery-item img {
+                    width: 100%;
+                    height: auto;
+                    object-fit: cover;
+                    opacity: 1;
+                }
+
+                .gallery-item .name{
+                    visibility: visible;
+                    opacity: 1;
+                    transform: translate(0%, 0%);
+
+                    padding: 5px;
+
+                    font-family: "Hanken Grotesk", sans-serif;
+                    font-weight: 600;
+                    font-size: 14px;
+                    color: #303030;
+                    position: static;
+                    z-index: 1;
+                    width: 100%;
+
+                    text-align: center;
+                }
+
+                .gallery {
+                    margin-top: 0;
+                    padding: 0 4%;
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 10px;
+                }
+
+                .copyright {
+                    font-family: "Roboto", sans-serif;
+                    font-size: 9px;
+                    color: #666;
+                    text-align: center;
+                    margin-top: 20px;
+                    width: 100%;
+                    padding: 10px 0;
+                    box-sizing: border-box;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- impoter Menu générale -->
+        <div id="menu-placeholder"></div>
+        <div id="svgmenu-placeholder"></div>
+
+        <!-- Script pour importer le menu -->
+        <script src="navbar.js"></script>
+
+        <div class="gallery" id="gallery">
+            <!-- Les images seront insérées ici par JavaScript -->
+        </div>
+
+        <div class="copyright">
+            <p>©️2024 hugocharletdesign</p>
+        </div>
+
+        <script>
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+            async function generateGallery() {
+                try {
+                    const jsonFilePath = "img/images.json";
+                    const response = await fetch(jsonFilePath);
+                    if (!response.ok) {
+                        throw new Error("Erreur lors de la récupération du fichier JSON");
+                    }
+                    const imageFiles = await response.json();
+                    console.log("Données récupérées:", imageFiles); // Affiche les données récupérées pour vérifier
+                    const shuffledImages = shuffleArray(imageFiles);
+
+                    const gallery = document.getElementById("gallery");
+                    gallery.innerHTML = "";
+
+                    shuffledImages.forEach((img) => {
+                        console.log("Image actuelle:", img); // Affiche chaque objet image
+
+                        const galleryItem = document.createElement("div");
+                        galleryItem.className = "gallery-item";
+
+                        const linkElement = document.createElement("a");
+                        linkElement.href = `${img.url}`;
+
+                        const imgElement = document.createElement("img");
+                        imgElement.src = `img/${img.src}`;
+
+                        const nameElement = document.createElement("div");
+                        nameElement.className = "name";
+                        nameElement.textContent = img.name || "Titre non défini"; // Utilise le titre du JSON ou un texte par défaut
+
+                        console.log("Titre ajouté :", nameElement.textContent); // Vérifie le titre ajouté
+
+                        linkElement.appendChild(imgElement);
+                        galleryItem.appendChild(linkElement);
+                        galleryItem.appendChild(nameElement);
+
+                        gallery.appendChild(galleryItem);
+                    });
+                } catch (error) {
+                    console.error("Erreur lors de la génération de la galerie:", error);
+                }
+            }
+
+            window.onload = generateGallery;
+        </script>
+    </body>
 </html>

@@ -1,51 +1,47 @@
-// Charger le contenu de menugenerale.html
-fetch("menugenerale.html")
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
-        return response.text();
-    })
-    .then((data) => {
-        document.getElementById("menu-placeholder").innerHTML = data;
-        console.log("Contenu HTML chargé :");
+// Importer la barre de naviguation générale:
+//
+// Importer son style:
+const navbarStyle = document.createElement("link");
+navbarStyle.rel = "stylesheet";
+navbarStyle.href = "navbarstyle.css";
+document.head.appendChild(navbarStyle);
 
-        // Une fois le contenu inséré, vérifier et remplir la navbar
-        const navbar = document.getElementById("navbar");
+// séléctionner menu-placeholder
+const navbar = document.getElementById("menu-placeholder");
 
-        if (navbar) {
-            console.log("Div navbar trouvée");
+if (navbar) {
+    console.log("Div menu-placeholder trouvée");
 
-            // Récupérer l'URL et définir la page active
-            const url = window.location.href;
-            const pages = {
-                details: "details",
-                grid: "grid",
-                about: "about",
-                contact: "contact",
-                article: "article"
-            };
-            let activePage = "";
+    // Récupérer l'URL et définir la page active
+    const url = window.location.href;
+    const pages = {
+        details: "details",
+        grid: "grid",
+        about: "about",
+        contact: "contact",
+        article: "article"
+    };
+    let activePage = "";
 
-            if (url.includes(pages.details)) {
-                activePage = pages.details;
-                console.log("nous sommes sur la page details");
-            } else if (url.includes(pages.grid)) {
-                activePage = pages.grid;
-                console.log("nous sommes sur la page grid");
-            } else if (url.includes(pages.about)) {
-                activePage = pages.about;
-                console.log("nous sommes sur la page about");
-            } else if (url.includes(pages.contact)) {
-                activePage = pages.contact;
-                console.log("nous sommes sur la page contact");
-            } else {
-                activePage = pages.article;
-                console.log("nous sommes sur la page index ou sur une page article");
-            }
+    if (url.includes(pages.details)) {
+        activePage = pages.details;
+        console.log("nous sommes sur la page details");
+    } else if (url.includes(pages.grid)) {
+        activePage = pages.grid;
+        console.log("nous sommes sur la page grid");
+    } else if (url.includes(pages.about)) {
+        activePage = pages.about;
+        console.log("nous sommes sur la page about");
+    } else if (url.includes(pages.contact)) {
+        activePage = pages.contact;
+        console.log("nous sommes sur la page contact");
+    } else {
+        activePage = pages.article;
+        console.log("nous sommes sur la page index ou sur une page article");
+    }
 
-            // Insérer les éléments de navigation dans la navbar
-            const navItems = `
+    // Insérer les éléments de navigation dans la navbar
+    const navItems = `
                 <div class="menu-container ${activePage ? activePage : ""}">
                     <div class="menu">
                         <a style="text-decoration: none" href="https://www.hugocharlet.com/">
@@ -56,45 +52,39 @@ fetch("menugenerale.html")
                         <a class="menu-item ${activePage === pages.contact ? "active" : ""}" href="https://www.hugocharlet.com/contact">CONTACT</a>
                     </div>
                 </div>
+                <a href="https://www.instagram.com/hugocharletb/" target="_blank" aria-label="Hugo Charlet Instagram">
+                    <img id="instagramLogo" src="insta.svg" alt="Instagram" class="instagram-logo" style="max-width: 30px;" />
+                </a>
             `;
 
-            navbar.innerHTML = navItems;
+    navbar.innerHTML = navItems;
 
-            // Charger le menu SVG si on est sur la page "details" ou "grid"
-            if (activePage === "details" || activePage === "grid") {
-                fetch("list-grid.html")
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error("Network response was not ok");
-                        }
-                        return response.text();
-                    })
-                    .then((data) => {
-                        document.getElementById("svgmenu-placeholder").innerHTML = data;
-                        console.log("Menu SVG chargé");
+    // Charger le menu SVG si on est sur la page "details" ou "grid"
+    if (activePage === "details" || activePage === "grid") {
 
-                        // Insérer les éléments SVG dans le conteneur après avoir vérifié activePage
-                        const svgContainer = document.getElementById("svgcontainer");
+        
+                // Insérer les éléments SVG dans le conteneur après avoir vérifié activePage
+                const svgContainer = document.getElementById("svgmenu-placeholder");
 
-                        const svgItems = `
-                            <a href="details" class="svg-link" style="${activePage === "details" ? "filter: brightness(0);" : ""}">
-                                <img src="grid-details.svg" alt="Grid Details" class="svg-item">
-                            </a>
-                            <a href="grid" class="svg-link" style="${activePage === "grid" ? "filter: brightness(0);" : ""}">
-                                <img src="grid-square.svg" alt="Grid Square" class="svg-item">
-                            </a>
-                        `;
+                const svgItems = `
+                        <div class="top-container" >
+                            <div class="svg-container" >
+                                <a href="details" class="svg-link" style="${activePage === "details" ? "filter: brightness(0);" : ""}">
+                                    <img src="grid-details.svg" alt="Grid Details" class="svg-item" style="max-height: 11px;">
+                                </a>
+                                <a href="grid" class="svg-link" style="${activePage === "grid" ? "filter: brightness(0);" : ""}">
+                                    <img src="grid-square.svg" alt="Grid Square" class="svg-item" style="max-height: 11px;">
+                                </a>
+                            </div>   
+                        </div>
+        
+        
+        
+                                        `;
 
-                        svgContainer.innerHTML += svgItems;
-                    })
-                    .catch((error) => {
-                        console.error("Erreur lors du chargement du menu SVG :", error);
-                    });
-            }
-        } else {
-            console.log("Div navbar non trouvée");
-        }
-    })
-    .catch((error) => {
-        console.error("Erreur lors du chargement du menu général :", error);
-    });
+                svgContainer.innerHTML += svgItems;
+
+    }
+} else {
+    console.log("Div navbar non trouvée");
+}

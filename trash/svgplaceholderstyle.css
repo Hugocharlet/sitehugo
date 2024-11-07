@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.top-container-pages {
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+    padding: 0 8%;
+    box-sizing: border-box;
+}
+
+.svg-container-pages {
+    margin-top: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.svg-link {
+    display: flex;
+    align-items: center;
+}
+
+.svg-item {
+    height: 11px;
+    width: auto;
+    display: block;
+    margin: 0;
+    padding: 3px;
+    transition: transform 0.3s ease;
+}
+
+.svg-link:hover .svg-item {
+    transform: translateX(-7px);
+    filter: brightness(0);
+}
+
+@media (max-width: 600px) {
+    .svg-container-pages {
+        padding: 20px 4%;
+        display: none;
+    }
+}

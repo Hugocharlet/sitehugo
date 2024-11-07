@@ -1,0 +1,212 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap");
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.details {
+    background-color: #f3f3f3;
+}
+.grid {
+    background-color: white;
+}
+.about {
+    background-color: #e5e5e5;
+}
+.contact {
+    background-color: #e5e5e5;
+}
+.article {
+    background-color: white;
+}
+.active {
+    background-color: white;
+    padding: 2px 4px;
+    border-radius: 15px;
+}
+.menu-container {
+    position: fixed;
+    top: 0;
+    
+    left: 0;
+    width: 100%;
+    height: 90px;
+    padding: 0 8%;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+
+    gap: 40px;
+    margin-bottom: 15px;
+    margin-top: 30px;
+}
+
+.menu-item {
+    font-size: 14px;
+    font-family: "Hanken Grotesk", sans-serif;
+    font-weight: 600;
+    color: #afafaf;
+    padding: 2px 10px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.menu > a:first-child {
+    margin-right: auto;
+}
+
+.bold {
+    font-family: "Hanken Grotesk", sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: #303030; /* Couleur du texte pour contraste avec fond bleu */
+}
+
+.menu-item:not(:first-child) {
+    transition:
+        transform 0.3s ease,
+        background-color 0s ease;
+}
+.menu-item:not(:first-child):hover {
+    transform: translateY(-3px);
+    color: #303030;
+}
+
+.menu-item:first-child {
+    text-align: left;
+}
+
+.menu-item:first-child a {
+    font-family: "Hanken Grotesk", sans-serif;
+    font-size: 22px;
+    color: red;
+
+    background-color: none;
+}
+
+.instagram-logo {
+    position: fixed;
+    bottom: 35px;
+    right: 35px;
+    z-index: 10;
+    width: 1.9%;
+    min-width: 30px;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    display: block;
+    filter: brightness(1.7) saturate(0);
+}
+
+.instagram-logo:hover {
+    filter: none;
+}
+/*----------------SVG LIST & GRID STYLE----------------------*/
+
+.top-container {
+    position: relative; /* Fixe le menu en haut de la page */
+
+    width: 100%; /* Le menu occupe toute la largeur de la page */
+    z-index: 2000; /* Assure que le menu est au-dessus des autres éléments */
+    padding: 0 8%; /* Espacement horizontal du menu */
+    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
+}
+
+.svg-container {
+    margin-top: 100px;
+
+    display: flex;
+    z-index: 2000;
+    align-items: center; /* Centre les icônes verticalement */
+    justify-content: flex-end; /* Aligne les SVG à droite du conteneur */
+    gap: 13px; /* Espace entre les SVG */
+}
+
+.svg-link {
+    display: flex; /* Assure que les liens utilisent flexbox */
+    align-items: center; /* Centre les SVG verticalement */
+}
+
+.svg-link:hover .svg-item {
+    filter: brightness(0); /* Assombrit le SVG au survol */
+}
+
+.svg-item {
+    height: 11px; /* Largeur fixe pour chaque SVG */
+    width: auto; /* Hauteur automatique pour maintenir les proportions */
+    display: block; /* Assure que l'image ne génère pas d'espaces blancs en dessous */
+    margin: 0;
+    padding: 3px;
+}
+/*----------------SVG PAGES STYLE----------------------*/
+
+.top-container-pages {
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+    padding: 0 8%;
+    box-sizing: border-box;
+}
+
+.svg-container-pages {
+    margin-top: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.svg-link {
+    display: flex;
+    align-items: center;
+}
+
+.svg-item {
+    height: 11px;
+    width: auto;
+    display: block;
+    margin: 0;
+    padding: 3px;
+    transition: transform 0.3s ease;
+}
+
+.svg-link:hover .svg-item {
+    transform: translateX(-7px);
+    filter: brightness(0);
+}
+
+@media (max-width: 600px) {
+    .menu-container {
+        padding: 0 4%;
+        box-sizing: border-box;
+        z-index: 1000;
+    }
+
+    .menu {
+        gap: 2px;
+    }
+
+    .menu-item {
+        font-size: 13px;
+    }
+
+    .instagram-logo {
+        display: none;
+    }
+    .svg-container {
+        margin-top: 100px;
+
+        padding: 20px 4%; /* Padding à droite et à gauche pour correspondre à la marge du menu */
+    }
+    .svg-container-pages {
+        padding: 20px 4%;
+        display: none;
+    }
+}
