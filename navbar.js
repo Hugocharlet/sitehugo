@@ -6,13 +6,7 @@ navbarStyle.rel = "stylesheet";
 navbarStyle.href = "navbarstyle.css";
 document.head.appendChild(navbarStyle);
 
-// Quand le CSS est chargé, rends le menu visible
-link.onload = () => {
-    // Sélectionne les éléments à afficher
-    document.querySelectorAll('.menu-container, .instagram-logo').forEach(el => {
-        el.style.display = 'block';  // Rend le menu et l'icône Instagram visibles
-    });
-};
+
 // séléctionner menu-placeholder
 const navbar = document.getElementById("menu-placeholder");
 
@@ -95,3 +89,11 @@ if (navbar) {
 } else {
     console.log("Div navbar non trouvée");
 }
+
+// Quand le CSS est chargé, rends le menu visible
+link.onload = () => {
+    // Sélectionne les éléments à afficher
+    document.querySelectorAll('.menu-container, .instagram-logo').forEach(el => {
+        el.style.display = 'block';  // Rend le menu et l'icône Instagram visibles
+    });
+};
