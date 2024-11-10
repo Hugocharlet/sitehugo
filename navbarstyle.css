@@ -157,7 +157,7 @@ body {
     align-items: center;
     padding-right: 8%; /* Ajoute un padding de 4% à droite à l'intérieur du conteneur */
     box-sizing: border-box; /* Assure que le padding ne pousse pas le conteneur à dépasser de la largeur totale */
-    z-index: 9999;
+    z-index: 2100;
 }
 
 .svg-backarrow {

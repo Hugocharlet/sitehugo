@@ -125,7 +125,7 @@ body {
 
 	padding: 20px; /* Padding intérieur */
 	box-sizing: border-box; /* Inclure padding dans les dimensions */
-	z-index: 1000; /* Assurez-vous que le modèle est au-dessus du carrousel */
+	z-index: 3000; /* Assurez-vous que le modèle est au-dessus du carrousel */
 }
 
 #modelViewer {
