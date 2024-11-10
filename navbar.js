@@ -5,7 +5,7 @@ const navbarStyle = document.createElement("link");
 navbarStyle.rel = "stylesheet";
 navbarStyle.href = "navbarstyle.css";
 document.head.appendChild(navbarStyle);
-
+console.log("CSS menu chargé");
 
 // séléctionner menu-placeholder
 const navbar = document.getElementById("menu-placeholder");

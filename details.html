@@ -9,39 +9,54 @@
         <style>
             body {
                 font-family: 'Hanken Grotesk', sans-serif;
+                font-size: 13px;
             	color:#303030;
                 background-color: #f3f3f3;
             }
 
             .sousmenu-container {
-            	padding: 20px 8%;
-            	margin-top: 15px;
+            	padding: 35px 8% 20px ;
+
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-                z-index: 1; 
+                z-index: 1;
             }
             .sousmenu-first-line {
                 display: flex; /* Ajouté pour aligner les éléments horizontalement */
                 justify-content: space-between;
                 margin-bottom: 25px; /* Espacement spécifique pour la première ligne */
-
-                font-family: 'Hanken Grotesk', sans-serif;
             	font-weight:700;
-            	font-size: 13px;
+            }
+
+            .sousmenu-link {
+                text-decoration: none; /* Enlève le soulignement par défaut des liens */
+                color: inherit; /* Hérite de la couleur du texte des éléments enfants */
+                display: block; /* Assure que le lien couvre toute la ligne */
+                position: relative; /* Nécessaire pour le positionnement absolu des images */
             }
 
             .sousmenu {
                 display: flex;
                 justify-content: space-between;
                 padding: 4px;
-            	position: relative;
+            	font-weight:400;
                 transition: background-color 0.3s ease; /* Ajout d'une transition pour le survol */
             	cursor: none;
+            }
+            .sousmenu-item {
+                flex: 1; /* Chaque élément prend une largeur égale */
+                display: flex;
+                justify-content: flex-start;
+            	z-index: 2; /* Assure que le texte est au-dessus de l'image */
+            }
 
-                font-family: 'Hanken Grotesk', sans-serif;
-            	font-weight:400;
-            	font-size: 13px;
+            .sousmenu-item:nth-child(2) {
+                justify-content: center;
+            }
+
+            .sousmenu-item:nth-child(3) {
+                justify-content: flex-end;
             }
 
             .sousmenu-grise .sousmenu {
@@ -49,52 +64,9 @@
             }
 
 
-            .sousmenu-item {
-
-                flex: 1; /* Chaque élément prend une largeur égale */
-                display: flex;
-                align-items: center; /* Centrer le texte verticalement */
-            	z-index: 2; /* Assure que le texte est au-dessus de l'image */
-            }
-
-            /* Cibler spécifiquement le texte de la deuxième colonne pour le centrer */
-            .sousmenu-item:nth-child(2) {
-                text-align: center;
-                /* Assurer que l'élément prend toute la largeur de la colonne */
-                display: flex;
-                justify-content: center; /* Centre le texte horizontalement */
-            }
-
-            /* Aligner le texte de la troisième colonne à droite */
-            .sousmenu-item:nth-child(3) {
-                text-align: right; /* Aligne le texte à droite */
-                display: flex;
-                justify-content: flex-end; /* Aligne le texte à droite de la colonne */
-            }
-
-
-            /* Si les colonnes ont une largeur fixe et sont en mode block, vous pouvez aussi utiliser cela */
-            .sousmenu-item:nth-child(2) {
-                text-align: center;
-                width: 100%; /* Assure que l'élément prend toute la largeur de la colonne */
-                display: flex;
-                justify-content: center; /* Centre le texte horizontalement */
-            }
-
-
-            .sousmenu-link {
-                text-decoration: none; /* Enlève le soulignement par défaut des liens */
-                color: inherit; /* Hérite de la couleur du texte des éléments enfants */
-                display: block; /* Assure que le lien couvre toute la ligne */
-                position: relative; /* Nécessaire pour le positionnement absolu des images */
-
-            }
-
             .sousmenu-link:hover .sousmenu {
                 text-decoration: underline; /* Soulignement lors du survol */
-
             	background-color: rgba(0, 0, 120, 0.06);
-
             }
 
             .sousmenu img {
@@ -102,7 +74,6 @@
                 position: absolute;
                 top: 150px;
                 left: 150px;
-
                 width: 300px;
                 height: 300px;
                 object-fit: cover;
@@ -128,12 +99,10 @@
             .copyright {
             	font-family: 'Roboto', sans-serif;
             	font-size: 12px;
-            	color: #303030;
+                width: 100%;
             	text-align: center;
             	position: absolute; /* Utiliser relative pour que le texte suive le flux normal du document */
-            	margin-top: 40px; /* Espacement au-dessus du copyright */
-            	width: 100%;
-            	bottom:25px;
+                bottom:25px;
             	box-sizing: border-box; /* Inclut le padding dans la largeur totale */
             }
 
@@ -143,32 +112,18 @@
             text-decoration: underline; /* Soulignement lors du survol */
             background-color: rgba(0, 0, 120, 0.06);
             }
-
             .sousmenu {
-            font-size:9px;
+            font-size:11px;
             }
-
             .sousmenu-first-line {
-                display: flex; /* Ajouté pour aligner les éléments horizontalement */
-                justify-content: space-between;
-                margin-bottom: 25px; /* Espacement spécifique pour la première ligne */
-            	font-family: 'Hanken Grotesk', sans-serif;
-            	font-weight: 700;
-            	font-size: 9px;
+            	font-size: 11px;
             }
-
-                .copyright {
-            	font-family: 'Roboto', sans-serif;
-            	font-size: 9px;
-            	color: #303030;
-            	text-align: center;
-            	position: relative; /* Utiliser relative pour que le texte suive le flux normal du document */
-            	margin-top: 20px; /* Espacement au-dessus du copyright */
-            	width: 100%;
-            	padding: 10px 0; /* Espacement autour du texte, si nécessaire */
-            	box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+            .copyright {
+            font-size: 9px;
+            position: relative; /* Utiliser relative pour que le texte suive le flux normal du document */
+            margin-top: 30px; /* Espacement au-dessus du copyright */
+            width: 100%;
             }
-
             .sousmenu-link:hover .sousmenu img {
                 display: none !important; /
             }
@@ -182,173 +137,61 @@
         <div id="menu-placeholder"></div>
         <div id="svgmenu-placeholder"></div>
         <script src="navbar.js"></script>
-        
+
         <!-- tableau -->
-        <div class="sousmenu-container">
+        <div id="table-data-placeholder" class="sousmenu-container">
             <div class="sousmenu-first-line">
                 <div class="sousmenu-item">YEAR</div>
                 <div class="sousmenu-item">NAME</div>
                 <div class="sousmenu-item">TYPOLOGIE</div>
             </div>
-
-            <a href="helena" class="sousmenu-link">
-                <div class="sousmenu">
-                    <div class="sousmenu-item">2024</div>
-                    <div class="sousmenu-item">HELENA</div>
-                    <div class="sousmenu-item">SEATING</div>
-                    <img src="img/HELENA.jpg" alt="helena" />
-                </div>
-            </a>
-
-            <a href="belvedere" class="sousmenu-link">
-                <div class="sousmenu">
-                    <div class="sousmenu-item">2024</div>
-                    <div class="sousmenu-item">BELVEDERE</div>
-                    <div class="sousmenu-item">SEATING</div>
-                    <img src="img/BELVEDERE.jpg" alt="belvedere" />
-                </div>
-            </a>
-
-            <a href="remo" class="sousmenu-link">
-                <div class="sousmenu">
-                    <div class="sousmenu-item">2023</div>
-                    <div class="sousmenu-item">REMO</div>
-                    <div class="sousmenu-item">SEATING</div>
-                    <img src="img/REMO.jpg" alt="remo" />
-                </div>
-            </a>
-
-            <a href="anton" class="sousmenu-link">
-                <div class="sousmenu">
-                    <div class="sousmenu-item">2023</div>
-                    <div class="sousmenu-item">ANTON</div>
-                    <div class="sousmenu-item">SEATING</div>
-                    <img src="img/ANTON.jpg" alt="anton" />
-                </div>
-            </a>
-
-            <a href="dieter" class="sousmenu-link">
-                <div class="sousmenu">
-                    <div class="sousmenu-item">2023</div>
-                    <div class="sousmenu-item">DIETER</div>
-                    <div class="sousmenu-item">SEATING</div>
-                    <img src="img/DIETER.jpg" alt="dieter" />
-                </div>
-            </a>
-
-            <a href="louise" class="sousmenu-link">
-                <div class="sousmenu">
-                    <div class="sousmenu-item">2023</div>
-                    <div class="sousmenu-item">LOUISE</div>
-                    <div class="sousmenu-item">SEATING</div>
-                    <img src="img/LOUISE.jpg" alt="louise" />
-                </div>
-            </a>
-
-            <a href="tropical" class="sousmenu-link">
-                <div class="sousmenu">
-                    <div class="sousmenu-item">2022</div>
-                    <div class="sousmenu-item">TROPICAL</div>
-                    <div class="sousmenu-item">SEATING</div>
-                    <img src="img/TROPICA.jpg" alt="tropical" />
-                </div>
-            </a>
-
-            <a href="melodie" class="sousmenu-link">
-                <div class="sousmenu">
-                    <div class="sousmenu-item">2022</div>
-                    <div class="sousmenu-item">MELODIE</div>
-                    <div class="sousmenu-item">SEATING</div>
-                    <img src="img/MELODIE.jpg" alt="melodie" />
-                </div>
-            </a>
-
-            <a href="taurus" class="sousmenu-link">
-                <div class="sousmenu">
-                    <div class="sousmenu-item">2022</div>
-                    <div class="sousmenu-item">TAURUS</div>
-                    <div class="sousmenu-item">SEATING</div>
-                    <img src="img/TAURUS.jpg" alt="taurus" />
-                </div>
-            </a>
-
-            <a href="mistral" class="sousmenu-link">
-                <div class="sousmenu">
-                    <div class="sousmenu-item">2022</div>
-                    <div class="sousmenu-item">MISTRAL</div>
-                    <div class="sousmenu-item">LIGHTING</div>
-                    <img src="img/MISTRAL.jpg" alt="mistral" />
-                </div>
-            </a>
-
-            <a href="enzo" class="sousmenu-link">
-                <div class="sousmenu">
-                    <div class="sousmenu-item">2021</div>
-                    <div class="sousmenu-item">ENZO</div>
-                    <div class="sousmenu-item">DESK</div>
-                    <img src="img/ENZO.jpg" alt="enzo" />
-                </div>
-            </a>
-
-            <a href="loop" class="sousmenu-link">
-                <div class="sousmenu">
-                    <div class="sousmenu-item">2020</div>
-                    <div class="sousmenu-item">LOOP</div>
-                    <div class="sousmenu-item">SEATING</div>
-                    <img src="img/LOOP.jpg" alt="loop" />
-                </div>
-            </a>
-
-            <a href="pixa" class="sousmenu-link">
-                <div class="sousmenu">
-                    <div class="sousmenu-item">2020</div>
-                    <div class="sousmenu-item">PIXA</div>
-                    <div class="sousmenu-item">SEATING</div>
-                    <img src="img/PIXA.jpg" alt="pixa" />
-                </div>
-            </a>
-
-            <a href="tomeo" class="sousmenu-link">
-                <div class="sousmenu">
-                    <div class="sousmenu-item">2020</div>
-                    <div class="sousmenu-item">TOMEO</div>
-                    <div class="sousmenu-item">SEATING</div>
-                    <img src="img/TOMEO.jpg" alt="toméo" />
-                </div>
-            </a>
-
-            <a href="kaktus" class="sousmenu-link">
-                <div class="sousmenu">
-                    <div class="sousmenu-item">2019</div>
-                    <div class="sousmenu-item">KAKTUS</div>
-                    <div class="sousmenu-item">OBJECT</div>
-                    <img src="img/KAKTUS.jpg" alt="kaktus" />
-                </div>
-            </a>
-
-            <a href="bureauk" class="sousmenu-link">
-                <div class="sousmenu">
-                    <div class="sousmenu-item">2016</div>
-                    <div class="sousmenu-item">BUREAUK</div>
-                    <div class="sousmenu-item">DESK</div>
-                    <img src="img/BUREAUK1.jpg" alt="bureau ajustable" />
-                </div>
-            </a>
-
-            <a href="teo" class="sousmenu-link">
-                <div class="sousmenu">
-                    <div class="sousmenu-item">2016</div>
-                    <div class="sousmenu-item">TEO</div>
-                    <div class="sousmenu-item">SEATING</div>
-                    <img src="img/TEO1.jpg" alt="téo" />
-                </div>
-            </a>
+            <!-- ici  insertAdjacentHTML("beforeend", lignehtml);  -->
         </div>
-
+        <!-- copyright -->
         <div class="copyright">
             <p>©️2024 hugocharletdesign</p>
         </div>
         <script>
+            const table = [
+                { year: 2024, typology: "SEATING", name: "helena" },
+                { year: 2024, typology: "SEATING", name: "belvedere" },
+                { year: 2023, typology: "SEATING", name: "remo" },
+                { year: 2023, typology: "SEATING", name: "anton" },
+                { year: 2023, typology: "SEATING", name: "dieter" },
+                { year: 2023, typology: "SEATING", name: "louise" },
+                { year: 2023, typology: "SEATING", name: "tropical" },
+                { year: 2023, typology: "SEATING", name: "melodie" },
+                { year: 2022, typology: "SEATING", name: "taurus" },
+                { year: 2022, typology: "LIGHTING", name: "mistral" },
+                { year: 2022, typology: "DESK", name: "enzo" },
+                { year: 2022, typology: "SEATING", name: "loop" },
+                { year: 2021, typology: "SEATING", name: "pixa" },
+                { year: 2021, typology: "OBJECT", name: "tomeo" },
+                { year: 2020, typology: "DESK", name: "kaktus" },
+                { year: 2016, typology: "DESK", name: "bureauk" },
+                { year: 2016, typology: "SEATING", name: "teo" }
+            ];
+
+            const container = document.getElementById("table-data-placeholder");
+
+            table.forEach((item) => {
+                // Crée le HTML en utilisant les données de chaque item
+                const lignehtml = `
+                    <a href="${item.name}" class="sousmenu-link">
+                        <div class="sousmenu">
+                            <div class="sousmenu-item">${item.year}</div>
+                            <div class="sousmenu-item">${item.name.toUpperCase()}</div>
+                            <div class="sousmenu-item">${item.typology}</div>
+                            <img src="img/${item.name}.jpg" alt="${item.name}" />
+                        </div>
+                    </a>
+                `;
+
+                // Ajoute le HTML dans le conteneur
+                container.insertAdjacentHTML("beforeend", lignehtml);
+            });
+
+            // tarckeur souris
             document.addEventListener("DOMContentLoaded", () => {
                 const sousmenuLinks = document.querySelectorAll(".sousmenu-link");
 
@@ -394,7 +237,5 @@
                 });
             });
         </script>
-
-        
     </body>
 </html>

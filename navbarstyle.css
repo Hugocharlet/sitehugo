@@ -110,7 +110,6 @@ body {
 
 .top-container {
     position: relative; /* Fixe le menu en haut de la page */
-
     width: 100%; /* Le menu occupe toute la largeur de la page */
     z-index: 2000; /* Assure que le menu est au-dessus des autres éléments */
     padding: 0 8%; /* Espacement horizontal du menu */
@@ -156,7 +155,7 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding-right: 8%; /* Ajoute un padding de 8% à droite à l'intérieur du conteneur */
+    padding-right: 8%; /* Ajoute un padding de 4% à droite à l'intérieur du conteneur */
     box-sizing: border-box; /* Assure que le padding ne pousse pas le conteneur à dépasser de la largeur totale */
     z-index: 9999;
 }
@@ -174,28 +173,22 @@ body {
     filter: brightness(0); /* Change la luminosité de l'image */
 }
 
-@media (max-width: 600px) {
-    .menu-container {
-        padding: 0 5%;
-        box-sizing: border-box;
-        z-index: 1000;
+@media(max-width: 600px) {
+    .top-container .menu-container {
+        padding: 0 4%;
+        background-color: lawngreen;
     }
-
     .menu {
         gap: 2px;
     }
-
     .menu-item {
         font-size: 13px;
     }
-
     .instagram-logo {
         display: none;
     }
     .svg-container {
         margin-top: 100px;
-
-        padding: 20px 4%; /* Padding à droite et à gauche pour correspondre à la marge du menu */
     }
     .svg-container-pages {
         padding: 20px 4%;

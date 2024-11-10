@@ -10,7 +10,6 @@
                 font-family: "Hanken Grotesk", sans-serif;
                 color: #303030;
             }
-
             .image-container {
                 display: flex;
                 justify-content: center;
@@ -20,23 +19,8 @@
                 position: relative;
             }
 
-            img {
-                max-height: 100%;
-                max-width: 100%;
-            }
-
-            .copyright {
-                font-family: "Roboto";
-                padding: 35px;
-                font-size: 12px;
-                color: #303030;
-                text-align: center;
-                margin: 0;
-            }
-
             .gallery {
-                margin-top: 10px;
-                padding: 0 8%;
+                padding: 10px 8% 0px;
                 display: grid;
                 grid-template-columns: repeat(5, 1fr);
                 gap: 0px;
@@ -44,29 +28,24 @@
 
             .gallery-item {
                 position: relative;
-                overflow: visible; /* Permet aux images de déborder */
-                margin: 0; /* Assure qu'il n'y a pas de marge entre les éléments */
-                padding: 0; /* Assure qu'il n'y a pas de padding */
             }
             .gallery-item img {
                 display: block; /* Élimine les espaces blancs sous l'image */
-                margin: 0; /* Assure qu'il n'y a pas de marge sous l'image */
-                padding: 0; /* Assure qu'il n'y a pas de padding autour de l'image */
-                width: 100%;
-                height: auto;
-                object-fit: cover;
+                object-fit: cover; /* Élimine les espaces blancs sous l'image du à l'animation */
                 filter: grayscale(0%);
                 transition:
                     filter 0.5s ease,
                     transform 0.5s ease;
             }
-
+            img {
+                max-height: 100%;
+                max-width: 100%;
+            }
             .name {
                 position: absolute; /* Positionne le texte au-dessus de l'image */
                 top: 50%; /* Positionne verticalement au milieu */
                 left: 50%; /* Positionne horizontalement au milieu */
                 transform: translate(-50%, -50%); /* Centre le texte */
-                font-family: "Hanken Grotesk", sans-serif;
                 pointer-events: none;
                 z-index: 11;
                 font-size: 18px;
@@ -77,14 +56,11 @@
                 transition:
                     opacity 0.3s,
                     visibility 0.3s; /* Transition douce */
-
-                padding: 5px; /* Espacement autour du texte */
             }
 
             .gallery-item:hover img {
                 filter: grayscale(100%) brightness(38%);
                 animation: zoomquick 0.3s forwards;
-
                 z-index: 10;
                 opacity: 1;
                 position: relative;
@@ -113,8 +89,19 @@
                     transform: scale(1.5);
                 }
             }
-
+            .copyright {
+                font-family: "Roboto";
+                padding: 35px;
+                font-size: 12px;
+                text-align: center;
+            }
             @media (max-width: 600px) {
+                .gallery {
+                    padding: 10px 4% 0px;
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 10px;
+                }
                 .gallery-item {
                     display: flex;
                     flex-direction: column;
@@ -122,42 +109,25 @@
                     text-align: center;
                     justify-content: center;
                 }
-
                 .gallery-item img {
                     width: 100%;
                     height: auto;
                     object-fit: cover;
                     opacity: 1;
                 }
-
-                .gallery-item .name{
+                .gallery-item .name {
                     visibility: visible;
                     opacity: 1;
                     transform: translate(0%, 0%);
-
                     padding: 5px;
-
-                    font-family: "Hanken Grotesk", sans-serif;
                     font-weight: 600;
                     font-size: 14px;
                     color: #303030;
                     position: static;
                     z-index: 1;
                     width: 100%;
-
-                    text-align: center;
                 }
-
-                .gallery {
-                    margin-top: 0;
-                    padding: 0 4%;
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 10px;
-                }
-
                 .copyright {
-                    font-family: "Roboto", sans-serif;
                     font-size: 9px;
                     color: #666;
                     text-align: center;
@@ -177,7 +147,7 @@
         <!-- Script pour importer le menu -->
         <script src="navbar.js"></script>
 
-        <div class="gallery" id="gallery">
+        <div class="gallery" id="gallery-placeholder">
             <!-- Les images seront insérées ici par JavaScript -->
         </div>
 
@@ -186,57 +156,76 @@
         </div>
 
         <script>
-            function shuffleArray(array) {
-                for (let i = array.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]];
+            const grid = [
+                { src: "ANTON.jpg", name: "anton" },
+                { src: "ANTON1.jpg", name: "anton" },
+                { src: "ANTON2.jpg", name: "anton" },
+                { src: "BELVEDERE.jpg", name: "belvedere" },
+                { src: "BUREAUK.jpg", name: "bureauk" },
+                { src: "BUREAUK1.jpg", name: "bureauk" },
+                { src: "DIETER.jpg", name: "dieter" },
+                { src: "DIETER2.jpg", name: "dieter" },
+                { src: "ENZO.jpg", name: "enzo" },
+                { src: "HELENA.jpg", name: "helena" },
+                { src: "HELENA1.jpg", name: "helena" },
+                { src: "HELENA2.jpg", name: "helena" },
+                { src: "HELENA3.jpg", name: "helena" },
+                { src: "KAKTUS.jpg", name: "kaktus" },
+                { src: "LOOP.jpg", name: "loop" },
+                { src: "LOOP2.jpg", name: "loop" },
+                { src: "LOOP3.jpg", name: "loop" },
+                { src: "LOOP4.jpg", name: "loop" },
+                { src: "LOUISE.jpg", name: "louise" },
+                { src: "LOUISE1.jpg", name: "louise" },
+                { src: "LOUISE2.jpg", name: "louise" },
+                { src: "LOUISE3.jpg", name: "louise" },
+                { src: "MELODIE.jpg", name: "melodie" },
+                { src: "MISTRAL.jpg", name: "mistral" },
+                { src: "MISTRAL2.jpg", name: "mistral" },
+                { src: "PIXA.jpg", name: "pixa" },
+                { src: "PIXA1.jpg", name: "pixa" },
+                { src: "PIXA2.JPG", name: "pixa" },
+                { src: "PIXA3.JPG", name: "pixa" },
+                { src: "PIXA4.jpg", name: "pixa" },
+                { src: "REMO.jpg", name: "remo" },
+                { src: "REMO2.jpg", name: "remo" },
+                { src: "TABLE.jpg", name: "helena" },
+                { src: "TAURUS.jpg", name: "taurus" },
+                { src: "TEO.jpg", name: "teo" },
+                { src: "TEO2.jpg", name: "teo" },
+                { src: "TEO3.jpg", name: "teo" },
+                { src: "TOMEO.jpg", name: "tomeo" },
+                { src: "TROPICAL.jpg", name: "tropical" }
+            ];
+
+            const container = document.getElementById("gallery-placeholder");
+
+            grid.forEach((item) => {
+                const article = `
+                    <div class="gallery-item">
+                        <a href="${item.name}">
+                            <img src="img/${item.src}" alt="${item.name}">
+                        </a>
+                        <div class="name">${item.name.toUpperCase()}</div>
+                    </div>
+                `;
+                container.insertAdjacentHTML("beforeend", article);
+            });
+
+            document.addEventListener("DOMContentLoaded", () => {
+                function melangerElements() {
+                    const childrenArray = Array.from(container.children);
+
+                    // Mélanger le tableau d'enfants
+                    childrenArray.sort(() => Math.random() - 0.5);
+
+                    // Réinsérer chaque enfant dans l'ordre mélangé
+                    container.innerHTML = "";
+                    childrenArray.forEach((child) => container.appendChild(child));
                 }
-                return array;
-            }
-            async function generateGallery() {
-                try {
-                    const jsonFilePath = "img/images.json";
-                    const response = await fetch(jsonFilePath);
-                    if (!response.ok) {
-                        throw new Error("Erreur lors de la récupération du fichier JSON");
-                    }
-                    const imageFiles = await response.json();
-                    console.log("Données récupérées:", imageFiles); // Affiche les données récupérées pour vérifier
-                    const shuffledImages = shuffleArray(imageFiles);
 
-                    const gallery = document.getElementById("gallery");
-                    gallery.innerHTML = "";
-
-                    shuffledImages.forEach((img) => {
-                        console.log("Image actuelle:", img); // Affiche chaque objet image
-
-                        const galleryItem = document.createElement("div");
-                        galleryItem.className = "gallery-item";
-
-                        const linkElement = document.createElement("a");
-                        linkElement.href = `${img.url}`;
-
-                        const imgElement = document.createElement("img");
-                        imgElement.src = `img/${img.src}`;
-
-                        const nameElement = document.createElement("div");
-                        nameElement.className = "name";
-                        nameElement.textContent = img.name || "Titre non défini"; // Utilise le titre du JSON ou un texte par défaut
-
-                        console.log("Titre ajouté :", nameElement.textContent); // Vérifie le titre ajouté
-
-                        linkElement.appendChild(imgElement);
-                        galleryItem.appendChild(linkElement);
-                        galleryItem.appendChild(nameElement);
-
-                        gallery.appendChild(galleryItem);
-                    });
-                } catch (error) {
-                    console.error("Erreur lors de la génération de la galerie:", error);
-                }
-            }
-
-            window.onload = generateGallery;
+                melangerElements(); // Appel de la fonction après chargement du contenu
+            });
         </script>
     </body>
 </html>
