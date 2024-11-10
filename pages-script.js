@@ -10,14 +10,14 @@ const navbar = document.getElementById("menu-placeholder");
 // Insérer les éléments de navigation dans la navbar
 const navItems = `
                 <div class="menu-container article">
-                    <div class="menu">
+                    <nav class="menu">
                         <a style="text-decoration: none" href="https://www.hugocharlet.com/">
                             <span class="bold">Hugo Charlet</span>
                         </a>
                         <a class="menu-item " href="details">WORK</a>
                         <a class="menu-item " href="about">ABOUT</a>
                         <a class="menu-item " href="contact">CONTACT</a>
-                    </div>
+                    </nav>
                 </div>
                 <a href="https://www.instagram.com/hugocharletb/" target="_blank" aria-label="Hugo Charlet Instagram">
                     <img id="instagramLogo" src="insta.svg" alt="Instagram" class="instagram-logo" style="max-width: 30px;" />
