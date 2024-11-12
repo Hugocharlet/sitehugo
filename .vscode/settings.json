@@ -2,5 +2,6 @@
     "search.sortOrder": "default",
     "explorer.openEditors.sortOrder": "alphabetical",
     "explorer.sortOrderReverse": false,
-    "explorer.sortOrder": "type"
+    "explorer.sortOrder": "type",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
