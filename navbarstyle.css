@@ -174,9 +174,8 @@ body {
 }
 
 @media(max-width: 600px) {
-    .top-container .menu-container {
+    .top-container, .menu-container {
         padding: 0 4%;
-        background-color: lawngreen;
     }
     .menu {
         gap: 2px;
