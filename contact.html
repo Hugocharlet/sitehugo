@@ -14,92 +14,38 @@
 
 			body {
 				background-color: #e5e5e5;
+				font-family: "IBM Plex Mono", monospace;
+				color: #303030;
 			}
-
-			.texte-container {
-				width: 100%;
-				z-index: 1;
-				flex-direction: column;
-			}
-
-			.titre {
+			h1 {
 				font-family: "IBM Plex Mono", monospace;
 				font-size: 15px;
 				font-weight: 500;
-				color: #303030;
-				margin-bottom: 10px;
-				border-bottom: 1px solid #303030;
 			}
-			.titre1 {
-				font-family: "IBM Plex Mono", monospace;
-				font-size: 14px;
+			.titre {
+				margin-bottom: 10px;
 				font-weight: 500;
-				color: #303030;
 				border-bottom: 1px solid #303030;
-
-				margin-top: 25px;
-				margin-bottom: 10px;
-			}
-
+				}
 			.texte {
-				font-family: "IBM Plex Mono", monospace;
   				font-weight: 400;
   				font-style: italic;
 				font-size: 13px;
-
-				margin-right: 8%;
-				color: #303030;
 			}
 			.colonne-container {
 				margin-top: 100px;
 				margin-right: 8%;
-				margin-left: max(520px, calc(38% + 20px));
-				position: relative;
+				margin-left: calc(38% + 20px);
 			}
-
 			.image-container {
-				margin-left: 8%;
+				left: 8%;
+				top: 100px;
 				position: fixed;
-				width: 30%;
-				min-width: 400px;
-				height: 800px;
-				aspect-ratio: 1 / 1;
+				width: 30vw;
+				aspect-ratio:1/1;
 			}
-
-			.profile,
-			.fond {
-				position: absolute;
-				top: 0;
-				left: 0;
+			.image-container img {
 				width: 100%;
-				height: 100%;
-				object-fit: cover;
-			}
-
-			.contact-container {
-				display: flex;
-				flex-direction: row;
-				align-items: flex-start;
-				gap: 20px; /* Espace entre l'adresse et l'image */
-			}
-
-			.contact-info {
-				flex: 1; /* Prend toute la place disponible */
-			}
-
-			.small-image {
-				position: relative;
-				width: 30%;
-				min-width: 400px;
-			}
-
-			.copyright {
-				font-family: "Roboto";
-				padding: 200px;
-				font-size: 12px;
-				color: #666;
-				text-align: center;
-				margin: 0;
 			}
 
 			@media (max-width: 600px) {
@@ -113,15 +59,6 @@
 					margin-top: 110px;
 					margin-right: 4%;
 					margin-left: 4%;
-					position: relative;
-				}
-
-				.contact-container {
-					flex-direction: column; /* En colonne sur petit écran */
-				}
-
-				.small-image {
-					width: 100%; /* L'image prend toute la largeur sur petit écran */
 				}
 			}
 		</style>
@@ -134,28 +71,22 @@
 		<script src="navbar.js"></script>
 
 		<div class="image-container">
-			<img class="small-image" src="carte.jpg" alt="image fond" />
+			<img src="carte.jpg" alt="image fond" />
 		</div>
 
 		<div class="colonne-container">
-			<div class="texte-container"></div>
-			<div class="titre">CONTACT:</div>
-			<br />
-
-			<!-- Conteneur pour l'adresse et l'image côte à côte -->
-			<div class="contact-container">
-				<div class="contact-info texte">
-					Hugo Charlet design studio <br />
-					8 rue du commandant Arnould <br />
-					33000 Bordeaux [France] <br /><br />
-					<a class="texte" style="text-decoration: none" href="mailto:info@hugocharlet.com"
-						>E-mail:<span style="color: #808080"> info@hugocharlet.com</span></a
-					><br />
-					<a class="texte" style="text-decoration: none" href="https://www.instagram.com/hugocharletb/"
-						>IG:<span style="color: #808080"> @hugocharletb</span></a
-					>
-				</div>
-			</div>
+			<h1 class="titre">CONTACT:</h1>
+			<p class="contact-info texte">
+				Hugo Charlet design studio <br />
+				8 rue du commandant Arnould <br />
+				33000 Bordeaux [France] <br /><br />
+				<a class="texte" style="text-decoration: none" href="mailto:info@hugocharlet.com"
+					>E-mail:<span style="color: #808080"> info@hugocharlet.com</span>
+				</a><br />
+				<a class="texte" style="text-decoration: none" href="https://www.instagram.com/hugocharletb/"
+					>IG:<span style="color: #808080"> @hugocharletb</span>
+				</a>
+			</p>
 		</div>
 	</body>
 </html>
