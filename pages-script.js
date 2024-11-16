@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
             images.forEach((img) => {
                 if (img) {
                     img.classList.add("imagelarge");
-                    img.setAttribute("alt",`Picture of '${document.title}', original design by French designer Hugo Charlet`);
+                    img.setAttribute("alt",`Picture of ${document.title}, original design by French designer Hugo Charlet`);
                     imageContainer.appendChild(img);
                 } else {
                     console.warn("Une image est manquante ou a échoué à se charger.");
