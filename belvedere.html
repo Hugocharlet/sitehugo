@@ -4,28 +4,31 @@
 		<link rel="icon" type="image/png" href="favicon.png" />
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>BELVEDERE</title>
+		<meta property="og:description" content="The belvedere chair is a simple chair with a highly original structure  that gives the chair a recognizable identity." />
+  	 	<meta property="og:image" content="https://www.hugocharlet.com/pages/belvedere/4.jpg" />
+    x
+		<title>BELVEDERE outdoor chairs</title>
 		<link rel="stylesheet" href="csspages.css" />
 		<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 	</head>
 	<body>
 		<!-- impoter Menu générale -->
-		<div id="menu-placeholder"></div>
+		<nav id="menu-placeholder"></nav>
 		<div id="svgmenupages-placeholder"></div>
 
 		<!-- deux colonnes -->
 		<img class="imagemain" src="pages/belvedere/main.jpg" alt="main" />
 		<div class="colonne-fixed">
-			<div class="Title">BELVEDERE</div>
-			<div class="Subtitle">Outdoor chairs 2024</div>
-			<div class="textebox-container">
-				<div class="texte">Dimension: 525 x 475 x 860 cm</div>
-				<div class="texte">
+			<h1 class="Title">BELVEDERE</h1>
+			<h2 class="Subtitle">Outdoor chairs 2024</h2>
+			<main class="textebox-container">
+				<p class="texte">Dimension: 525 x 475 x 860 cm</p>
+				<p class="texte">
 					The belvedere chair is a simple chair with a highly original structure that is unusual for a chair:
 					the back legs rise up to the level of the high back. This creates an original detail that gives the
 					chair a recognizable identity.
-				</div>
-			</div>
+				</p>
+			</main>
 			<div class="sousmenu-wrapper">
 				<div class="icon-container">
 					<a href="#" data-model-src="glb/belvederechair.glb" class="icon-link" id="ouvrir-model-viewer">
@@ -48,26 +51,7 @@
 			<button class="close-button" id="closeModelViewer">
 				<img src="crosss.svg" alt="Close" />
 			</button>
-			<model-viewer
-				id="modelViewer"
-				src="glb/belvedere.glb"
-				autoplay
-				loading="eager"
-				ar
-				ar-modes="webxr scene-viewer quick-look"
-				ar-status="not-presenting"
-				auto-rotate
-				bounds="tight"
-				rotation-per-second="1deg"
-				environment-image="glb/studio.hdr"
-				exposure="0.7"
-				camera-controls
-				interpolation-decay="200"
-				shadow-intensity="1"
-				interaction-prompt="none"
-				camera-orbit="-40deg 82deg 12m"
-				min-camera-orbit="auto 40deg a">
-			</model-viewer>
+			<model-viewer id="modelViewer" src="glb/belvedere.glb" autoplay loading="eager" ar ar-modes="webxr scene-viewer quick-look" ar-status="not-presenting" auto-rotate bounds="tight" rotation-per-second="1deg" environment-image="glb/studio.hdr" exposure="0.7" camera-controls interpolation-decay="200" shadow-intensity="1" interaction-prompt="none" camera-orbit="-40deg 82deg 12m" min-camera-orbit="auto 40deg a"> </model-viewer>
 		</div>
 
 		<div id="image-container"></div>
