@@ -116,6 +116,18 @@ body {
   padding: 0;
   z-index: 1001; /* Assurez-vous que le bouton est au-dessus du modèle */
 }
+.overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 999; /* Juste en dessous du modelContainer */
+}
+.show {
+	display: block !important; /* Afficher lorsqu'on ajoute la classe show */
+}
 
 /* Style pour le loader */
 #loader {
