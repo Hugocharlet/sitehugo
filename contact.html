@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>INFOS</title>
-    <link rel="stylesheet" href="csspages.css" />
+    <link rel="stylesheet" href="variables.css">
     <link rel="icon" type="image/png" href="favicon.png" />
     <script
       type="module"
@@ -38,11 +38,11 @@
       }
       .colonne-container {
         margin-top: 100px;
-        margin-right: 8%;
-        margin-left: calc(38% + 20px);
+        margin-right: var(--margin-general);
+        margin-left: calc(30% + var(--margin-general) + 20px);
       }
       .image-container {
-        left: 8%;
+        left: var(--margin-general);
         top: 100px;
         position: fixed;
         width: 30vw;
@@ -61,8 +61,8 @@
         }
         .colonne-container {
           margin-top: 110px;
-          margin-right: 4%;
-          margin-left: 4%;
+          margin-right: var(--margin-general);
+          margin-left: var(--margin-general);
         }
       }
     </style>

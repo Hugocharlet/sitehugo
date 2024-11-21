@@ -26,9 +26,9 @@ body {
   /* Pas besoin de marges gauche ou droite ici car align-items gère cela */
 }
 .colonne-fixed {
-  width: 28%;
+  width:  calc(36% - var(--margin-general));
   z-index: 10;
-  margin-left: 8%;
+  margin-left: var(--margin-general);
   padding: 10px;
   position: absolute;
   margin-top: 80px; /* Positionner à la moitié de l'écran en hauteur */
@@ -89,7 +89,7 @@ body {
   display: none; /* Initialement caché */
   position: fixed; /* Positionnement absolu pour le superposer */
   top: 50%; /* Centrer verticalement */
-  right: 8%; /* Aligner à droite avec une marge de 8% de la largeur de l'écran */
+  right: var(--margin-general); /* Aligner à droite avec une marge devar(--margin-general) de la largeur de l'écran */
   transform: translateY(-50%); /* Ajuster pour centrer verticalement */
   width: 80%; /* Ajustez la largeur selon vos besoins */
   max-width: 84%; /* Largeur maximale pour s'adapter à l'écran */
@@ -163,8 +163,8 @@ body {
 @media (max-width: 600px) {
   .colonne-fixed {
     position: relative;
-    margin-left: 4%;
-    margin-right: 4%;
+    margin-left: var(--margin-general);
+    margin-right: var(--margin-general);
     width: 80%;
     margin-top: 20px;
   }

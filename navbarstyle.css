@@ -33,7 +33,7 @@ body {
     left: 0;
     width: 100%;
     height: 90px;
-    padding: 0 8%;
+    padding: 0 var(--margin-general);
     box-sizing: border-box;
     z-index: 3000;
 }
@@ -112,7 +112,7 @@ body {
     position: relative; /* Fixe le menu en haut de la page */
     width: 100%; /* Le menu occupe toute la largeur de la page */
     z-index: 2000; /* Assure que le menu est au-dessus des autres éléments */
-    padding: 0 8%; /* Espacement horizontal du menu */
+    padding: 0 var(--margin-general); /* Espacement horizontal du menu */
     box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
 }
 
@@ -155,7 +155,7 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding-right: 8%; /* Ajoute un padding de 4% à droite à l'intérieur du conteneur */
+    padding-right: var(--margin-general); /* Ajoute un padding de var(--margin-general) à droite à l'intérieur du conteneur */
     box-sizing: border-box; /* Assure que le padding ne pousse pas le conteneur à dépasser de la largeur totale */
     z-index: 2100;
 }
@@ -175,7 +175,7 @@ body {
 
 @media(max-width: 600px) {
     .top-container, .menu-container {
-        padding: 0 4%;
+        padding: 0 var(--margin-general);
     }
     .menu {
         gap: 2px;
@@ -190,7 +190,7 @@ body {
         margin-top: 100px;
     }
     .svg-container-pages {
-        padding: 20px 4%;
+        padding: 20px var(--margin-general);
         display: none;
     }
 }

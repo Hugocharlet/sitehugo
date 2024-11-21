@@ -4,7 +4,8 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/png" href="favicon.png" />
-        <title>Gallery</title>
+        <title>Project grid view</title>
+        <link rel="stylesheet" href="variables.css">
         <style>
             body {
                 font-family: "Hanken Grotesk", sans-serif;
@@ -20,7 +21,7 @@
             }
 
             .gallery {
-                padding: 10px 8% 0px;
+                padding: 10px var(--margin-general) 0px;
                 display: grid;
                 grid-template-columns: repeat(5, 1fr);
                 gap: 0px;
@@ -97,7 +98,7 @@
             }
             @media (max-width: 600px) {
                 .gallery {
-                    padding: 10px 4% 0px;
+                    padding: 10px var(--margin-general) 0px;
                     display: grid;
                     grid-template-columns: repeat(2, 1fr);
                     gap: 10px;

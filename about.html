@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>INFOS</title>
-    <link rel="stylesheet" href="csspages.css" />
+    <link rel="stylesheet" href="variables.css">
     <link rel="icon" type="image/png" href="favicon.png" />
     <script
       type="module"
@@ -22,8 +22,8 @@
       }
       .colonne-container {
           margin-top: 100px;
-          margin-right: 8%;
-          margin-left: max(calc(8% + 320px), calc(38% + 20px));
+          margin-right: var(--margin-general);
+          margin-left: max(calc( var(--margin-general) + 320px), calc(30% + var(--margin-general) + 20px));
       }
       h2 {
         font-size: 15px;
@@ -41,12 +41,12 @@
         font-style: italic;
         color: #303030;
         font-size: 12px;
-        margin-right: 8%;
+        margin-right: var(--margin-general);
       }
       .photo-profile {
         position: fixed;
         top: 100px;
-        left: 8%;
+        left: var(--margin-general);
         width: 30vw;
         min-width: 300px;
         height: 800px;
@@ -69,8 +69,8 @@
         }
         .colonne-container {
           margin-top: 110px;
-          margin-right: 4%;
-          margin-left: 4%;
+          margin-right: var(--margin-general);
+          margin-left: var(--margin-general);
         }
       }
       @media (max-width: 1600px) {

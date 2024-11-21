@@ -1,0 +1,9 @@
+:root {
+    --margin-general: 8%;
+}
+
+@media (max-width: 768px) { /* Smartphone ou petit écran */
+    :root {
+        --margin-general: 4%;
+    }
+}
