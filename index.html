@@ -74,7 +74,7 @@
 			.arrowright {
 				right: 30px;
 			}
-			.copyright {
+			footer p {
 				font-family: "Roboto";
 				font-size: 12px;
 				color: #666;
@@ -85,7 +85,7 @@
 			}
 
 			@media (max-width: 600px) {
-				.copyright {
+				footer p {
 					font-size: 9px;
 					color: #666;
 					position: relative; /* Utiliser relative pour que le texte suive le flux normal du document */
@@ -108,11 +108,10 @@
 		</style>
 	</head>
 	<body>
-		<!-- impoter Menu générale -->
+		<header> 
 		<div id="menu-placeholder"></div>
+		</header>
 
-		<!-- Script pour importer le menu -->
-		<script src="navbar.js"></script>
 
 		<div class="carousel-container">
 			<img class="arrowleft" src="arrowleft.svg" alt="Flèche gauche" onclick="previousImage()" />
@@ -123,9 +122,9 @@
 			<img class="arrowright" src="arrowright.svg" alt="Flèche droite" onclick="nextImage()" />
 		</div>
 
-		<div class="copyright">
-			<p>©️2024 hugocharletdesign</p>
-		</div>
+		<footer >
+		<p>&copy; 2024 hugocharletdesign</p>
+		</footer>
 
 		<script>
 			let imagesCarrousel = [
@@ -202,5 +201,6 @@
 				showImage(currentIndex);
 			});
 		</script>
+		<script src="navbar.js"></script>
 	</body>
 </html>
