@@ -2,10 +2,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap");
 
 body {
-    margin: 0;
-    padding: 0;
+  font-family: "Hanken Grotesk", sans-serif;
 }
-
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 .details {
     background-color: #f3f3f3;
 }
@@ -26,69 +31,46 @@ body {
     padding: 2px 4px;
     border-radius: 15px;
 }
-.menu-container {
-    position: fixed;
-    top: 0;
-
-    left: 0;
-    width: 100%;
-    height: 90px;
-    padding: 0 var(--margin-general);
-    box-sizing: border-box;
-    z-index: 3000;
+nav {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  top:0px;
+  left:0px;
+  padding: 0 var(--margin-general);
+  height: 90px;
+  z-index: 3000;
 }
-
-.menu {
-    display: flex;
-    align-items: center;
-
-    gap: 40px;
-    margin-bottom: 15px;
-    margin-top: 30px;
+.nav-header {
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: 800;
+  color: #303030;
 }
-
-.menu-item {
-    font-size: 14px;
-    font-family: "Hanken Grotesk", sans-serif;
-    font-weight: 600;
-    color: #afafaf;
-    padding: 2px 10px;
-    text-decoration: none;
-    transition: color 0.3s ease;
+.navlinks-container {
+  display: flex;
+  gap: 40px;
+  margin-left: auto;
+  font-size: 14px;
+  font-weight: 600;
 }
-
-.menu > a:first-child {
-    margin-right: auto;
+.navlinks-container a {
+  padding: 2px 10px;
+  color: #afafaf;
+  text-decoration: none;
+  transition: color 0.35s ease, transform 0.35s ease;
 }
-
-.bold {
-    font-family: "Hanken Grotesk", sans-serif;
-    font-size: 22px;
-    font-weight: 800;
-    color: #303030; /* Couleur du texte pour contraste avec fond bleu */
+.navlinks-container a:hover {
+  transform: translateY(-3px);
+  color: #303030;
 }
-
-.menu-item:not(:first-child) {
-    transition:
-        transform 0.3s ease,
-        background-color 0s ease;
+.hamburger {
+  display: none;
 }
-.menu-item:not(:first-child):hover {
-    transform: translateY(-3px);
-    color: #303030;
+.open {
+  transform: translateX(0%);
 }
-
-.menu-item:first-child {
-    text-align: left;
-}
-
-.menu-item:first-child a {
-    font-family: "Hanken Grotesk", sans-serif;
-    font-size: 22px;
-
-    background-color: none;
-}
-
 .instagram-logo {
     position: fixed;
     bottom: 35px;
@@ -106,42 +88,28 @@ body {
 .instagram-logo:hover {
     filter: none;
 }
-/*----------------SVG LIST & GRID STYLE----------------------*/
-
-.top-container {
-    position: relative; /* Fixe le menu en haut de la page */
-    width: 100%; /* Le menu occupe toute la largeur de la page */
-    z-index: 2000; /* Assure que le menu est au-dessus des autres éléments */
-    padding: 0 var(--margin-general); /* Espacement horizontal du menu */
-    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
-}
+/*---------------- LIST & GRID MENU STYLE----------------------*/
 
 .svg-container {
     margin-top: 100px;
-
+    width: 100%;
+    padding: 0 var(--margin-general); /* Espacement horizontal du menu */
+    box-sizing: border-box;
     display: flex;
+    align-items: center;
     z-index: 2000;
     align-items: center; /* Centre les icônes verticalement */
     justify-content: flex-end; /* Aligne les SVG à droite du conteneur */
     gap: 13px; /* Espace entre les SVG */
+    
 }
-
-.svg-link {
-    display: flex; /* Assure que les liens utilisent flexbox */
-    align-items: center; /* Centre les SVG verticalement */
-}
-
-.svg-link:hover .svg-item {
+.svg-container a:hover img {
     filter: brightness(0); /* Assombrit le SVG au survol */
-    transform: scale(1.025) translateX(1px);
+    transform: scale(1.025) translateY(-1px);
 }
-
-.svg-item {
-    height: 11px; /* Largeur fixe pour chaque SVG */
-    width: auto; /* Hauteur automatique pour maintenir les proportions */
-    display: block; /* Assure que l'image ne génère pas d'espaces blancs en dessous */
-    margin: 0;
-    padding: 3px;
+.svg-container a img{
+    height: 10px; 
+    width: auto;
     transition: transform 0.3s ease;
 }
 
@@ -149,38 +117,34 @@ body {
 
 .svg-container-pages {
     width: 100%;
+    padding : 0 var(--margin-general); 
     position: fixed;
-    top: 90px;
-    height: 40px; /* Ajustez la hauteur pour le rendre visible */
+    box-sizing: border-box; /* Assure que le padding ne pousse pas le conteneur à dépasser de la largeur totale */
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding-right: var(--margin-general); /* Ajoute un padding de var(--margin-general) à droite à l'intérieur du conteneur */
-    box-sizing: border-box; /* Assure que le padding ne pousse pas le conteneur à dépasser de la largeur totale */
+    top: 90px;
+    left:0px;
+    height: 35px;
     z-index: 2100;
 }
 
-.svg-backarrow {
-    height: 11px; /* Augmentez la taille de l'image SVG pour la rendre plus visible */
+.svg-container-pages a img{
+    height: 10px; /* Augmentez la taille de l'image SVG pour la rendre plus visible */
     width: auto;
-    display: block;
-    padding: 3px;
     transition: transform 0.3s ease;
 }
 
-.svg-backarrow:hover {
+.svg-container-pages a:hover img{
     transform: translateX(-7px); /* Déplace la flèche vers la gauche */
     filter: brightness(0); /* Change la luminosité de l'image */
 }
 
 @media(max-width: 600px) {
-    .top-container, .menu-container {
-        padding: 0 var(--margin-general);
-    }
-    .menu {
+    .navlinks-container {
         gap: 2px;
     }
-    .menu-item {
+    .navlinks-container a {
         font-size: 13px;
     }
     .instagram-logo {
@@ -194,3 +158,85 @@ body {
         display: none;
     }
 }
+
+@media(max-width: 470px) {
+  /* hamburger */
+
+  .nav-header{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    }
+  
+    .hamburger {
+    margin-left: auto;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    background: #fafafa;
+    align-items: center;
+    position: relative;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #303030;
+    position: absolute;
+    pointer-events: none;
+    transition: opacity 0.3s 0.15s ease-out;
+  }
+  .hamburger span:nth-child(1),
+  .hamburger span:nth-child(3) {
+    transition: transform 0.3s ease-out;
+  }
+
+  .hamburger span:nth-child(1) {
+    transform: translateY(7px);
+  }
+  .hamburger span:nth-child(3) {
+    transform: translateY(-7px);
+  }
+
+  .hamburger.open span:nth-child(1) {
+    transform: translate(0) rotate(135deg);
+  }
+  .hamburger.open span:nth-child(2) {
+    opacity: 0;
+    transition: opacity 0s ease-out;
+  }
+  .hamburger.open span:nth-child(3) {
+    transform: translate(0) rotate(-135deg);
+  }
+    .navlinks-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    text-align: center;
+    top: 100%;
+    right: 0%;
+    width: 100%;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    height: 100vh;
+    padding: 15px 20px 15px 20px;
+  }
+  .navlinks-container.open {
+    transform: translateX(0%);
+  }
+  .navlinks-container a {
+    font-size: 1.3rem;
+    background: transparent;
+    padding: 1rem;
+  }
+  .navlinks-container a:hover {
+  transform: translate(0px);
+  }
+  .navlinks-container a:active {
+  text-decoration: underline;
+    color: #303030;
+  }

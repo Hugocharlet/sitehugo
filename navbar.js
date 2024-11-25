@@ -11,90 +11,118 @@ console.log("CSS menu chargé");
 const navbar = document.getElementById("menu-placeholder");
 
 if (navbar) {
-    console.log("Div menu-placeholder trouvée");
+  console.log("Div menu-placeholder trouvée");
 
-    // Récupérer l'URL et définir la page active
-    const url = window.location.href;
-    const pages = {
-        details: "details",
-        grid: "grid",
-        about: "about",
-        contact: "contact",
-        article: "article"
-    };
-    let activePage = "";
+  // Récupérer l'URL et définir la page active
+  const url = window.location.href;
+  const pages = {
+    details: "details",
+    grid: "grid",
+    about: "about",
+    contact: "contact",
+    article: "article",
+  };
+  let activePage = "";
 
-    if (url.includes(pages.details)) {
-        activePage = pages.details;
-        console.log("nous sommes sur la page details");
-    } else if (url.includes(pages.grid)) {
-        activePage = pages.grid;
-        console.log("nous sommes sur la page grid");
-    } else if (url.includes(pages.about)) {
-        activePage = pages.about;
-        console.log("nous sommes sur la page about");
-    } else if (url.includes(pages.contact)) {
-        activePage = pages.contact;
-        console.log("nous sommes sur la page contact");
-    } else {
-        activePage = pages.article;
-        console.log("nous sommes sur la page index ou sur une page article");
-    }
+  if (url.includes(pages.details)) {
+    activePage = pages.details;
+    console.log("nous sommes sur la page details");
+  } else if (url.includes(pages.grid)) {
+    activePage = pages.grid;
+    console.log("nous sommes sur la page grid");
+  } else if (url.includes(pages.about)) {
+    activePage = pages.about;
+    console.log("nous sommes sur la page about");
+  } else if (url.includes(pages.contact)) {
+    activePage = pages.contact;
+    console.log("nous sommes sur la page contact");
+  } else {
+    activePage = pages.article;
+    console.log("nous sommes sur la page index ou sur une page article");
+  }
 
-    // Insérer les éléments de navigation dans la navbar
-    const navItems = `
-                <div class="menu-container ${activePage ? activePage : ""}" style="display:none">
-                    <nav class="menu">
-                        <a style="text-decoration: none" href="https://www.hugocharlet.com/">
-                            <span class="bold">Hugo Charlet</span>
-                        </a>
-                        <a class="menu-item ${activePage === pages.details ? "active" : ""}" href="details">WORK</a>
-                        <a class="menu-item ${activePage === pages.about ? "active" : ""}" href="about">ABOUT</a>
-                        <a class="menu-item ${activePage === pages.contact ? "active" : ""}" href="contact">CONTACT</a>
-                    </nav>
-                </div>
-                <a href="https://www.instagram.com/hugocharletb/" target="_blank" aria-label="Hugo Charlet Instagram" style="display:none">
-                    <img id="instagramLogo" src="insta.svg" alt="Instagram" class="instagram-logo" style="max-width: 30px;" />
-                </a>
-            `;
+  // Insérer les éléments de navigation dans la navbar
+  const navItems = `
+    <nav class="${activePage ? activePage : ""}">
+        <a href="https://www.hugocharlet.com/" class="nav-header" aria-label="homepage" > Hugo Charlet </a>
+        <div class="navlinks-container ${activePage ? activePage : ""}">
+            <a class="${
+              activePage === pages.details ? "active" : ""
+            }" href="details" >WORK</a>
+            <a class="${
+              activePage === pages.about ? "active" : ""
+            }" href="about">ABOUT</a>
+            <a class="${
+              activePage === pages.contact ? "active" : ""
+            }" href="contact">CONTACT</a> </div>
+        <button type="button" class="hamburger" aria-label="Toggle Navigation" aria-expanded="false" >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+    <a href="https://www.instagram.com/hugocharletb/" target="_blank" aria-label="Hugo Charlet Instagram" style="display:none">
+        <img id="instagramLogo" src="insta.svg" alt="Instagram" class="instagram-logo" style="max-width: 30px;" />
+    </a>
+`;
 
-    navbar.innerHTML = navItems;
+  navbar.innerHTML = navItems;
 
-    // Charger le menu SVG si on est sur la page "details" ou "grid"
-    if (activePage === "details" || activePage === "grid") {
+  // Charger le menu SVG si on est sur la page "details" ou "grid"
+  if (activePage === "details" || activePage === "grid") {
+    // Insérer les éléments SVG dans le conteneur après avoir vérifié activePage
+    const svgContainer = document.getElementById("svgmenu-placeholder");
 
-        
-                // Insérer les éléments SVG dans le conteneur après avoir vérifié activePage
-                const svgContainer = document.getElementById("svgmenu-placeholder");
+    const svgItems = `
+          <div class="svg-container" >
+              <a href="details"  style="${ activePage === "details" ? "filter: brightness(0);" : "" }">
+                  <img src="grid-details.svg" alt="Grid Details" class="svg-item" style="max-height: 11px;">
+              </a>
+              <a href="grid"  style="${ activePage === "grid" ? "filter: brightness(0);" : "" }"> 
+                <img src="grid-square.svg" alt="Grid Square" class="svg-item" style="max-height: 11px;">
+              </a>
+          </div>   
+    `;
 
-                const svgItems = `
-                        <div class="top-container" >
-                            <div class="svg-container" >
-                                <a href="details" class="svg-link" style="${activePage === "details" ? "filter: brightness(0);" : ""}">
-                                    <img src="grid-details.svg" alt="Grid Details" class="svg-item" style="max-height: 11px;">
-                                </a>
-                                <a href="grid" class="svg-link" style="${activePage === "grid" ? "filter: brightness(0);" : ""}">
-                                    <img src="grid-square.svg" alt="Grid Square" class="svg-item" style="max-height: 11px;">
-                                </a>
-                            </div>   
-                        </div>
-        
-        
-        
-                                        `;
-
-                svgContainer.innerHTML += svgItems;
-
-    }
+    svgContainer.innerHTML += svgItems;
+  }
 } else {
-    console.log("Div navbar non trouvée");
+  console.log("Div navbar non trouvée");
 }
 
 // Quand le CSS est chargé, rends le menu visible
 navbarStyle.onload = () => {
-    // Sélectionne les éléments à afficher
-    document.querySelectorAll('.menu-container, .instagram-logo').forEach(el => {
-        
-        el.style.display = 'block';  // Rend le menu et l'icône Instagram visibles
+  // Sélectionne les éléments à afficher
+  document
+    .querySelectorAll(".menu-container, .instagram-logo")
+    .forEach((el) => {
+      el.style.display = "block"; // Rend le menu et l'icône Instagram visibles
     });
 };
+//----------HAMBURGER ANIMATION ---------------
+
+const HamburgerBtn = document.querySelector(".hamburger");
+const navLinksContainer = document.querySelector(".navlinks-container");
+
+const toggleNav = (e) => {
+  // Animation du bouton
+  HamburgerBtn.classList.toggle("open");
+  console.log("fonction appelée");
+
+  const ariaToggle =
+    HamburgerBtn.getAttribute("aria-expanded") === "true" ? "false" : "true";
+  HamburgerBtn.setAttribute("aria-expanded", ariaToggle);
+
+  // Slide de la navigation
+  navLinksContainer.classList.toggle("open");
+};
+
+HamburgerBtn.addEventListener("click", toggleNav);
+
+new ResizeObserver((entries) => {
+  if (entries[0].contentRect.width <= 470) {
+    navLinksContainer.style.transition = "transform 0.4s ease-out";
+  } else {
+    navLinksContainer.style.transition = "none";
+  }
+}).observe(document.body);

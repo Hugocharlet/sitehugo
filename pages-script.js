@@ -1,38 +1,13 @@
-// Importer son style:
-const navbarStyle = document.createElement("link");
-navbarStyle.rel = "stylesheet";
-navbarStyle.href = "navbarstyle.css";
-document.head.appendChild(navbarStyle);
 
 // Une fois le contenu inséré, vérifier et remplir la navbar
-const navbar = document.getElementById("menu-placeholder");
 
-// Insérer les éléments de navigation dans la navbar
-const navItems = `
-                <div class="menu-container article">
-                    <nav class="menu">
-                        <a style="text-decoration: none" href="https://www.hugocharlet.com/">
-                            <span class="bold">Hugo Charlet</span>
-                        </a>
-                        <a class="menu-item " href="details">WORK</a>
-                        <a class="menu-item " href="about">ABOUT</a>
-                        <a class="menu-item " href="contact">CONTACT</a>
-                    </nav>
-                </div>
-                <a href="https://www.instagram.com/hugocharletb/" target="_blank" aria-label="Hugo Charlet Instagram">
-                    <img id="instagramLogo" src="insta.svg" alt="Instagram" class="instagram-logo" style="max-width: 30px;" />
-                </a>
-            `;
-
-navbar.innerHTML = navItems;
 
 const navsvg = document.getElementById("svgmenupages-placeholder");
 // Insérer les éléments de navigation dans la navbar
 const svgItems = `
-   
         <div class="svg-container-pages">
             <a href="details">
-                <img src="arrowback.svg" alt="backarrow" class="svg-backarrow" style="height: 11px;">
+                <img src="arrowback.svg" alt="backarrow" class="svg-backarrow">
             </a>
         </div>
             `;

@@ -45,7 +45,8 @@
         .item {
         flex: 1;
         }
-        .item:hover span {
+        .item span:hover {
+
         }
 
           .item:nth-child(2) {
@@ -84,7 +85,7 @@
             transform: translate(-50%, -50%) scale(1.5);
             }
         }
-        .copyright {
+        footer p {
         font-family: "Roboto", sans-serif;
         font-size: 12px;
         width: 100%;
@@ -102,7 +103,7 @@
           .premiere-ligne {
           font-size: 11px;
           }
-          .copyright {
+          footer p {
           font-size: 9px;
           position: relative; /* Utiliser relative pour que le texte suive le flux normal du document */
           margin-top: 30px; /* Espacement au-dessus du copyright */
@@ -112,11 +113,13 @@
     </style>
   </head>
   <body>
+    
     <!-- impoter Menu générale -->
-    <div id="menu-placeholder"></div>
-    <div id="svgmenu-placeholder"></div>
-    <script src="navbar.js"></script>
-
+    <header> 
+      <div id="menu-placeholder"></div>
+      <div id="svgmenu-placeholder"></div>
+    </header>
+    
     <!-- tableau -->
     <main id="table-data-placeholder" class="tableau">
       <section class="premiere-ligne">
@@ -126,10 +129,11 @@
       </section>
       <!-- ici  insertAdjacentHTML("beforeend", lignehtml);  -->
     </main>
-    <!-- copyright -->
-    <div class="copyright">
-      <p>©️2024 hugocharletdesign</p>
-    </div>
+    
+    <footer >
+      <p>&copy; 2024 hugocharletdesign</p>
+    </footer>
+    
     <script>
       const table = [
         { year: 2024, typology: "SEATING", name: "helena" },
@@ -216,5 +220,7 @@
         });
       });
     </script>
+    <script src="navbar.js"></script>
+
   </body>
 </html>

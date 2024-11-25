@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/png" href="favicon.png" />
-        <title>Project grid view</title>
+        <title>Designs projects in grid view</title>
         <link rel="stylesheet" href="variables.css">
         <style>
             body {
@@ -90,12 +90,15 @@
                     transform: scale(1.5);
                 }
             }
-            .copyright {
+            footer p {
                 font-family: "Roboto";
+                text-decoration: none !important; /* Correction ici */
+                color: inherit;
                 padding: 35px;
                 font-size: 12px;
                 text-align: center;
             }
+
             @media (max-width: 600px) {
                 .gallery {
                     grid-template-columns: repeat(2, 1fr);
@@ -126,7 +129,7 @@
                     z-index: 1;
                     width: 100%;
                 }
-                .copyright {
+                footer p {
                     font-size: 9px;
                     color: #666;
                     text-align: center;
@@ -140,19 +143,18 @@
     </head>
     <body>
         <!-- impoter Menu générale -->
-        <div id="menu-placeholder"></div>
-        <div id="svgmenu-placeholder"></div>
+        <header>
+            <div id="menu-placeholder"></div>
+            <div id="svgmenu-placeholder"></div>
+        </header>
 
-        <!-- Script pour importer le menu -->
-        <script src="navbar.js"></script>
-
-        <div class="gallery" id="gallery-placeholder">
+        <main class="gallery" id="gallery-placeholder">
             <!-- Les images seront insérées ici par JavaScript -->
-        </div>
+        </main>
 
-        <div class="copyright">
-            <p>©️2024 hugocharletdesign</p>
-        </div>
+        <footer >
+            <p>&copy; 2024 hugocharletdesign</p>
+        </footer>
 
         <script>
             const grid = [
@@ -201,12 +203,12 @@
 
             grid.forEach((item) => {
                 const article = `
-                    <div class="gallery-item">
+                    <section class="gallery-item">
                         <a href="${item.name}">
                             <img src="img/${item.src}" alt="${item.name}">
                         </a>
-                        <div class="name">${item.name.toUpperCase()}</div>
-                    </div>
+                        <h2 class="name">${item.name.toUpperCase()}</h2>
+                    </section>
                 `;
                 container.insertAdjacentHTML("beforeend", article);
             });
@@ -226,5 +228,7 @@
                 melangerElements(); // Appel de la fonction après chargement du contenu
             });
         </script>
+                <!-- Script pour importer le menu -->
+        <script src="navbar.js"></script>
     </body>
 </html>
