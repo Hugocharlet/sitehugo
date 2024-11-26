@@ -61,7 +61,7 @@ if (navbar) {
             <span></span>
         </button>
     </nav>
-    <a href="https://www.instagram.com/hugocharletb/" target="_blank" aria-label="Hugo Charlet Instagram" style="display:none">
+    <a href="https://www.instagram.com/hugocharletb/" target="_blank" aria-label="Hugo Charlet Instagram" >
         <img id="instagramLogo" src="insta.svg" alt="Instagram" class="instagram-logo" style="max-width: 30px;" />
     </a>
 `;
