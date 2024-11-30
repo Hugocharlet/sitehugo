@@ -30,6 +30,7 @@ body {
   /* Pas besoin de marges gauche ou droite ici car align-items gère cela */
 }
 .colonne-fixed {
+  opacity: 0;
   width:  calc(36% - var(--margin-general));
   z-index: 10;
   margin-left: var(--margin-general);

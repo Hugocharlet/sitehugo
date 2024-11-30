@@ -132,6 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const adjustFixedColumnPosition = () => {
     const scrollY = window.scrollY || document.documentElement.scrollTop;
     const imageHeight = mainImage.offsetHeight; // Hauteur de l'image 'main'
+    const viewportHeight = window.innerHeight;
 
     // Désactiver l'effet si la largeur de l'écran est inférieure à 768px (taille smartphone et iPad)
     if (window.innerWidth >= 768) {
@@ -140,9 +141,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Appliquer le mouvement avec transition
       fixedElement.style.marginTop = `${targetMarginTop}px`;
+      // More gradual opacity transition
+      const opacityStartThreshold = viewportHeight * 0.2; // Start fading at 50% of viewport
+      const opacityFullThreshold = viewportHeight * 0.35; // Fully opaque at 150% of viewport height
+
+      // Calculate opacity with a smooth interpolation
+      let opacity = 0;
+      if (scrollY > opacityStartThreshold) {
+        opacity = Math.min(
+          1,
+          (scrollY - opacityStartThreshold) /
+            (opacityFullThreshold - opacityStartThreshold)
+        );
+      }
+      // Apply opacity with smooth transition
+      fixedElement.style.opacity = opacity;
+      fixedElement.style.transition = "opacity 0.5s ease-in-out";
     } else {
       // Réinitialiser la position pour les petits écrans
       fixedElement.style.marginTop = "20px"; // La position initiale par défaut pour les petits écrans
+      fixedElement.style.opacity = 1;
     }
   };
 
