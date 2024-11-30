@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
       images.forEach((img) => {
         if (img) {
           img.classList.add("imagelarge");
-          img.setAttribute("data-aos", "fade-up"); // Add the data-aos attribute
+          img.setAttribute("data-aos", "fade"); // Add the data-aos attribute
           img.alt =
             "Picture of ${document.title}, original design by French designer Hugo Charlet";
           imageContainer.appendChild(img);
@@ -137,15 +137,17 @@ document.addEventListener("DOMContentLoaded", function () {
     // Désactiver l'effet si la largeur de l'écran est inférieure à 768px (taille smartphone et iPad)
     if (window.innerWidth >= 768) {
       // Calcule une nouvelle position en soustrayant la hauteur de l'image
-      const targetMarginTop = -imageHeight + 50 + scrollY * 1; // Ajuster en fonction du défilement
-
+      const targetMarginTop = -imageHeight + 50+ scrollY * 1; // Ajuster en fonction du défilement
+      
       // Appliquer le mouvement avec transition
       fixedElement.style.marginTop = `${targetMarginTop}px`;
       // More gradual opacity transition
-      const opacityStartThreshold = viewportHeight * 0.2; // Start fading at 50% of viewport
-      const opacityFullThreshold = viewportHeight * 0.35; // Fully opaque at 150% of viewport height
+      const opacityStartThreshold = imageHeight * 0.35;
 
-      // Calculate opacity with a smooth interpolation
+      // Opacité complète à 0.8 * hauteur de l'image
+      const opacityFullThreshold = imageHeight * 0.65;
+
+      // Calcul de l'opacité avec interpolation linéaire
       let opacity = 0;
       if (scrollY > opacityStartThreshold) {
         opacity = Math.min(
@@ -156,13 +158,15 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       // Apply opacity with smooth transition
       fixedElement.style.opacity = opacity;
-      fixedElement.style.transition = "opacity 0.5s ease-in-out";
+      fixedElement.classList.add("transition: opacity 0.3s ease-in-out ")
+
     } else {
       // Réinitialiser la position pour les petits écrans
       fixedElement.style.marginTop = "20px"; // La position initiale par défaut pour les petits écrans
       fixedElement.style.opacity = 1;
     }
   };
+  
 
   // Exécuter la fonction lors du défilement
   document.addEventListener("scroll", adjustFixedColumnPosition);
