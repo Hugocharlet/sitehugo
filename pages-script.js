@@ -172,7 +172,7 @@ aosScript.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
 aosScript.onload = () => {
   // Initialiser AOS une fois le script chargé
     AOS.init({
-    duration: 2500, // Durée de l'animation (en ms)
+    duration: 1500, // Durée de l'animation (en ms)
     easing: 'ease', // Type d'accélération
   });
 };
