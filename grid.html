@@ -205,9 +205,9 @@
                 const article = `
                     <section class="gallery-item">
                         <a href="${item.name}">
-                            <img src="img/${item.src}" alt="${item.name}">
+                            <img src="img/${item.src}" alt="${item.name}" >
                         </a>
-                        <h2 class="name">${item.name.toUpperCase()}</h2>
+                        <h2 class="name" >${item.name.toUpperCase()} </h2>
                     </section>
                 `;
                 container.insertAdjacentHTML("beforeend", article);
@@ -227,6 +227,7 @@
 
                 melangerElements(); // Appel de la fonction après chargement du contenu
             });
+
         </script>
                 <!-- Script pour importer le menu -->
         <script src="navbar.js"></script>
