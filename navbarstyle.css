@@ -157,6 +157,7 @@ nav {
         padding: 20px var(--margin-general);
         display: none;
     }
+    .instagram-logo {display: none}
 }
 
 @media(max-width: 470px) {
@@ -168,8 +169,8 @@ nav {
     left: 50%;
     transform: translate(-50%, -50%);
     }
-  
-    .hamburger {
+  .instagram-logo {display: none}
+  .hamburger {
     margin-left: auto;
     width: 20px;
     height: 20px;
