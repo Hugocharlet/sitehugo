@@ -148,7 +148,7 @@
             <div id="svgmenu-placeholder"></div>
         </header>
 
-        <main class="gallery" id="gallery-placeholder">
+        <main class="gallery" id="gallery-placeholder" data-aos="fade">
             <!-- Les images seront insérées ici par JavaScript -->
         </main>
 
@@ -203,7 +203,7 @@
 
             grid.forEach((item) => {
                 const article = `
-                    <section class="gallery-item">
+                    <section class="gallery-item" data-aos="fade-up" >
                         <a href="${item.name}">
                             <img src="img/${item.src}" alt="${item.name}" >
                         </a>
