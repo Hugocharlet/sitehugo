@@ -104,7 +104,9 @@ document.addEventListener("DOMContentLoaded", () => {
       images.forEach((img) => {
         if (img) {
           img.classList.add("imagelarge");
-          img.alt="Picture of ${document.title}, original design by French designer Hugo Charlet" ;
+          img.setAttribute("data-aos", "fade-up"); // Add the data-aos attribute
+          img.alt =
+            "Picture of ${document.title}, original design by French designer Hugo Charlet";
           imageContainer.appendChild(img);
         } else {
           console.warn("Une image est manquante ou a échoué à se charger.");
@@ -157,3 +159,22 @@ metaforgoogle = `
 `;
 
 document.head.insertAdjacentHTML("beforeend", metaforgoogle);
+
+// Ajouter le lien CSS de AOS pour les animations
+const aosStylesheet = document.createElement('link');
+aosStylesheet.rel = 'stylesheet';
+aosStylesheet.href = 'https://unpkg.com/aos@2.3.1/dist/aos.css';
+document.head.appendChild(aosStylesheet);
+
+// Ajouter le script JS de AOS
+const aosScript = document.createElement('script');
+aosScript.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
+aosScript.onload = () => {
+  // Initialiser AOS une fois le script chargé
+    AOS.init({
+    duration: 2500, // Durée de l'animation (en ms)
+    easing: 'ease', // Type d'accélération
+  });
+};
+document.body.appendChild(aosScript);
+
