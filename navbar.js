@@ -126,3 +126,21 @@ new ResizeObserver((entries) => {
     navLinksContainer.style.transition = "none";
   }
 }).observe(document.body);
+
+// Ajouter le lien CSS de AOS pour les animations
+const aosStylesheet = document.createElement('link');
+aosStylesheet.rel = 'stylesheet';
+aosStylesheet.href = 'https://unpkg.com/aos@2.3.1/dist/aos.css';
+document.head.appendChild(aosStylesheet);
+
+// Ajouter le script JS de AOS
+const aosScript = document.createElement('script');
+aosScript.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
+aosScript.onload = () => {
+  // Initialiser AOS une fois le script chargé
+    AOS.init({
+    duration: 1500, // Durée de l'animation (en ms)
+    easing: 'ease', // Type d'accélération
+  });
+};
+document.body.appendChild(aosScript);
