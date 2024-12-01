@@ -37,101 +37,113 @@
       content="Specializing in contemporary furniture and industrial product design, our studio creates aesthetic, iconic, and functional pieces. We pay close attention to production constraints throughout the design process to ensure that each product is easy to manufacture and perfectly suited for large-scale production."
     />
     <style>
-            body {
-            font-family: "Hanken Grotesk", sans-serif;
-            color: #303030;
-            }
+      body {
+        font-family: "Hanken Grotesk", sans-serif;
+        color: #303030;
+      }
 
-            .carousel-container {
-            margin: 90px 8% 0px;
-            height: 77vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            z-index: 0;
-            }
+      .carousel-container {
+        position: relative;
+        margin: 90px var(--margin-general) 0px;
+        height: 77vh;
+        z-index: 0;
+      }
 
-            .image-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            overflow: hidden;
-            position: relative;
-            }
+      .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+      }
 
-            img {
-            max-height: 100%;
-            max-width: 100%;
-            }
-            .nav-arrow-container {
-            display: flex;
-            align-items: center;
-            position: absolute;
-            top: 50%;
-            z-index: 1;
-            transition: transform 0.3s ease, fill 0.3s ease;
-            }
-            .left{
-            left:30px
-            }
-            .right{
-            right:30px
-            }
-            .left:hover {transform: translateX(-3px)}
-            .right:hover {transform: translateX(3px)}
-      		.nav-arrow-container:hover .arrow-svg { 
-				stroke: #303030; fill: #303030; } 
-			.nav-arrow-container:hover .arrow-text { 
-				color: #303030;
-			}
-            .arrow-svg{
-            height: 20px;
-               width: auto;
-            stroke: #afafaf;
-            fill: #afafaf;
-            cursor: pointer;
-            }
-            .arrow-text {
-            font-size: 0.8rem;
-            font-family:"IBM Plex Mono", monospace;
-			font-weight: 400;
-			font-style: italic;
-            color: #afafaf;
-			cursor: pointer;
-            }
-            footer p {
-            font-family: "Roboto";
-            font-size: 12px;
-            color: #666;
-            text-align: center;
-            position: fixed;
-            bottom: 20px;
-            width: 100%;
-            }
+      img {
+        max-height: 100%;
+        max-width: 100%;
+      }
 
-            @media (max-width: 600px) {
-            	footer p {
-            		font-size: 9px;
-            		color: #666;
-            		position: relative; /* Utiliser relative pour que le texte suive le flux normal du document */
-            		margin-top: 20px; /* Espacement au-dessus du copyright */
-            		width: 100%;
-            		padding: 10px 0; /* Espacement autour du texte, si nécessaire */
-            		box-sizing: border-box; /* Inclut le padding dans la largeur totale */
-            	}
-            	.arrowleft,
-            	.arrowright {
-            		width: 20px;
-            		height: 20px;
-            	}
-            	.image-container img {
-            		height: 80%;
-            		width: auto;
-            		object-fit: cover;
-            	}
-            }
+      .nav-arrow-container {
+         position: absolute;
+         left: calc(var(--margin-general) + 10px);
+         width: calc(100% - 2 * (var(--margin-general) + 10px));
+         top: 50%;
+         z-index: 1;
+         display: flex;
+         justify-content: space-between; 
+         transition: transform 0.3s ease, fill 0.3s ease;
+       } 
+      .nav-arrow-wrapper {
+        display: flex;
+        align-items: center;
+        transition: transform 0.3s ease, fill 0.3s ease;
+      }
+      .left {
+        left: 30px;
+      }
+      .right {
+        right: 30px;
+      }
+      .left:hover {
+        transform: translateX(-3px);
+      }
+      .right:hover {
+        transform: translateX(3px);
+      }
+      .nav-arrow-wrapper:hover .arrow-svg {
+        stroke: #303030;
+        fill: #303030;
+      }
+      .nav-arrow-wrapper:hover .arrow-text {
+        color: #303030;
+      }
+      .arrow-svg {
+        height: 20px;
+        width: auto;
+        stroke: #afafaf;
+        fill: #afafaf;
+        cursor: pointer;
+      }
+      .arrow-text {
+        font-size: 0.8rem;
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 400;
+        font-style: italic;
+        color: #afafaf;
+        cursor: pointer;
+      }
+      footer p {
+        font-family: "Roboto";
+        font-size: 12px;
+        color: #666;
+        text-align: center;
+        position: fixed;
+        bottom: 20px;
+        width: 100%;
+      }
+
+      @media (max-width: 600px) {
+        footer p {
+          font-size: 9px;
+          position: relative; /* Utiliser relative pour que le texte suive le flux normal du document */
+          margin-top: 20px; /* Espacement au-dessus du copyright */
+          padding: 10px 0; /* Espacement autour du texte, si nécessaire */
+          box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+        }
+        .nav-arrow-container {
+          position: relative;
+          padding: 10px calc(var(--margin-general) + 10px);
+		  background: ;
+          width: 100vw;
+          left: 0;
+          height: auto;
+        }
+        .image-container img {
+          height: 100%;
+          width: auto;
+          object-fit: cover;
+        }
+      }
     </style>
   </head>
   <body>
@@ -139,50 +151,54 @@
       <div id="menu-placeholder"></div>
     </header>
 
-    <main class="carousel-container" data-aos="fade">
-      <div class="nav-arrow-container left" onclick="previousImage()">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="size-6 arrow-svg"
-          alt="Flèche gauche"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M6.75 8.25 3 12m0 0 3.75 3.75M3 12H12"
+    <main class="background-color:red; : 1px solid red">
+      <div class="carousel-container" data-aos="fade">
+        <div class="image-container" id="carousel-images">
+          <!-- Les images seront insérées ici par JavaScript -->
+          <img
+            id="imageid"
+            src="imgCarrousel\icone.jpg"
+            alt="Gallery Image"
+            onclick="nextImage()"
           />
-        </svg>
-        <span class="arrow-text">previous</span>
+        </div>
       </div>
 
-      <div class="image-container" id="carousel-images">
-        <!-- Les images seront insérées ici par JavaScript -->
-        <img
-          id="imageid"
-          src="imgCarrousel\icone.jpg"
-          alt="Gallery Image"
-          onclick="nextImage()"
-        />
-      </div>
-      <div class="nav-arrow-container right" onclick="nextImage()">
-        <span class="arrow-text">next</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="size-6 arrow-svg"
-          alt="Flèche droite"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H12"
-          />
-        </svg>
+      <div class="nav-arrow-container">
+        <div class="nav-arrow-wrapper left" onclick="previousImage()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6 arrow-svg"
+            alt="Flèche gauche"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6.75 8.25 3 12m0 0 3.75 3.75M3 12H12"
+            />
+          </svg>
+          <span class="arrow-text">previous</span>
+        </div>
+        <div class="nav-arrow-wrapper right" onclick="nextImage()">
+          <span class="arrow-text">next</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6 arrow-svg"
+            alt="Flèche droite"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H12"
+            />
+          </svg>
+        </div>
       </div>
     </main>
 
