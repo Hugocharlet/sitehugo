@@ -59,20 +59,29 @@
 			}
 			.arrowleft,
 			.arrowright {
+				stroke: #afafaf;
 				position: absolute;
 				top: 50%;
-				transform: translateY(-50%);
 				user-select: none;
 				width: 4%;
 				height: 4%;
 				cursor: pointer;
 				z-index: 1;
+				transition: transform 0.3s ease, fill 0.3s ease;
 			}
 			.arrowleft {
 				left: 30px;
 			}
 			.arrowright {
 				right: 30px;
+			}
+			.arrowleft:hover {
+				stroke: #303030;
+				transform: translateX(-3px);
+			}
+			.arrowright:hover {
+				stroke: #303030;
+				transform: translateX(3px);
 			}
 			footer p {
 				font-family: "Roboto";
@@ -113,12 +122,23 @@
 		</header>
 
 		<main class="carousel-container" data-aos="fade">
-			<img class="arrowleft" src="arrowleft.svg" alt="Flèche gauche" onclick="previousImage()" />
+
+<svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 arrowleft" alt="Flèche gauche" onclick="previousImage()">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+</svg>
+
+
 			<div class="image-container" id="carousel-images">
 				<!-- Les images seront insérées ici par JavaScript -->
 				<img id="imageid" src="imgCarrousel\icone.jpg" alt="Gallery Image" onclick="nextImage()" />
 			</div>
-			<img class="arrowright" src="arrowright.svg" alt="Flèche droite" onclick="nextImage()" />
+<svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 arrowright" alt="Flèche droite" onclick="nextImage()">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+</svg>
+
+
+
+			
 		</main>
 
 		<footer >
