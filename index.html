@@ -1,225 +1,272 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
-	<head>
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-E5KFLGR0PL"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag() {
-				dataLayer.push(arguments);
-			}
-			gtag("js", new Date());
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-E5KFLGR0PL"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-			gtag("config", "G-E5KFLGR0PL");
-		</script>
+      gtag("config", "G-E5KFLGR0PL");
+    </script>
 
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Hugocharletdesign</title>
-		<link rel="icon" type="image/png" href="favicon.png" />
-		<link rel="stylesheet" href="variables.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hugocharletdesign</title>
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="stylesheet" href="variables.css" />
 
-		<meta
-			property="og:description"
-			content="Specializing in contemporary furniture and industrial product design, our studio creates aesthetic, iconic, and functional pieces. We pay close attention to production constraints throughout the design process to ensure that each product is easy to manufacture and perfectly suited for large-scale production." />
-		<meta property="og:image" content="https://www.hugocharlet.com/pages/pixa/3.jpg" />
-		<meta property="og:url" content="https://www.hugocharlet.com" />
-		<meta property="og:type" content="website" />
-		<meta
-			name="description"
-			content="Specializing in contemporary furniture and industrial product design, our studio creates aesthetic, iconic, and functional pieces. We pay close attention to production constraints throughout the design process to ensure that each product is easy to manufacture and perfectly suited for large-scale production." />
-		<style>
-			body {
-				font-family: "Hanken Grotesk", sans-serif;
+    <meta
+      property="og:description"
+      content="Specializing in contemporary furniture and industrial product design, our studio creates aesthetic, iconic, and functional pieces. We pay close attention to production constraints throughout the design process to ensure that each product is easy to manufacture and perfectly suited for large-scale production."
+    />
+    <meta
+      property="og:image"
+      content="https://www.hugocharlet.com/pages/pixa/3.jpg"
+    />
+    <meta property="og:url" content="https://www.hugocharlet.com" />
+    <meta property="og:type" content="website" />
+    <meta
+      name="description"
+      content="Specializing in contemporary furniture and industrial product design, our studio creates aesthetic, iconic, and functional pieces. We pay close attention to production constraints throughout the design process to ensure that each product is easy to manufacture and perfectly suited for large-scale production."
+    />
+    <style>
+            body {
+            font-family: "Hanken Grotesk", sans-serif;
+            color: #303030;
+            }
+
+            .carousel-container {
+            margin: 90px 8% 0px;
+            height: 77vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 0;
+            }
+
+            .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            }
+
+            img {
+            max-height: 100%;
+            max-width: 100%;
+            }
+            .nav-arrow-container {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            top: 50%;
+            z-index: 1;
+            transition: transform 0.3s ease, fill 0.3s ease;
+            }
+            .left{
+            left:30px
+            }
+            .right{
+            right:30px
+            }
+            .left:hover {transform: translateX(-3px)}
+            .right:hover {transform: translateX(3px)}
+      		.nav-arrow-container:hover .arrow-svg { 
+				stroke: #303030; fill: #303030; } 
+			.nav-arrow-container:hover .arrow-text { 
 				color: #303030;
 			}
+            .arrow-svg{
+            height: 20px;
+               width: auto;
+            stroke: #afafaf;
+            fill: #afafaf;
+            cursor: pointer;
+            }
+            .arrow-text {
+            font-size: 0.8rem;
+            font-family:"IBM Plex Mono", monospace;
+			font-weight: 400;
+			font-style: italic;
+            color: #afafaf;
+			cursor: pointer;
+            }
+            footer p {
+            font-family: "Roboto";
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            }
 
-			.carousel-container {
-				margin: 90px 8% 0px;
-				height: 77vh;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				position: relative;
-				z-index: 0;
-			}
+            @media (max-width: 600px) {
+            	footer p {
+            		font-size: 9px;
+            		color: #666;
+            		position: relative; /* Utiliser relative pour que le texte suive le flux normal du document */
+            		margin-top: 20px; /* Espacement au-dessus du copyright */
+            		width: 100%;
+            		padding: 10px 0; /* Espacement autour du texte, si nécessaire */
+            		box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+            	}
+            	.arrowleft,
+            	.arrowright {
+            		width: 20px;
+            		height: 20px;
+            	}
+            	.image-container img {
+            		height: 80%;
+            		width: auto;
+            		object-fit: cover;
+            	}
+            }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div id="menu-placeholder"></div>
+    </header>
 
-			.image-container {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				height: 100%;
-				overflow: hidden;
-				position: relative;
-			}
+    <main class="carousel-container" data-aos="fade">
+      <div class="nav-arrow-container left" onclick="previousImage()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="size-6 arrow-svg"
+          alt="Flèche gauche"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6.75 8.25 3 12m0 0 3.75 3.75M3 12H12"
+          />
+        </svg>
+        <span class="arrow-text">previous</span>
+      </div>
 
-			img {
-				max-height: 100%;
-				max-width: 100%;
-			}
-			.arrowleft,
-			.arrowright {
-				stroke: #afafaf;
-				position: absolute;
-				top: 50%;
-				user-select: none;
-				width: 4%;
-				height: 4%;
-				cursor: pointer;
-				z-index: 1;
-				transition: transform 0.3s ease, fill 0.3s ease;
-			}
-			.arrowleft {
-				left: 30px;
-			}
-			.arrowright {
-				right: 30px;
-			}
-			.arrowleft:hover {
-				stroke: #303030;
-				transform: translateX(-3px);
-			}
-			.arrowright:hover {
-				stroke: #303030;
-				transform: translateX(3px);
-			}
-			footer p {
-				font-family: "Roboto";
-				font-size: 12px;
-				color: #666;
-				text-align: center;
-				position: fixed;
-				bottom: 20px;
-				width: 100%;
-			}
+      <div class="image-container" id="carousel-images">
+        <!-- Les images seront insérées ici par JavaScript -->
+        <img
+          id="imageid"
+          src="imgCarrousel\icone.jpg"
+          alt="Gallery Image"
+          onclick="nextImage()"
+        />
+      </div>
+      <div class="nav-arrow-container right" onclick="nextImage()">
+        <span class="arrow-text">next</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="size-6 arrow-svg"
+          alt="Flèche droite"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H12"
+          />
+        </svg>
+      </div>
+    </main>
 
-			@media (max-width: 600px) {
-				footer p {
-					font-size: 9px;
-					color: #666;
-					position: relative; /* Utiliser relative pour que le texte suive le flux normal du document */
-					margin-top: 20px; /* Espacement au-dessus du copyright */
-					width: 100%;
-					padding: 10px 0; /* Espacement autour du texte, si nécessaire */
-					box-sizing: border-box; /* Inclut le padding dans la largeur totale */
-				}
-				.arrowleft,
-				.arrowright {
-					width: 20px;
-					height: 20px;
-				}
-				.image-container img {
-					height: 80%;
-					width: auto;
-					object-fit: cover;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<header> 
-			<div id="menu-placeholder"></div>
-		</header>
+    <footer>
+      <p>&copy; 2024 hugocharletdesign</p>
+    </footer>
 
-		<main class="carousel-container" data-aos="fade">
+    <script>
+      let imagesCarrousel = [
+        "imgCarrousel/image13.jpg",
+        "imgCarrousel/ai leornardo.jpg",
+        "imgCarrousel/annot\u00e9 enf.jpg",
+        "imgCarrousel/ANN_8024cretouch\u00e9p.jpg",
+        "imgCarrousel/anton 12.jpg",
+        "imgCarrousel/anton 6.jpg",
+        "imgCarrousel/Anton 8.jpg",
+        "imgCarrousel/BLURRED1.jpg",
+        "imgCarrousel/CADRree.jpg",
+        "imgCarrousel/DE9C1026 (2).jpg",
+        "imgCarrousel/fc4fc0fb-418d-4a47-a259-62e7e357bd11.jpg",
+        "imgCarrousel/format carte postale3.jpg",
+        "imgCarrousel/hugo portrait.jpg",
+        "imgCarrousel/icone.jpg",
+        "imgCarrousel/image10.jpg",
+        "imgCarrousel/image11.jpg",
+        "imgCarrousel/image12.jpg",
+        "imgCarrousel/image13.jpg",
+        "imgCarrousel/image15.jpg",
+        "imgCarrousel/image3.jpg",
+        "imgCarrousel/image4.jpg",
+        "imgCarrousel/image5.jpg",
+        "imgCarrousel/image6.jpg",
+        "imgCarrousel/image7.JPG",
+        "imgCarrousel/image8.JPG",
+        "imgCarrousel/IMG-0392.jpg",
+        "imgCarrousel/IMG_1985.jpg",
+        "imgCarrousel/IMG_20240714_0002.jpg",
+        "imgCarrousel/IMG_5675.jpg",
+        "imgCarrousel/IMG_8821.jpg",
+        "imgCarrousel/IMG_9433.jpg",
+        "imgCarrousel/IMG_9486.jpg",
+        "imgCarrousel/IMG_9621.jpg",
+        "imgCarrousel/IMG_9627.jpg",
+        "imgCarrousel/IMG_9665compressed.jpg",
+        "imgCarrousel/IMG_9918.jpg",
+        "imgCarrousel/mistral 2.jpg",
+        "imgCarrousel/new BH 13.jpg",
+        "imgCarrousel/perspective 1.jpg",
+        "imgCarrousel/presentation fermob.png",
+        "imgCarrousel/Table.jpg",
+        "imgCarrousel/TAURUS1 (1).jpg",
+        "imgCarrousel/tomeo emplil\u00e9e hd.jpg",
+        "imgCarrousel/t\u00e9o1.jpg",
+        "imgCarrousel/t\u00e9o2.jpg",
+        "imgCarrousel/untitled14-1.jpg",
+        "imgCarrousel/untitled22.jpg",
+        "imgCarrousel/wegner15 19.jpg",
+        "imgCarrousel/wegner15 21.jpg",
+      ];
+      let currentIndex = 0;
 
-<svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 arrowleft" alt="Flèche gauche" onclick="previousImage()">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-</svg>
+      function showImage(index) {
+        const image = document.getElementById("imageid");
+        image.src = imagesCarrousel[index];
+      }
 
+      function previousImage() {
+        currentIndex =
+          currentIndex > 0 ? currentIndex - 1 : imagesCarrousel.length - 1;
+        showImage(currentIndex);
+      }
 
-			<div class="image-container" id="carousel-images">
-				<!-- Les images seront insérées ici par JavaScript -->
-				<img id="imageid" src="imgCarrousel\icone.jpg" alt="Gallery Image" onclick="nextImage()" />
-			</div>
-<svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 arrowright" alt="Flèche droite" onclick="nextImage()">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-</svg>
+      function nextImage() {
+        currentIndex =
+          currentIndex < imagesCarrousel.length - 1 ? currentIndex + 1 : 0;
+        showImage(currentIndex);
+      }
 
+      // Appeler fetchImages pour initialiser le carrousel
 
-
-			
-		</main>
-
-		<footer >
-			<p>&copy; 2024 hugocharletdesign</p>
-		</footer>
-
-		<script>
-			let imagesCarrousel = [
-				"imgCarrousel/image13.jpg",
-				"imgCarrousel/ai leornardo.jpg",
-				"imgCarrousel/annot\u00e9 enf.jpg",
-				"imgCarrousel/ANN_8024cretouch\u00e9p.jpg",
-				"imgCarrousel/anton 12.jpg",
-				"imgCarrousel/anton 6.jpg",
-				"imgCarrousel/Anton 8.jpg",
-				"imgCarrousel/BLURRED1.jpg",
-				"imgCarrousel/CADRree.jpg",
-				"imgCarrousel/DE9C1026 (2).jpg",
-				"imgCarrousel/fc4fc0fb-418d-4a47-a259-62e7e357bd11.jpg",
-				"imgCarrousel/format carte postale3.jpg",
-				"imgCarrousel/hugo portrait.jpg",
-				"imgCarrousel/icone.jpg",
-				"imgCarrousel/image10.jpg",
-				"imgCarrousel/image11.jpg",
-				"imgCarrousel/image12.jpg",
-				"imgCarrousel/image13.jpg",
-				"imgCarrousel/image15.jpg",
-				"imgCarrousel/image3.jpg",
-				"imgCarrousel/image4.jpg",
-				"imgCarrousel/image5.jpg",
-				"imgCarrousel/image6.jpg",
-				"imgCarrousel/image7.JPG",
-				"imgCarrousel/image8.JPG",
-				"imgCarrousel/IMG-0392.jpg",
-				"imgCarrousel/IMG_1985.jpg",
-				"imgCarrousel/IMG_20240714_0002.jpg",
-				"imgCarrousel/IMG_5675.jpg",
-				"imgCarrousel/IMG_8821.jpg",
-				"imgCarrousel/IMG_9433.jpg",
-				"imgCarrousel/IMG_9486.jpg",
-				"imgCarrousel/IMG_9621.jpg",
-				"imgCarrousel/IMG_9627.jpg",
-				"imgCarrousel/IMG_9665compressed.jpg",
-				"imgCarrousel/IMG_9918.jpg",
-				"imgCarrousel/mistral 2.jpg",
-				"imgCarrousel/new BH 13.jpg",
-				"imgCarrousel/perspective 1.jpg",
-				"imgCarrousel/presentation fermob.png",
-				"imgCarrousel/Table.jpg",
-				"imgCarrousel/TAURUS1 (1).jpg",
-				"imgCarrousel/tomeo emplil\u00e9e hd.jpg",
-				"imgCarrousel/t\u00e9o1.jpg",
-				"imgCarrousel/t\u00e9o2.jpg",
-				"imgCarrousel/untitled14-1.jpg",
-				"imgCarrousel/untitled22.jpg",
-				"imgCarrousel/wegner15 19.jpg",
-				"imgCarrousel/wegner15 21.jpg"
-			];
-			let currentIndex = 0;
-
-			function showImage(index) {
-				const image = document.getElementById("imageid");
-				image.src = imagesCarrousel[index];
-			}
-
-			function previousImage() {
-				currentIndex = currentIndex > 0 ? currentIndex - 1 : imagesCarrousel.length - 1;
-				showImage(currentIndex);
-			}
-
-			function nextImage() {
-				currentIndex = currentIndex < imagesCarrousel.length - 1 ? currentIndex + 1 : 0;
-				showImage(currentIndex);
-			}
-
-			// Appeler fetchImages pour initialiser le carrousel
-
-			document.addEventListener("DOMContentLoaded", () => {
-				showImage(currentIndex);
-			});
-		</script>
-		<script src="navbar.js"></script>
-	</body>
+      document.addEventListener("DOMContentLoaded", () => {
+        showImage(currentIndex);
+      });
+    </script>
+    <script src="navbar.js"></script>
+  </body>
 </html>
