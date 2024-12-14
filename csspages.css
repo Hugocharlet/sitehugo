@@ -30,12 +30,12 @@ body {
   /* Pas besoin de marges gauche ou droite ici car align-items gère cela */
 }
 .colonne-fixed {
+  opacity: 0;
+  position: absolute;
   width:  calc(36% - var(--margin-general));
   z-index: 10;
   margin-left: var(--margin-general);
   padding: 10px;
-  position: fixed;
-  top:150px;
   border-radius: 10px;
   backdrop-filter: blur(15px);
   background-color: rgba(255, 255, 255, 0.5);
@@ -89,6 +89,7 @@ body {
   font-weight: 600;
 }
 #modelContainer {
+  display: none;
   position: fixed; /* Positionnement absolu pour le superposer */
   top: 50%; /* Centrer verticalement */
   right: var(--margin-general); /* Aligner à droite avec une marge devar(--margin-general) de la largeur de l'écran */
