@@ -150,11 +150,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Calcul de l'opacité avec interpolation linéaire
       let opacity = 0;
       if (scrollY > opacityStartThreshold) {
-        opacity = Math.min(
-          1,
-          (scrollY - opacityStartThreshold) /
-            (opacityFullThreshold - opacityStartThreshold)
-        );
+        opacity = Math.min( 1, (scrollY - opacityStartThreshold) / (opacityFullThreshold - opacityStartThreshold) );
       }
       // Apply opacity with smooth transition
       fixedElement.style.opacity = opacity;
