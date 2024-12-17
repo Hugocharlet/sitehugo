@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>BELVEDERE outdoor chairs</title>
+    <link rel="stylesheet" href="csspages.css" />
+    <link rel="stylesheet" href="variables.css" />
+
+    <!-- Vue.js and Model Viewer CDN imports -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+
+    <script
+      type="module"
+      src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
+    ></script>
+
+    <!-- AOS (Animate On Scroll) Library for fade effects -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- Header Navigation -->
+      <header>
+        <div id="menu-placeholder"></div>
+        <div class="svg-container-pages">
+          <a
+            v-for="navItem in navItems"
+            :key="navItem.href"
+            :href="navItem.href"
+          >
+            <img :src="navItem.src" :alt="navItem.alt" class="svg-backarrow" />
+          </a>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main>
+        <img class="imagemain" :src="mainImage" alt="main" />
+        <!-- Colonne fixe avec animation -->
+
+        <div
+          class="colonne-fixed"
+          :style="{ opacity: screenWidth > 600 ? opacityValue : 1 }"
+        >
+          <h1 class="Title">{{ title }}</h1>
+          <h2 class="Subtitle">{{ subtitle }}</h2>
+          <section class="textebox-container">
+            <p class="texte">{{ dimension }}</p>
+            <p class="texte">{{ description }}</p>
+          </section>
+
+          <!-- 3D Model Links -->
+          <div class="sousmenu-wrapper">
+            <div v-for="model in models" :key="model.id" class="icon-container">
+              <a
+                href="#"
+                @click.prevent="openModelViewer(model.src)"
+                class="icon-link"
+              >
+                <img src="3DICON.svg" :alt="model.alt" class="icon-item" />
+              </a>
+              <div class="texte texte-icon">{{ model.label }}</div>
+            </div>
+          </div>
+        </div>
+      </main>
+      
+
+      <!-- Model Viewer Modal -->
+      <div v-if="showModelViewer" id="modelContainer">
+        <button class="close-button" @click="closeModelViewer">
+          <img src="crosss.svg" alt="Close" />
+        </button>
+        <model-viewer
+          id="modelViewer"
+          :src= currentModel
+          autoplay
+          loading="eager"
+          ar
+          ar-modes="webxr scene-viewer quick-look"
+          ar-status="not-presenting"
+          auto-rotate
+          bounds="tight"
+          rotation-per-second="1deg"
+          environment-image="glb/studio.hdr"
+          exposure="0.7"
+          camera-controls
+          interpolation-decay="200"
+          shadow-intensity="1"
+          interaction-prompt="none"
+          camera-orbit="-40deg 82deg 12m"
+          min-camera-orbit="auto 40deg a"
+        >
+        </model-viewer>
+      </div>
+
+      <!-- Image Gallery Loader -->
+      <div v-if="isLoading" id="loader">
+        <div class="spinner"></div>
+      </div>
+
+      <!-- Image Container -->
+      <div id="image-container">
+        <img
+          v-for="(img, index) in images"
+          :key="index"
+          :src="img.src"
+          class="imagelarge"
+          data-aos="fade"
+          :alt="img.alt"
+        />
+      </div>
+    </div>
+    <script src="navbar.js"></script>
+    <script >
+
+
+const { createApp, ref, onMounted, onUnmounted } = Vue;
+
+createApp({
+  setup() {
+    // Reactive state variables
+    const title = ref("BELVEDERE");
+    const scrollY = ref(0);
+    const showModelViewer = ref(false);
+    const currentModel = ref("");
+    const isLoading = ref(true);
+    const images = ref([]);
+    const opacityValue = ref(0);
+    const mainImageHeight = ref(0);
+    const screenWidth = ref(window.innerWidth);
+    const pageUrl = `pages/${title.value.toLowerCase()}/`;
+
+    // Methods
+    const generateMediaUrls = () => {
+      return Array.from({ length: 17 }, (_, i) => `${pageUrl}${i + 1}.jpg`);
+    };
+    console.log(generateMediaUrls());
+
+    const preloadImages = async () => {
+      const mediaUrls = generateMediaUrls();
+      try {
+        const loadedImages = await Promise.all(
+          mediaUrls.map(async (url) => {
+            try {
+              const response = await fetch(url);
+              if (response.ok) {
+                return {
+                  src: url,
+                  alt: `Picture of Belvedere Chairs, design by Hugo Charlet`,
+                };
+              }
+              return null;
+            } catch {
+              return null;
+            }
+          })
+        );
+
+        images.value = loadedImages.filter((img) => img !== null);
+        isLoading.value = false;
+      } catch (error) {
+        console.error("Image preloading error:", error);
+        isLoading.value = false;
+      }
+    };
+
+    const handleScroll = () => {
+      scrollY.value = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      const opacityStartThreshold = mainImageHeight.value * 0.35;
+      const opacityFullThreshold = mainImageHeight.value * 0.65;
+
+      // Calcul dynamique de l'opacité
+      if (scrollY.value > opacityStartThreshold) {
+        opacityValue.value = Math.min(
+          1,
+          (scrollY.value - opacityStartThreshold) /
+            (opacityFullThreshold - opacityStartThreshold)
+        );
+      } else {
+        opacityValue.value = 0;
+      }
+    };
+
+    const openModelViewer = (modelSrc) => {
+      currentModel.value = modelSrc;
+      showModelViewer.value = true;
+    };
+
+    const closeModelViewer = () => {
+      showModelViewer.value = false;
+      currentModel.value = "";
+    };
+
+    const addMetaTags = () => {
+      const metaTags = [
+        {
+          property: "og:url",
+          content: pageUrl,
+        },
+        {
+          property: "og:type",
+          content: "website",
+        },
+      ];
+
+      metaTags.forEach((tag) => {
+        const metaTag = document.createElement("meta");
+        metaTag.setAttribute("property", tag.property);
+        metaTag.setAttribute("content", tag.content);
+        document.head.appendChild(metaTag);
+      });
+    };
+
+    // Function to update screen width on window resize
+
+    const updateScreenWidth = () => {
+      screenWidth.value = window.innerWidth;
+    };
+    // Lifecycle hooks
+    onMounted(() => {
+      // Initialize AOS
+      AOS.init();
+
+      // Preload images
+      preloadImages();
+
+      // Add meta tags
+      addMetaTags();
+      // Lifecycle hooks
+      const mainImage = document.querySelector(".imagemain");
+      if (mainImage) {
+        mainImage.addEventListener("load", () => {
+          mainImageHeight.value = mainImage.offsetHeight;
+        });
+      }
+      // Ajouter un écouteur d'événements pour surveiller le défilement
+      window.addEventListener("scroll", () => {
+        scrollY.value = window.scrollY;
+        handleScroll();
+      });
+      window.addEventListener("resize", updateScreenWidth);
+
+      console.log(JSON.stringify(images.value));
+    });
+
+    onUnmounted(() => {
+      // Remove scroll listener
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", updateScreenWidth);
+    });
+
+    return {
+      // Static data
+      title,
+      subtitle: "Outdoor chairs 2024",
+      dimension: "Dimension: 525 x 475 x 860 cm",
+      description:
+        "The belvedere chair is a simple chair with a highly original structure that is unusual for a chair: the back legs rise up to the level of the high back. This creates an original detail that gives the chair a recognizable identity.",
+      mainImage: "pages/belvedere/main.jpg",
+      navItems: [
+        {
+          href: "details",
+          src: "arrowback.svg",
+          alt: "backarrow",
+        },
+      ],
+      models: [
+        {
+          id: 1,
+          src: "glb/belvederechair.glb",
+          label: "3D Model chair",
+          alt: "Open Model Viewer",
+        },
+        {
+          id: 2,
+          src: "glb/belvederearmchair.glb",
+          label: "3D Model armchair",
+          alt: "Open Model Viewer",
+        },
+      ],
+
+      // Reactive state
+      opacityValue,
+      showModelViewer,
+      currentModel,
+      isLoading,
+      images,
+      screenWidth,
+
+      // Methods
+      openModelViewer,
+      closeModelViewer,
+    };
+  },
+}).mount("#app");
+
+
+    </script>
+
+  </body>
+</html>
