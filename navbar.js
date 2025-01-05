@@ -64,6 +64,10 @@ if (navbar) {
     <a href="https://www.instagram.com/hugocharletb/" target="_blank" aria-label="Hugo Charlet Instagram" >
         <img id="instagramLogo" src="insta.svg" alt="Instagram" class="instagram-logo" style="max-width: 30px;" />
     </a>
+
+    <audio id="background-audio" autoplay loop>
+      <source src="isolant.mp3" type="audio/mpeg">
+    </audio>
 `;
 
   navbar.innerHTML = navItems;
