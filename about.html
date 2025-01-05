@@ -44,12 +44,18 @@
         font-size: 12px;
         margin-right: var(--margin-general);
       }
+      
       hr {
-        border: none; /* Supprime les styles par défaut de la bordure */
-        height: 1px; /* Définit l'épaisseur de la ligne */
-        background-color: #afafaf; /* Définit la couleur */
-        margin-bottom:0.5rem
+        border: none;
+        height: 1px;
+        background-color: #afafaf;
+        margin-bottom: 0.5rem;
+        transform: translateZ(0); 
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        will-change: transform;
       }
+      
       .photo-profile {
         position: fixed;
         top: 100px;
@@ -98,7 +104,7 @@
     </div>
 
     <div class="colonne-container" data-aos="fade-up">
-      <hr >
+      <hr>
       <h1 >CURSUS:</h1>
       <p>
         Hugo Charlet is a French designer with extensive experience in the
@@ -134,7 +140,7 @@
         profession and developed a deep understanding of the codes of
         contemporary furniture design.
       </p>
-      <hr style="margin-top:1rem">
+      <hr style="margin-top : 1rem">
       <h2 >CONTACT:</h2>
       <p>
         Hugo Charlet design studio <br />
@@ -153,9 +159,9 @@
       <hr style="margin-top:1rem">
         <h2>DOWLOADS:</h2>
       <a class="texte" style="color: #808080; text-decoration: none" href="portfolio.pdf" >-PDF Portfolio</a >
-      <br />
-      <br /> 
-      <br />    
+      <br/>
+      <br/> 
+      <br/>    
       </div>
       <script src="navbar.js"></script>
     <!-- Script pour importer le menu -->
