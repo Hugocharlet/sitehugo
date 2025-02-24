@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <title>Designs projects in grid view</title>
+    <link rel="stylesheet" href="variables.css">
+    <link rel="stylesheet" href="navbarstyle.css">
+    <style>
+        body {
+            font-family: "Hanken Grotesk", sans-serif;
+            color: #303030;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery {
+            padding: 10px var(--margin-general) 0px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 120px;
+        }
+
+        .gallery-item {
+            position: relative;
+        }
+
+        .gallery-item img {
+            display: block;
+            /* Élimine les espaces blancs sous l'image */
+            object-fit: cover;
+            /* Élimine les espaces blancs sous l'image du à l'animation */
+            filter: grayscale(0%);
+            transition:
+                filter 0.5s ease,
+                transform 0.5s ease;
+        }
+
+        img {
+            max-height: 100%;
+            max-width: 100%;
+        }
+
+        .name {
+            position: absolute;
+            /* Positionne le texte au-dessus de l'image */
+            top: 50%;
+            /* Positionne verticalement au milieu */
+            left: 50%;
+            /* Positionne horizontalement au milieu */
+            transform: translate(-50%, -50%);
+            /* Centre le texte */
+            pointer-events: none;
+            z-index: 11;
+            font-size: 18px;
+            font-weight: 500;
+            color: #f1f1f1;
+            /* Assure que la couleur contraste avec le fond */
+            opacity: 0;
+            /* Caché par défaut */
+            visibility: hidden;
+            /* Caché par défaut */
+            transition:
+                opacity 0.3s,
+                visibility 0.3s;
+            /* Transition douce */
+        }
+
+        .gallery-item:hover img {
+            filter: grayscale(100%) brightness(38%);
+            animation: zoomquick 0.3s forwards;
+            z-index: 10;
+            opacity: 1;
+            position: relative;
+        }
+
+        .gallery-item:hover .name {
+            opacity: 1;
+            /* Affiche la légende lors du survol */
+            visibility: visible;
+            /* Affiche la légende lors du survol */
+        }
+
+        @keyframes zoomquick {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.01);
+            }
+        }
+
+        @keyframes zoomslow {
+
+            0%,
+            100% {
+                transform: scale(1.01);
+            }
+
+            50% {
+                transform: scale(1.5);
+            }
+        }
+
+        footer p {
+            font-family: "Roboto";
+            text-decoration: none !important;
+            /* Correction ici */
+            color: inherit;
+            padding: 35px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .gallery-item {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+
+            .gallery-item img {
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+                opacity: 1;
+            }
+
+            .gallery-item .name {
+                visibility: visible;
+                opacity: 1;
+                transform: translate(0%, 0%);
+                padding: 5px;
+                font-weight: 600;
+                font-size: 14px;
+                color: #303030;
+                position: static;
+                z-index: 1;
+                width: 100%;
+            }
+
+            footer p {
+                font-size: 9px;
+                color: #666;
+                text-align: center;
+                margin-top: 20px;
+                width: 100%;
+                padding: 10px 0;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- impoter Menu générale -->
+    <header>
+        <div id="menu-placeholder"></div>
+        <div id="svgmenu-placeholder"></div>
+    </header>
+
+    <main class="gallery" id="gallery-placeholder" data-aos="fade">
+        <!-- Les images seront insérées ici par JavaScript -->
+    </main>
+
+    <footer>
+        <p>&copy; 2024 hugocharletdesign</p>
+    </footer>
+
+    <script>
+        const grid = [
+            { src: "ANTON.jpg", name: "anton" },
+            { src: "ANTON1.jpg", name: "anton" },
+            { src: "ANTON2.jpg", name: "anton" },
+            { src: "BELVEDERE.jpg", name: "belvedere" },
+            { src: "BUREAUK.jpg", name: "bureauk" },
+            { src: "BUREAUK1.jpg", name: "bureauk" },
+            { src: "DIETER.jpg", name: "dieter" },
+            { src: "DIETER2.jpg", name: "dieter" },
+            { src: "ENZO.jpg", name: "enzo" },
+            { src: "HELENA.jpg", name: "helena" },
+            { src: "HELENA1.jpg", name: "helena" },
+            { src: "HELENA2.jpg", name: "helena" },
+            { src: "HELENA3.jpg", name: "helena" },
+            { src: "KAKTUS.jpg", name: "kaktus" },
+            { src: "LOOP.jpg", name: "loop" },
+            { src: "LOOP2.jpg", name: "loop" },
+            { src: "LOOP3.jpg", name: "loop" },
+            { src: "LOOP4.jpg", name: "loop" },
+            { src: "LOUISE.jpg", name: "louise" },
+            { src: "LOUISE1.jpg", name: "louise" },
+            { src: "LOUISE2.jpg", name: "louise" },
+            { src: "LOUISE3.jpg", name: "louise" },
+            { src: "MELODIE.jpg", name: "melodie" },
+            { src: "MISTRAL.jpg", name: "mistral" },
+            { src: "MISTRAL2.jpg", name: "mistral" },
+            { src: "PIXA.jpg", name: "pixa" },
+            { src: "PIXA1.jpg", name: "pixa" },
+            { src: "PIXA2.JPG", name: "pixa" },
+            { src: "PIXA3.JPG", name: "pixa" },
+            { src: "PIXA4.jpg", name: "pixa" },
+            { src: "REMO.jpg", name: "remo" },
+            { src: "REMO2.jpg", name: "remo" },
+            { src: "TABLE.jpg", name: "helena" },
+            { src: "TAURUS.jpg", name: "taurus" },
+            { src: "TEO.jpg", name: "teo" },
+            { src: "TEO2.jpg", name: "teo" },
+            { src: "TEO3.jpg", name: "teo" },
+            { src: "TOMEO.jpg", name: "tomeo" },
+            { src: "TROPICAL.jpg", name: "tropical" }
+        ];
+
+        const container = document.getElementById("gallery-placeholder");
+
+        grid.forEach((item) => {
+            const article = `
+                    <section class="gallery-item" data-aos="fade" >
+                        <a href="${item.name}">
+                            <img src="img/${item.src}" alt="${item.name}" >
+                        </a>
+                        <h2 class="name" >${item.name.toUpperCase()} </h2>
+                    </section>
+                `;
+            container.insertAdjacentHTML("beforeend", article);
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            function melangerElements() {
+                const childrenArray = Array.from(container.children);
+
+                // Mélanger le tableau d'enfants
+                childrenArray.sort(() => Math.random() - 0.5);
+
+                // Réinsérer chaque enfant dans l'ordre mélangé
+                container.innerHTML = "";
+                childrenArray.forEach((child) => container.appendChild(child));
+            }
+
+            melangerElements(); // Appel de la fonction après chargement du contenu
+        });
+
+    </script>
+    <!-- Script pour importer le menu -->
+    <script src="navbar.js"></script>
+</body>
+
+</html>
