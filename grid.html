@@ -220,7 +220,7 @@
                 let dataAttributes = item.data.map(attr => `data-${attr}=""`).join(" ");
 
                 const article = `
-                <section class="gallery-item active" ${dataAttributes} data-aos="fade">
+                <section class="gallery-item active" ${dataAttributes}>
                     <a href="${item.name}">
                         <img src="img/${item.src}" alt="${item.name}">
                     </a>
