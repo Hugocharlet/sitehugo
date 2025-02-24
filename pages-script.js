@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Désactiver l'effet si la largeur de l'écran est inférieure à 768px (taille smartphone et iPad)
     if (window.innerWidth >= 768) {
       // Calcule une nouvelle position en soustrayant la hauteur de l'image
-      const targetMarginTop = -imageHeight + 50+ scrollY * 1; // Ajuster en fonction du défilement
+      const targetMarginTop = -imageHeight + 150 + scrollY * 1; // Ajuster en fonction du défilement
       
       // Appliquer le mouvement avec transition
       fixedElement.style.marginTop = `${targetMarginTop}px`;
