@@ -31,7 +31,6 @@ body {
 }
 .colonne-fixed {
   opacity: 0;
-  top: 77vh;
   position: absolute;
   width:  calc(36% - var(--margin-general));
   z-index: 10;
