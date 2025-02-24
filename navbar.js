@@ -71,7 +71,7 @@ if (navbar) {
   navbar.innerHTML = navItems;
 
   // Charger le menu SVG si on est sur la page "details" ou "grid"
-  if (activePage === "details" || activePage === "grid") {
+  if (activePage === "grid") {
     // Insérer les éléments SVG dans le conteneur après avoir vérifié activePage
     const svgContainer = document.getElementById("svgmenu-placeholder");
 
@@ -103,6 +103,33 @@ if (navbar) {
 
     svgContainer.innerHTML += svgItems;
   }
+    if (activePage === "details") {
+      // Insérer les éléments SVG dans le conteneur après avoir vérifié activePage
+      const svgContainer = document.getElementById("svgmenu-placeholder");
+
+      const svgItems = `
+      <section class="filter-wrapper">
+        <section id="filters">
+
+        </section>
+    
+        <div class="svg-container" >
+                  <a href="details"  style="${
+                    activePage === "details" ? "filter: brightness(0);" : ""
+                  }">
+                      <img src="grid-details.svg" alt="Grid Details"  >
+                  </a>
+                  <a href="grid"  style="${
+                    activePage === "grid" ? "filter: brightness(0);" : ""
+                  }"> 
+                    <img src="grid-square.svg" alt="Grid Square"  >
+                  </a>
+              </div>   
+        </section>
+    `;
+
+      svgContainer.innerHTML += svgItems;
+    }
 } else {
   console.log("Div navbar non trouvée");
 }
