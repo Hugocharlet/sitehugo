@@ -5,6 +5,8 @@
 
 body {
   font-family: "Hanken Grotesk", sans-serif;
+  margin: 0;
+  padding: 0;
 }
 *,
 ::before,
@@ -92,26 +94,40 @@ nav {
     filter: none;
 }
 /*---------------- LIST & GRID MENU STYLE----------------------*/
+.filter-wrapper {
+  position: relative;
+  width: calc(100% - var(--margin-general)*2 - 1%);
+  margin-top: 130px;
+  margin-left: var(--margin-general);
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 2000;
+}
+#filters {
+  display: flex;
+  padding: 0;
+  gap: 10px;
+}
 
+#filters div {
+  font-family: "Hanken Grotesk", sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: #afafaf;
+  cursor: pointer;
+}
 .svg-container {
-    margin-top: 100px;
-    width: 100%;
-    padding: 0 var(--margin-general); /* Espacement horizontal du menu */
-    box-sizing: border-box;
     display: flex;
-    align-items: center;
-    z-index: 2000;
-    align-items: center; /* Centre les icônes verticalement */
-    justify-content: flex-end; /* Aligne les SVG à droite du conteneur */
     gap: 13px; /* Espace entre les SVG */
-    
 }
 .svg-container a:hover img {
     filter: brightness(0); /* Assombrit le SVG au survol */
     transform: scale(1.025) translateY(-1px);
 }
 .svg-container a img{
-    height: 10px; 
+    height: 9px; 
     width: auto;
     transition: transform 0.3s ease;
 }
@@ -244,3 +260,11 @@ nav {
   text-decoration: underline;
     color: #303030;
   }
+  .svg-container {
+    position: relative;
+    margin-top: 100px;
+  }
+  .filter-wrapper {
+    display: none;
+  }
+}

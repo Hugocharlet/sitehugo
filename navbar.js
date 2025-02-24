@@ -48,7 +48,7 @@ if (navbar) {
         <div class="navlinks-container ${activePage ? activePage : ""}">
             <a class="${
               activePage === pages.details ? "active" : ""
-            }" href="details" >WORK</a>
+            }" href="grid" >WORK</a>
             <a class="${
               activePage === pages.about ? "active" : ""
             }" href="about">ABOUT</a>
@@ -76,14 +76,29 @@ if (navbar) {
     const svgContainer = document.getElementById("svgmenu-placeholder");
 
     const svgItems = `
-          <div class="svg-container" >
-              <a href="details"  style="${ activePage === "details" ? "filter: brightness(0);" : "" }">
-                  <img src="grid-details.svg" alt="Grid Details" class="svg-item" style="max-height: 11px;">
-              </a>
-              <a href="grid"  style="${ activePage === "grid" ? "filter: brightness(0);" : "" }"> 
-                <img src="grid-square.svg" alt="Grid Square" class="svg-item" style="max-height: 11px;">
-              </a>
-          </div>   
+      <section class="filter-wrapper">
+        <section id="filters">
+          <div id="all" class="active">All</div>
+          <div id="chair" class="inactive">Chair</div>
+          <div id="armchair" class="inactive">Armchair</div>
+          <div id="table" class="inactive">Table</div>
+          <div id="desk" class="inactive">Desk</div>
+          <div id="metal" class="inactive">Metal</div>
+          <div id="wood" class="inactive">Wood</div>
+          <div id="fabric" class="inactive">Fabric</div>
+          <div id="lighting" class="inactive">Lightings</div>
+          <div id="object" class="inactive">Objects</div>
+        </section>
+    
+        <div class="svg-container" >
+                  <a href="details"  style="${ activePage === "details" ? "filter: brightness(0);" : "" }">
+                      <img src="grid-details.svg" alt="Grid Details"  >
+                  </a>
+                  <a href="grid"  style="${ activePage === "grid" ? "filter: brightness(0);" : "" }"> 
+                    <img src="grid-square.svg" alt="Grid Square"  >
+                  </a>
+              </div>   
+        </section>
     `;
 
     svgContainer.innerHTML += svgItems;
