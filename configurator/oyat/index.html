@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>OYAT modèles 3D</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Avenir:wght@300&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Avenir:wght@300&family=Poppins:wght@600&display=swap"
+        rel="stylesheet">
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
         /* Nouveaux styles pour les cases à cocher personnalisées */
@@ -23,42 +25,48 @@
         }
 
         input[type="radio"]:checked {
-            background-color: #000; /* Le fond devient entièrement noir lorsque la case est cochée */
+            background-color: #000;
+            /* Le fond devient entièrement noir lorsque la case est cochée */
         }
 
 
-        h1, h3 {
+        h1,
+        h3 {
             font-family: 'Poppins', sans-serif;
             font-size: 16px;
             font-weight: 600;
-			margin-top:0px;
-			margin-bottom: 30px;
-			padding:0px;
+            margin-top: 0px;
+            margin-bottom: 30px;
+            padding: 0px;
         }
+
         label {
             font-family: 'Avenir', sans-serif;
             font-size: 13px;
             font-weight: 300;
-            align-items: center; /* Centre verticalement les éléments enfants */
+            align-items: center;
+            /* Centre verticalement les éléments enfants */
             display: flex;
             align-items: center;
-            margin-bottom: 15px; /* Ajoute un espace entre les lignes */
+            margin-bottom: 15px;
+            /* Ajoute un espace entre les lignes */
         }
-		
-    .color-circle {
-        width: 30px;         
-        height: 30px;        
-        border-radius: 50%;  /* Cercle parfait */
-        display: inline-block;
-        margin-left: 10px; 
-		margin-right: 10px; 		
-		
-    }
+
+        .color-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            /* Cercle parfait */
+            display: inline-block;
+            margin-left: 10px;
+            margin-right: 10px;
+
+        }
 
         .column {
             margin-bottom: 80px;
 
-			
+
         }
 
 
@@ -66,143 +74,160 @@
             font-size: 13px;
             font-family: 'Avenir', sans-serif;
         }
+
         #modelUrl {
             font-size: 13px;
             font-family: 'Avenir', sans-serif;
             margin-top: 20px;
         }
-		model-viewer {
-			width: 50vw; /* 50% de la largeur de l'écran */
-			height: 70vh; /* 70% de la hauteur de l'écran */
-			max-width: 50vw; /* Largeur maximale de 50% */
-			border: 1px solid #ccc; 
-			background-color: #F5F5F5;
-		}
+
+        model-viewer {
+            width: 50vw;
+            /* 50% de la largeur de l'écran */
+            height: 70vh;
+            /* 70% de la hauteur de l'écran */
+            max-width: 50vw;
+            /* Largeur maximale de 50% */
+            border: 1px solid #ccc;
+            background-color: #F5F5F5;
+        }
 
         .thumbnail {
             width: 30px;
             height: 30px;
             border-radius: 50%;
-            margin: 0 10px; /* Espace entre la case à cocher et le texte */
-			
+            margin: 0 10px;
+            /* Espace entre la case à cocher et le texte */
+
         }
-		
-		.thumbnail1 {
+
+        .thumbnail1 {
             width: 18px;
             height: 18px;
             border-radius: 50%;
-            margin: 0 10px; /* Espace entre la case à cocher et le texte */
-			
+            margin: 0 10px;
+            /* Espace entre la case à cocher et le texte */
+
         }
 
         .container {
-		 
-			margin-top : 100px;
-			margin-bottom : 100px;
-			margin-left : 8%;
+
+            margin-top: 100px;
+            margin-bottom: 100px;
+            margin-left: 8%;
             position: absolute;
             align-items: flex-start;
 
         }
 
         .main-container {
-	        display: flex;
-	        position: relative;
-			align-items: flex-start; 
-            gap: 40px; /* Espacement entre les colonnes */
+            display: flex;
+            position: relative;
+            align-items: flex-start;
+            gap: 40px;
+            /* Espacement entre les colonnes */
 
-   
-		}
-		
-		@media (max-width: 600px) {
-    .container {
-        width: 92%; /* Prend toute la largeur de l'écran */
-        margin-left: 4%; /* Marge de 4% à gauche */
-        margin-right: 4%; /* Marge de 4% à droite */
-          
-    }
-    .main-container {
-        display: block; /* Met les éléments en ligne verticale */
+
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 92%;
+                /* Prend toute la largeur de l'écran */
+                margin-left: 4%;
+                /* Marge de 4% à gauche */
+                margin-right: 4%;
+                /* Marge de 4% à droite */
+
             }
-    model-viewer {
-        width: 100%;
-		max-width:100%; /* Le modèle occupe toute la largeur disponible */
-        border: 1px solid #ccc;
-        background-color: #F5F5F5;
-    }
-			}
+
+            .main-container {
+                display: block;
+                /* Met les éléments en ligne verticale */
+            }
+
+            model-viewer {
+                width: 100%;
+                max-width: 100%;
+                /* Le modèle occupe toute la largeur disponible */
+                border: 1px solid #ccc;
+                background-color: #F5F5F5;
+            }
+        }
     </style>
-  
+
 
 </head>
+
 <body>
 
-   
 
 
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    // Importer le menu général depuis la racine
-    fetch('../../menugenerale.html')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Erreur de chargement du menu général : ${response.status}`);
-            }
-            return response.text();
-        })
-        .then(data => {
-            document.getElementById('menu-placeholder').innerHTML = data;
-            console.log('Menu général chargé');
-        })
-        .catch(error => {
-            console.error('Erreur lors du chargement du menu général :', error);
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Importer le menu général depuis la racine
+            fetch('../../menugenerale.html')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erreur de chargement du menu général : ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('menu-placeholder').innerHTML = data;
+                    console.log('Menu général chargé');
+                })
+                .catch(error => {
+                    console.error('Erreur lors du chargement du menu général :', error);
+                });
+
+            // Importer le menu SVG depuis la racine
+            fetch('../../svgmenupages.html')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erreur de chargement du menu SVG : ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('svgmenupages-placeholder').innerHTML = data;
+                    console.log('Menu SVG chargé');
+                })
+                .catch(error => {
+                    console.error('Erreur lors du chargement du menu SVG :', error);
+                });
         });
 
-    // Importer le menu SVG depuis la racine
-    fetch('../../svgmenupages.html')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Erreur de chargement du menu SVG : ${response.status}`);
-            }
-            return response.text();
-        })
-        .then(data => {
-            document.getElementById('svgmenupages-placeholder').innerHTML = data;
-            console.log('Menu SVG chargé');
-        })
-        .catch(error => {
-            console.error('Erreur lors du chargement du menu SVG :', error);
-        });
-});
-
-</script>
-<script src="navbar.js"></script>
+    </script>
+    <script src="navbar.js"></script>
 
     <div class="container">
         <h3>OYAT modèles 3D :</h3>
-		<div class="main-container">
-			<div class="column">
-				<model-viewer id="modelViewer" src="" environment-image="abandoned_slipway_4k.hdr" ar ar-modes="webxr scene-viewer quick-look" auto-rotate camera-controls></model-viewer>
-			</div>
-			
-			<div class="column">
-				<h3> modèle :</h3>
-				<label><input type="radio" name="color" value="LUMA" checked> LUMA</label>
-				<label><input type="radio" name="color" value="DIGO"> DIGO </label>
-				<label><input type="radio" name="color" value="LUMIO"> LUMIO</label>
-				<label><input type="radio" name="color" value="FRIDA"> FRIDA</label>
-				<label><input type="radio" name="color" value="CELESTE"> CELESTE</label>
-			</div>
+        <div class="main-container">
+            <model-viewer id="modelViewer" src="" environment-image="abandoned_slipway_4k.hdr" ar
+                ar-modes="webxr scene-viewer quick-look" auto-rotate camera-controls exposure="1.5" tone-mapping="aces">
+            </model-viewer>
 
-		</div>
+
+            <div class="column">
+                <h3> modèle :</h3>
+                <label><input type="radio" name="color" value="LUMA" checked> LUMA</label>
+                <label><input type="radio" name="color" value="DIGO"> DIGO </label>
+                <label><input type="radio" name="color" value="LUMIO"> LUMIO</label>
+                <label><input type="radio" name="color" value="FRIDA"> FRIDA</label>
+                <label><input type="radio" name="color" value="CELESTE"> CELESTE</label>
+            </div>
+
+        </div>
     </div>
-    
+
 
     <script>
         // Matrice unique avec 18 coloris (5 frêne huilé, 10 peuplier laqué)
         const modelMatrix = {
-            'LUMA': 'luma.glb',
+            'LUMA': 'lumaarmchair.glb',
             'DIGO': 'digo.glb',
             'LUMIO': 'lumio.glb',
             'FRIDA': 'frida.glb',
