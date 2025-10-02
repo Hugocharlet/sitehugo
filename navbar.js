@@ -48,7 +48,7 @@ if (navbar) {
         <div class="navlinks-container ${activePage ? activePage : ""}">
             <a class="${
               activePage === pages.details ? "active" : ""
-            }" href="grid" >WORK</a>
+            }" href="details" >WORK</a>
             <a class="${
               activePage === pages.about ? "active" : ""
             }" href="about">ABOUT</a>
