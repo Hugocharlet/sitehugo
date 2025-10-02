@@ -1,293 +1,290 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-E5KFLGR0PL"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
 
-      gtag("config", "G-E5KFLGR0PL");
-    </script>
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E5KFLGR0PL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hugocharletdesign</title>
-    <link rel="icon" type="image/png" href="favicon.png" />
-    <link rel="stylesheet" href="variables.css" />
-    <link rel="stylesheet" href="navbarstyle.css">
+    gtag("config", "G-E5KFLGR0PL");
+  </script>
 
-    <meta
-      property="og:description"
-      content="Specializing in contemporary furniture and industrial product design, our studio creates aesthetic, iconic, and functional pieces. We pay close attention to production constraints throughout the design process to ensure that each product is easy to manufacture and perfectly suited for large-scale production."
-    />
-    <meta
-      property="og:image"
-      content="https://www.hugocharlet.com/pages/pixa/3.jpg"
-    />
-    <meta property="og:url" content="https://www.hugocharlet.com" />
-    <meta property="og:type" content="website" />
-    <meta
-      name="description"
-      content="Specializing in contemporary furniture and industrial product design, our studio creates aesthetic, iconic, and functional pieces. We pay close attention to production constraints throughout the design process to ensure that each product is easy to manufacture and perfectly suited for large-scale production."
-    />
-    <style>
-      body {
-        font-family: "Hanken Grotesk", sans-serif;
-        color: #303030;
-      }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hugocharletdesign</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="variables.css" />
+  <link rel="stylesheet" href="navbarstyle.css">
 
-      .carousel-container {
+  <meta property="og:description"
+    content="Specializing in contemporary furniture and industrial product design, our studio creates aesthetic, iconic, and functional pieces. We pay close attention to production constraints throughout the design process to ensure that each product is easy to manufacture and perfectly suited for large-scale production." />
+  <meta property="og:image" content="https://www.hugocharlet.com/pages/pixa/3.jpg" />
+  <meta property="og:url" content="https://www.hugocharlet.com" />
+  <meta property="og:type" content="website" />
+  <meta name="description"
+    content="Specializing in contemporary furniture and industrial product design, our studio creates aesthetic, iconic, and functional pieces. We pay close attention to production constraints throughout the design process to ensure that each product is easy to manufacture and perfectly suited for large-scale production." />
+  <style>
+    body {
+      font-family: "Hanken Grotesk", sans-serif;
+      color: #303030;
+    }
+
+    .carousel-container {
+      position: relative;
+      margin: 90px var(--margin-general) 0px;
+      height: 77vh;
+      z-index: 0;
+    }
+
+    .image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    img {
+      max-height: 100%;
+      max-width: 100%;
+    }
+
+    .nav-arrow-container {
+      position: absolute;
+      left: calc(var(--margin-general) + 10px);
+      width: calc(100% - 2 * (var(--margin-general) + 10px));
+      top: 50%;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      transition: transform 0.3s ease, fill 0.3s ease;
+    }
+
+    .nav-arrow-wrapper {
+      display: flex;
+      align-items: center;
+      transition: transform 0.3s ease, fill 0.3s ease;
+    }
+
+    .left {
+      left: 30px;
+    }
+
+    .right {
+      right: 30px;
+    }
+
+    .left:hover {
+      transform: translateX(-3px);
+    }
+
+    .right:hover {
+      transform: translateX(3px);
+    }
+
+    .nav-arrow-wrapper:hover .arrow-svg {
+      stroke: #303030;
+      fill: #303030;
+    }
+
+    .nav-arrow-wrapper:hover .arrow-text {
+      color: #303030;
+    }
+
+    .arrow-svg {
+      height: 20px;
+      width: auto;
+      stroke: #afafaf;
+      fill: #afafaf;
+      cursor: pointer;
+    }
+
+    .arrow-text {
+      font-size: 0.8rem;
+      font-family: "IBM Plex Mono", monospace;
+      font-weight: 400;
+      font-style: italic;
+      color: #afafaf;
+      cursor: pointer;
+    }
+
+    footer p {
+      font-family: "Roboto";
+      font-size: 12px;
+      color: #666;
+      text-align: center;
+      position: fixed;
+      bottom: 20px;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      footer p {
+        font-size: 9px;
         position: relative;
-        margin: 90px var(--margin-general) 0px;
-        height: 77vh;
-        z-index: 0;
-      }
-
-      .image-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        overflow: hidden;
-        position: relative;
-      }
-
-      img {
-        max-height: 100%;
-        max-width: 100%;
+        /* Utiliser relative pour que le texte suive le flux normal du document */
+        margin-top: 20px;
+        /* Espacement au-dessus du copyright */
+        padding: 10px 0;
+        /* Espacement autour du texte, si nécessaire */
+        box-sizing: border-box;
+        /* Inclut le padding dans la largeur totale */
       }
 
       .nav-arrow-container {
-         position: absolute;
-         left: calc(var(--margin-general) + 10px);
-         width: calc(100% - 2 * (var(--margin-general) + 10px));
-         top: 50%;
-         z-index: 1;
-         display: flex;
-         justify-content: space-between; 
-         transition: transform 0.3s ease, fill 0.3s ease;
-       } 
-      .nav-arrow-wrapper {
-        display: flex;
-        align-items: center;
-        transition: transform 0.3s ease, fill 0.3s ease;
+        position: relative;
+        padding: 10px calc(var(--margin-general) + 10px);
+        background: ;
+        width: 100vw;
+        left: 0;
+        height: auto;
       }
-      .left {
-        left: 30px;
-      }
-      .right {
-        right: 30px;
-      }
-      .left:hover {
-        transform: translateX(-3px);
-      }
-      .right:hover {
-        transform: translateX(3px);
-      }
-      .nav-arrow-wrapper:hover .arrow-svg {
-        stroke: #303030;
-        fill: #303030;
-      }
-      .nav-arrow-wrapper:hover .arrow-text {
-        color: #303030;
-      }
-      .arrow-svg {
-        height: 20px;
+
+      .image-container img {
+        height: 100%;
         width: auto;
-        stroke: #afafaf;
-        fill: #afafaf;
-        cursor: pointer;
+        object-fit: cover;
       }
-      .arrow-text {
-        font-size: 0.8rem;
-        font-family: "IBM Plex Mono", monospace;
-        font-weight: 400;
-        font-style: italic;
-        color: #afafaf;
-        cursor: pointer;
-      }
-      footer p {
-        font-family: "Roboto";
-        font-size: 12px;
-        color: #666;
-        text-align: center;
-        position: fixed;
-        bottom: 20px;
-        width: 100%;
-      }
+    }
+  </style>
+</head>
 
-      @media (max-width: 600px) {
-        footer p {
-          font-size: 9px;
-          position: relative; /* Utiliser relative pour que le texte suive le flux normal du document */
-          margin-top: 20px; /* Espacement au-dessus du copyright */
-          padding: 10px 0; /* Espacement autour du texte, si nécessaire */
-          box-sizing: border-box; /* Inclut le padding dans la largeur totale */
-        }
-        .nav-arrow-container {
-          position: relative;
-          padding: 10px calc(var(--margin-general) + 10px);
-		  background: ;
-          width: 100vw;
-          left: 0;
-          height: auto;
-        }
-        .image-container img {
-          height: 100%;
-          width: auto;
-          object-fit: cover;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <div id="menu-placeholder"></div>
-    </header>
+<body>
+  <header>
+    <div id="menu-placeholder"></div>
+  </header>
 
-    <main class="background-color:red; : 1px solid red">
-      <div class="carousel-container" data-aos="fade">
-        <div class="image-container" id="carousel-images">
-          <!-- Les images seront insérées ici par JavaScript -->
-          <img
-            id="imageid"
-            src="imgCarrousel\icone.jpg"
-            alt="Gallery Image"
-            onclick="nextImage()"
-          />
-        </div>
+  <main class="background-color:red; : 1px solid red">
+    <div class="carousel-container" data-aos="fade">
+      <div class="image-container" id="carousel-images">
+        <!-- Les images seront insérées ici par JavaScript -->
+        <img id="imageid" src="" alt="Gallery Image" onclick="nextImage()" />
       </div>
+    </div>
 
-      <div class="nav-arrow-container">
-        <div class="nav-arrow-wrapper left" onclick="previousImage()">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="size-6 arrow-svg"
-            alt="Flèche gauche"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M6.75 8.25 3 12m0 0 3.75 3.75M3 12H12"
-            />
-          </svg>
-          <span class="arrow-text">previous</span>
-        </div>
-        <div class="nav-arrow-wrapper right" onclick="nextImage()">
-          <span class="arrow-text">next</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="size-6 arrow-svg"
-            alt="Flèche droite"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H12"
-            />
-          </svg>
-        </div>
+    <div class="nav-arrow-container">
+      <div class="nav-arrow-wrapper left" onclick="previousImage()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="size-6 arrow-svg" alt="Flèche gauche">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 8.25 3 12m0 0 3.75 3.75M3 12H12" />
+        </svg>
+        <span class="arrow-text">previous</span>
       </div>
-    </main>
+      <div class="nav-arrow-wrapper right" onclick="nextImage()">
+        <span class="arrow-text">next</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="size-6 arrow-svg" alt="Flèche droite">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H12" />
+        </svg>
+      </div>
+    </div>
+  </main>
 
-    <footer>
-      <p>&copy; 2024 hugocharletdesign</p>
-    </footer>
+  <footer>
+    <p>&copy; 2024 hugocharletdesign</p>
+  </footer>
 
-    <script>
-      let imagesCarrousel = [
-        "imgCarrousel/image13.jpg",
-        "imgCarrousel/ai-leornardo.jpg",
-        "imgCarrousel/annot\u00e9 enf.jpg",
-        "imgCarrousel/ANN_8024cretouch\u00e9p.jpg",
-        "imgCarrousel/anton 12.jpg",
-        "imgCarrousel/HELENA_shooting_08-2025_7.jpg",
-        "imgCarrousel/HELENA_shooting_08-2025_14.jpg",
-        "imgCarrousel/anton-6.jpg",
-        "imgCarrousel/Anton 8.jpg",
-        "imgCarrousel/BLURRED1.jpg",
-        "imgCarrousel/CADRree.jpg",
-        "imgCarrousel/IMG_0687.jpg",
-        "imgCarrousel/DE9C1026 (2).jpg",
-        "imgCarrousel/fc4fc0fb-418d-4a47-a259-62e7e357bd11.jpg",
-        "imgCarrousel/format carte postale3.jpg",
-        "imgCarrousel/hugo portrait.jpg",
-        "imgCarrousel/icone.jpg",
-        "imgCarrousel/pixa-4.jpg",
-        "imgCarrousel/image10.jpg",
-        "imgCarrousel/image11.jpg",
-        "imgCarrousel/image12.jpg",
-        "imgCarrousel/image13.jpg",
-        "imgCarrousel/image15.jpg",
-        "imgCarrousel/image3.jpg",
-        "imgCarrousel/image4.jpg",
-        "imgCarrousel/image5.jpg",
-        "imgCarrousel/image6.jpg",
-        "imgCarrousel/image7.JPG",
-        "imgCarrousel/image8.JPG",
-        "imgCarrousel/IMG-0392.jpg",
-        "imgCarrousel/IMG_1985.jpg",
-        "imgCarrousel/IMG_20240714_0002.jpg",
-        "imgCarrousel/IMG_5675.jpg",
-        "imgCarrousel/IMG_8821.jpg",
-        "imgCarrousel/IMG_9433.jpg",
-        "imgCarrousel/IMG_9486.jpg",
-        "imgCarrousel/IMG_9621.jpg",
-        "imgCarrousel/IMG_9627.jpg",
-        "imgCarrousel/IMG_9665compressed.jpg",
-        "imgCarrousel/IMG_9918.jpg",
-        "imgCarrousel/mistral 2.jpg",
-        "imgCarrousel/new BH 13.jpg",
-        "imgCarrousel/perspective 1.jpg",
-        "imgCarrousel/presentation fermob.png",
-        "imgCarrousel/Table.jpg",
-        "imgCarrousel/TAURUS1 (1).jpg",
-        "imgCarrousel/tomeo emplil\u00e9e hd.jpg",
-        "imgCarrousel/t\u00e9o1.jpg",
-        "imgCarrousel/t\u00e9o2.jpg",
-        "imgCarrousel/untitled14-1.jpg",
-        "imgCarrousel/untitled22.jpg",
-        "imgCarrousel/wegner15 19.jpg",
-        "imgCarrousel/wegner15 21.jpg",
-      ];
-      let currentIndex = 0;
+  <script>
 
-      function showImage(index) {
-        const image = document.getElementById("imageid");
-        image.src = imagesCarrousel[index];
+    function shuffleArray(array) {
+      const shuffled = [...array]; // Copie du tableau
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
       }
+      return shuffled;
+    }
 
-      function previousImage() {
-        currentIndex =
-          currentIndex > 0 ? currentIndex - 1 : imagesCarrousel.length - 1;
-        showImage(currentIndex);
-      }
+    let imagesCarrousel = [
+      "imgCarrousel/image13.jpg",
+      "imgCarrousel/ai-leornardo.jpg",
+      "imgCarrousel/annot\u00e9 enf.jpg",
+      "imgCarrousel/ANN_8024cretouch\u00e9p.jpg",
+      "imgCarrousel/anton 12.jpg",
+      "imgCarrousel/HELENA_shooting_08-2025_7.jpg",
+      "imgCarrousel/HELENA_shooting_08-2025_14.jpg",
+      "imgCarrousel/anton-6.jpg",
+      "imgCarrousel/Anton 8.jpg",
+      "imgCarrousel/BLURRED1.jpg",
+      "imgCarrousel/CADRree.jpg",
+      "imgCarrousel/IMG_0687.jpg",
+      "imgCarrousel/DE9C1026 (2).jpg",
+      "imgCarrousel/fc4fc0fb-418d-4a47-a259-62e7e357bd11.jpg",
+      "imgCarrousel/format carte postale3.jpg",
+      "imgCarrousel/hugo portrait.jpg",
+      "imgCarrousel/icone.jpg",
+      "imgCarrousel/pixa-4.jpg",
+      "imgCarrousel/image10.jpg",
+      "imgCarrousel/image11.jpg",
+      "imgCarrousel/image12.jpg",
+      "imgCarrousel/image13.jpg",
+      "imgCarrousel/image15.jpg",
+      "imgCarrousel/image3.jpg",
+      "imgCarrousel/image4.jpg",
+      "imgCarrousel/image5.jpg",
+      "imgCarrousel/image6.jpg",
+      "imgCarrousel/image7.JPG",
+      "imgCarrousel/image8.JPG",
+      "imgCarrousel/IMG-0392.jpg",
+      "imgCarrousel/IMG_1985.jpg",
+      "imgCarrousel/IMG_20240714_0002.jpg",
+      "imgCarrousel/IMG_5675.jpg",
+      "imgCarrousel/IMG_8821.jpg",
+      "imgCarrousel/IMG_9433.jpg",
+      "imgCarrousel/IMG_9486.jpg",
+      "imgCarrousel/IMG_9621.jpg",
+      "imgCarrousel/IMG_9627.jpg",
+      "imgCarrousel/IMG_9665compressed.jpg",
+      "imgCarrousel/IMG_9918.jpg",
+      "imgCarrousel/mistral 2.jpg",
+      "imgCarrousel/new BH 13.jpg",
+      "imgCarrousel/perspective 1.jpg",
+      "imgCarrousel/presentation fermob.png",
+      "imgCarrousel/Table.jpg",
+      "imgCarrousel/TAURUS1 (1).jpg",
+      "imgCarrousel/tomeo emplil\u00e9e hd.jpg",
+      "imgCarrousel/t\u00e9o1.jpg",
+      "imgCarrousel/t\u00e9o2.jpg",
+      "imgCarrousel/untitled14-1.jpg",
+      "imgCarrousel/untitled22.jpg",
+      "imgCarrousel/wegner15 19.jpg",
+      "imgCarrousel/wegner15 21.jpg",
+    ];
+    let currentIndex = 0;
 
-      function nextImage() {
-        currentIndex =
-          currentIndex < imagesCarrousel.length - 1 ? currentIndex + 1 : 0;
-        showImage(currentIndex);
-      }
+  // 🎲 LIGNE IMPORTANTE À AJOUTER
+  imagesCarrousel = shuffleArray(imagesCarrousel);
+  
+    function showImage(index) {
+      const image = document.getElementById("imageid");
+      image.src = imagesCarrousel[index];
+    }
 
-      // Appeler fetchImages pour initialiser le carrousel
+    function previousImage() {
+      currentIndex =
+        currentIndex > 0 ? currentIndex - 1 : imagesCarrousel.length - 1;
+      showImage(currentIndex);
+    }
 
-      document.addEventListener("DOMContentLoaded", () => {
-        showImage(currentIndex);
-      });
-    </script>
-    <script src="navbar.js"></script>
-  </body>
+    function nextImage() {
+      currentIndex =
+        currentIndex < imagesCarrousel.length - 1 ? currentIndex + 1 : 0;
+      showImage(currentIndex);
+    }
+
+    // Appeler fetchImages pour initialiser le carrousel
+
+    document.addEventListener("DOMContentLoaded", () => {
+      showImage(currentIndex);
+    });
+  </script>
+  <script src="navbar.js"></script>
+</body>
+
 </html>
