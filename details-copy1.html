@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta
+      name="google-site-verification"
+      content="TFJ2QVqKrajBwgc__AghOgYWPc70H3iU-8vP4ABX6Hg"
+    />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="variables.css" />
+    <link rel="stylesheet" href="navbarstyle.css">
+    <title>Chronology of projects</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+        body {
+        font-family: "Hanken Grotesk", sans-serif;
+        font-size: 13px;
+        color: #303030;
+        background-color: #f3f3f3;
+        }
+
+        .tableau {
+        padding: 35px var(--margin-general) 20px;
+
+        z-index: 1;
+        }
+        .premiere-ligne {
+        display: flex; /* Ajouté pour aligner les éléments horizontalement */
+        justify-content: space-between;
+        margin-bottom: 25px; /* Espacement spécifique pour la première ligne */
+        font-weight: 700;
+        }
+        .ligne {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        padding: 4px;
+        font-weight: 400;
+        transition: background-color 0.3s ease; /* Ajout d'une transition pour le survol */
+        cursor: none;
+        text-decoration: none;
+        color: rgb( 175, 175, 175 ); /* Couleur du texte en gris pour les éléments survolés */
+        }
+        .item {
+        flex: 1;
+        }
+        .item span:hover {
+
+        }
+
+          .item:nth-child(2) {
+            text-align: center;
+          }
+          .item:nth-child(3) {
+            text-align: end;
+          }
+          .ligne:hover {
+            font-weight: 500;
+            font-family:"IBM Plex Mono", monospace; 
+            font-style: italic;
+            background-color: rgba(0, 0, 120, 0.06);
+            color: #303030;
+          }
+          .ligne img {
+            display: none; /* L'image est cachée par défaut */
+            position: absolute;
+            top: 150px;
+            left: 150px;
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            pointer-events: none; /* L'image ne bloque pas les interactions avec le texte */
+            z-index: 10000; /* Assure que l'image est au-dessus du texte */
+            transition: transform 0.3s ease; /* Effet de transition pour le zoom */
+          }
+          .ligne:hover img {
+            display: none;
+            animation: zoom 30s infinite; /* Applique l'animation de zoom */
+          }
+        @keyframes zoom {
+            0%,
+            100% {
+            transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+            transform: translate(-50%, -50%) scale(1.5);
+            }
+        }
+        footer p {
+        font-family: "Roboto", sans-serif;
+        font-size: 12px;
+        color: #666;
+        height: 60px;
+        padding: 10px;
+        background: #f3f3f3;
+        width: 100%;
+        text-align: center;
+        position: fixed; /* Utiliser relative pour que le texte suive le flux normal du document */
+        bottom: 0px;
+        box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+        }
+
+      @media (max-width: 600px) {
+
+          .ligne {
+          font-size: 11px;
+          }
+          .premiere-ligne {
+          font-size: 11px;
+          }
+          .tableau {margin-top: 150px;}
+          footer p {
+          font-size: 9px;
+          position: relative; /* Utiliser relative pour que le texte suive le flux normal du document */
+          margin-top: 30px; /* Espacement au-dessus du copyright */
+          width: 100%;
+          }
+          .ligne img { visibility:hidden }
+        }
+    </style>
+  </head>
+  <body>
+    
+    <!-- impoter Menu générale -->
+    <header> 
+      <div id="menu-placeholder"></div>
+      <div id="svgmenu-placeholder" data-aos="fade"></div>
+    </header>
+
+
+
+    <!-- tableau -->
+    <main id="table-data-placeholder" class="tableau" data-aos="fade" data-aos-duration="300" >
+      <section class="premiere-ligne">
+        <div class="item"><span>YEAR</span></div>
+        <div class="item"><span>NAME</span></div>
+        <div class="item"><span>TYPOLOGIE</span></div>
+      </section>
+      <!-- ici  insertAdjacentHTML("beforeend", lignehtml);  -->
+    </main>
+    
+    <footer >
+      <p>&copy; 2024 hugocharletdesign</p>
+    </footer>
+    
+    <script>
+      const table = [
+        { year: 2024, typology: "SEATING", name: "helena" },
+        { year: 2024, typology: "SEATING", name: "belvedere" },
+        { year: 2023, typology: "SEATING", name: "remo" },
+        { year: 2023, typology: "SEATING", name: "anton" },
+        { year: 2023, typology: "SEATING", name: "dieter" },
+        { year: 2023, typology: "SEATING", name: "louise" },
+        { year: 2023, typology: "SEATING", name: "tropical" },
+        { year: 2023, typology: "SEATING", name: "melodie" },
+        { year: 2022, typology: "SEATING", name: "taurus" },
+        { year: 2022, typology: "LIGHTING", name: "mistral" },
+        { year: 2022, typology: "DESK", name: "enzo" },
+        { year: 2022, typology: "SEATING", name: "loop" },
+        { year: 2021, typology: "SEATING", name: "pixa" },
+        { year: 2021, typology: "OBJECT", name: "tomeo" },
+        { year: 2020, typology: "DESK", name: "kaktus" },
+        { year: 2016, typology: "DESK", name: "bureauk" },
+        { year: 2016, typology: "SEATING", name: "teo" },
+      ];
+
+      const container = document.getElementById("table-data-placeholder");
+
+      table.forEach((item) => {
+        // Crée le HTML en utilisant les données de chaque item
+        const lignehtml = `
+                <a href="${item.name}" class="ligne">
+                    <div class="item"><span>${item.year}</span></div>
+                    <div class="item"><span>${item.name.toUpperCase()}</span></div>
+                    <div class="item"><span>${item.typology}</span></div>
+                    <img src="img/${item.name.toUpperCase()}.jpg" alt="${
+          item.name
+        }" />
+                </a>    
+                `;
+
+        // Ajoute le HTML dans le conteneur
+        container.insertAdjacentHTML("beforeend", lignehtml);
+      });
+
+      // tarckeur souris
+      document.addEventListener("DOMContentLoaded", () => {
+        const ligne = document.querySelectorAll(".ligne");
+
+        ligne.forEach((link) => {
+          link.addEventListener("mousemove", (event) => {
+            const img = link.querySelector("img");
+            if (img) {
+              // Obtenir la position du conteneur par rapport à la fenêtre
+              const rect = link.getBoundingClientRect();
+
+              // Calcule la position de la souris relative au conteneur
+              const mouseX = event.clientX - rect.left;
+              const mouseY = event.clientY - rect.top;
+
+              // Appliquer la position à l'image en prenant en compte les offsets
+              img.style.left = `${mouseX}px`;
+              img.style.top = `${mouseY}px`;
+
+              // Assurez-vous que l'image est affichée
+              img.style.display = "block";
+
+              // Ajouter la classe .sousmenu-grise à toutes les autres lignes
+              sousmenuLinks.forEach((otherLink) => {
+                if (otherLink !== link) {
+                  otherLink.classList.add("sousmenu-grise");
+                }
+              });
+            }
+          });
+
+          // Cache l'image lorsqu'on ne survole plus l'élément
+          link.addEventListener("mouseleave", () => {
+            const img = link.querySelector("img");
+            if (img) {
+              img.style.display = "none";
+            }
+
+            // Retirer la classe .sousmenu-grise de toutes les lignes
+            sousmenuLinks.forEach((otherLink) => {
+              otherLink.classList.remove("sousmenu-grise");
+            });
+          });
+        });
+      });
+    </script>
+    <script src="navbar.js"></script>
+
+  </body>
+</html>

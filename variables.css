@@ -7,3 +7,9 @@
         --margin-general: 4%;
     }
 }
+@media (min-width: 769px) and (max-width: 1024px) {/* Tablettes (iPad, etc.) */
+    :root {
+        --margin-general: 6%;
+    }
+}
+
