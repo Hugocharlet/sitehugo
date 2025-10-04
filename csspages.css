@@ -165,6 +165,9 @@ body {
 
 /* Styles pour les écrans de petite taille (smartphones en portrait) */
 @media (max-width: 600px) {
+  .imagemain {
+    margin-top: 90px;
+  }
   .colonne-fixed {
     position: relative;
     margin-left: var(--margin-general);

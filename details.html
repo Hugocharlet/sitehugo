@@ -71,42 +71,40 @@
         background-color: rgba(0, 0, 120, 0.06);
         color: #303030;
       }
-    
 
-
-    .ligne img {
-      display: none;
-      /* L'image est cachée par défaut */
-      position: absolute;
-      top: 150px;
-      left: 150px;
-      width: 300px;
-      height: 300px;
-      object-fit: cover;
-      pointer-events: none;
-      /* L'image ne bloque pas les interactions avec le texte */
-      z-index: 10000;
-      /* Assure que l'image est au-dessus du texte */
-      transition: transform 0.3s ease;
-      /* Effet de transition pour le zoom */
-    }
-  }
-
-    .ligne:hover img {
-      display: none;
-      animation: zoom 30s infinite;
-      /* Applique l'animation de zoom */
-    }
-
-    @keyframes zoom {
-
-      0%,
-      100% {
-        transform: translate(-50%, -50%) scale(1);
+      .ligne img {
+        display: none;
+        /* L'image est cachée par défaut */
+        position: absolute;
+        top: 150px;
+        left: 150px;
+        width: 300px;
+        height: 300px;
+        object-fit: cover;
+        pointer-events: none;
+        /* L'image ne bloque pas les interactions avec le texte */
+        z-index: 10000;
+        /* Assure que l'image est au-dessus du texte */
+        transition: transform 0.3s ease;
+        /* Effet de transition pour le zoom */
       }
 
-      50% {
-        transform: translate(-50%, -50%) scale(1.5);
+      .ligne:hover img {
+        display: none;
+        animation: zoom 30s infinite;
+        /* Applique l'animation de zoom */
+      }
+
+      @keyframes zoom {
+
+        0%,
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+        }
+
+        50% {
+          transform: translate(-50%, -50%) scale(1.5);
+        }
       }
     }
 
@@ -237,50 +235,56 @@
     });
 
     // tarckeur souris
+
     document.addEventListener("DOMContentLoaded", () => {
+      // Détection appareil tactile
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+      // Si l'appareil est tactile, on ne fait rien
+      if (isTouchDevice) return;
+
+      // --- Code desktop uniquement ---
       const ligne = document.querySelectorAll(".ligne");
+      const sousmenuLinks = document.querySelectorAll(".ligne"); // à ajuster si besoin
 
       ligne.forEach((link) => {
+        // Déplacement de l'image avec la souris
         link.addEventListener("mousemove", (event) => {
           const img = link.querySelector("img");
-          if (img) {
-            // Obtenir la position du conteneur par rapport à la fenêtre
-            const rect = link.getBoundingClientRect();
+          if (!img) return;
 
-            // Calcule la position de la souris relative au conteneur
-            const mouseX = event.clientX - rect.left;
-            const mouseY = event.clientY - rect.top;
+          const rect = link.getBoundingClientRect();
+          const mouseX = event.clientX - rect.left;
+          const mouseY = event.clientY - rect.top;
 
-            // Appliquer la position à l'image en prenant en compte les offsets
-            img.style.left = `${mouseX}px`;
-            img.style.top = `${mouseY}px`;
+          img.style.left = `${mouseX}px`;
+          img.style.top = `${mouseY}px`;
+          img.style.display = "block";
 
-            // Assurez-vous que l'image est affichée
-            img.style.display = "block";
-
-            // Ajouter la classe .sousmenu-grise à toutes les autres lignes
-            sousmenuLinks.forEach((otherLink) => {
-              if (otherLink !== link) {
-                otherLink.classList.add("sousmenu-grise");
-              }
-            });
-          }
+          // Ajoute la classe grisée aux autres éléments
+          sousmenuLinks.forEach((otherLink) => {
+            if (otherLink !== link) {
+              otherLink.classList.add("sousmenu-grise");
+            }
+          });
         });
 
-        // Cache l'image lorsqu'on ne survole plus l'élément
+        // Cache l'image quand on quitte le lien
         link.addEventListener("mouseleave", () => {
           const img = link.querySelector("img");
           if (img) {
             img.style.display = "none";
           }
 
-          // Retirer la classe .sousmenu-grise de toutes les lignes
+          // Retire le gris de toutes les lignes
           sousmenuLinks.forEach((otherLink) => {
             otherLink.classList.remove("sousmenu-grise");
           });
         });
       });
     });
+
+
   </script>
   <script src="navbar.js"></script>
 
