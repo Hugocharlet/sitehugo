@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <title>Designs projects in grid view</title>
+    <link rel="stylesheet" href="variables.css">
+    <link rel="stylesheet" href="navbarstyle.css">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap");
+
+        /* RESET ET BASE */
+        body {
+            font-family: "Hanken Grotesk", sans-serif;
+            color: #303030;
+            margin: 0;
+            padding: 0;
+            margin-top: 150px;
+            background-color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* ─── FILTRES ─── */
+        #filters {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            align-items: stretch;
+            z-index: 9999;
+            background: #fff;
+            border-top: 1px solid #e0e0e0;
+            cursor: pointer;
+
+        }
+
+        #filter-group {
+            width: 75%;
+            display: flex;
+            align-items: stretch;
+        }
+
+        #filter-group div {
+            flex: 1;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 500;
+            border-right: 1px solid #e0e0e0;
+            color: #888;
+            transition: color 0.2s;
+            border-radius: 0;
+        }
+
+        #filter-group div:hover {
+            color: #303030;
+        }
+
+        #filter-group div.active {
+            color: #303030;
+            font-weight: 700;
+        }
+        #sort-date {
+            margin-left: auto;
+            /* C'est la clé : cela pousse l'élément tout à droite */
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+            /* Ajoute un peu d'espace sur les côtés du texte */
+            font-size: 11px;
+            border-left: 1px solid #e0e0e0;
+            color: #303030!important;
+            font-weight: 900!important;
+        }
+
+        /* ─── GALERIE ─── */
+        #gallery {
+            padding: 0 !important;
+            margin-top: 102px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: start;
+            align-items: flex-start;
+            width: 100%;
+            /* espace pour la barre de filtres en bas */
+            padding-bottom: 40px !important;
+        }
+
+        .gallery-item {
+            position: relative;
+            width: 25%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            padding: 0 !important;
+            margin: 0 !important;
+            border-radius: 0 !important;
+            transition: width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
+        }
+
+        .gallery-item.inactive {
+            width: 0% !important;
+            height: 0% !important;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            filter: grayscale(100%);
+            opacity: 0.15;
+            transform: scale(1);
+            will-change: filter, opacity;
+            transition: transform 0.5s ease-out, filter 0.5s ease-out, opacity 0.5s ease-out;
+        }
+
+        #gallery,
+        .gallery-item,
+        .gallery-item a,
+        .gallery-item img {
+            cursor: none;
+            /* cache le curseur natif sur toute la grille */
+        }
+
+        #custom-cursor {
+            position: fixed;
+            width: 36px;
+            height: 36px;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 900px) {
+            .gallery-item {
+                width: 33.33%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding-bottom: 0;
+            }
+
+            #filters {
+                display: none;
+            }
+        #filter-group {
+            width: 100%;
+        }
+            .gallery-item {
+                width: 50%;
+            }
+
+            /* Sur mobile, images lisibles sans effet hover */
+            .gallery-item img {
+                opacity: 1 !important;
+                filter: grayscale(0%) !important;
+                transform: scale(1) !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="custom-cursor">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#EC623D">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+    </div>
+    <header>
+        <div id="menu-placeholder"></div>
+    </header>
+
+    <div id="filters">
+        <div id="filter-group">
+            <div id="all">All</div>
+            <div id="indoor">Indoor</div>
+            <div id="outdoor">Outdoor</div>
+            <div id="armchair">Armchair</div>
+            <div id="chair">Chair</div>
+            <div id="table">Table</div>
+            <div id="desk">Desk</div>
+            <div id="lighting">Lightings</div>
+            <div id="object">Objects</div>
+        </div>
+        <div id="sort-date">Date ↑</div>
+    </div>
+
+    <div id="gallery"></div>
+
+    <script>
+        window.onload = function () {
+
+            /* ─── DONNÉES ─── */
+            const grid = [
+                { src: "ANTON.jpg", name: "anton", data: ["armchair"], date: "2024-01-10" },
+                { src: "BELVEDERE.jpg", name: "belvedere", data: ["chair", "outdoor"], date: "2024-04-12" },
+                { src: "BUREAUK.jpg", name: "bureauk", data: ["desk"], date: "2016-04-01" },
+                { src: "DIETER17.jpg", name: "dieter", data: ["armchair", "fabric", "indoor"], date: "2024-04-12" },
+                { src: "ENZO.jpg", name: "enzo", data: ["desk"], date: "2021-04-09" },
+                { src: "HELENA.jpg", name: "helena", data: ["chair", "indoor", "fabric"], date: "2025-04-12" },
+                { src: "MALORIE.jpg", name: "malorie", data: ["chair", "indoor", "fabric"], date: "2025-04-10" },
+                { src: "HELENA1.jpg", name: "helena", data: ["armchair", "indoor", "fabric"], date: "2025-04-12" },
+                { src: "ORION.jpg", name: "orion", data: ["chair", "indoor", "fabric"], date: "2026-05-04" },
+                { src: "NOCTA.jpg", name: "nocta", data: ["chair", "indoor", "fabric"], date: "2026-04-04" },
+                { src: "PIXA2.jpg", name: "pixa", data: ["chair", "indoor"], date: "2021-04-12" },
+                { src: "TEO2.jpg", name: "teo", data: ["chair", "armchair", "outdoor", "indoor"], date: "2016-04-04" },
+                { src: "LOOP.jpg", name: "loop", data: ["chair", "armchair", "outdoor"], date: "2022-04-12" },
+                { src: "LOUISE5.jpg", name: "louise", data: ["chair", "outdoor"], date: "2023-04-12" },
+                { src: "SPYDER.jpg", name: "spyder", data: ["chair", "outdoor"], date: "2026-02-02" },
+                { src: "MELODIE1.jpg", name: "melodie", data: ["chair", "outdoor"], date: "2023-04-12" },
+                { src: "MISTRAL.jpg", name: "mistral", data: ["lighting"], date: "2022-04-12" },
+                { src: "KAKTUS.jpg", name: "kaktus", data: ["object"], date: "2017-04-12" },
+                { src: "TABLE.jpg", name: "table", data: ["table", "indoor"], date: "2024-04-12" },
+                { src: "TOMEO.jpg", name: "tomeo", data: ["chair", "outdoor"], date: "2019-04-12" },
+                { src: "REMO5.jpg", name: "remo", data: ["chair", "outdoor"], date: "2024-04-04" },
+                { src: "TAURUS1.jpg", name: "taurus", data: ["chair", "outdoor"], date: "2023-10-10" },
+                { src: "TROPICAL.jpg", name: "tropical", data: ["armchair", , "indoor",], date: "2023-04-10" }
+            ];
+
+            const container = document.getElementById("gallery");
+            const filterBtns = document.querySelectorAll("#filter-group div");
+            const sortBtn = document.getElementById("sort-date");
+
+            /* État global */
+            let activeFilter = "all";
+            let currentOrder = "asc"; // tri initial : plus vieux → plus récent
+            let cachedItems = [];    // cache des .gallery-item pour le mousemove
+
+            /* ─── TRI INITIAL ─── */
+            grid.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            /* ─── RENDU ─── */
+            function renderGrid(items) {
+                container.innerHTML = "";
+                items.forEach(item => {
+                    const dataAttributes = item.data.map(attr => `data-${attr}=""`).join(" ");
+                    container.insertAdjacentHTML("beforeend", `
+                        <section class="gallery-item" ${dataAttributes}>
+                            <a href="${item.name}">
+                                <img src="img/${item.src}" alt="${item.name}">
+                            </a>
+                        </section>
+                    `);
+                });
+                // Mise à jour du cache après chaque rendu
+                cachedItems = Array.from(document.querySelectorAll(".gallery-item"));
+            }
+
+            /* ─── FILTRE ─── */
+            function applyFilter(tag) {
+                activeFilter = tag;
+
+                filterBtns.forEach(btn => {
+                    btn.classList.toggle("active", btn.id === tag);
+                });
+
+                cachedItems.forEach(item => {
+                    const visible = tag === "all" || item.dataset[tag] !== undefined;
+                    item.classList.toggle("inactive", !visible);
+                });
+            }
+
+            /* ─── INITIALISATION ─── */
+            renderGrid(grid);
+            applyFilter("all"); // "All" actif par défaut
+
+            /* ─── LISTENERS FILTRES ─── */
+            filterBtns.forEach(btn => {
+                btn.addEventListener("click", () => applyFilter(btn.id));
+            });
+
+            /* ─── LISTENER TRI PAR DATE ─── */
+            sortBtn.addEventListener("click", function () {
+                grid.sort((a, b) => {
+                    const dateA = new Date(a.date);
+                    const dateB = new Date(b.date);
+                    return currentOrder === "asc" ? dateA - dateB : dateB - dateA;
+                });
+
+                currentOrder = currentOrder === "asc" ? "desc" : "asc";
+                this.innerText = currentOrder === "asc" ? "Date ↑" : "Date ↓";
+
+                renderGrid(grid);
+                applyFilter(activeFilter); // réapplique le filtre actif
+            });
+
+            /* ─── EFFET FOCUS (mousemove) ─── */
+            const radius = window.innerWidth * 0.44;
+
+            window.addEventListener("mousemove", (e) => {
+                if (window.innerWidth <= 600) return;
+
+                cachedItems.forEach(item => {
+                    if (item.classList.contains("inactive")) return;
+
+                    const rect = item.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+                    const distance = Math.sqrt(
+                        Math.pow(e.clientX - centerX, 2) +
+                        Math.pow(e.clientY - centerY, 2)
+                    );
+                    const img = item.querySelector("img");
+
+                    if (distance < radius) {
+                        const strength = 1 - (distance / radius);
+                        img.style.transition = "none";
+                        img.style.opacity = 0.15 + (0.85 * strength);
+                        img.style.filter = `grayscale(${(1 - strength) * 100}%)`;
+                    } else {
+                        img.style.transition = "all 0.5s ease-out";
+                        img.style.opacity = 0.15;
+                        img.style.filter = "grayscale(100%)";
+                    }
+                });
+            });
+        };
+
+        const cursor = document.getElementById("custom-cursor");
+        const galleryEl = document.getElementById("gallery");
+
+        galleryEl.addEventListener("mouseenter", () => cursor.style.opacity = "1");
+        galleryEl.addEventListener("mouseleave", () => cursor.style.opacity = "0");
+
+        window.addEventListener("mousemove", (e) => {
+            cursor.style.left = e.clientX + "px";
+            cursor.style.top = e.clientY + "px";
+        });
+    </script>
+    <script src="navbar.js"></script>
+</body>
+
+
+</html>

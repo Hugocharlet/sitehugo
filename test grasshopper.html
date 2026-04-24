@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Galerie Design - Focus Interactif</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #ffffff;
+  --accent: #007aff;
+  --text: #111;
+  /* Valeurs fixées selon ta demande */
+  --focus-radius: 44vw; 
+}
+
+body {
+  background: var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* --- FILTRES --- */
+#filters {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  border-bottom: 1px solid #eee;
+}
+
+#filters div {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.3s;
+}
+
+#filters div.active {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+/* --- GRILLE --- */
+#gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 colonnes comme demandé précédemment */
+  margin-top: 80px;
+  width: 100%;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s ease, opacity 0.5s ease;
+}
+
+/* Gestion de l'affichage des filtres */
+.gallery-item.inactive {
+  display: none;
+}
+
+.gallery-item a {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* L'image de base : Désaturée et transparente */
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%);
+  opacity: 0.15;
+  transition: filter 0.1s linear, opacity 0.1s linear;
+}
+
+/* Le titre sous l'image */
+    .name {
+        position: absolute;
+        /* Positionne le texte au-dessus de l'image */
+        top: 50%;
+        /* Positionne verticalement au milieu */
+        left: 50%;
+        /* Positionne horizontalement au milieu */
+        transform: translate(-50%, -50%);
+        /* Centre le texte */
+        pointer-events: none;
+        z-index: 11;
+        font-size: 18px;
+        font-weight: 500;
+        color: #f1f1f1;
+        /* Assure que la couleur contraste avec le fond */
+        opacity: 0;
+        /* Caché par défaut */
+        visibility: hidden;
+        /* Caché par défaut */
+        transition:
+            opacity 0.3s,
+            visibility 0.3s;
+        /* Transition douce */
+    }
+
+/* Style du curseur personnalisé */
+#cursor-dot {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 2000;
+  transform: translate(-50%, -50%);
+}
+</style>
+</head>
+<body>
+
+<div id="cursor-dot"></div>
+
+<nav id="filters">
+  <div id="all" class="active">All</div>
+  <div id="armchair">Armchair</div>
+  <div id="chair">Chair</div>
+  <div id="metal">Metal</div>
+  <div id="wood">Wood</div>
+  <div id="desk">Desk</div>
+  <div id="lighting">Lighting</div>
+</nav>
+
+<main id="gallery"></main>
+
+<script>
+window.onload = function () {
+    const grid = [
+        { src: "ANTON.jpg", name: "anton", data: ["armchair"] },
+        { src: "ANTON1.jpg", name: "anton", data: ["armchair"] },
+        { src: "ANTON2.jpg", name: "anton", data: ["armchair"] },
+        { src: "ANTON3.jpg", name: "anton", data: ["armchair"] },
+        { src: "BELVEDERE.jpg", name: "belvedere", data: ["metal"] },
+        { src: "BELVEDERE1.jpg", name: "belvedere", data: ["metal"] },
+        { src: "BELVEDERE2.jpg", name: "belvedere", data: ["metal"] },
+        { src: "BUREAUK.jpg", name: "bureauk", data: ["desk"] },
+        { src: "BUREAUK1.jpg", name: "bureauk", data: ["desk"] },
+        { src: "DIETER.jpg", name: "dieter", data: ["armchair", "fabric"] },
+        { src: "DIETER2.jpg", name: "dieter", data: ["armchair", "fabric"] },
+        { src: "ENZO.jpg", name: "enzo", data: ["desk", "wood"] },
+        { src: "HELENA.jpg", name: "helena", data: ["chair", "wood", "fabric"] },
+        { src: "HELENA1.jpg", name: "helena", data: ["armchair", "wood", "fabric"] },
+        { src: "HELENA2.jpg", name: "helena", data: ["chair", "wood", "fabric"] },
+        { src: "HELENA3.jpg", name: "helena", data: ["chair", "wood"] },
+        { src: "PIXA.jpg", name: "pixa", data: ["chair", "wood"] },
+        { src: "PIXA1.jpg", name: "pixa", data: ["chair", "wood"] },
+        { src: "PIXA2.jpg", name: "pixa", data: ["chair", "wood"] },
+        { src: "PIXA3.jpg", name: "pixa", data: ["chair", "wood"] },
+        { src: "PIXA4.jpg", name: "pixa", data: ["chair", "wood"] },
+        { src: "TEO.jpg", name: "teo", data: ["chair", "armchair", "wood"] },
+        { src: "TEO2.jpg", name: "teo", data: ["chair", "armchair", "wood"] },
+        { src: "TEO3.jpg", name: "teo", data: ["chair", "armchair", "wood"] },
+        { src: "LOOP.jpg", name: "loop", data: ["chair", "armchair", "metal"] },
+        { src: "LOOP2.jpg", name: "loop", data: ["chair", "armchair", "metal"] },
+        { src: "LOOP3.jpg", name: "loop", data: ["chair", "armchair", "metal"] },
+        { src: "LOOP4.jpg", name: "loop", data: ["chair", "armchair", "metal"] },
+        { src: "LOUISE.jpg", name: "louise", data: ["chair", "metal"] },
+        { src: "LOUISE1.jpg", name: "louise", data: ["chair", "metal"] },
+        { src: "LOUISE2.jpg", name: "louise", data: ["chair", "metal"] },
+        { src: "LOUISE3.jpg", name: "louise", data: ["chair", "metal"] },
+        { src: "MELODIE.jpg", name: "melodie", data: ["chair", "metal"] },
+        { src: "MISTRAL.jpg", name: "mistral", data: ["lighting"] },
+        { src: "MISTRAL2.jpg", name: "mistral", data: ["lighting"] },
+        { src: "KAKTUS.jpg", name: "kaktus", data: ["object"] },
+        { src: "TABLE.jpg", name: "table", data: ["table", "wood"] },
+        { src: "TOMEO.jpg", name: "tomeo", data: ["chair", "metal"] },
+        { src: "TOMEO1.jpg", name: "tomeo", data: ["chair", "metal"] },
+        { src: "TOMEO2.jpg", name: "tomeo", data: ["chair", "metal"] },
+        { src: "TOMEO3.jpg", name: "tomeo-v2", data: ["chair", "metal"] },
+        { src: "TOMEO5.jpg", name: "tomeo", data: ["chair", "metal"] },
+        { src: "REMO.jpg", name: "remo", data: ["chair", "metal"] },
+        { src: "REMO2.jpg", name: "remo", data: ["chair", "metal"] },
+        { src: "REMO3.jpg", name: "remo", data: ["chair", "metal"] },
+        { src: "TAURUS.jpg", name: "taurus", data: ["chair", "metal"] },
+        { src: "TAURUS1.jpg", name: "taurus", data: ["chair", "metal"] },
+        { src: "TROPICAL.jpg", name: "tropical", data: ["armchair", "fabric"] }
+    ];
+
+    const container = document.getElementById("gallery");
+    const cursor = document.getElementById("cursor-dot");
+
+    // 1. GENERATION DE LA GRILLE
+    grid.forEach((item) => {
+        let dataAttributes = item.data.map(attr => `data-${attr}=""`).join(" ");
+        const article = `
+            <section class="gallery-item active" ${dataAttributes}>
+                <a href="${item.name}">
+                    <img src="img/${item.src}" alt="${item.name}">
+                </a>
+                <h2 class="name">${item.name.toUpperCase()}</h2>
+            </section>
+        `;
+        container.insertAdjacentHTML("beforeend", article);
+    });
+
+    const galleryItems = document.querySelectorAll(".gallery-item");
+
+    // 2. LOGIQUE DES FILTRES
+    let filters = document.querySelectorAll("#filters div");
+    filters.forEach(filter => {
+        filter.addEventListener("click", function () {
+            let tag = this.id;
+            filters.forEach(f => f.classList.remove("active"));
+            this.classList.add("active");
+
+            galleryItems.forEach(item => {
+                if (item.dataset[tag] !== undefined || tag === "all") {
+                    item.classList.remove("inactive");
+                    item.classList.add("active");
+                } else {
+                    item.classList.remove("active");
+                    item.classList.add("inactive");
+                }
+            });
+        });
+    });
+
+    // 3. EFFET DE FOCUS (Mouvement de la souris)
+    // On calcule la distance entre le curseur et chaque centre d'image
+    window.addEventListener("mousemove", (e) => {
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+
+        // Déplacer le petit point curseur
+        cursor.style.left = mouseX + "px";
+        cursor.style.top = mouseY + "px";
+
+        const radius = window.innerWidth * 0.44; // Focus à 44% de la largeur écran
+
+        galleryItems.forEach(item => {
+            if (item.classList.contains('inactive')) return;
+
+            const rect = item.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            const distX = mouseX - centerX;
+            const distY = mouseY - centerY;
+            const distance = Math.sqrt(distX * distX + distY * distY);
+
+            const img = item.querySelector("img");
+            const name = item.querySelector(".name");
+
+            if (distance < radius) {
+                // Calcul de l'intensité (1 au centre, 0 au bord du rayon)
+                let strength = 1 - (distance / radius);
+                // On applique un smoothstep pour plus de douceur
+                strength = strength * strength * (3 - 2 * strength);
+
+                img.style.opacity = 0.15 + (0.85 * strength);
+                img.style.filter = `grayscale(${(1 - strength) * 100}%)`;
+                img.style.transform = `scale(${1 + (strength * 0.05)})`; // Zoom léger (zoom 100% de base + focus)
+                name.style.opacity = 0.3 + (0.7 * strength);
+            } else {
+                img.style.opacity = 0.15;
+                img.style.filter = "grayscale(100%)";
+                img.style.transform = "scale(1)";
+                name.style.opacity = 0.3;
+            }
+        });
+    });
+};
+</script>
+</body>
+</html>

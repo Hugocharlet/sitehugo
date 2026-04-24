@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <title>Designs projects in grid view</title>
+    <link rel="stylesheet" href="variables.css">
+    <link rel="stylesheet" href="navbarstyle.css">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap");
+
+        /* RESET ET BASE */
+        body {
+            font-family: "Hanken Grotesk", sans-serif;
+            color: #303030;
+            margin: 0;
+            padding: 0;
+            margin-top: 150px;
+            background-color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* FILTRES */
+        #filters {
+            position: fixed !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            bottom: 30px !important;
+            top: auto !important;
+
+            display: flex;
+            gap: 6px;
+            z-index: 99999;
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(18px) saturate(180%);
+            -webkit-backdrop-filter: blur(18px) saturate(180%);
+
+            border-radius: 999px;
+
+            box-shadow:
+                0 8px 24px rgba(0, 0, 0, 0.10),
+                inset 0 1px 0 rgba(255, 255, 255, 0.75);
+
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        /* Boutons */
+
+        #filters div {
+            height: 24px;
+            padding: 0 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 11px;
+            line-height: 1;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+
+
+        }
+
+        /* Hover */
+
+
+        /* Effet au survol pour plus de réactivité */
+        #filters div:hover {}
+
+        #filters div.active {
+            font-weight: 700;
+
+        }
+
+        /* Cacher le bouton de tri s'il prend trop de place en mobile, ou ajuster le gap */
+        #sort-date {
+            margin-left: 10px;
+            border-left: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* GRILLE FULL-WIDTH SANS RADIUS */
+        #gallery {
+            padding: 0 !important;
+            margin-top: 102px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: start;
+            align-items: flex-start;
+            width: 100%;
+
+        }
+
+        .gallery-item {
+            position: relative;
+            width: 25%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            padding: 0 !important;
+            margin: 0 !important;
+            border-radius: 0 !important;
+            transition: width 0.5s ease, opacity 0.5s ease;
+        }
+
+        .gallery-item.inactive {
+            width: 0% !important;
+            height: 0% !important;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            /* État de base : 50% de la taille, gris et transparent */
+            filter: grayscale(100%);
+            opacity: 0.15;
+            transform: scale(1);
+            will-change: transform, filter, opacity;
+            transition: transform 0.5s ease-out, filter 0.5s ease-out, opacity 0.5s ease-out;
+        }
+
+        /* Sécurité pour forcer les coins carrés */
+        #gallery * {
+            border-radius: 0 !important;
+        }
+
+        @media (max-width: 900px) {
+            .gallery-item {
+                width: 33.33%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            #filters {
+                display: none;
+            }
+
+            .gallery-item {
+                width: 50%;
+            }
+
+            .gallery-item img {
+                opacity: 1;
+                filter: grayscale(0%);
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div id="menu-placeholder"></div>
+    </header>
+
+    <div id="filters">
+        <div id="all">All</div>
+        <div id="armchair">Armchair</div>
+        <div id="chair" class="active">Chair</div>
+        <div id="table">Table</div>
+        <div id="desk">Desk</div>
+        <div id="metal">Metal</div>
+        <div id="wood">Wood</div>
+        <div id="fabric">Fabric</div>
+        <div id="lighting">Lightings</div>
+        <div id="object">objects</div>
+        <div id="sort-date"
+            style="margin-left: auto; font-weight: 600; border-left: 1px solid #eee; padding-left: 15px;">Date ↑</div>
+    </div>
+
+    <div id="gallery"></div>
+
+    <script>
+        window.onload = function () {
+            const grid = [
+                { src: "ANTON.jpg", name: "anton", data: ["armchair"], date: "2024-01-10" },
+                { src: "BELVEDERE1.jpg", name: "belvedere", data: ["chair", "metal"], date: "2024-04-12" },
+                { src: "BUREAUK.jpg", name: "bureauk", data: ["desk"], date: "2016-04-01" },
+                { src: "DIETER.jpg", name: "dieter", data: ["armchair", "fabric"], date: "2024-04-12" },
+                { src: "DIETER2.jpg", name: "dieter", data: ["armchair", "fabric"], date: "2024-04-12" },
+                { src: "ENZO.jpg", name: "enzo", data: ["desk", "wood"], date: "2016-04-12" },
+                { src: "HELENA.jpg", name: "helena", data: ["chair", "wood", "fabric"], date: "2025-04-12" },
+                { src: "HELENA1.jpg", name: "helena", data: ["armchair", "wood", "fabric"], date: "2025-04-12" },
+                { src: "PIXA2.jpg", name: "pixa", data: ["chair", "wood"], date: "2021-04-12" },
+                { src: "TEO2.jpg", name: "teo", data: ["chair", "armchair", "wood"], date: "2016-04-04" },
+                { src: "LOOP.jpg", name: "loop", data: ["chair", "armchair", "metal"], date: "2022-04-12" },
+                { src: "LOUISE5.jpg", name: "louise", data: ["chair", "metal"], date: "2023-04-12" },
+                { src: "MELODIE.jpg", name: "melodie", data: ["chair", "metal"], date: "2023-04-12" },
+                { src: "MISTRAL.jpg", name: "mistral", data: ["lighting"], date: "2022-04-12" },
+                { src: "KAKTUS.jpg", name: "kaktus", data: ["object"], date: "2017-04-12" },
+                { src: "TABLE.jpg", name: "table", data: ["table", "wood"], date: "2024-04-12" },
+                { src: "TOMEO.jpg", name: "tomeo", data: ["chair", "metal"], date: "2019-04-12" },
+                { src: "REMO.jpg", name: "remo", data: ["chair", "metal"], date: "2024-04-04" },
+                { src: "TAURUS1.jpg", name: "taurus", data: ["chair", "metal"], date: "2023-10-10" },
+                { src: "TROPICAL.jpg", name: "tropical", data: ["armchair", "fabric"], date: "2023-04-10" }
+            ];
+
+            const container = document.getElementById("gallery");
+
+            // Fonction pour générer le HTML de la grille
+            function renderGrid(itemsToRender) {
+                container.innerHTML = "";
+                itemsToRender.forEach((item) => {
+                    let dataAttributes = item.data.map(attr => `data-${attr}=""`).join(" ");
+                    const article = `
+                    <section class="gallery-item active" ${dataAttributes}>
+                        <a href="${item.name}">
+                            <img src="img/${item.src}" alt="${item.name}">
+                        </a>
+                    </section>
+                    `;
+                    container.insertAdjacentHTML("beforeend", article);
+                });
+            }
+
+            // Initialisation
+            renderGrid(grid);
+
+            // 1. GESTION DES FILTRES DE CATÉGORIE
+            let filters = document.querySelectorAll("#filters div:not(#sort-date)");
+            filters.forEach(filter => {
+                filter.addEventListener("click", function () {
+                    let tag = this.id;
+                    filters.forEach(f => f.classList.remove("active"));
+                    this.classList.add("active");
+
+                    document.querySelectorAll(".gallery-item").forEach(item => {
+                        if (item.dataset[tag] !== undefined || tag === "all") {
+                            item.classList.remove("inactive");
+                        } else {
+                            item.classList.add("inactive");
+                        }
+                    });
+                });
+            });
+
+            // 2. GESTION DU TRI PAR DATE
+            const sortBtn = document.getElementById("sort-date");
+            let currentOrder = 'asc'; // Par défaut : plus récent au plus vieux
+
+            sortBtn.addEventListener("click", function () {
+                grid.sort((a, b) => {
+                    let dateA = new Date(a.date);
+                    let dateB = new Date(b.date);
+                    return currentOrder === 'desc' ? dateB - dateA : dateA - dateB;
+                });
+                // Tri initial : plus vieux → plus récent
+                grid.sort((a, b) => new Date(a.date) - new Date(b.date));
+                renderGrid(grid);
+
+                // Toggle l'ordre et le texte
+                currentOrder = (currentOrder === 'desc') ? 'asc' : 'desc';
+                this.innerText = (currentOrder === 'asc') ? "Date ↑" : "Date ↓";
+            });
+
+            // 3. EFFET DE FOCUS INTERACTIF (50% -> 100% | Falloff rapide)
+            const radius = window.innerWidth * 0.44;
+
+            window.addEventListener("mousemove", (e) => {
+                if (window.innerWidth <= 600) return;
+
+                const items = document.querySelectorAll(".gallery-item:not(.inactive)");
+
+                items.forEach(item => {
+                    const rect = item.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+
+                    const distance = Math.sqrt(Math.pow(e.clientX - centerX, 2) + Math.pow(e.clientY - centerY, 2));
+                    const img = item.querySelector("img");
+
+                    if (distance < radius) {
+                        let strength = 1 - (distance / radius);
+                        strength = Math.pow(strength, 1); // Falloff nerveux (puissance 3)
+
+                        img.style.transition = "none"; // Désactive transition pour réactivité
+                        img.style.opacity = 0.15 + (0.85 * strength);
+                        img.style.filter = `grayscale(${(1 - strength) * 100}%)`;
+                        // Calcul du scale : 0.5 (base) + (0.5 * strength) = max 1.0
+                    } else {
+                        img.style.transition = "all 0.5s ease-out"; // Retour fluide
+                        img.style.opacity = 0.15;
+                        img.style.filter = "grayscale(100%)";
+                    }
+                });
+            });
+        };
+    </script>
+    <script src="navbar.js"></script>
+</body>
+
+</html>
