@@ -80,13 +80,20 @@ body {
 .icon-link:hover .icon-item {
   filter: brightness(0); /* Assombrit le SVG au survol */
 }
-.texte-icon {
+.texte-icon { 
   display: inline-block; /* Permet au fond gris de s'adapter à la taille du texte */
   position: static;      /* Très important : retire le position: absolute précédent */
   padding: 8px 15px;
   border-radius: 20px;
+  color: #303030!important;
   font-weight: 400;
+  text-decoration: none!important;
   margin-top: 0;         /* Supprime la marge qui poussait vers le bas */
+}
+.texte-icon:hover {
+  color: #303030; /* Vous pouvez forcer une couleur spécifique ici */
+  font-weight: 700;
+  cursor: pointer;
 }
 #modelContainer {
   display: none;
