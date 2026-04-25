@@ -55,22 +55,23 @@ body {
   font-size: 14px;
 }
 .sousmenu-wrapper {
-  margin-top: 20px;
-  display: flex; /* Utilisation de Flexbox pour afficher les éléments en ligne */
-  flex-direction: row; /* Les éléments sont affichés en ligne */
-  padding: 10px;
-  gap: 10px; /* Espace entre les éléments */
+  display: flex;
+  flex-direction: column; /* Range les blocs les uns sous les autres */
+  gap: 15px;   
+  margin-top: 30px;           /* Espace entre chaque ligne d'icône */
 }
 .icon-container {
   align-items: center; /* Centre verticalement les éléments */
+  display: flex;  
+  
 }
 .icon-link {
-  display: flex; /* Assure que le contenu à l'intérieur du lien est également en ligne */
-  align-items: center; /* Centre le contenu à l'intérieur du lien */
+  display: flex;         /* Aligne les enfants (image et texte) côte à côte */
+  align-items: center;   /* Centre verticalement l'icône et le texte */
+  gap: 12px;             /* Espace précis entre l'icône et le texte */
+  text-decoration: none; /* Enlève le soulignement si c'est un lien */
 }
-.icon-link:hover + .texte-icon {
-  display: block; /* Affiche ce texte uniquement lors du survol de l'icône */
-}
+
 .icon-item {
   width: 30px; /* Ajustez la largeur du logo selon vos besoins */
   height: auto;
@@ -80,14 +81,12 @@ body {
   filter: brightness(0); /* Assombrit le SVG au survol */
 }
 .texte-icon {
-  margin-top: 10px;
-  position: absolute;
-  display: none;
-  padding: 5px 8px;
-  border-radius: 15px;
-
-  background-color: #f1f1f1;
-  font-weight: 600;
+  display: inline-block; /* Permet au fond gris de s'adapter à la taille du texte */
+  position: static;      /* Très important : retire le position: absolute précédent */
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-weight: 400;
+  margin-top: 0;         /* Supprime la marge qui poussait vers le bas */
 }
 #modelContainer {
   display: none;
