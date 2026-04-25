@@ -366,7 +366,7 @@
         <div id="lighting">Lightings</div>
         <div id="object">Objects</div>
       </div>
-      <div id="sort-date">Date ↑</div>
+      <div id="sort-date">Date ↓</div>
     </div>
 
     <div id="gallery"></div>
@@ -504,7 +504,7 @@
       const filtersBar = document.getElementById("filters");
 
       let activeFilter = "all";
-      let currentOrder = "asc";
+      let currentOrder = "desc";
       let cachedItems = [];
 
       /* ─── RENDU ─── */
@@ -537,9 +537,9 @@
       }
 
       /* ─── INITIALISATION ─── */
-      gridData.sort((a, b) => new Date(b.date) - new Date(a.date));
+      gridData.sort((a, b) => new Date(a.date) - new Date(b.date));
       renderGrid(gridData);
-      applyFilter("all");
+      applyFilter("chair");
 
       /* ─── OBSERVER (POUR L'APPARITION) ─── */
       const observerOptions = {
