@@ -16,6 +16,7 @@ body {
   padding: 0; /* Supprime les padding par défaut */
   object-fit: cover; /* Couvre toute la largeur sans déformer l'image (si besoin) */
   max-width: 100%; /* S'assure que l'image ne dépasse pas 100% de la largeur */
+  padding-top: 90px;
 }
 #image-container {
   margin-left: 39%;
