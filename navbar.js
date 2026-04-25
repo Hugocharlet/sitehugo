@@ -48,7 +48,7 @@ if (navbar) {
         <div class="navlinks-container ${activePage ? activePage : ""}">
             <a class="${
               activePage === pages.details ? "active" : ""
-            }" href="details" >WORK</a>
+            }" href="https://www.hugocharlet.com/" >WORK</a>
             <a class="${
               activePage === pages.about ? "active" : ""
             }" href="about">ABOUT</a>

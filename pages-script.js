@@ -6,7 +6,7 @@ const navsvg = document.getElementById("svgmenupages-placeholder");
 // Insérer les éléments de navigation dans la navbar
 const svgItems = `
         <div class="svg-container-pages">
-            <a href="details">
+            <a href="https://www.hugocharlet.com/">
                 <img src="arrowback.svg" alt="backarrow" class="svg-backarrow">
             </a>
         </div>
