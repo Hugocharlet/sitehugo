@@ -201,7 +201,7 @@
       font-size: 11px;
       border-left: 1px solid #e0e0e0;
       color: #303030 !important;
-      font-weight: 900 !important;
+      font-weight: 1200 !important;
     }
 
     /* ─── GALERIE ─── */
@@ -265,9 +265,24 @@
       transition: opacity 0.2s;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 1200px) {
       .gallery-item {
         width: 33.33%;
+      }
+
+      .gallery-item {
+        width: 33.33%;
+      }
+
+      #gallery .gallery-item img {
+        filter: grayscale(0%) !important;
+        -webkit-filter: grayscale(0%) !important;
+        opacity: 1 !important;
+      }
+
+      #gallery .gallery-item {
+        aspect-ratio: 1 / 1;
+        cursor: default;
       }
     }
 
@@ -304,8 +319,16 @@
 
 
 
-      .gallery {
-        display: none !important;
+      #gallery .gallery-item img {
+        filter: grayscale(0%);
+        -webkit-filter: grayscale(0%);
+        opacity: 1;
+      }
+
+      #gallery .gallery-item {
+        width: 50%;
+        aspect-ratio: 1 / 1;
+        cursor: default;
       }
 
 
@@ -545,7 +568,7 @@
       /* ─── INITIALISATION ─── */
       gridData.sort((a, b) => new Date(a.date) - new Date(b.date));
       renderGrid(gridData);
-      applyFilter("chair");
+      applyFilter("all");
 
       /* ─── OBSERVER (POUR L'APPARITION) ─── */
       const observerOptions = {
@@ -584,12 +607,20 @@
       });
 
       // Gestion du curseur et de l'effet Focus
+      // Gestion du curseur et de l'effet Focus
       window.addEventListener("mousemove", (e) => {
         if (!cursor) return;
+
+        // 1. Désactivation complète de la logique sur mobile
+        if (window.innerWidth <= 1200) {
+          cursor.style.opacity = "0";
+          return; // On arrête l'exécution ici pour les petits écrans
+        }
+
         cursor.style.left = e.clientX + "px";
         cursor.style.top = e.clientY + "px";
 
-        if (window.innerWidth > 600 && container.matches(':hover')) {
+        if (container.matches(':hover')) {
           cursor.style.opacity = "1";
           const radius = window.innerWidth * 0.44;
           cachedItems.forEach(item => {
