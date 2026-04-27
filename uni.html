@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+   <link rel="icon" type="image/png" href="favicon.png" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta property="og:description" content="The uni collection, comprising a chair with armrest,a simple chair and an armchair, is a product with a strong, sleek design, but also with a singular language of its own." />
+    <meta property="og:image" content="https://www.hugocharlet.com/pages/uni/6.jpg" />
+
+    <title>uni modern and timeless dinning chair collection in solid wood</title>
+    <link rel="stylesheet" href="csspages.css">
+	<link rel="stylesheet" href="variables.css">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+<body >
+    <!-- impoter Menu générale -->
+    <header>
+        <div id="menu-placeholder"></div>
+        <div id="svgmenupages-placeholder"></div>
+    </header>
+    <!-- deux colonnes -->        
+   
+	<img class="imagemain" src="pages/uni/main.jpg" alt="main">
+		<div class="colonne-fixed">
+            <h1 class="Title">UNI Armchair</h1>
+            <h2 class="Subtitle">Wooden chairs 2026</h2>
+            <main class="textebox-container">
+                <p class="texte">Dimension: 531 x 508 x 704 cm</p>
+                <p class="texte">The Uni armchair draws its inspiration from a model called the University Chair. Its lines are clean, radical, and deliberately rigorous, while maintaining a cool elegance. Curves and organic shapes give way to facets oriented at 0, 45, or 90 degrees. I wanted to use beech for the frame, an extremely hard and smooth wood. This choice of material naturally led me to these striking and radical lines.</p>
+			</main>
+		
+			<div class="sousmenu-wrapper">
+				<div class="icon-container">
+					<a href="#" data-model-src="glb/uniarmchair.glb" class="icon-link" id="ouvrir-model-viewer">
+						<img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
+						<div class="texte texte-icon ">3D Model chair</div>
+					</a>
+				</div>
+				<!-- <div class="icon-container">
+					<a href="#" data-model-src="glb/uniarmchair.glb" class="icon-link" id="ouvrir-model-viewer">
+						<img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
+						<div class="texte texte texte-icon ">3D Model armchair</div>
+					</a>
+				</div> -->
+				
+	
+		  
+
+		  
+				</div>
+			</div>
+		
+			
+			<!-- colonne 2 -->   
+		
+			<div id="modelContainer">
+				<button class="close-button" id="closeModelViewer">
+					<img src="crosss.svg" alt="Close">
+				</button>
+				<model-viewer id="modelViewer" src='glb/uni.glb' autoplay loading="eager" ar ar-modes="webxr scene-viewer quick-look" ar-status="not-presenting" auto-rotate bounds="tight" rotation-per-second="1deg" environment-image="glb/studio.hdr" exposure="0.7" camera-controls interpolation-decay="200" shadow-intensity="1" interaction-prompt="none" camera-orbit="-40deg 82deg 12m" min-camera-orbit="auto 40deg a">
+				</model-viewer>
+			</div>
+			
+			
+			<div id="image-container"></div>
+			<div id="loader">
+   				 <div class="spinner"></div>
+			</div>
+
+
+	<script src="pages-script.js"></script>
+	<script src="navbar.js"></script>
+</body>
+</html>
