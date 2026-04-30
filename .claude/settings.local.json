@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"c:/Users/hugo_/OneDrive/Documents/Sitehugo/sitehugo\" status)",
+      "Bash(git -C \"c:/Users/hugo_/OneDrive/Documents/Sitehugo/sitehugo\" add index.html 404.html)",
+      "Bash(git -C \"c:/Users/hugo_/OneDrive/Documents/Sitehugo/sitehugo\" add 404.html)",
+      "Bash(git -C \"c:/Users/hugo_/OneDrive/Documents/Sitehugo/sitehugo\" rm --cached comingsoon.html)",
+      "Bash(git -C \"c:/Users/hugo_/OneDrive/Documents/Sitehugo/sitehugo\" diff --cached --name-only)",
+      "Bash(git -C \"c:/Users/hugo_/OneDrive/Documents/Sitehugo/sitehugo\" ls-files --others --exclude-standard)",
+      "Bash(git -C \"c:/Users/hugo_/OneDrive/Documents/Sitehugo/sitehugo\" log --oneline -3)",
+      "Bash(git -C \"c:/Users/hugo_/OneDrive/Documents/Sitehugo/sitehugo\" show --name-status HEAD)",
+      "Bash(git -C \"c:/Users/hugo_/OneDrive/Documents/Sitehugo/sitehugo\" ls-files)",
+      "Bash(git -C c:/Users/hugo_/OneDrive/Documents/Sitehugo/sitehugo commit -m ' *)",
+      "Bash(git -C \"c:/Users/hugo_/OneDrive/Documents/Sitehugo/sitehugo\" push origin main)"
+    ]
+  }
+}
