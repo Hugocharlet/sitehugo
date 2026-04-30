@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suivi éditeurs</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #fff;
+      color: #1a1a1a;
+      font-size: 13px;
+    }
+
+    /* ── HEADER ── */
+    #app-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #f4f4f5;
+      border-bottom: 1px solid #d4d4d8;
+      padding: 10px 16px 8px;
+    }
+    .header-row1 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #18181b;
+      letter-spacing: -0.3px;
+    }
+    #storage-badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      text-transform: uppercase;
+      cursor: default;
+      user-select: none;
+    }
+    #storage-badge.server { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+    #storage-badge.local  { background: #fef9c3; color: #713f12; border: 1px solid #fde047; }
+
+    .stats-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-left: auto;
+    }
+    .stat-badge {
+      background: #fff;
+      border: 1px solid #d4d4d8;
+      border-radius: 6px;
+      padding: 3px 9px;
+      font-size: 12px;
+      color: #52525b;
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .stat-badge strong { color: #18181b; font-weight: 700; }
+
+    .header-row2 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      border: none;
+      border-radius: 6px;
+      padding: 5px 11px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.12s, opacity 0.12s;
+      font-family: inherit;
+      line-height: 1.4;
+    }
+    .btn:hover { opacity: 0.82; }
+    .btn-green   { background: #16a34a; color: #fff; }
+    .btn-outline { background: #fff; color: #3f3f46; border: 1px solid #d4d4d8; }
+    .btn-outline:hover { background: #f4f4f5; opacity: 1; }
+
+    .filter-group {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      margin-left: auto;
+      flex-wrap: wrap;
+    }
+    .filter-group label { font-size: 12px; color: #71717a; white-space: nowrap; }
+    .filter-select {
+      font-size: 12px;
+      font-family: inherit;
+      border: 1px solid #d4d4d8;
+      border-radius: 6px;
+      padding: 4px 8px;
+      background: #fff;
+      color: #18181b;
+      cursor: pointer;
+    }
+    .filter-select:focus { outline: none; border-color: #818cf8; }
+
+    /* ── TABLE ── */
+    #table-wrap {
+      overflow-x: auto;
+      padding-bottom: 80px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 980px;
+    }
+    thead th {
+      background: #f4f4f5;
+      border-bottom: 2px solid #d4d4d8;
+      padding: 7px 9px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: #71717a;
+      white-space: nowrap;
+      user-select: none;
+      cursor: pointer;
+    }
+    thead th:hover { background: #e4e4e7; color: #18181b; }
+    thead th.sorted-asc::after  { content: ' \2191'; color: #6366f1; }
+    thead th.sorted-desc::after { content: ' \2193'; color: #6366f1; }
+    thead th.col-action { cursor: default; }
+    thead th.col-action:hover { background: #f4f4f5; }
+
+    tbody tr { border-bottom: 1px solid #f0f0f0; transition: background 0.07s; }
+    tbody tr:nth-child(even) { background: #fafafa; }
+    tbody tr:nth-child(odd)  { background: #fff; }
+    tbody tr:hover           { background: #f0f4ff; }
+    tbody tr.selected        { background: #eff6ff !important; }
+
+    td {
+      padding: 5px 9px;
+      vertical-align: middle;
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      cursor: default;
+      position: relative;
+    }
+    td.editing {
+      padding: 0;
+      overflow: visible;
+      white-space: normal;
+      z-index: 10;
+    }
+
+    /* ── INLINE INPUTS ── */
+    td.editing input,
+    td.editing select,
+    td.editing textarea {
+      width: 100%;
+      min-width: 120px;
+      border: 2px solid #6366f1;
+      border-radius: 4px;
+      padding: 4px 6px;
+      font-size: 13px;
+      font-family: inherit;
+      background: #fff;
+      color: #18181b;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+      display: block;
+    }
+    td.editing textarea {
+      min-height: 70px;
+      resize: vertical;
+      white-space: pre-wrap;
+    }
+
+    /* ── STATUS BADGES ── */
+    .status-badge {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+      transition: transform 0.08s;
+    }
+    .status-badge:hover { transform: scale(1.07); }
+    .s-Nouveau        { background: #dbeafe; color: #1d4ed8; }
+    .s-Contacte       { background: #fed7aa; color: #9a3412; }
+    .s-Relance        { background: #fef08a; color: #713f12; }
+    .s-En-discussion  { background: #e9d5ff; color: #6b21a8; }
+    .s-Sans-suite     { background: #f4f4f5; color: #71717a; border: 1px solid #d4d4d8; }
+    .s-Collaboration  { background: #bbf7d0; color: #14532d; }
+
+    /* ── DELETE BUTTON ── */
+    .btn-delete {
+      background: none;
+      border: none;
+      color: #d4d4d8;
+      font-size: 15px;
+      cursor: pointer;
+      padding: 2px 5px;
+      border-radius: 4px;
+      line-height: 1;
+      transition: color 0.12s, background 0.12s;
+    }
+    .btn-delete:hover { color: #ef4444; background: #fef2f2; }
+
+    /* ── ADD ROW BUTTON ── */
+    #btn-add-bottom {
+      display: block;
+      width: 100%;
+      border: none;
+      background: none;
+      border-top: 1px dashed #d4d4d8;
+      padding: 8px;
+      text-align: center;
+      color: #a1a1aa;
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.1s, color 0.1s;
+    }
+    #btn-add-bottom:hover { background: #f0f4ff; color: #6366f1; }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      background: #18181b;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.18s, transform 0.18s;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    #toast.show { opacity: 1; transform: translateY(0); }
+
+    /* ── EMPTY STATE ── */
+    #empty-state {
+      text-align: center;
+      padding: 48px 16px;
+      color: #a1a1aa;
+      display: none;
+    }
+    #empty-state p    { font-size: 15px; margin-bottom: 6px; }
+    #empty-state span { font-size: 13px; }
+
+    @media (max-width: 700px) {
+      .stats-badges, .filter-group { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="app-header">
+  <div class="header-row1">
+    <h1>Suivi éditeurs</h1>
+    <span id="storage-badge" class="local">Local</span>
+    <div class="stats-badges">
+      <div class="stat-badge">Total <strong id="stat-total">0</strong></div>
+      <div class="stat-badge">En cours <strong id="stat-encours">0</strong></div>
+      <div class="stat-badge">Collaborations <strong id="stat-collab">0</strong></div>
+      <div class="stat-badge">Sans suite <strong id="stat-sanssuite">0</strong></div>
+    </div>
+  </div>
+  <div class="header-row2">
+    <button class="btn btn-green"  onclick="addRow()">+ Ajouter</button>
+    <button class="btn btn-outline" onclick="exportCSV()">Exporter CSV</button>
+    <button class="btn btn-outline" onclick="exportJSON()">Exporter JSON</button>
+    <button class="btn btn-outline" onclick="document.getElementById('import-file').click()">Importer JSON</button>
+    <input type="file" id="import-file" accept=".json" style="display:none" onchange="importJSON(event)" />
+    <div class="filter-group">
+      <label>Statut</label>
+      <select class="filter-select" id="filter-statut" onchange="renderTable()">
+        <option value="">Tous</option>
+        <option>Nouveau</option>
+        <option>Contact&#233;</option>
+        <option>Relanc&#233;</option>
+        <option>En discussion</option>
+        <option>Sans suite</option>
+        <option>Collaboration</option>
+      </select>
+      <label>Pays</label>
+      <select class="filter-select" id="filter-pays" onchange="renderTable()">
+        <option value="">Tous</option>
+      </select>
+      <label>Trier par</label>
+      <select class="filter-select" id="sort-by" onchange="onSortSelectChange()">
+        <option value="">&#8212;</option>
+        <option value="nom">&#201;diteur</option>
+        <option value="pays">Pays</option>
+        <option value="date">Date</option>
+        <option value="statut">Statut</option>
+        <option value="projet">Projet</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div id="table-wrap">
+  <table id="crm-table">
+    <thead>
+      <tr>
+        <th data-col="nom">&#201;diteur</th>
+        <th data-col="pays">Pays</th>
+        <th data-col="contact">Contact</th>
+        <th data-col="email">Email</th>
+        <th data-col="date">Date</th>
+        <th data-col="projet">Projet</th>
+        <th data-col="canal">Canal</th>
+        <th data-col="statut">Statut</th>
+        <th data-col="notes">Notes</th>
+        <th class="col-action" style="width:36px"></th>
+      </tr>
+    </thead>
+    <tbody id="crm-body"></tbody>
+  </table>
+  <button id="btn-add-bottom" onclick="addRow()">+ Nouvelle ligne</button>
+  <div id="empty-state">
+    <p>Aucun éditeur trouvé</p>
+    <span>Modifiez les filtres ou ajoutez une entrée</span>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ─────────────────────────────────────────
+// CONSTANTES
+// ─────────────────────────────────────────
+var LS_KEY   = 'crm-editeurs-v1';
+var API_URL  = 'http://localhost:8787/api/data';
+var STATUTS  = ['Nouveau', 'Contacté', 'Relancé', 'En discussion', 'Sans suite', 'Collaboration'];
+var CANAUX   = ['Email', 'Salon (Milan)', 'Salon (M&O)', 'LinkedIn', 'Téléphone', 'Autre'];
+var COLS     = ['nom', 'pays', 'contact', 'email', 'date', 'projet', 'canal', 'statut', 'notes'];
+
+var DEFAULT_DATA = [
+  { id: 1, nom: 'CM Cadeiras',     pays: 'Portugal', contact: '',                          email: '', date: '2024-04-01', projet: 'Helena', canal: 'Email',          statut: 'Collaboration', notes: 'Premier client. 100+ unités.' },
+  { id: 2, nom: 'Bosc Les Landes', pays: 'France',   contact: 'Département Design R&D', email: '', date: '2025-04-30', projet: 'Orion',  canal: 'Email',          statut: 'Contacté',      notes: 'Mail envoyé. En attente.' },
+  { id: 3, nom: 'Matières Grises',  pays: 'France',   contact: 'Ruben Jochimek',             email: '', date: '2025-04-01', projet: 'Remo',   canal: 'Téléphone',    statut: 'Sans suite',    notes: 'Contact positif mais sans suite.' },
+  { id: 4, nom: 'Infinity Design',  pays: 'Italie',   contact: '',                          email: '', date: '2023-03-01', projet: 'Loop',   canal: 'Salon (Milan)',  statut: 'Sans suite',    notes: '3 ans sans contrat. Ne pas recontacter.' }
+];
+
+// ─────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────
+var crmData     = [];
+var useServer   = false;
+var sortCol     = '';
+var sortDir     = 'asc';
+var selectedId  = null;
+var editingCell = null;   // { tr, td, row, col, colIdx }
+var toastTimer  = null;
+var saveTimer   = null;
+var nextId      = 100;
+
+// ─────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────
+async function init() {
+  await detectStorage();
+  await loadData();
+  updatePaysFilter();
+  renderTable();
+  bindHeaderSort();
+}
+
+async function detectStorage() {
+  try {
+    var ctrl  = new AbortController();
+    var timer = setTimeout(function () { ctrl.abort(); }, 1400);
+    var res   = await fetch(API_URL, { signal: ctrl.signal });
+    clearTimeout(timer);
+    if (res.ok) {
+      useServer = true;
+      var badge = document.getElementById('storage-badge');
+      badge.textContent = 'Serveur';
+      badge.className   = 'server';
+    }
+  } catch (e) {
+    useServer = false;
+  }
+}
+
+async function loadData() {
+  if (useServer) {
+    try {
+      var res  = await fetch(API_URL);
+      var json = await res.json();
+      crmData  = Array.isArray(json) ? json : [];
+    } catch (e) {
+      crmData = [];
+    }
+  } else {
+    var raw = localStorage.getItem(LS_KEY);
+    crmData = raw ? JSON.parse(raw) : [];
+  }
+  if (crmData.length === 0) {
+    crmData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+  }
+  nextId = crmData.reduce(function (m, r) { return Math.max(m, r.id || 0); }, 0) + 1;
+}
+
+// ─────────────────────────────────────────
+// SAVE
+// ─────────────────────────────────────────
+function scheduleSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveData, 700);
+}
+
+async function saveData() {
+  if (useServer) {
+    try {
+      await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(crmData)
+      });
+    } catch (e) {
+      showToast('Erreur serveur — sauvegarde locale');
+      localStorage.setItem(LS_KEY, JSON.stringify(crmData));
+      return;
+    }
+  } else {
+    localStorage.setItem(LS_KEY, JSON.stringify(crmData));
+  }
+  showToast('Sauvegardé');
+}
+
+// ─────────────────────────────────────────
+// TOAST
+// ─────────────────────────────────────────
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function () { t.classList.remove('show'); }, 1500);
+}
+
+// ─────────────────────────────────────────
+// FILTER / SORT
+// ─────────────────────────────────────────
+function bindHeaderSort() {
+  document.querySelectorAll('thead th[data-col]').forEach(function (th) {
+    th.addEventListener('click', function () {
+      var col = th.dataset.col;
+      if (sortCol === col) {
+        sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+      } else {
+        sortCol = col;
+        sortDir = 'asc';
+      }
+      document.getElementById('sort-by').value = '';
+      renderTable();
+    });
+  });
+}
+
+function onSortSelectChange() {
+  sortCol = '';
+  sortDir = 'asc';
+  renderTable();
+}
+
+function getFilteredSorted() {
+  var fStatut = document.getElementById('filter-statut').value;
+  var fPays   = document.getElementById('filter-pays').value;
+  var fSort   = document.getElementById('sort-by').value;
+  var list    = crmData.slice();
+
+  if (fStatut) list = list.filter(function (r) { return r.statut === fStatut; });
+  if (fPays)   list = list.filter(function (r) { return r.pays   === fPays;   });
+
+  var col = sortCol || fSort;
+  if (col) {
+    list.sort(function (a, b) {
+      var va = (a[col] || '').toString().toLowerCase();
+      var vb = (b[col] || '').toString().toLowerCase();
+      if (va < vb) return sortDir === 'asc' ? -1 : 1;
+      if (va > vb) return sortDir === 'asc' ?  1 : -1;
+      return 0;
+    });
+  }
+  return list;
+}
+
+// ─────────────────────────────────────────
+// RENDER
+// ─────────────────────────────────────────
+function renderTable() {
+  var tbody = document.getElementById('crm-body');
+  var list  = getFilteredSorted();
+
+  // Header sort indicators
+  document.querySelectorAll('thead th[data-col]').forEach(function (th) {
+    th.classList.remove('sorted-asc', 'sorted-desc');
+    if (th.dataset.col === sortCol) th.classList.add('sorted-' + sortDir);
+  });
+
+  // Stats
+  updateStats();
+  updatePaysFilter();
+
+  // Empty state
+  var empty = document.getElementById('empty-state');
+  var addBtn = document.getElementById('btn-add-bottom');
+  empty.style.display  = list.length === 0 ? 'block' : 'none';
+  addBtn.style.display = list.length === 0 ? 'none'  : 'block';
+
+  tbody.innerHTML = '';
+
+  list.forEach(function (row) {
+    var tr = document.createElement('tr');
+    tr.dataset.id = row.id;
+    if (selectedId === row.id) tr.classList.add('selected');
+
+    tr.addEventListener('click', function (e) {
+      if (e.target.closest('td.editing')) return;
+      selectedId = row.id;
+      document.querySelectorAll('tbody tr').forEach(function (r) { r.classList.remove('selected'); });
+      tr.classList.add('selected');
+    });
+
+    COLS.forEach(function (col, colIdx) {
+      var td       = document.createElement('td');
+      td.dataset.col = col;
+      td.dataset.id  = row.id;
+
+      if (col === 'statut') {
+        td.innerHTML = buildStatusBadge(row.statut);
+        attachBadgeClick(td, row.id);
+      } else {
+        td.textContent = row[col] || '';
+        if (col === 'notes') td.title = row[col] || '';
+        (function (r, c, ci) {
+          td.addEventListener('dblclick', function () { startEdit(tr, td, r, c, ci); });
+        })(row, col, colIdx);
+      }
+
+      tr.appendChild(td);
+    });
+
+    // Delete button
+    var tdAct  = document.createElement('td');
+    tdAct.className = 'col-action';
+    tdAct.style.textAlign = 'center';
+    var btnDel = document.createElement('button');
+    btnDel.className   = 'btn-delete';
+    btnDel.textContent = '✕';
+    btnDel.title       = 'Supprimer';
+    (function (rid) {
+      btnDel.addEventListener('click', function (e) { e.stopPropagation(); deleteRow(rid); });
+    })(row.id);
+    tdAct.appendChild(btnDel);
+    tr.appendChild(tdAct);
+
+    tbody.appendChild(tr);
+  });
+}
+
+// ─────────────────────────────────────────
+// STATUS BADGE
+// ─────────────────────────────────────────
+function statusClass(s) {
+  var map = {
+    'Nouveau':       's-Nouveau',
+    'Contacté': 's-Contacte',
+    'Relancé':  's-Relance',
+    'En discussion': 's-En-discussion',
+    'Sans suite':    's-Sans-suite',
+    'Collaboration': 's-Collaboration'
+  };
+  return map[s] || 's-Nouveau';
+}
+
+function buildStatusBadge(s) {
+  return '<span class="status-badge ' + statusClass(s) + '">' + (s || 'Nouveau') + '</span>';
+}
+
+function attachBadgeClick(td, rowId) {
+  var badge = td.querySelector('.status-badge');
+  if (!badge) return;
+  (function (rid, cell) {
+    badge.addEventListener('click', function (e) { e.stopPropagation(); cycleStatut(rid, cell); });
+  })(rowId, td);
+}
+
+function cycleStatut(id, td) {
+  var row = crmData.find(function (r) { return r.id === id; });
+  if (!row) return;
+  var idx    = STATUTS.indexOf(row.statut);
+  row.statut = STATUTS[(idx + 1) % STATUTS.length];
+  td.innerHTML = buildStatusBadge(row.statut);
+  attachBadgeClick(td, id);
+  updateStats();
+  scheduleSave();
+}
+
+function updateStats() {
+  document.getElementById('stat-total').textContent     = crmData.length;
+  document.getElementById('stat-encours').textContent   = crmData.filter(function (r) { return ['Contacté', 'Relancé', 'En discussion'].indexOf(r.statut) !== -1; }).length;
+  document.getElementById('stat-collab').textContent    = crmData.filter(function (r) { return r.statut === 'Collaboration'; }).length;
+  document.getElementById('stat-sanssuite').textContent = crmData.filter(function (r) { return r.statut === 'Sans suite'; }).length;
+}
+
+// ─────────────────────────────────────────
+// INLINE EDITING
+// ─────────────────────────────────────────
+function startEdit(tr, td, row, col, colIdx) {
+  // Commit any open cell first
+  if (editingCell) {
+    var prevInp = editingCell.td.querySelector('input,select,textarea');
+    if (prevInp) {
+      var prevVal = prevInp.value;
+      var prevCell = editingCell;
+      editingCell = null;
+      applyEdit(prevCell.td, prevCell.row, prevCell.col, prevVal);
+    }
+  }
+
+  editingCell = { tr: tr, td: td, row: row, col: col, colIdx: colIdx };
+  td.classList.add('editing');
+
+  var input;
+  if (col === 'canal') {
+    input = document.createElement('select');
+    CANAUX.forEach(function (c) {
+      var opt = document.createElement('option');
+      opt.value = c; opt.textContent = c;
+      if (c === (row[col] || '')) opt.selected = true;
+      input.appendChild(opt);
+    });
+  } else if (col === 'statut') {
+    input = document.createElement('select');
+    STATUTS.forEach(function (s) {
+      var opt = document.createElement('option');
+      opt.value = s; opt.textContent = s;
+      if (s === (row[col] || '')) opt.selected = true;
+      input.appendChild(opt);
+    });
+  } else if (col === 'notes') {
+    input = document.createElement('textarea');
+    input.value = row[col] || '';
+  } else if (col === 'date') {
+    input = document.createElement('input');
+    input.type  = 'date';
+    input.value = row[col] || '';
+  } else if (col === 'email') {
+    input = document.createElement('input');
+    input.type  = 'email';
+    input.value = row[col] || '';
+  } else {
+    input = document.createElement('input');
+    input.type  = 'text';
+    input.value = row[col] || '';
+  }
+
+  input.addEventListener('keydown', function (e) { handleKey(e, tr, td, row, col, colIdx); });
+  input.addEventListener('blur', function () {
+    // setTimeout to let click events on other cells fire first
+    setTimeout(function () {
+      if (editingCell && editingCell.td === td) {
+        var v = input.value;
+        editingCell = null;
+        applyEdit(td, row, col, v);
+      }
+    }, 80);
+  });
+
+  td.textContent = '';
+  td.appendChild(input);
+  input.focus();
+  if (input.tagName !== 'TEXTAREA' && input.select) input.select();
+}
+
+function applyEdit(td, row, col, value) {
+  row[col] = value;
+  td.classList.remove('editing');
+  if (col === 'statut') {
+    td.innerHTML = buildStatusBadge(value);
+    attachBadgeClick(td, row.id);
+  } else {
+    td.textContent = value;
+    if (col === 'notes') td.title = value;
+  }
+  updatePaysFilter();
+  updateStats();
+  scheduleSave();
+}
+
+function cancelEdit() {
+  if (!editingCell) return;
+  var td  = editingCell.td;
+  var row = editingCell.row;
+  var col = editingCell.col;
+  editingCell = null;
+  td.classList.remove('editing');
+  if (col === 'statut') {
+    td.innerHTML = buildStatusBadge(row[col] || 'Nouveau');
+    attachBadgeClick(td, row.id);
+  } else {
+    td.textContent = row[col] || '';
+    if (col === 'notes') td.title = row[col] || '';
+  }
+}
+
+function handleKey(e, tr, td, row, col, colIdx) {
+  if (e.key === 'Escape') {
+    e.preventDefault();
+    editingCell = null;
+    cancelEdit();
+    return;
+  }
+
+  if (e.key === 'Enter' && col !== 'notes') {
+    e.preventDefault();
+    var val = e.target.value;
+    editingCell = null;
+    applyEdit(td, row, col, val);
+    // Move down same column
+    var nextTr = tr.nextElementSibling;
+    if (nextTr) {
+      var cells  = nextTr.querySelectorAll('td[data-col]');
+      var nextTd = cells[colIdx];
+      if (nextTd) {
+        var nrid = parseInt(nextTr.dataset.id, 10);
+        var nrow = crmData.find(function (r) { return r.id === nrid; });
+        if (nrow) startEdit(nextTr, nextTd, nrow, col, colIdx);
+      }
+    }
+    return;
+  }
+
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    var tabVal = e.target.value;
+    editingCell = null;
+    applyEdit(td, row, col, tabVal);
+    var allTds = Array.from(tr.querySelectorAll('td[data-col]'));
+    var idx    = allTds.indexOf(td);
+    var target = e.shiftKey ? allTds[idx - 1] : allTds[idx + 1];
+    if (target) {
+      var tcol = target.dataset.col;
+      var tci  = COLS.indexOf(tcol);
+      startEdit(tr, target, row, tcol, tci);
+    }
+  }
+}
+
+// ─────────────────────────────────────────
+// ADD / DELETE
+// ─────────────────────────────────────────
+function addRow() {
+  // Commit open edit
+  if (editingCell) {
+    var inp = editingCell.td.querySelector('input,select,textarea');
+    var ec  = editingCell;
+    editingCell = null;
+    if (inp) applyEdit(ec.td, ec.row, ec.col, inp.value);
+  }
+
+  var today  = new Date().toISOString().slice(0, 10);
+  var newRow = {
+    id: nextId++,
+    nom: '', pays: '', contact: '', email: '',
+    date: today, projet: '', canal: 'Email', statut: 'Nouveau', notes: ''
+  };
+  crmData.push(newRow);
+  selectedId = newRow.id;
+
+  // Reset filters so the row is visible
+  document.getElementById('filter-statut').value = '';
+  document.getElementById('filter-pays').value   = '';
+
+  renderTable();
+
+  // Find the new row's TR and start editing first cell
+  var tbody = document.getElementById('crm-body');
+  var newTr = null;
+  tbody.querySelectorAll('tr').forEach(function (t) {
+    if (parseInt(t.dataset.id, 10) === newRow.id) newTr = t;
+  });
+  if (newTr) {
+    var firstTd = newTr.querySelector('td[data-col="nom"]');
+    if (firstTd) startEdit(newTr, firstTd, newRow, 'nom', 0);
+    newTr.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  scheduleSave();
+}
+
+function deleteRow(id) {
+  var row  = crmData.find(function (r) { return r.id === id; });
+  if (!row) return;
+  var name = row.nom || 'cette entrée';
+  if (!confirm('Supprimer "' + name + '" ?')) return;
+  if (editingCell && editingCell.row.id === id) {
+    editingCell.td.classList.remove('editing');
+    editingCell = null;
+  }
+  crmData = crmData.filter(function (r) { return r.id !== id; });
+  if (selectedId === id) selectedId = null;
+  renderTable();
+  scheduleSave();
+}
+
+// ─────────────────────────────────────────
+// PAYS FILTER
+// ─────────────────────────────────────────
+function updatePaysFilter() {
+  var sel     = document.getElementById('filter-pays');
+  var current = sel.value;
+  var pays    = [];
+  crmData.forEach(function (r) {
+    if (r.pays && pays.indexOf(r.pays) === -1) pays.push(r.pays);
+  });
+  pays.sort();
+  sel.innerHTML = '<option value="">Tous</option>';
+  pays.forEach(function (p) {
+    var opt = document.createElement('option');
+    opt.value = p; opt.textContent = p;
+    if (p === current) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+// ─────────────────────────────────────────
+// EXPORT / IMPORT
+// ─────────────────────────────────────────
+function exportCSV() {
+  var headers = ['Éditeur', 'Pays', 'Contact', 'Email', 'Date', 'Projet', 'Canal', 'Statut', 'Notes'];
+  var rows    = crmData.map(function (r) {
+    return [r.nom, r.pays, r.contact, r.email, r.date, r.projet, r.canal, r.statut, r.notes]
+      .map(function (v) { return '"' + (v || '').replace(/"/g, '""') + '"'; })
+      .join(';');
+  });
+  var csv = '﻿' + [headers.join(';')].concat(rows).join('\r\n');
+  download(csv, 'editeurs_crm.csv', 'text/csv;charset=utf-8');
+}
+
+function exportJSON() {
+  download(JSON.stringify(crmData, null, 2), 'editeurs_crm.json', 'application/json');
+}
+
+function importJSON(event) {
+  var file = event.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function (e) {
+    try {
+      var imported = JSON.parse(e.target.result);
+      if (!Array.isArray(imported)) throw new Error('Format invalide');
+      if (!confirm('Importer ' + imported.length + ' entrée(s) ? Les données actuelles seront remplacées.')) return;
+      crmData = imported;
+      nextId  = crmData.reduce(function (m, r) { return Math.max(m, r.id || 0); }, 0) + 1;
+      renderTable();
+      scheduleSave();
+      showToast(imported.length + ' entrées importées');
+    } catch (err) {
+      alert('Fichier JSON invalide : ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+function download(content, filename, type) {
+  var blob = new Blob([content], { type: type });
+  var url  = URL.createObjectURL(blob);
+  var a    = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ─────────────────────────────────────────
+// CLICK OUTSIDE CANCELS EDIT
+// ─────────────────────────────────────────
+document.addEventListener('mousedown', function (e) {
+  if (!editingCell) return;
+  if (!editingCell.td.contains(e.target)) {
+    var inp = editingCell.td.querySelector('input,select,textarea');
+    var ec  = editingCell;
+    editingCell = null;
+    if (inp) applyEdit(ec.td, ec.row, ec.col, inp.value);
+  }
+});
+
+// ─────────────────────────────────────────
+// START
+// ─────────────────────────────────────────
+init();
+</script>
+</body>
+</html>
