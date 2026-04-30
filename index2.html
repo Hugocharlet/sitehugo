@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E5KFLGR0PL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-E5KFLGR0PL");
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hugocharletdesign</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="variables.css" />
+  <link rel="stylesheet" href="navbarstyle.css">
+
+  <meta property="og:description"
+    content="Specializing in contemporary furniture and industrial product design, our studio creates aesthetic, iconic, and functional pieces. We pay close attention to production constraints throughout the design process to ensure that each product is easy to manufacture and perfectly suited for large-scale production." />
+  <meta property="og:image" content="https://www.hugocharlet.com/pages/pixa/3.jpg" />
+  <meta property="og:url" content="https://www.hugocharlet.com" />
+  <meta property="og:type" content="website" />
+  <meta name="description"
+    content="Specializing in contemporary furniture and industrial product design, our studio creates aesthetic, iconic, and functional pieces. We pay close attention to production constraints throughout the design process to ensure that each product is easy to manufacture and perfectly suited for large-scale production." />
+  <style>
+    body {
+      font-family: "Hanken Grotesk", sans-serif;
+      color: #303030;
+    }
+
+    .carousel-container {
+      position: relative;
+      margin: 90px var(--margin-general) 0px;
+      height: calc(100vh - 90px);
+      z-index: 0;
+    }
+
+    .image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+
+      padding-bottom: 90px;
+      box-sizing: border-box;
+    }
+
+    .nav-arrow-container {
+      position: absolute;
+      left: calc(var(--margin-general) + 10px);
+      width: calc(100% - 2 * (var(--margin-general) + 10px));
+      top: 50%;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      transition: transform 0.3s ease, fill 0.3s ease;
+    }
+
+    .nav-arrow-wrapper {
+      display: flex;
+      align-items: center;
+      transition: transform 0.3s ease, fill 0.3s ease;
+    }
+
+    .left {
+      left: 30px;
+    }
+
+    .right {
+      right: 30px;
+    }
+
+    .left:hover {
+      transform: translateX(-3px);
+    }
+
+    .right:hover {
+      transform: translateX(3px);
+    }
+
+    .nav-arrow-wrapper:hover .arrow-svg {
+      stroke: #303030;
+      fill: #303030;
+    }
+
+    .nav-arrow-wrapper:hover .arrow-text {
+      color: #303030;
+    }
+
+    .arrow-svg {
+      height: 20px;
+      width: auto;
+      stroke: #afafaf;
+      fill: #afafaf;
+      cursor: pointer;
+    }
+
+    .arrow-text {
+      font-size: 0.8rem;
+      font-family: "IBM Plex Mono", monospace;
+      font-weight: 400;
+      font-style: italic;
+      color: #afafaf;
+      cursor: pointer;
+    }
+
+    footer p {
+      font-family: "Roboto";
+      font-size: 11px;
+      color: #666;
+      z-index: 99;
+      text-align: center;
+      position: fixed;
+      bottom: 0px;
+      width: 100%;
+      background-color: white;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+
+    /* ─── FILTRES ─── */
+    #filters {
+      position: sticky;
+      top: 90px;
+      left: 0;
+      right: 0;
+      width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      align-items: stretch;
+      z-index: 9999;
+      background: #fff;
+      border-top: 1px solid #e0e0e0;
+      border-bottom: 1px solid #e0e0e0;
+      cursor: pointer;
+      height: 30px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s;
+    }
+
+    #filters.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #filter-group {
+      width: 75%;
+      display: flex;
+      align-items: stretch;
+    }
+
+    #filter-group div {
+      flex: 1;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 500;
+      border-right: 1px solid #e0e0e0;
+      color: #888;
+      transition: color 0.2s;
+      border-radius: 0;
+    }
+
+    #filter-group div:hover {
+      color: #303030;
+    }
+
+    #filter-group div.active {
+      color: #303030;
+      font-weight: 700;
+    }
+
+    #sort-date {
+      margin-left: auto;
+      /* C'est la clé : cela pousse l'élément tout à droite */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+      /* Ajoute un peu d'espace sur les côtés du texte */
+      font-size: 11px;
+      border-left: 1px solid #e0e0e0;
+      color: #303030 !important;
+      font-weight: 1200 !important;
+    }
+
+    /* ─── GALERIE ─── */
+    #gallery {
+      padding: 0 !important;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: start;
+      align-items: flex-start;
+      width: 100%;
+      /* espace pour la barre de filtres en bas */
+      padding-bottom: 40px !important;
+      margin-bottom: 200px;
+    }
+
+    .gallery-item {
+      position: relative;
+      width: 25%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      padding: 0 !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      transition: width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
+    }
+
+    .gallery-item.inactive {
+      width: 0% !important;
+      height: 0% !important;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      filter: grayscale(100%);
+      opacity: 0.15;
+      transform: scale(1);
+      will-change: filter, opacity;
+      transition: transform 0.5s ease-out, filter 0.5s ease-out, opacity 0.5s ease-out;
+    }
+
+    #gallery,
+    .gallery-item,
+    .gallery-item a,
+    .gallery-item img {
+      cursor: none;
+    }
+
+    #custom-cursor {
+      position: fixed;
+      width: 36px;
+      height: 36px;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    @media (max-width: 1200px) {
+      .gallery-item {
+        width: 33.33%;
+      }
+
+      .gallery-item {
+        width: 33.33%;
+      }
+
+      #gallery .gallery-item img {
+        filter: grayscale(0%) !important;
+        -webkit-filter: grayscale(0%) !important;
+        opacity: 1 !important;
+      }
+
+      #gallery .gallery-item {
+        aspect-ratio: 1 / 1;
+        cursor: default;
+      }
+    }
+
+    @media (max-width: 600px) {
+      footer p {
+        font-size: 9px;
+        position: relative;
+        /* Utiliser relative pour que le texte suive le flux normal du document */
+        margin-top: 20px;
+        /* Espacement au-dessus du copyright */
+        padding: 10px 0;
+        /* Espacement autour du texte, si nécessaire */
+        box-sizing: border-box;
+        /* Inclut le padding dans la largeur totale */
+      }
+
+      .nav-arrow-container {
+        position: relative;
+        padding: 10px calc(var(--margin-general) + 10px);
+        width: 100vw;
+        left: 0;
+        height: auto;
+      }
+
+      .image-container img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+
+      #filters {
+        display: none !important;
+      }
+
+
+
+      #gallery .gallery-item img {
+        filter: grayscale(0%);
+        -webkit-filter: grayscale(0%);
+        opacity: 1;
+      }
+
+      #gallery .gallery-item {
+        width: 50%;
+        aspect-ratio: 1 / 1;
+        cursor: default;
+      }
+
+
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div id="menu-placeholder"></div>
+  </header>
+
+  <main>
+    <div class="carousel-container" data-aos="fade">
+      <div class="image-container" id="carousel-images">
+        <!-- Les images seront insérées ici par JavaScript -->
+        <img id="imageid" src="" alt="Gallery Image" onclick="nextImage()" />
+      </div>
+    </div>
+
+    <div class="nav-arrow-container">
+      <div class="nav-arrow-wrapper left" onclick="previousImage()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="size-6 arrow-svg" alt="Flèche gauche">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 8.25 3 12m0 0 3.75 3.75M3 12H12" />
+        </svg>
+        <span class="arrow-text">previous</span>
+      </div>
+      <div class="nav-arrow-wrapper right" onclick="nextImage()">
+        <span class="arrow-text">next</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="size-6 arrow-svg" alt="Flèche droite">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H12" />
+        </svg>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2024 hugocharletdesign</p>
+    </footer>
+
+    <div id="custom-cursor">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#EC623D">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+      </svg>
+    </div>
+
+    <div id="filters">
+      <div id="filter-group">
+        <div id="all">All</div>
+        <div id="indoor">Indoor</div>
+        <div id="outdoor">Outdoor</div>
+        <div id="armchair">Armchair</div>
+        <div id="chair">Chair</div>
+        <div id="table">Table</div>
+        <div id="desk">Desk</div>
+        <div id="lighting">Lightings</div>
+        <div id="object">Objects</div>
+      </div>
+      <div id="sort-date">Date ↓</div>
+    </div>
+
+    <div id="gallery"></div>
+
+  </main>
+
+
+
+  <script>
+
+    function shuffleArray(array) {
+      const shuffled = [...array]; // Copie du tableau
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
+    }
+
+    let imagesCarrousel = [
+      "imgCarrousel/image13.jpg",
+      "imgCarrousel/clochette1.jpg",
+      "imgCarrousel/orion.jpg",
+      "imgCarrousel/orionchair.jpg",
+      "imgCarrousel/ai-leornardo.jpg",
+      "imgCarrousel/annot\u00e9 enf.jpg",
+      "imgCarrousel/ANN_8024cretouch\u00e9p.jpg",
+      "imgCarrousel/anton 12.jpg",
+      "imgCarrousel/HELENA_shooting_08-2025_7.jpg",
+      "imgCarrousel/HELENA_shooting_08-2025_14.jpg",
+      "imgCarrousel/anton-6.jpg",
+      "imgCarrousel/Anton 8.jpg",
+      "imgCarrousel/BLURRED1.jpg",
+      "imgCarrousel/CADRree.jpg",
+      "imgCarrousel/IMG_0687.jpg",
+      "imgCarrousel/DE9C1026 (2).jpg",
+      "imgCarrousel/fc4fc0fb-418d-4a47-a259-62e7e357bd11.jpg",
+      "imgCarrousel/format carte postale3.jpg",
+      "imgCarrousel/hugo portrait.jpg",
+      "imgCarrousel/icone.jpg",
+      "imgCarrousel/pixa-4.jpg",
+      "imgCarrousel/image10.jpg",
+      "imgCarrousel/image11.jpg",
+      "imgCarrousel/image12.jpg",
+      "imgCarrousel/image13.jpg",
+      "imgCarrousel/image15.jpg",
+      "imgCarrousel/image3.jpg",
+      "imgCarrousel/image4.jpg",
+      "imgCarrousel/image5.jpg",
+      "imgCarrousel/image6.jpg",
+      "imgCarrousel/image7.JPG",
+      "imgCarrousel/image8.JPG",
+      "imgCarrousel/IMG-0392.jpg",
+      "imgCarrousel/IMG_1985.jpg",
+      "imgCarrousel/IMG_20240714_0002.jpg",
+      "imgCarrousel/IMG_5675.jpg",
+      "imgCarrousel/IMG_8821.jpg",
+      "imgCarrousel/IMG_9433.jpg",
+      "imgCarrousel/IMG_9486.jpg",
+      "imgCarrousel/IMG_9621.jpg",
+      "imgCarrousel/IMG_9627.jpg",
+      "imgCarrousel/IMG_9665compressed.jpg",
+      "imgCarrousel/IMG_9918.jpg",
+      "imgCarrousel/mistral 2.jpg",
+      "imgCarrousel/new BH 13.jpg",
+      "imgCarrousel/perspective 1.jpg",
+      "imgCarrousel/presentation fermob.png",
+      "imgCarrousel/Table.jpg",
+      "imgCarrousel/TAURUS1 (1).jpg",
+      "imgCarrousel/tomeo emplil\u00e9e hd.jpg",
+      "imgCarrousel/t\u00e9o1.jpg",
+      "imgCarrousel/t\u00e9o2.jpg",
+      "imgCarrousel/untitled14-1.jpg",
+      "imgCarrousel/untitled22.jpg",
+      "imgCarrousel/wegner15 19.jpg",
+      "imgCarrousel/wegner15 21.jpg",
+    ];
+    let currentIndex = 0;
+
+    // 🎲 LIGNE IMPORTANTE À AJOUTER
+    imagesCarrousel = shuffleArray(imagesCarrousel);
+
+    function showImage(index) {
+      const image = document.getElementById("imageid");
+      image.src = imagesCarrousel[index];
+    }
+
+    function previousImage() {
+      currentIndex =
+        currentIndex > 0 ? currentIndex - 1 : imagesCarrousel.length - 1;
+      showImage(currentIndex);
+    }
+
+    function nextImage() {
+      currentIndex =
+        currentIndex < imagesCarrousel.length - 1 ? currentIndex + 1 : 0;
+      showImage(currentIndex);
+    }
+
+    // Appeler fetchImages pour initialiser le carrousel
+
+    document.addEventListener("DOMContentLoaded", () => {
+      showImage(currentIndex);
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+      /* ─── DONNÉES ─── */
+      const gridData = [
+        { src: "ANTON.jpg", name: "anton", data: ["armchair"], date: "2024-01-10" },
+        { src: "BELVEDERE.jpg", name: "belvedere", data: ["chair", "outdoor"], date: "2024-04-12" },
+        { src: "BUREAUK.jpg", name: "bureauk", data: ["desk"], date: "2016-04-01" },
+        { src: "DIETER17.jpg", name: "dieter", data: ["armchair", "fabric", "indoor"], date: "2024-04-12" },
+        { src: "ENZO.jpg", name: "enzo", data: ["desk"], date: "2021-04-09" },
+        { src: "HELENA.jpg", name: "helena", data: ["chair", "indoor", "fabric"], date: "2025-04-12" },
+        { src: "MALORIE.jpg", name: "malorie", data: ["chair", "indoor", "fabric"], date: "2025-04-10" },
+        { src: "HELENA1.jpg", name: "helena", data: ["armchair", "indoor", "fabric"], date: "2025-04-12" },
+        { src: "ORION.jpg", name: "orion", data: ["chair", "indoor", "fabric"], date: "2026-05-04" },
+        { src: "ORION1.jpg", name: "orion", data: ["armchair", "indoor", "fabric"], date: "2026-05-04" },
+        { src: "UNI.jpg", name: "uni", data: ["armchair", "indoor", "fabric"], date: "2026-05-01" },
+        { src: "NOCTA.jpg", name: "nocta", data: ["chair", "indoor", "fabric"], date: "2026-04-04" },
+        { src: "PIXA2.jpg", name: "pixa", data: ["chair", "indoor"], date: "2021-04-12" },
+        { src: "TEO2.jpg", name: "teo", data: ["chair", "armchair", "outdoor", "indoor"], date: "2016-04-04" },
+        { src: "LOOP.jpg", name: "loop", data: ["chair", "armchair", "outdoor"], date: "2022-04-12" },
+        { src: "LOUISE5.jpg", name: "louise", data: ["chair", "outdoor"], date: "2023-04-12" },
+        { src: "SPYDER.jpg", name: "spyder", data: ["chair", "outdoor"], date: "2026-02-02" },
+        { src: "MELODIE1.jpg", name: "melodie", data: ["chair", "outdoor"], date: "2023-04-12" },
+        { src: "MISTRAL1.jpg", name: "mistral", data: ["lighting"], date: "2022-04-12" },
+        { src: "DENTELLE.jpg", name: "comingsoon", data: ["lighting"], date: "2025-01-22" },
+        { src: "demilune.jpg", name: "comingsoon", data: ["lighting"], date: "2025-01-19" },
+        { src: "clochette.jpg", name: "comingsoon", data: ["lighting"], date: "2025-01-20" },
+        { src: "KAKTUS.jpg", name: "kaktus", data: ["object"], date: "2017-04-12" },
+        { src: "TABLE.jpg", name: "table", data: ["table", "indoor"], date: "2024-04-12" },
+        { src: "TOMEO.jpg", name: "tomeo", data: ["chair", "outdoor"], date: "2019-04-12" },
+        { src: "REMO5.jpg", name: "remo", data: ["chair", "outdoor"], date: "2024-04-04" },
+        { src: "TAURUS1.jpg", name: "taurus", data: ["chair", "outdoor"], date: "2023-10-10" },
+        { src: "TROPICAL.jpg", name: "tropical", data: ["armchair", "indoor",], date: "2023-04-10" }
+      ];
+
+
+      const container = document.getElementById("gallery");
+      const filterBtns = document.querySelectorAll("#filter-group div");
+      const sortBtn = document.getElementById("sort-date");
+      const cursor = document.getElementById("custom-cursor");
+      const filtersBar = document.getElementById("filters");
+
+      let activeFilter = "all";
+      let currentOrder = "desc";
+      let cachedItems = [];
+
+      /* ─── RENDU ─── */
+      function renderGrid(items) {
+        if (!container) return;
+        container.innerHTML = "";
+        items.forEach(item => {
+          // On nettoie les data pour éviter les erreurs de virgules vides
+          const cleanData = item.data.filter(d => d);
+          const dataAttributes = cleanData.map(attr => `data-${attr}=""`).join(" ");
+
+          container.insertAdjacentHTML("beforeend", `
+        <section class="gallery-item" ${dataAttributes}>
+            <a href="${item.name}">
+                <img src="img/${item.src}" alt="${item.name}" loading="lazy">
+            </a>
+        </section>
+      `);
+        });
+        cachedItems = Array.from(document.querySelectorAll(".gallery-item"));
+      }
+
+      function applyFilter(tag) {
+        activeFilter = tag;
+        filterBtns.forEach(btn => btn.classList.toggle("active", btn.id === tag));
+        cachedItems.forEach(item => {
+          const visible = tag === "all" || item.dataset[tag] !== undefined;
+          item.classList.toggle("inactive", !visible);
+        });
+      }
+
+      /* ─── INITIALISATION ─── */
+      gridData.sort((a, b) => new Date(a.date) - new Date(b.date));
+      renderGrid(gridData);
+      applyFilter("all");
+
+      /* ─── OBSERVER (POUR L'APPARITION) ─── */
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            filtersBar.classList.add('visible');
+          } else {
+            filtersBar.classList.remove('visible');
+          }
+        });
+      }, observerOptions);
+
+      if (container) observer.observe(container);
+
+      /* ─── LISTENERS ─── */
+      filterBtns.forEach(btn => {
+        btn.addEventListener("click", () => applyFilter(btn.id));
+      });
+
+      sortBtn.addEventListener("click", function () {
+        gridData.sort((a, b) => {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
+          return currentOrder === "asc" ? dateA - dateB : dateB - dateA;
+        });
+        currentOrder = (currentOrder === "asc") ? "desc" : "asc";
+        this.innerText = currentOrder === "asc" ? "Date ↑" : "Date ↓";
+        renderGrid(gridData);
+        applyFilter(activeFilter);
+      });
+
+      // Gestion du curseur et de l'effet Focus
+      // Gestion du curseur et de l'effet Focus
+      window.addEventListener("mousemove", (e) => {
+        if (!cursor) return;
+
+        // 1. Désactivation complète de la logique sur mobile
+        if (window.innerWidth <= 1200) {
+          cursor.style.opacity = "0";
+          return; // On arrête l'exécution ici pour les petits écrans
+        }
+
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+
+        if (container.matches(':hover')) {
+          cursor.style.opacity = "1";
+          const radius = window.innerWidth * 0.44;
+          cachedItems.forEach(item => {
+            if (item.classList.contains("inactive")) return;
+            const rect = item.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const distance = Math.sqrt(Math.pow(e.clientX - centerX, 2) + Math.pow(e.clientY - centerY, 2));
+            const img = item.querySelector("img");
+
+            if (distance < radius) {
+              const strength = 1 - (distance / radius);
+              img.style.opacity = 0.15 + (0.85 * strength);
+              img.style.filter = `grayscale(${(1 - strength) * 100}%)`;
+              img.style.transition = "none";
+            } else {
+              img.style.opacity = 0.15;
+              img.style.filter = "grayscale(100%)";
+              img.style.transition = "all 0.5s ease-out";
+            }
+          });
+        } else {
+          cursor.style.opacity = "0";
+        }
+      });
+    });
+  </script>
+  <script src="navbar.js"></script>
+</body>
+
+</html>

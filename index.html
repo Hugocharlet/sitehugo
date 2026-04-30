@@ -6,11 +6,8 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-E5KFLGR0PL"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
+    function gtag() { dataLayer.push(arguments); }
     gtag("js", new Date());
-
     gtag("config", "G-E5KFLGR0PL");
   </script>
 
@@ -19,21 +16,24 @@
   <title>Hugocharletdesign</title>
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="stylesheet" href="variables.css" />
-  <link rel="stylesheet" href="navbarstyle.css">
+  <link rel="stylesheet" href="navbarstyle.css" />
 
-  <meta property="og:description"
-    content="Specializing in contemporary furniture and industrial product design, our studio creates aesthetic, iconic, and functional pieces. We pay close attention to production constraints throughout the design process to ensure that each product is easy to manufacture and perfectly suited for large-scale production." />
+  <meta property="og:description" content="Specializing in contemporary furniture and industrial product design, our studio creates aesthetic, iconic, and functional pieces." />
   <meta property="og:image" content="https://www.hugocharlet.com/pages/pixa/3.jpg" />
   <meta property="og:url" content="https://www.hugocharlet.com" />
   <meta property="og:type" content="website" />
-  <meta name="description"
-    content="Specializing in contemporary furniture and industrial product design, our studio creates aesthetic, iconic, and functional pieces. We pay close attention to production constraints throughout the design process to ensure that each product is easy to manufacture and perfectly suited for large-scale production." />
+  <meta name="description" content="Specializing in contemporary furniture and industrial product design, our studio creates aesthetic, iconic, and functional pieces." />
+
+  <!-- Vue 3 CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+
   <style>
     body {
       font-family: "Hanken Grotesk", sans-serif;
       color: #303030;
     }
 
+    /* ─── CAROUSEL ─── */
     .carousel-container {
       position: relative;
       margin: 90px var(--margin-general) 0px;
@@ -54,7 +54,6 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-
       padding-bottom: 90px;
       box-sizing: border-box;
     }
@@ -76,21 +75,11 @@
       transition: transform 0.3s ease, fill 0.3s ease;
     }
 
-    .left {
-      left: 30px;
-    }
+    .left { left: 30px; }
+    .right { right: 30px; }
 
-    .right {
-      right: 30px;
-    }
-
-    .left:hover {
-      transform: translateX(-3px);
-    }
-
-    .right:hover {
-      transform: translateX(3px);
-    }
+    .left:hover { transform: translateX(-3px); }
+    .right:hover { transform: translateX(3px); }
 
     .nav-arrow-wrapper:hover .arrow-svg {
       stroke: #303030;
@@ -135,74 +124,235 @@
       margin: 0;
     }
 
-    /* ─── FILTRES ─── */
-    #filters {
+    /* ─── HEADER PRINCIPAL — style premiere-ligne de details.html ─── */
+    #main-header {
       position: sticky;
       top: 90px;
-      left: 0;
-      right: 0;
       width: 100%;
       box-sizing: border-box;
       display: flex;
-      align-items: stretch;
-      z-index: 9999;
+      align-items: center;
+      z-index: 2500;
       background: #fff;
-      border-top: 1px solid #e0e0e0;
-      border-bottom: 1px solid #e0e0e0;
-      cursor: pointer;
-      height: 30px;
+      border-bottom: 1px solid #d0d0d0;
+      height: 38px;
+      padding: 0 var(--margin-general);
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.4s ease, visibility 0.4s;
     }
 
-    #filters.visible {
+    #main-header.visible {
       opacity: 1;
       visibility: visible;
     }
 
-    #filter-group {
-      width: 75%;
-      display: flex;
-      align-items: stretch;
-    }
-
-    #filter-group div {
-      flex: 1;
-
+    /* Toggle — absolument à droite, hors du flux flex */
+    #view-toggle {
+      position: absolute;
+      right: var(--margin-general);
+      top: 50%;
+      transform: translateY(-50%);
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 10px;
+    }
+
+    .toggle-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
       font-size: 11px;
-      font-weight: 500;
-      border-right: 1px solid #e0e0e0;
-      color: #888;
-      transition: color 0.2s;
-      border-radius: 0;
-    }
-
-    #filter-group div:hover {
-      color: #303030;
-    }
-
-    #filter-group div.active {
-      color: #303030;
       font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #ccc;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: color 0.2s;
+    }
+    .toggle-item.active { color: #303030; }
+    .toggle-item:hover  { color: #606060; }
+
+    .toggle-item svg {
+      width: 14px;
+      height: 14px;
+      display: block;
+      stroke: currentColor;
+      pointer-events: none;
     }
 
-    #sort-date {
-      margin-left: auto;
-      /* C'est la clé : cela pousse l'élément tout à droite */
+    /* ─── COLONNES HEADER ─── */
+    .hdr-col {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hdr-year     { flex: 0 0 80px; box-sizing: border-box; }
+    .hdr-name     { flex: 2; }
+    .hdr-typology { flex: 3; }
+
+    .hdr-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #505050;
+      white-space: nowrap;
+    }
+
+    .hdr-filter-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #c8c8c8;
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .hdr-filter-btn:hover  { color: #303030; }
+    .hdr-filter-btn.active { color: #888; }
+    .hdr-filter-btn.open   { color: #303030; }
+
+    .hdr-arrow {
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+    .hdr-filter-btn.open .hdr-arrow { transform: rotate(180deg); }
+
+    .filter-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 15px;
+      height: 15px;
+      padding: 0 4px;
+      border-radius: 8px;
+      background: #303030;
+      color: #fff;
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    /* ─── PANELS FILTRES (year + typology) ─── */
+    #filter-panel,
+    #year-panel {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-bottom: 1px solid #d0d0d0;
+      padding: 18px var(--margin-general) 22px;
+      z-index: 9998;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    }
+
+    .filter-panel-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .filter-panel-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .filter-close {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0 20px;
-      /* Ajoute un peu d'espace sur les côtés du texte */
-      font-size: 11px;
-      border-left: 1px solid #e0e0e0;
-      color: #303030 !important;
-      font-weight: 1200 !important;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      color: #bbb;
+      transition: color 0.2s;
+      flex-shrink: 0;
     }
+
+    .filter-close svg {
+      width: 14px;
+      height: 14px;
+      display: block;
+    }
+
+    .filter-close:hover { color: #303030; }
+
+    .filter-panel-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #aaa;
+    }
+
+    .filter-clear {
+      font-size: 10px;
+      color: #aaa;
+      cursor: pointer;
+      font-family: "IBM Plex Mono", monospace;
+      font-style: italic;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .filter-clear:hover { color: #303030; }
+
+    .filter-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 36px;
+    }
+
+    .filter-option {
+      cursor: pointer;
+      user-select: none;
+      font-family: "IBM Plex Mono", monospace;
+      font-style: italic;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: #c8c8c8;
+      transition: color 0.2s;
+    }
+
+    .filter-option.checked {
+      color: #303030;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .filter-option:hover { color: #505050; }
+
+    .filter-clear-inline {
+      font-family: "IBM Plex Mono", monospace;
+      font-style: italic;
+      font-size: 10px;
+      color: #aaa;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+    .filter-clear-inline:hover { color: #303030; }
+
+    .year-sort-toggle {
+      font-family: "IBM Plex Mono", monospace;
+      font-style: italic;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0;
+      color: #aaa;
+      white-space: nowrap;
+    }
+    .year-sort-toggle:hover { color: #303030; }
 
     /* ─── GALERIE ─── */
     #gallery {
@@ -212,9 +362,9 @@
       justify-content: start;
       align-items: flex-start;
       width: 100%;
-      /* espace pour la barre de filtres en bas */
       padding-bottom: 40px !important;
       margin-bottom: 200px;
+      min-height: calc(100vh - 128px);
     }
 
     .gallery-item {
@@ -266,13 +416,7 @@
     }
 
     @media (max-width: 1200px) {
-      .gallery-item {
-        width: 33.33%;
-      }
-
-      .gallery-item {
-        width: 33.33%;
-      }
+      .gallery-item { width: 33.33%; }
 
       #gallery .gallery-item img {
         filter: grayscale(0%) !important;
@@ -290,13 +434,9 @@
       footer p {
         font-size: 9px;
         position: relative;
-        /* Utiliser relative pour que le texte suive le flux normal du document */
         margin-top: 20px;
-        /* Espacement au-dessus du copyright */
         padding: 10px 0;
-        /* Espacement autour du texte, si nécessaire */
         box-sizing: border-box;
-        /* Inclut le padding dans la largeur totale */
       }
 
       .nav-arrow-container {
@@ -313,12 +453,6 @@
         object-fit: cover;
       }
 
-      #filters {
-        display: none !important;
-      }
-
-
-
       #gallery .gallery-item img {
         filter: grayscale(0%);
         -webkit-filter: grayscale(0%);
@@ -331,7 +465,257 @@
         cursor: default;
       }
 
+    }
 
+    /* ─── HEADER MOBILE ─── */
+    @media (max-width: 768px) {
+      #main-header {
+        top: 90px;
+        height: auto;
+        min-height: 50px;
+        padding: 0 16px;
+      }
+
+      /* Toggle revient dans le flux, poussé à gauche */
+      #view-toggle {
+        position: static;
+        transform: none;
+        margin-right: auto;
+        order: 0;
+      }
+
+      /* YEAR : juste le bouton filtre, sans largeur fixe */
+      .hdr-col.hdr-year {
+        flex: none;
+        order: 1;
+      }
+
+      /* NAME : inutile sur mobile (vue carte) */
+      .hdr-col.hdr-name { display: none; }
+
+      /* TYPOLOGY : bouton filtre à droite */
+      .hdr-col.hdr-typology {
+        flex: none;
+        order: 2;
+        margin-left: 16px;
+      }
+
+      /* Grandes zones tactiles (min 44px recommandé Apple/Google) */
+      .hdr-filter-btn {
+        min-height: 50px;
+        font-size: 13px;
+        gap: 5px;
+      }
+
+      .hdr-label {
+        font-size: 13px;
+      }
+
+      .toggle-item {
+        min-height: 50px;
+        font-size: 12px;
+      }
+
+      /* Panneaux : padding plus confortable, options tactiles */
+      #filter-panel,
+      #year-panel {
+        padding: 16px 16px 20px;
+      }
+
+      .filter-options {
+        gap: 10px;
+      }
+
+      .filter-option {
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        font-size: 13px;
+      }
+
+      .filter-close svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .filter-close {
+        padding: 10px;
+        margin: -10px;
+      }
+    }
+
+
+    /* ─── LIST VIEW ─── */
+    #list-view {
+      width: 100%;
+      padding: 0 var(--margin-general);
+      box-sizing: border-box;
+      margin-bottom: 60px;
+      min-height: calc(100vh - 128px);
+    }
+
+    .list-row {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 9px 0;
+      text-decoration: none;
+      color: #b0b0b0;
+      border-bottom: 1px solid #ebebeb;
+      transition: color 0.2s, background-color 0.15s;
+    }
+
+    @media (hover: hover) {
+      .list-row:hover {
+        font-family: "IBM Plex Mono", monospace;
+        font-style: italic;
+        font-weight: 500;
+        background-color: rgba(0, 0, 120, 0.04);
+        color: #303030;
+      }
+
+      .list-row:hover .tag {
+        border-color: #a0a0a0;
+        color: #444;
+      }
+    }
+
+    .list-col { flex: 1; font-size: 12px; }
+
+    .list-col.col-year {
+      flex: 0 0 80px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .list-col.col-name { flex: 2; }
+
+    .list-col.col-typology {
+      flex: 3;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 9px;
+      padding: 2px 7px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      color: #999;
+      font-family: "IBM Plex Mono", monospace;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    /* Desktop: thumbnail caché, wrappers transparents dans le flex */
+    .list-row-thumb { display: none; }
+    .list-row-content { display: contents; }
+    .list-row-top { display: contents; }
+
+    #list-hover-image {
+      position: fixed;
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate(24px, -50%);
+      width: 400px;
+      height: 400px;
+    }
+
+    #list-hover-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @media (max-width: 1200px) {
+      #list-hover-image { display: none; }
+    }
+
+    /* ─── LIST VIEW MOBILE ─── */
+    @media (max-width: 768px) {
+      .list-header { display: none; }
+
+      #list-view {
+        padding: 0 16px;
+        margin-bottom: 80px;
+      }
+
+      .list-row {
+        align-items: flex-start;
+        gap: 13px;
+        padding: 13px 0;
+        color: #505050;
+      }
+
+      .list-row-thumb {
+        display: block;
+        flex: 0 0 42vw;
+        height: 42vw;
+        overflow: hidden;
+      }
+
+      .list-row-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .list-row-content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        gap: 6px;
+        min-width: 0;
+      }
+
+      .list-row-top {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .list-col.col-name {
+        flex: none;
+        order: 1;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: #1a1a1a;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .list-col.col-year {
+        flex: none;
+        order: 2;
+        font-size: 10px;
+        color: #b0b0b0;
+        font-family: "IBM Plex Mono", monospace;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .list-col.col-typology {
+        flex: none;
+        gap: 3px;
+      }
+
+      .tag {
+        font-size: 8px;
+        padding: 2px 6px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .list-row-thumb {
+        flex: 0 0 38vw;
+        height: 38vw;
+      }
+
+      .list-col.col-name { font-size: 12px; }
     }
   </style>
 </head>
@@ -341,314 +725,602 @@
     <div id="menu-placeholder"></div>
   </header>
 
-  <main>
-    <div class="carousel-container" data-aos="fade">
-      <div class="image-container" id="carousel-images">
-        <!-- Les images seront insérées ici par JavaScript -->
-        <img id="imageid" src="" alt="Gallery Image" onclick="nextImage()" />
-      </div>
-    </div>
+  <!-- ─── APPLICATION VUE ─── -->
+  <div id="app">
+    <main>
 
-    <div class="nav-arrow-container">
-      <div class="nav-arrow-wrapper left" onclick="previousImage()">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-          class="size-6 arrow-svg" alt="Flèche gauche">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 8.25 3 12m0 0 3.75 3.75M3 12H12" />
+      <!-- CAROUSEL -->
+      <div class="carousel-container">
+        <div class="image-container">
+          <img :src="currentImage" alt="Gallery Image" @click="nextImage" />
+        </div>
+      </div>
+
+      <div class="nav-arrow-container">
+        <div class="nav-arrow-wrapper left" @click="previousImage">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            class="arrow-svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 8.25 3 12m0 0 3.75 3.75M3 12H12" />
+          </svg>
+          <span class="arrow-text">previous</span>
+        </div>
+        <div class="nav-arrow-wrapper right" @click="nextImage">
+          <span class="arrow-text">next</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            class="arrow-svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H12" />
+          </svg>
+        </div>
+      </div>
+
+      <footer>
+        <p>&copy; 2024 hugocharletdesign</p>
+      </footer>
+
+      <!-- CURSEUR CUSTOM -->
+      <div id="custom-cursor" ref="cursor">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#EC623D">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
         </svg>
-        <span class="arrow-text">previous</span>
       </div>
-      <div class="nav-arrow-wrapper right" onclick="nextImage()">
-        <span class="arrow-text">next</span>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-          class="size-6 arrow-svg" alt="Flèche droite">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H12" />
-        </svg>
+
+      <!-- HEADER PRINCIPAL (toggle vue + colonnes triables + filtres typology) -->
+      <div id="main-header" :class="{ visible: filtersVisible }">
+
+        <!-- YEAR : label + bouton filtre séparé -->
+        <div class="hdr-col hdr-year">
+          <span class="hdr-label">YEAR</span>
+          <span class="hdr-filter-btn"
+            :class="{ active: activeYears.length > 0, open: yearPanelOpen }"
+            @click.stop="toggleYearPanel"
+          >
+            <span class="hdr-arrow">↓</span>
+            <span v-if="activeYears.length > 0" class="filter-count">{{ activeYears.length }}</span>
+          </span>
+        </div>
+
+        <div id="year-panel" v-show="yearPanelOpen" ref="yearPanelEl" @click.stop>
+          <div class="filter-panel-row">
+            <span class="filter-panel-label">FILTER BY YEAR</span>
+            <div class="filter-panel-actions">
+              <button class="filter-close" @click="yearPanelOpen = false">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="filter-options">
+            <div class="filter-option year-sort-toggle" @click="toggleYearSortDir">
+              {{ yearSortDir === 'desc' ? 'oldest first' : 'newest first' }} {{ yearSortDir === 'desc' ? '↑' : '↓' }}
+            </div>
+            <div
+              v-for="year in availableYears"
+              :key="year"
+              class="filter-option"
+              :class="{ checked: activeYears.includes(year) }"
+              @click="toggleYear(year)"
+            >
+              {{ year }}
+            </div>
+            <div v-if="activeYears.length > 0" class="filter-option filter-clear-inline" @click="clearYears">clear all</div>
+          </div>
+        </div>
+
+        <!-- NAME : label seul, visible uniquement en liste -->
+        <div class="hdr-col hdr-name" v-show="viewMode === 'list'">
+          <span class="hdr-label">NAME</span>
+        </div>
+
+        <!-- TYPOLOGY : label + bouton filtre séparé -->
+        <div class="hdr-col hdr-typology">
+          <span class="hdr-label">TYPOLOGY</span>
+          <span class="hdr-filter-btn"
+            :class="{ active: activeFilters.length > 0, open: filterPanelOpen }"
+            @click.stop="toggleFilterPanel"
+          >
+            <span class="hdr-arrow">↓</span>
+            <span v-if="activeFilters.length > 0" class="filter-count">{{ activeFilters.length }}</span>
+          </span>
+        </div>
+
+        <div id="filter-panel" v-show="filterPanelOpen" ref="filterPanelEl" @click.stop>
+          <div class="filter-panel-row">
+            <span class="filter-panel-label">FILTER BY TYPOLOGY</span>
+            <div class="filter-panel-actions">
+              <button class="filter-close" @click="filterPanelOpen = false">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="filter-options">
+            <div
+              v-for="opt in filterOptions"
+              :key="opt.id"
+              class="filter-option"
+              :class="{ checked: activeFilters.includes(opt.id) }"
+              @click="toggleFilter(opt.id)"
+            >
+              {{ opt.label }}
+            </div>
+            <div v-if="activeFilters.length > 0" class="filter-option filter-clear-inline" @click="clearFilters">clear all</div>
+          </div>
+        </div>
+
+        <!-- Toggle galerie / liste — droite -->
+        <div id="view-toggle">
+          <span class="toggle-item" :class="{ active: viewMode === 'gallery' }" @click="viewMode = 'gallery'">
+            GALLERY
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7" rx="0.5"/>
+              <rect x="14" y="3" width="7" height="7" rx="0.5"/>
+              <rect x="3" y="14" width="7" height="7" rx="0.5"/>
+              <rect x="14" y="14" width="7" height="7" rx="0.5"/>
+            </svg>
+          </span>
+          <span class="toggle-item" :class="{ active: viewMode === 'list' }" @click="viewMode = 'list'">
+            LIST
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2">
+              <line x1="3" y1="6" x2="21" y2="6" stroke-linecap="round"/>
+              <line x1="3" y1="12" x2="21" y2="12" stroke-linecap="round"/>
+              <line x1="3" y1="18" x2="21" y2="18" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </div>
+
       </div>
-    </div>
 
-    <footer>
-      <p>&copy; 2024 hugocharletdesign</p>
-    </footer>
+      <!-- CONTENT AREA (sentinel for IntersectionObserver) -->
+      <div ref="contentArea" :style="{ marginTop: panelOffset + 'px', transition: 'margin-top 0.2s ease' }">
 
-    <div id="custom-cursor">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#EC623D">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-      </svg>
-    </div>
+        <!-- LIST VIEW -->
+        <div id="list-view" v-show="viewMode === 'list'">
+          <a
+            v-for="(item, index) in sortedGridData"
+            :key="'list-' + item.src + index"
+            v-show="isVisible(item)"
+            :href="item.name"
+            class="list-row"
+            @mouseenter="onListRowEnter(item, $event)"
+            @mousemove="onListRowMove($event)"
+            @mouseleave="onListRowLeave"
+          >
+            <!-- vignette : cachée sur desktop, visible sur mobile -->
+            <div class="list-row-thumb">
+              <img :src="'img/' + item.src" :alt="item.name" loading="lazy" />
+            </div>
+            <!-- wrapper transparent sur desktop (display:contents), colonne sur mobile -->
+            <div class="list-row-content">
+              <div class="list-row-top">
+                <div class="list-col col-year">{{ item.date.split('-')[0] }}</div>
+                <div class="list-col col-name">{{ item.name.toUpperCase() }}</div>
+              </div>
+              <div class="list-col col-typology">
+                <span v-for="tag in item.data" :key="tag" class="tag">{{ tag }}</span>
+              </div>
+            </div>
+          </a>
+        </div>
 
-    <div id="filters">
-      <div id="filter-group">
-        <div id="all">All</div>
-        <div id="indoor">Indoor</div>
-        <div id="outdoor">Outdoor</div>
-        <div id="armchair">Armchair</div>
-        <div id="chair">Chair</div>
-        <div id="table">Table</div>
-        <div id="desk">Desk</div>
-        <div id="lighting">Lightings</div>
-        <div id="object">Objects</div>
+        <!-- GALLERY VIEW -->
+        <div id="gallery" v-show="viewMode === 'gallery'" ref="gallery">
+          <section
+            v-for="(item, index) in sortedGridData"
+            :key="item.src + index"
+            class="gallery-item"
+            :class="{ inactive: !isVisible(item) }"
+            :ref="el => { if (el) galleryItemRefs[index] = el }"
+          >
+            <a :href="item.name">
+              <img
+                :src="'img/' + item.src"
+                :alt="item.name"
+                loading="lazy"
+                data-pin-nopin="true"
+                :ref="el => { if (el) imgRefs[index] = el }"
+              />
+            </a>
+          </section>
+        </div>
+
       </div>
-      <div id="sort-date">Date ↓</div>
-    </div>
 
-    <div id="gallery"></div>
+      <!-- HOVER IMAGE (list view) -->
+      <div v-if="hoverImage && viewMode === 'list'" id="list-hover-image" :style="{ left: hoverPos.x + 'px', top: hoverPos.y + 'px' }">
+        <img :src="hoverImage" />
+      </div>
 
-  </main>
-
-
+    </main>
+  </div>
 
   <script>
+    const { createApp, ref, computed, onMounted, onUnmounted, nextTick, watch } = Vue;
 
-    function shuffleArray(array) {
-      const shuffled = [...array]; // Copie du tableau
-      for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-      }
-      return shuffled;
-    }
+    createApp({
+      setup() {
+        /* ─── CAROUSEL ─── */
+        const rawImages = [
+          "imgCarrousel/image13.jpg",
+          "imgCarrousel/clochette1.jpg",
+          "imgCarrousel/orion.jpg",
+          "imgCarrousel/orionchair.jpg",
+          "imgCarrousel/ai-leornardo.jpg",
+          "imgCarrousel/annoté enf.jpg",
+          "imgCarrousel/ANN_8024cretouchép.jpg",
+          "imgCarrousel/anton 12.jpg",
+          "imgCarrousel/HELENA_shooting_08-2025_7.jpg",
+          "imgCarrousel/HELENA_shooting_08-2025_14.jpg",
+          "imgCarrousel/anton-6.jpg",
+          "imgCarrousel/Anton 8.jpg",
+          "imgCarrousel/BLURRED1.jpg",
+          "imgCarrousel/CADRree.jpg",
+          "imgCarrousel/IMG_0687.jpg",
+          "imgCarrousel/DE9C1026 (2).jpg",
+          "imgCarrousel/fc4fc0fb-418d-4a47-a259-62e7e357bd11.jpg",
+          "imgCarrousel/format carte postale3.jpg",
+          "imgCarrousel/hugo portrait.jpg",
+          "imgCarrousel/icone.jpg",
+          "imgCarrousel/pixa-4.jpg",
+          "imgCarrousel/image10.jpg",
+          "imgCarrousel/image11.jpg",
+          "imgCarrousel/image12.jpg",
+          "imgCarrousel/image13.jpg",
+          "imgCarrousel/image15.jpg",
+          "imgCarrousel/image3.jpg",
+          "imgCarrousel/image4.jpg",
+          "imgCarrousel/image5.jpg",
+          "imgCarrousel/image6.jpg",
+          "imgCarrousel/image7.JPG",
+          "imgCarrousel/image8.JPG",
+          "imgCarrousel/IMG-0392.jpg",
+          "imgCarrousel/IMG_1985.jpg",
+          "imgCarrousel/IMG_20240714_0002.jpg",
+          "imgCarrousel/IMG_5675.jpg",
+          "imgCarrousel/IMG_8821.jpg",
+          "imgCarrousel/IMG_9433.jpg",
+          "imgCarrousel/IMG_9486.jpg",
+          "imgCarrousel/IMG_9621.jpg",
+          "imgCarrousel/IMG_9627.jpg",
+          "imgCarrousel/IMG_9665compressed.jpg",
+          "imgCarrousel/IMG_9918.jpg",
+          "imgCarrousel/mistral 2.jpg",
+          "imgCarrousel/new BH 13.jpg",
+          "imgCarrousel/perspective 1.jpg",
+          "imgCarrousel/presentation fermob.png",
+          "imgCarrousel/Table.jpg",
+          "imgCarrousel/TAURUS1 (1).jpg",
+          "imgCarrousel/tomeo empilée hd.jpg",
+          "imgCarrousel/téo1.jpg",
+          "imgCarrousel/téo2.jpg",
+          "imgCarrousel/untitled14-1.jpg",
+          "imgCarrousel/untitled22.jpg",
+          "imgCarrousel/wegner15 19.jpg",
+          "imgCarrousel/wegner15 21.jpg",
+        ];
 
-    let imagesCarrousel = [
-      "imgCarrousel/image13.jpg",
-      "imgCarrousel/clochette1.jpg",
-      "imgCarrousel/orion.jpg",
-      "imgCarrousel/orionchair.jpg",
-      "imgCarrousel/ai-leornardo.jpg",
-      "imgCarrousel/annot\u00e9 enf.jpg",
-      "imgCarrousel/ANN_8024cretouch\u00e9p.jpg",
-      "imgCarrousel/anton 12.jpg",
-      "imgCarrousel/HELENA_shooting_08-2025_7.jpg",
-      "imgCarrousel/HELENA_shooting_08-2025_14.jpg",
-      "imgCarrousel/anton-6.jpg",
-      "imgCarrousel/Anton 8.jpg",
-      "imgCarrousel/BLURRED1.jpg",
-      "imgCarrousel/CADRree.jpg",
-      "imgCarrousel/IMG_0687.jpg",
-      "imgCarrousel/DE9C1026 (2).jpg",
-      "imgCarrousel/fc4fc0fb-418d-4a47-a259-62e7e357bd11.jpg",
-      "imgCarrousel/format carte postale3.jpg",
-      "imgCarrousel/hugo portrait.jpg",
-      "imgCarrousel/icone.jpg",
-      "imgCarrousel/pixa-4.jpg",
-      "imgCarrousel/image10.jpg",
-      "imgCarrousel/image11.jpg",
-      "imgCarrousel/image12.jpg",
-      "imgCarrousel/image13.jpg",
-      "imgCarrousel/image15.jpg",
-      "imgCarrousel/image3.jpg",
-      "imgCarrousel/image4.jpg",
-      "imgCarrousel/image5.jpg",
-      "imgCarrousel/image6.jpg",
-      "imgCarrousel/image7.JPG",
-      "imgCarrousel/image8.JPG",
-      "imgCarrousel/IMG-0392.jpg",
-      "imgCarrousel/IMG_1985.jpg",
-      "imgCarrousel/IMG_20240714_0002.jpg",
-      "imgCarrousel/IMG_5675.jpg",
-      "imgCarrousel/IMG_8821.jpg",
-      "imgCarrousel/IMG_9433.jpg",
-      "imgCarrousel/IMG_9486.jpg",
-      "imgCarrousel/IMG_9621.jpg",
-      "imgCarrousel/IMG_9627.jpg",
-      "imgCarrousel/IMG_9665compressed.jpg",
-      "imgCarrousel/IMG_9918.jpg",
-      "imgCarrousel/mistral 2.jpg",
-      "imgCarrousel/new BH 13.jpg",
-      "imgCarrousel/perspective 1.jpg",
-      "imgCarrousel/presentation fermob.png",
-      "imgCarrousel/Table.jpg",
-      "imgCarrousel/TAURUS1 (1).jpg",
-      "imgCarrousel/tomeo emplil\u00e9e hd.jpg",
-      "imgCarrousel/t\u00e9o1.jpg",
-      "imgCarrousel/t\u00e9o2.jpg",
-      "imgCarrousel/untitled14-1.jpg",
-      "imgCarrousel/untitled22.jpg",
-      "imgCarrousel/wegner15 19.jpg",
-      "imgCarrousel/wegner15 21.jpg",
-    ];
-    let currentIndex = 0;
-
-    // 🎲 LIGNE IMPORTANTE À AJOUTER
-    imagesCarrousel = shuffleArray(imagesCarrousel);
-
-    function showImage(index) {
-      const image = document.getElementById("imageid");
-      image.src = imagesCarrousel[index];
-    }
-
-    function previousImage() {
-      currentIndex =
-        currentIndex > 0 ? currentIndex - 1 : imagesCarrousel.length - 1;
-      showImage(currentIndex);
-    }
-
-    function nextImage() {
-      currentIndex =
-        currentIndex < imagesCarrousel.length - 1 ? currentIndex + 1 : 0;
-      showImage(currentIndex);
-    }
-
-    // Appeler fetchImages pour initialiser le carrousel
-
-    document.addEventListener("DOMContentLoaded", () => {
-      showImage(currentIndex);
-    });
-    document.addEventListener("DOMContentLoaded", () => {
-      /* ─── DONNÉES ─── */
-      const gridData = [
-        { src: "ANTON.jpg", name: "anton", data: ["armchair"], date: "2024-01-10" },
-        { src: "BELVEDERE.jpg", name: "belvedere", data: ["chair", "outdoor"], date: "2024-04-12" },
-        { src: "BUREAUK.jpg", name: "bureauk", data: ["desk"], date: "2016-04-01" },
-        { src: "DIETER17.jpg", name: "dieter", data: ["armchair", "fabric", "indoor"], date: "2024-04-12" },
-        { src: "ENZO.jpg", name: "enzo", data: ["desk"], date: "2021-04-09" },
-        { src: "HELENA.jpg", name: "helena", data: ["chair", "indoor", "fabric"], date: "2025-04-12" },
-        { src: "MALORIE.jpg", name: "malorie", data: ["chair", "indoor", "fabric"], date: "2025-04-10" },
-        { src: "HELENA1.jpg", name: "helena", data: ["armchair", "indoor", "fabric"], date: "2025-04-12" },
-        { src: "ORION.jpg", name: "orion", data: ["chair", "indoor", "fabric"], date: "2026-05-04" },
-        { src: "ORION1.jpg", name: "orion", data: ["armchair", "indoor", "fabric"], date: "2026-05-04" },
-        { src: "UNI.jpg", name: "uni", data: ["armchair", "indoor", "fabric"], date: "2026-05-01" },
-        { src: "NOCTA.jpg", name: "nocta", data: ["chair", "indoor", "fabric"], date: "2026-04-04" },
-        { src: "PIXA2.jpg", name: "pixa", data: ["chair", "indoor"], date: "2021-04-12" },
-        { src: "TEO2.jpg", name: "teo", data: ["chair", "armchair", "outdoor", "indoor"], date: "2016-04-04" },
-        { src: "LOOP.jpg", name: "loop", data: ["chair", "armchair", "outdoor"], date: "2022-04-12" },
-        { src: "LOUISE5.jpg", name: "louise", data: ["chair", "outdoor"], date: "2023-04-12" },
-        { src: "SPYDER.jpg", name: "spyder", data: ["chair", "outdoor"], date: "2026-02-02" },
-        { src: "MELODIE1.jpg", name: "melodie", data: ["chair", "outdoor"], date: "2023-04-12" },
-        { src: "MISTRAL1.jpg", name: "mistral", data: ["lighting"], date: "2022-04-12" },
-        { src: "DENTELLE.jpg", name: "comingsoon", data: ["lighting"], date: "2025-01-22" },
-        { src: "demilune.jpg", name: "comingsoon", data: ["lighting"], date: "2025-01-19" },
-        { src: "clochette.jpg", name: "comingsoon", data: ["lighting"], date: "2025-01-20" },
-        { src: "KAKTUS.jpg", name: "kaktus", data: ["object"], date: "2017-04-12" },
-        { src: "TABLE.jpg", name: "table", data: ["table", "indoor"], date: "2024-04-12" },
-        { src: "TOMEO.jpg", name: "tomeo", data: ["chair", "outdoor"], date: "2019-04-12" },
-        { src: "REMO5.jpg", name: "remo", data: ["chair", "outdoor"], date: "2024-04-04" },
-        { src: "TAURUS1.jpg", name: "taurus", data: ["chair", "outdoor"], date: "2023-10-10" },
-        { src: "TROPICAL.jpg", name: "tropical", data: ["armchair", "indoor",], date: "2023-04-10" }
-      ];
-
-
-      const container = document.getElementById("gallery");
-      const filterBtns = document.querySelectorAll("#filter-group div");
-      const sortBtn = document.getElementById("sort-date");
-      const cursor = document.getElementById("custom-cursor");
-      const filtersBar = document.getElementById("filters");
-
-      let activeFilter = "all";
-      let currentOrder = "desc";
-      let cachedItems = [];
-
-      /* ─── RENDU ─── */
-      function renderGrid(items) {
-        if (!container) return;
-        container.innerHTML = "";
-        items.forEach(item => {
-          // On nettoie les data pour éviter les erreurs de virgules vides
-          const cleanData = item.data.filter(d => d);
-          const dataAttributes = cleanData.map(attr => `data-${attr}=""`).join(" ");
-
-          container.insertAdjacentHTML("beforeend", `
-        <section class="gallery-item" ${dataAttributes}>
-            <a href="${item.name}">
-                <img src="img/${item.src}" alt="${item.name}" loading="lazy">
-            </a>
-        </section>
-      `);
-        });
-        cachedItems = Array.from(document.querySelectorAll(".gallery-item"));
-      }
-
-      function applyFilter(tag) {
-        activeFilter = tag;
-        filterBtns.forEach(btn => btn.classList.toggle("active", btn.id === tag));
-        cachedItems.forEach(item => {
-          const visible = tag === "all" || item.dataset[tag] !== undefined;
-          item.classList.toggle("inactive", !visible);
-        });
-      }
-
-      /* ─── INITIALISATION ─── */
-      gridData.sort((a, b) => new Date(a.date) - new Date(b.date));
-      renderGrid(gridData);
-      applyFilter("all");
-
-      /* ─── OBSERVER (POUR L'APPARITION) ─── */
-      const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0
-      };
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            filtersBar.classList.add('visible');
-          } else {
-            filtersBar.classList.remove('visible');
+        // Shuffle
+        const shuffleArray = (arr) => {
+          const a = [...arr];
+          for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
           }
-        });
-      }, observerOptions);
+          return a;
+        };
 
-      if (container) observer.observe(container);
+        const images = shuffleArray(rawImages);
+        const currentIndex = ref(0);
+        const currentImage = computed(() => images[currentIndex.value]);
 
-      /* ─── LISTENERS ─── */
-      filterBtns.forEach(btn => {
-        btn.addEventListener("click", () => applyFilter(btn.id));
-      });
+        const previousImage = () => {
+          currentIndex.value = currentIndex.value > 0 ? currentIndex.value - 1 : images.length - 1;
+        };
+        const nextImage = () => {
+          currentIndex.value = currentIndex.value < images.length - 1 ? currentIndex.value + 1 : 0;
+        };
 
-      sortBtn.addEventListener("click", function () {
-        gridData.sort((a, b) => {
-          const dateA = new Date(a.date);
-          const dateB = new Date(b.date);
-          return currentOrder === "asc" ? dateA - dateB : dateB - dateA;
-        });
-        currentOrder = (currentOrder === "asc") ? "desc" : "asc";
-        this.innerText = currentOrder === "asc" ? "Date ↑" : "Date ↓";
-        renderGrid(gridData);
-        applyFilter(activeFilter);
-      });
+        /* ─── GALERIE ─── */
+        const rawGridData = [
+          { src: "ANTON.jpg",     name: "anton",     data: ["armchair"],                        date: "2024-01-10" },
+          { src: "BELVEDERE.jpg", name: "belvedere", data: ["chair", "outdoor"],                date: "2024-04-12" },
+          { src: "BUREAUK.jpg",   name: "bureauk",   data: ["desk"],                            date: "2016-04-01" },
+          { src: "DIETER17.jpg",  name: "dieter",    data: ["armchair", "fabric", "indoor"],    date: "2024-04-12" },
+          { src: "ENZO.jpg",      name: "enzo",      data: ["desk"],                            date: "2021-04-09" },
+          { src: "HELENA.jpg",    name: "helena",    data: ["chair", "indoor", "fabric"],       date: "2025-04-12" },
+          { src: "MALORIE.jpg",   name: "malorie",   data: ["chair", "indoor", "fabric"],       date: "2025-04-10" },
+          { src: "HELENA1.jpg",   name: "helena",    data: ["armchair", "indoor", "fabric"],    date: "2025-04-12" },
+          { src: "ORION.jpg",     name: "orion",     data: ["chair", "indoor", "fabric"],       date: "2026-05-04" },
+          { src: "ORION1.jpg",    name: "orion",     data: ["armchair", "indoor", "fabric"],    date: "2026-05-04" },
+          { src: "UNI.jpg",       name: "uni",       data: ["armchair", "indoor", "fabric"],    date: "2026-05-01" },
+          { src: "NOCTA.jpg",     name: "nocta",     data: ["chair", "indoor", "fabric"],       date: "2026-04-04" },
+          { src: "PIXA2.jpg",     name: "pixa",      data: ["chair", "indoor"],                 date: "2021-04-12" },
+          { src: "TEO2.jpg",      name: "teo",       data: ["chair", "armchair", "outdoor", "indoor"], date: "2016-04-04" },
+          { src: "LOOP.jpg",      name: "loop",      data: ["chair", "armchair", "outdoor"],    date: "2022-04-12" },
+          { src: "LOUISE5.jpg",   name: "louise",    data: ["chair", "outdoor"],                date: "2023-04-12" },
+          { src: "SPYDER.jpg",    name: "spyder",    data: ["chair", "outdoor"],                date: "2026-02-02" },
+          { src: "MELODIE1.jpg",  name: "melodie",   data: ["chair", "outdoor"],                date: "2023-04-12" },
+          { src: "MISTRAL1.jpg",  name: "mistral",   data: ["lighting"],                        date: "2022-04-12" },
+          { src: "DENTELLE.jpg",  name: "dentelle",   data: ["lighting"],                        date: "2025-01-22" },
+          { src: "demilune.jpg",  name: "demilune",   data: ["lighting"],                        date: "2025-01-19" },
+          { src: "clochette.jpg", name: "clochette" , data: ["lighting"],                        date: "2025-01-20" },
+          { src: "KAKTUS.jpg",    name: "kaktus",    data: ["object"],                          date: "2017-04-12" },
+          { src: "TABLE.jpg",     name: "table",     data: ["table", "indoor"],                 date: "2024-04-12" },
+          { src: "TOMEO.jpg",     name: "tomeo",     data: ["chair", "outdoor"],                date: "2019-04-12" },
+          { src: "REMO5.jpg",     name: "remo",      data: ["chair", "outdoor"],                date: "2024-04-04" },
+          { src: "TAURUS1.jpg",   name: "taurus",    data: ["chair", "outdoor"],                date: "2023-10-10" },
+          { src: "TROPICAL.jpg",  name: "tropical",  data: ["armchair", "indoor"],              date: "2023-04-10" },
+        ];
 
-      // Gestion du curseur et de l'effet Focus
-      // Gestion du curseur et de l'effet Focus
-      window.addEventListener("mousemove", (e) => {
-        if (!cursor) return;
+        const yearSortDir = ref("desc");
+        const allYears = [...new Set(rawGridData.map(d => d.date.split("-")[0]))];
+        const availableYears = computed(() =>
+          [...allYears].sort((a, b) => yearSortDir.value === "desc" ? b - a : a - b)
+        );
+        const toggleYearSortDir = () => {
+          yearSortDir.value = yearSortDir.value === "desc" ? "asc" : "desc";
+        };
 
-        // 1. Désactivation complète de la logique sur mobile
-        if (window.innerWidth <= 1200) {
-          cursor.style.opacity = "0";
-          return; // On arrête l'exécution ici pour les petits écrans
-        }
+        const sortKey = ref("date");
+        const sortOrder = ref("desc");
 
-        cursor.style.left = e.clientX + "px";
-        cursor.style.top = e.clientY + "px";
+        const sortedGridData = computed(() =>
+          [...rawGridData].sort((a, b) => {
+            const da = new Date(a.date), db = new Date(b.date);
+            return yearSortDir.value === "asc" ? da - db : db - da;
+          })
+        );
 
-        if (container.matches(':hover')) {
-          cursor.style.opacity = "1";
-          const radius = window.innerWidth * 0.44;
-          cachedItems.forEach(item => {
-            if (item.classList.contains("inactive")) return;
-            const rect = item.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            const distance = Math.sqrt(Math.pow(e.clientX - centerX, 2) + Math.pow(e.clientY - centerY, 2));
-            const img = item.querySelector("img");
+        const sortArrow = (key) => {
+          if (sortKey.value !== key) return "↕";
+          return sortOrder.value === "desc" ? "↓" : "↑";
+        };
 
-            if (distance < radius) {
-              const strength = 1 - (distance / radius);
-              img.style.opacity = 0.15 + (0.85 * strength);
-              img.style.filter = `grayscale(${(1 - strength) * 100}%)`;
-              img.style.transition = "none";
+        const setSortKey = (key, forceOrder = null) => {
+          if (forceOrder) {
+            sortKey.value = key;
+            sortOrder.value = forceOrder;
+          } else if (sortKey.value === key) {
+            sortOrder.value = sortOrder.value === "asc" ? "desc" : "asc";
+          } else {
+            sortKey.value = key;
+            sortOrder.value = "desc";
+          }
+          gridData.value = [...gridData.value].sort((a, b) => {
+            if (sortKey.value === "date") {
+              const da = new Date(a.date), db = new Date(b.date);
+              return sortOrder.value === "asc" ? da - db : db - da;
             } else {
-              img.style.opacity = 0.15;
-              img.style.filter = "grayscale(100%)";
-              img.style.transition = "all 0.5s ease-out";
+              return sortOrder.value === "asc"
+                ? a.name.localeCompare(b.name)
+                : b.name.localeCompare(a.name);
             }
           });
-        } else {
-          cursor.style.opacity = "0";
-        }
-      });
-    });
+        };
+
+        /* ─── FILTRES ─── */
+        const filterOptions = [
+          { id: "indoor",   label: "Indoor" },
+          { id: "outdoor",  label: "Outdoor" },
+          { id: "armchair", label: "Armchair" },
+          { id: "chair",    label: "Chair" },
+          { id: "table",    label: "Table" },
+          { id: "desk",     label: "Desk" },
+          { id: "lighting", label: "Lightings" },
+          { id: "object",   label: "Objects" },
+        ];
+
+        const activeFilters = ref([]);
+        const filterPanelOpen = ref(false);
+        const filterPanelEl = ref(null);
+
+        const activeYears = ref([]);
+        const yearPanelOpen = ref(false);
+        const yearPanelEl = ref(null);
+
+        const panelOffset = ref(0);
+
+        const isVisible = (item) => {
+          const itemYear = item.date.split("-")[0];
+          const yearOk = activeYears.value.length === 0 || activeYears.value.includes(itemYear);
+          const typeOk = activeFilters.value.length === 0 || activeFilters.value.some(tag => item.data.includes(tag));
+          return yearOk && typeOk;
+        };
+
+        const toggleFilter = (tag) => {
+          const idx = activeFilters.value.indexOf(tag);
+          if (idx === -1) {
+            activeFilters.value = [...activeFilters.value, tag];
+          } else {
+            activeFilters.value = activeFilters.value.filter(t => t !== tag);
+          }
+        };
+
+        const clearFilters = () => { activeFilters.value = []; };
+
+        const toggleYear = (year) => {
+          const idx = activeYears.value.indexOf(year);
+          if (idx === -1) {
+            activeYears.value = [...activeYears.value, year];
+          } else {
+            activeYears.value = activeYears.value.filter(y => y !== year);
+          }
+        };
+
+        const clearYears = () => { activeYears.value = []; };
+
+        const toggleFilterPanel = () => {
+          filterPanelOpen.value = !filterPanelOpen.value;
+          if (filterPanelOpen.value) yearPanelOpen.value = false;
+        };
+
+        const toggleYearPanel = () => {
+          yearPanelOpen.value = !yearPanelOpen.value;
+          if (yearPanelOpen.value) filterPanelOpen.value = false;
+        };
+
+        const onDocClick = () => {
+          filterPanelOpen.value = false;
+          yearPanelOpen.value = false;
+        };
+
+        watch([filterPanelOpen, yearPanelOpen], async () => {
+          await nextTick();
+          if (filterPanelOpen.value && filterPanelEl.value) {
+            panelOffset.value = filterPanelEl.value.offsetHeight;
+          } else if (yearPanelOpen.value && yearPanelEl.value) {
+            panelOffset.value = yearPanelEl.value.offsetHeight;
+          } else {
+            panelOffset.value = 0;
+          }
+        });
+
+        /* ─── VIEW MODE ─── */
+        const viewMode = ref(window.innerWidth <= 768 ? "list" : "gallery");
+
+        /* ─── LIST HOVER IMAGE ─── */
+        const hoverImage = ref(null);
+        const hoverPos = ref({ x: 0, y: 0 });
+
+        const onListRowEnter = (item, e) => {
+          hoverImage.value = "img/" + item.src;
+          hoverPos.value = { x: e.clientX, y: e.clientY };
+        };
+        const onListRowMove = (e) => {
+          hoverPos.value = { x: e.clientX, y: e.clientY };
+        };
+        const onListRowLeave = () => {
+          hoverImage.value = null;
+        };
+
+        /* ─── INTERSECTION OBSERVER (barre filtres) ─── */
+        const filtersVisible = ref(false);
+        const contentArea = ref(null);
+        const gallery = ref(null);
+        const cursor = ref(null);
+        let observer = null;
+
+        /* ─── REFS DYNAMIQUES pour le cursor effect ─── */
+        const galleryItemRefs = ref([]);
+        const imgRefs = ref([]);
+
+        /* ─── CUSTOM CURSOR ─── */
+        const onMouseMove = (e) => {
+          const cursorEl = cursor.value;
+          if (!cursorEl) return;
+
+          if (window.innerWidth <= 1200 || viewMode.value !== "gallery") {
+            cursorEl.style.opacity = "0";
+            return;
+          }
+
+          cursorEl.style.left = e.clientX + "px";
+          cursorEl.style.top = e.clientY + "px";
+
+          const galleryEl = gallery.value;
+          if (!galleryEl) return;
+
+          if (galleryEl.matches(':hover')) {
+            cursorEl.style.opacity = "1";
+            const radius = window.innerWidth * 0.44;
+
+            galleryItemRefs.value.forEach((itemEl, i) => {
+              if (!itemEl) return;
+              if (itemEl.classList.contains("inactive")) return;
+              const imgEl = imgRefs.value[i];
+              if (!imgEl) return;
+
+              const rect = itemEl.getBoundingClientRect();
+              const centerX = rect.left + rect.width / 2;
+              const centerY = rect.top + rect.height / 2;
+              const distance = Math.sqrt((e.clientX - centerX) ** 2 + (e.clientY - centerY) ** 2);
+
+              if (distance < radius) {
+                const strength = 1 - distance / radius;
+                imgEl.style.opacity = 0.15 + 0.85 * strength;
+                imgEl.style.filter = `grayscale(${(1 - strength) * 100}%)`;
+                imgEl.style.transition = "none";
+              } else {
+                imgEl.style.opacity = "0.15";
+                imgEl.style.filter = "grayscale(100%)";
+                imgEl.style.transition = "all 0.5s ease-out";
+              }
+            });
+          } else {
+            cursorEl.style.opacity = "0";
+          }
+        };
+
+        onMounted(() => {
+          observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              filtersVisible.value = entry.isIntersecting;
+            });
+          }, { root: null, rootMargin: "0px", threshold: 0 });
+
+          if (contentArea.value) observer.observe(contentArea.value);
+
+          window.addEventListener("mousemove", onMouseMove);
+          document.addEventListener("click", onDocClick);
+        });
+
+        onUnmounted(() => {
+          if (observer && contentArea.value) observer.unobserve(contentArea.value);
+          window.removeEventListener("mousemove", onMouseMove);
+          document.removeEventListener("click", onDocClick);
+        });
+
+        return {
+          // Carousel
+          currentImage,
+          previousImage,
+          nextImage,
+          // Gallery
+          sortedGridData,
+          sortKey,
+          sortOrder,
+          sortArrow,
+          setSortKey,
+          // Filters
+          filterOptions,
+          activeFilters,
+          filterPanelOpen,
+          filterPanelEl,
+          toggleFilter,
+          clearFilters,
+          toggleFilterPanel,
+          availableYears,
+          yearSortDir,
+          toggleYearSortDir,
+          activeYears,
+          yearPanelOpen,
+          yearPanelEl,
+          toggleYear,
+          clearYears,
+          toggleYearPanel,
+          panelOffset,
+          isVisible,
+          // View mode
+          viewMode,
+          // List hover
+          hoverImage,
+          hoverPos,
+          onListRowEnter,
+          onListRowMove,
+          onListRowLeave,
+          // Cursor & refs
+          filtersVisible,
+          contentArea,
+          gallery,
+          cursor,
+          galleryItemRefs,
+          imgRefs,
+        };
+      }
+    }).mount("#app");
   </script>
+
   <script src="navbar.js"></script>
 </body>
 
