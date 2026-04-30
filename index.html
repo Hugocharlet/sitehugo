@@ -135,6 +135,7 @@
       z-index: 2500;
       background: #fff;
       border-bottom: 1px solid #d0d0d0;
+      box-shadow: 0 3px 0 #fff;
       height: 38px;
       padding: 0 var(--margin-general);
       opacity: 0;
@@ -1177,7 +1178,7 @@
         });
 
         /* ─── VIEW MODE ─── */
-        const viewMode = ref(window.innerWidth <= 768 ? "list" : "gallery");
+        const viewMode = ref("list");
 
         /* ─── LIST HOVER IMAGE ─── */
         const hoverImage = ref(null);
