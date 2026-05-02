@@ -1,73 +1,532 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-   <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="icon" type="image/png" href="favicon.png" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta property="og:description" content="Tomeo is an outdoor metal chair made from bent metal pipes. It is a light and stackable chair initially designed for restaurant terraces as an alternative to plastic chairs." />
+    <meta property="og:description" content="Tomeo is an outdoor metal chair made from bent metal pipes. It is a light and stackable chair initially designed for restaurant terraces as an alternative to plastic chairs." />
     <meta property="og:image" content="https://www.hugocharlet.com/pages/tomeo/1.jpg" />
-
-    <title>TOMEO modern outdoor chairs for restaurant teraces</title>
+    <title>TOMEO modern outdoor chairs for restaurant terraces</title>
     <link rel="stylesheet" href="csspages.css">
-	<link rel="stylesheet" href="variables.css">
+    <link rel="stylesheet" href="variables.css">
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        .page-layout {
+            margin-top: 125px;
+            margin-left: var(--margin-general);
+            margin-right: var(--margin-general);
+            display: flex;
+            align-items: flex-start;
+            border-left: 1px solid #e8e8e8;
+        }
+
+        .left-col {
+            width: 52%;
+            flex-shrink: 0;
+            position: sticky;
+            top: 125px;
+            height: calc(100vh - 125px);
+            overflow-y: auto;
+            overflow-x: hidden;
+            scrollbar-width: none;
+            box-sizing: border-box;
+            border-right: 1px solid #e8e8e8;
+        }
+        .left-col::-webkit-scrollbar { display: none; }
+
+        .video-wrapper {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            position: relative;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .video-iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
+        }
+
+
+        .info-block {
+            padding: 30px calc(var(--margin-general) * 3) 30px var(--margin-general);
+        }
+        .info-block h1 { margin: 0 0 4px; }
+        .info-block h2 { margin: 0 0 20px; }
+        .info-block p  { margin: 0 0 10px; }
+
+        /* ── Label process (entre vidéo et info) ── */
+        .video-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: "IBM Plex Mono", monospace;
+            font-style: italic;
+            font-size: 10px;
+            color: #aaa;
+            letter-spacing: 0.08em;
+            padding: 10px var(--margin-general);
+            border-top: 1px solid #e8e8e8;
+            border-bottom: 1px solid #e8e8e8;
+            margin: 0;
+        }
+
+        /* ── Process toggle button ── */
+        .process-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: "IBM Plex Mono", monospace;
+            font-style: italic;
+            font-size: 10px;
+            color: #aaa;
+            letter-spacing: 0.08em;
+            padding: 10px var(--margin-general);
+            border: none;
+            border-top: 1px solid #e8e8e8;
+            border-bottom: 1px solid #e8e8e8;
+            background: none;
+            cursor: pointer;
+            text-align: left;
+            width: 100%;
+            box-sizing: border-box;
+            transition: color 0.2s;
+        }
+        .process-toggle:hover { color: #303030; background: #f5f5f5; }
+        .process-toggle svg {
+            flex-shrink: 0;
+            opacity: 0.5;
+            transition: opacity 0.2s, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .process-toggle:hover svg { opacity: 1; }
+        .process-toggle.open svg  { transform: rotate(90deg); opacity: 0.5; }
+
+        /* ── Expand / collapse (grid-template-rows trick) ── */
+        .expand-wrap {
+            display: grid;
+            grid-template-rows: 1fr;
+            margin-top: -1px;
+            transition: grid-template-rows 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+                        opacity 0.35s ease;
+            opacity: 1;
+        }
+        .expand-wrap.collapsed {
+            grid-template-rows: 0fr;
+            opacity: 0;
+        }
+        .expand-inner {
+            overflow: hidden;
+            min-height: 0;
+        }
+
+        /* ── Process gallery inline ── */
+        .process-inline-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-content: start;
+        }
+        .process-inline-grid img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        .process-inline-grid img:not(:nth-child(3n)) { border-right: 1px solid #e8e8e8; }
+
+        .video-wrap {
+            overflow: hidden;
+            margin-top: -1px;
+        }
+
+        .right-col {
+            flex: 1;
+            overflow: visible;
+            border-right: 1px solid #e8e8e8;
+            isolation: isolate;
+        }
+        .gallery-col-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: "IBM Plex Mono", monospace;
+            font-style: italic;
+            font-size: 10px;
+            color: #aaa;
+            letter-spacing: 0.08em;
+            padding: 10px var(--margin-general);
+            border-top: 1px solid #e8e8e8;
+            border-bottom: 1px solid #e8e8e8;
+            box-sizing: border-box;
+            width: 100%;
+            position: sticky;
+            top: 125px;
+            background: #fff;
+            z-index: 2200;
+            cursor: pointer;
+            border-left: none;
+            border-right: none;
+            transition: color 0.2s;
+        }
+        .gallery-col-header:hover { color: #303030; background: #f5f5f5; }
+        .gallery-col-header svg {
+            flex-shrink: 0;
+            opacity: 0.5;
+            transition: opacity 0.2s, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .gallery-col-header:hover svg { opacity: 1; }
+        .gallery-col-header.open svg  { transform: rotate(90deg); opacity: 0.5; }
+
+        .gallery-img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #e8e8e8;
+            margin-bottom: 20px;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+        .gallery-img.visible {
+            opacity: 1;
+        }
+
+        /* ── Model container : override csspages.css ── */
+        #modelContainer {
+            padding: 0 !important;
+            box-sizing: border-box !important;
+        }
+        #modelContainer model-viewer {
+            width: 100% !important;
+            height: 100% !important;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .page-layout { flex-direction: column; }
+            .left-col    { width: 100%; position: static; height: auto; overflow: visible; }
+            .right-col   { width: 100%; border-left: none; border-top: 1px solid #e8e8e8; }
+        }
+    </style>
 </head>
 <body>
-    
-    <!-- impoter Menu générale -->
+
     <header>
         <div id="menu-placeholder"></div>
         <div id="svgmenupages-placeholder"></div>
     </header>
-    <!-- deux colonnes -->        
-   <img class="imagemain" src="pages/tomeo/main.jpg" alt="main">
-	<div class="colonne-fixed">
-            <h1 class="Title">TOMEO</h1>
-            <h2 class="Subtitle">Metal outdoor chairs 2020</h2>
-            <main class="textebox-container">
-                <p class="texte">Dimensions: 510 x 560 x 820 cm</p>
-                <p class="texte">Tomeo is an outdoor metal chair made from bent metal pipes. It is a light and stackable chair initially designed for restaurant terraces as an alternative to plastic chairs. The aim was to design a chair that would be appealing both in the eyes of the consumer but also in the eyes of the industrialist. Considerable effort was dedicated to keep the chair relatively easy to manufacture. Tomeo’s uniqueness comes from its original structure. Considerable attention was dedicated to the look, which had to be simple but contemporary. Indeed, many pieces of metallic furniture on the market are strongly inspired from older designs from the 20th century. Tomeo is truly different from what already exists because the design itself questions the traditional chair structure.</p>
-			</main>
-            <div class="sousmenu-wrapper">
-				<div class="icon-container">
-					<a href="#" data-model-src="glb/tomeochair.glb" class="icon-link" id="ouvrir-model-viewer">
-						<img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
-						<div class="texte texte-icon"> 3D Model chair</div>
-					</a>
-				</div>
-				<div class="icon-container">
-					<a href="#" data-model-src="glb/tomeoarmchair.glb" class="icon-link" id="ouvrir-model-viewer">
-						<img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
-						<div class="texte texte-icon">3D Model armchair</div>
-					</a>
-				</div>
-				<div class="icon-container">
-					<a href="#" data-model-src="glb/tomeolounge.glb" class="icon-link" id="ouvrir-model-viewer">
-						<img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
-						<div class="texte texte-icon">3D Model loungechair</div>
-					</a>
-				</div>
-			</div>
+
+    <div id="app">
+        <div class="page-layout">
+
+            <!-- ── Colonne gauche ── -->
+            <div class="left-col" ref="leftCol">
+
+                <!-- 1. Vidéo -->
+                <button class="process-toggle" :class="{ open: videoVisible }" @click="videoVisible = !videoVisible">
+                    vidéo
+                    <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 4.5H8M5 1l3.5 3.5L5 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div ref="videoWrapRef" class="video-wrap">
+                    <div class="video-wrapper">
+                        <video class="video-iframe" src="pages/tomeo/main-video.mp4" autoplay muted loop playsinline></video>
+                    </div>
+                </div>
+
+                <!-- 2. Description -->
+                <button class="process-toggle" :class="{ open: descVisible }" @click="descVisible = !descVisible">
+                    description
+                    <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 4.5H8M5 1l3.5 3.5L5 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="expand-wrap" :class="{ collapsed: !descVisible }">
+                    <div class="expand-inner">
+                        <div class="info-block" ref="infoBlock">
+                            <h1 class="Title">TOMEO</h1>
+                            <h2 class="Subtitle">Metal outdoor chairs 2020</h2>
+                            <main class="textebox-container">
+                                <p class="texte">Dimensions: 510 × 560 × 820 mm</p>
+                                <p class="texte">Tomeo is an outdoor metal chair made from bent metal pipes. It is a light and stackable chair initially designed for restaurant terraces as an alternative to plastic chairs. The aim was to design a chair that would be appealing both in the eyes of the consumer but also in the eyes of the industrialist. Considerable effort was dedicated to keep the chair relatively easy to manufacture. Tomeo's uniqueness comes from its original structure. Considerable attention was dedicated to the look, which had to be simple but contemporary. Indeed, many pieces of metallic furniture on the market are strongly inspired from older designs from the 20th century. Tomeo is truly different from what already exists because the design itself questions the traditional chair structure.</p>
+                            </main>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. 3D models -->
+                <button class="process-toggle" :class="{ open: modelsVisible }" @click="modelsVisible = !modelsVisible">
+                    3D models
+                    <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 4.5H8M5 1l3.5 3.5L5 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="expand-wrap" :class="{ collapsed: !modelsVisible }">
+                    <div class="expand-inner">
+                        <div class="info-block" style="padding-top: 20px; padding-bottom: 20px;">
+                            <div class="sousmenu-wrapper" style="margin-top: 0;">
+                                <div v-for="model in models" :key="model.src" class="icon-container">
+                                    <a href="#" class="icon-link" @click.prevent="openModel(model.src)">
+                                        <img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
+                                        <div class="texte texte-icon">{{ model.label }}</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. More details about the process -->
+                <button class="process-toggle" :class="{ open: processVisible }" @click="toggleProcess">
+                    more details about the process
+                    <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 4.5H8M5 1l3.5 3.5L5 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="expand-wrap" :class="{ collapsed: !processVisible }">
+                    <div class="expand-inner">
+                        <div class="process-inline-grid">
+                            <img
+                                v-for="(src, i) in processImages"
+                                :key="i"
+                                :src="src"
+                                alt="Tomeo process — Hugo Charlet"
+                            />
+                        </div>
+                    </div>
+                </div>
+
             </div>
-			
-			<!-- colonne 2 -->   
-		
-			<div id="modelContainer">
-				<button class="close-button" id="closeModelViewer">
-					<img src="crosss.svg" alt="Close">
-				</button>
-				<model-viewer id="modelViewer" src='glb/tomeochair.glb' autoplay loading="eager" ar ar-modes="webxr scene-viewer quick-look" ar-status="not-presenting" auto-rotate bounds="tight" rotation-per-second="1deg" environment-image="glb/studio.hdr" exposure="0.7" camera-controls interpolation-decay="200" shadow-intensity="1" interaction-prompt="none" camera-orbit="-40deg 82deg 12m" min-camera-orbit="auto 40deg a">
-				</model-viewer>
-			</div>
-			
-			
-			<div id="image-container"></div>
-			<div id="loader">
-   				 <div class="spinner"></div>
-			</div>
 
+            <!-- ── Colonne droite : galerie ── -->
+            <div class="right-col" ref="rightCol">
+                <button class="gallery-col-header" :class="{ open: photosVisible }" @click="photosVisible = !photosVisible">
+                    photos
+              
+                </button>
+                <div class="expand-wrap" :class="{ collapsed: !photosVisible }">
+                    <div class="expand-inner">
+                        <img
+                            v-for="(img, i) in images"
+                            :key="i"
+                            :src="img.src"
+                            class="gallery-img"
+                            :class="{ visible: img.visible }"
+                            alt="Tomeo outdoor chair — Hugo Charlet"
+                        />
+                    </div>
+                </div>
+            </div>
 
-	<script src="pages-script.js"></script>
-	<script src="navbar.js"></script>
+        </div>
+
+        <!-- ── Model viewer overlay ── -->
+        <div id="modelContainer" ref="modelContainer" :class="{ show: modelVisible }">
+            <button class="close-button" @click="closeModel">
+                <img src="crosss.svg" alt="Close">
+            </button>
+            <model-viewer
+                ref="modelViewer"
+                :src="currentModelSrc"
+                autoplay loading="eager"
+                ar ar-modes="webxr scene-viewer quick-look" ar-status="not-presenting"
+                auto-rotate bounds="tight" rotation-per-second="1deg"
+                environment-image="glb/studio.hdr" exposure="0.7"
+                camera-controls interpolation-decay="200" shadow-intensity="1"
+                interaction-prompt="none" camera-orbit="-40deg 82deg 12m"
+                min-camera-orbit="auto 40deg a">
+            </model-viewer>
+        </div>
+
+        <!-- ── Loader ── -->
+        <div id="loader" v-show="loading">
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <script>
+        // ── Flèche retour ──
+        const navsvg = document.getElementById("svgmenupages-placeholder");
+        navsvg.innerHTML = `
+            <div class="svg-container-pages" style="width:100%;padding:0 var(--margin-general);position:fixed;box-sizing:border-box;display:flex;justify-content:flex-end;align-items:center;top:90px;left:0;height:35px;z-index:2100;pointer-events:none;background:#fff;">
+                <a href="https://www.hugocharlet.com/" style="pointer-events:auto;">
+                    <img src="arrowback.svg" alt="backarrow" class="svg-backarrow" style="height:10px;width:auto;">
+                </a>
+            </div>`;
+
+        const { createApp, ref, reactive, onMounted, nextTick, watch } = Vue;
+
+        const app = createApp({
+            setup() {
+                const modelVisible     = ref(false);
+                const currentModelSrc  = ref("glb/tomeochair.glb");
+                const loading          = ref(true);
+                const images           = reactive([]);
+                const processImages    = reactive([]);
+                const processVisible   = ref(false);
+                const processLoaded    = ref(false);
+                const videoVisible     = ref(true);
+                const descVisible      = ref(true);
+                const modelsVisible    = ref(true);
+                const photosVisible    = ref(true);
+                const rightCol         = ref(null);
+                const leftCol          = ref(null);
+                const videoWrapRef     = ref(null);
+                const infoBlock        = ref(null);
+                const modelContainer   = ref(null);
+
+                const models = [
+                    { src: "glb/tomeochair.glb",    label: "3D Model chair" },
+                    { src: "glb/tomeoarmchair.glb",  label: "3D Model armchair" },
+                    { src: "glb/tomeolounge.glb",    label: "3D Model loungechair" },
+                ];
+
+                function snapToInfoBlock() {
+                    if (!leftCol.value) return;
+                    const rect = leftCol.value.getBoundingClientRect();
+                    Object.assign(modelContainer.value.style, {
+                        position : "fixed",
+                        left     : rect.left   + "px",
+                        top      : rect.top    + "px",
+                        width    : rect.width  + "px",
+                        height   : rect.height + "px",
+                        right    : "auto",
+                        transform: "none",
+                        maxWidth : "none",
+                        padding  : "0",
+                    });
+                }
+
+                function openModel(src) {
+                    currentModelSrc.value = src;
+                    snapToInfoBlock();
+                    modelVisible.value = !modelVisible.value;
+                }
+
+                function closeModel() {
+                    modelVisible.value = false;
+                }
+
+                async function toggleProcess() {
+                    if (!processVisible.value) {
+                        if (!processLoaded.value) {
+                            processLoaded.value = true;
+                            const base = "pages/tomeo/process/";
+                            const srcs = await Promise.all(
+                                Array.from({ length: 30 }, (_, i) => new Promise(resolve => {
+                                    const img = new Image();
+                                    img.src = `${base}${i + 1}.jpg`;
+                                    img.onload  = () => resolve(img.src);
+                                    img.onerror = () => resolve(null);
+                                }))
+                            );
+                            srcs.forEach(src => { if (src) processImages.push(src); });
+                        }
+                        processVisible.value = true;
+                    } else {
+                        processVisible.value = false;
+                    }
+                }
+
+                watch(videoVisible, (show) => {
+                    const el = videoWrapRef.value;
+                    if (!el) return;
+                    if (show) {
+                        el.style.height = 'auto';
+                        const h = el.getBoundingClientRect().height;
+                        el.style.height = '0';
+                        el.style.opacity = '0';
+                        el.offsetHeight;
+                        el.style.transition = 'height 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.35s ease';
+                        el.style.height = h + 'px';
+                        el.style.opacity = '1';
+                        const onEnd = () => { el.style.height = 'auto'; el.style.transition = ''; el.removeEventListener('transitionend', onEnd); };
+                        el.addEventListener('transitionend', onEnd);
+                    } else {
+                        const h = el.getBoundingClientRect().height;
+                        el.style.height = h + 'px';
+                        el.offsetHeight;
+                        el.style.transition = 'height 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.35s ease';
+                        el.style.height = '0';
+                        el.style.opacity = '0';
+                    }
+                });
+
+                onMounted(async () => {
+                    window.addEventListener("resize", () => {
+                        if (modelVisible.value) snapToInfoBlock();
+                    });
+
+                    const newUrl     = "pages/tomeo/";
+                    const mediaFiles = Array.from({ length: 17 }, (_, i) => `${newUrl}${i + 1}.jpg`);
+
+                    const srcs = await Promise.all(mediaFiles.map(url => new Promise(resolve => {
+                        const img   = new Image();
+                        img.src     = url;
+                        img.onload  = () => resolve(url);
+                        img.onerror = () => resolve(null);
+                    })));
+
+                    srcs.forEach(src => { if (src) images.push({ src, visible: false }); });
+                    loading.value = false;
+
+                    await nextTick();
+
+                    // ── Fade-in pour les images entrant par le bas ──
+                    const galleryObserver = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            const idx = parseInt(entry.target.dataset.idx);
+                            if (entry.isIntersecting) {
+                                images[idx].visible = true;
+                            } else if (entry.rootBounds && entry.boundingClientRect.top >= entry.rootBounds.bottom) {
+                                images[idx].visible = false;
+                            }
+                        });
+                    }, { root: null, threshold: 0.05 });
+
+                    rightCol.value.querySelectorAll('.gallery-img').forEach((el, i) => {
+                        el.dataset.idx = i;
+                        galleryObserver.observe(el);
+                    });
+
+                    let autoScrollActive = true;
+                    const stopAuto = () => { autoScrollActive = false; };
+                    window.addEventListener('wheel',       stopAuto, { once: true });
+                    window.addEventListener('touchstart',  stopAuto, { once: true });
+                    window.addEventListener('pointerdown', stopAuto, { once: true });
+
+                    let last = null;
+                    const SPEED = 35; // px/s
+                    function step(ts) {
+                        if (!autoScrollActive) return;
+                        if (last === null) last = ts;
+                        window.scrollBy(0, SPEED * (ts - last) / 1000);
+                        last = ts;
+                        if (window.scrollY < document.body.scrollHeight - window.innerHeight) {
+                            requestAnimationFrame(step);
+                        }
+                    }
+                    setTimeout(() => requestAnimationFrame(step), 1000);
+                });
+
+                return {
+                    modelVisible, currentModelSrc, loading,
+                    images, models,
+                    processImages, processVisible,
+                    videoVisible, descVisible, modelsVisible, photosVisible,
+                    rightCol, leftCol, videoWrapRef, infoBlock, modelContainer,
+                    openModel, closeModel, toggleProcess,
+                };
+            }
+        });
+
+        app.config.compilerOptions.isCustomElement = tag => tag === "model-viewer";
+        app.mount("#app");
+    </script>
+    <script src="navbar.js"></script>
 </body>
 </html>

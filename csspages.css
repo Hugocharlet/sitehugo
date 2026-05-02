@@ -86,7 +86,7 @@ body {
   padding: 8px 15px;
   border-radius: 20px;
   color: #303030!important;
-  font-weight: 400;
+  font-weight: 300;
   text-decoration: none!important;
   margin-top: 0;         /* Supprime la marge qui poussait vers le bas */
 }
