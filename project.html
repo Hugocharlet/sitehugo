@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+    <title>Hugo Charlet — Design</title>
+    <link rel="stylesheet" href="navbarstyle.css">
+    <link rel="stylesheet" href="csspages.css">
+    <link rel="stylesheet" href="variables.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="projects-data.js"></script>
+    <script>
+        (function () {
+            const key = new URLSearchParams(window.location.search).get('p') || 'tomeo';
+            const p   = PROJECTS[key];
+            if (p && (p.models.length > 0 || p.configurator)) {
+                const s = document.createElement('script');
+                s.type = 'module';
+                s.src  = 'https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js';
+                document.head.appendChild(s);
+            }
+        })();
+    </script>
+    <style>
+        .proj-nav {
+            position: fixed;
+            top: 90px;
+            left: 0;
+            width: 100%;
+            height: 35px;
+            z-index: 2100;
+            background: #fff;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--margin-general);
+        }
+        .proj-nav a {
+            font-family: "IBM Plex Mono", monospace;
+            font-style: italic;
+            font-weight: 300;
+            font-size: 10px;
+            color: #aaa;
+            text-decoration: none;
+            letter-spacing: 0.08em;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            transition: color 0.2s;
+        }
+        .proj-nav a:hover { color: #303030; font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+        .proj-nav a svg { flex-shrink: 0; }
+    </style>
+    <style>
+        .page-layout {
+            margin-top: 125px;
+            margin-left: var(--margin-general);
+            margin-right: var(--margin-general);
+            display: flex;
+            align-items: flex-start;
+            border-left: 1px solid #e8e8e8;
+        }
+        .left-col {
+            width: 52%;
+            flex-shrink: 0;
+            position: sticky;
+            top: 125px;
+            height: calc(100vh - 125px);
+            overflow-y: auto;
+            overflow-x: hidden;
+            scrollbar-width: none;
+            box-sizing: border-box;
+            border-right: 1px solid #e8e8e8;
+        }
+        .left-col::-webkit-scrollbar { display: none; }
+        .video-wrapper {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            position: relative;
+            overflow: hidden;
+            background: #000;
+            cursor: pointer;
+        }
+        .video-iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
+        }
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.35);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            color: #fff;
+            opacity: 0;
+            transition: opacity 0.2s, background 0.2s;
+        }
+        .video-wrapper:hover .video-play-btn { opacity: 1; }
+        .video-play-btn:hover { background: rgba(0,0,0,0.6); }
+        .info-block {
+            padding: 30px calc(var(--margin-general) * 3) 30px var(--margin-general);
+        }
+        .info-block h1 { margin: 0 0 4px; }
+        .info-block h2 { margin: 0 0 20px; }
+        .info-block p  { margin: 0 0 10px; }
+        .process-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: "IBM Plex Mono", monospace;
+            font-style: italic;
+            font-size: 10px;
+            color: #aaa;
+            letter-spacing: 0.08em;
+            padding: 10px var(--margin-general);
+            border: none;
+            border-top: 1px solid #e8e8e8;
+            border-bottom: 1px solid #e8e8e8;
+            background: none;
+            cursor: pointer;
+            text-align: left;
+            width: 100%;
+            box-sizing: border-box;
+            transition: color 0.2s;
+        }
+        .process-toggle:hover { color: #303030; background: #f5f5f5; }
+        .process-toggle svg {
+            flex-shrink: 0;
+            opacity: 0.5;
+            transition: opacity 0.2s, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .process-toggle:hover svg { opacity: 1; }
+        .process-toggle.open svg { transform: rotate(90deg); opacity: 0.5; }
+        .process-toggle.icon-left {
+            justify-content: flex-start;
+            position: relative;
+        }
+        .process-toggle.icon-left svg {
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .process-toggle.icon-left.open svg {
+            transform: translateY(-50%) rotate(90deg);
+        }
+        .expand-wrap {
+            display: grid;
+            grid-template-rows: 1fr;
+            margin-top: -1px;
+            transition: grid-template-rows 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+                        opacity 0.35s ease;
+            opacity: 1;
+        }
+        .expand-wrap.collapsed {
+            grid-template-rows: 0fr;
+            opacity: 0;
+        }
+        .expand-inner {
+            overflow: hidden;
+            min-height: 0;
+        }
+        .process-inline-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-content: start;
+        }
+        .process-inline-grid img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        .process-inline-grid img:not(:nth-child(3n)) { border-right: 1px solid #e8e8e8; }
+        .video-wrap {
+            overflow: hidden;
+            margin-top: -1px;
+        }
+        .right-col {
+            flex: 1;
+            overflow: visible;
+            border-right: 1px solid #e8e8e8;
+            isolation: isolate;
+        }
+        .gallery-col-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: "IBM Plex Mono", monospace;
+            font-style: italic;
+            font-size: 10px;
+            color: #aaa;
+            letter-spacing: 0.08em;
+            padding: 10px var(--margin-general);
+            border-top: 1px solid #e8e8e8;
+            border-bottom: 1px solid #e8e8e8;
+            box-sizing: border-box;
+            width: 100%;
+            position: sticky;
+            top: 125px;
+            background: #fff;
+            z-index: 2200;
+            cursor: pointer;
+            border-left: none;
+            border-right: none;
+            transition: color 0.2s;
+        }
+        .gallery-col-header:hover { color: #303030; background: #f5f5f5; }
+        .gallery-col-header svg {
+            flex-shrink: 0;
+            opacity: 0.5;
+            transition: opacity 0.2s, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .gallery-col-header:hover svg { opacity: 1; }
+        .gallery-col-header.open svg { transform: rotate(90deg); opacity: 0.5; }
+        .gallery-img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #e8e8e8;
+            margin-bottom: 20px;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+        .gallery-img.visible { opacity: 1; }
+        #modelContainer {
+            padding: 0 !important;
+            box-sizing: border-box !important;
+        }
+        #modelContainer model-viewer {
+            width: 100% !important;
+            height: 100% !important;
+            display: block;
+        }
+        @media (max-width: 768px) {
+            .page-layout { flex-direction: column; }
+            .left-col { width: 100%; position: static; height: auto; overflow: visible; }
+            .right-col { width: 100%; border-left: none; border-top: 1px solid #e8e8e8; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div id="menu-placeholder"></div>
+    <div id="svgmenupages-placeholder"></div>
+</header>
+
+<div id="app">
+    <div class="page-layout">
+
+        <!-- ── Colonne gauche ── -->
+        <div class="left-col" ref="leftCol">
+
+            <!-- 1. Vidéo (si fichier détecté) -->
+            <template v-if="videoExists">
+                <button class="process-toggle icon-left" :class="{ open: videoVisible }" @click="videoVisible = !videoVisible">
+                <svg width="7" height="9" viewBox="0 0 7 9" xmlns="http://www.w3.org/2000/svg">
+                <path 
+                    d="M1.4 1.8C1.4 1.2 2 0.9 2.5 1.3L5.6 3.5C6.1 3.9 6.1 4.7 5.6 5.1L2.5 7.3C2 7.7 1.4 7.4 1.4 6.8Z" 
+                    fill="currentColor"
+                />
+                </svg>
+                    vidéo
+                </button>
+                <div ref="videoWrapRef" class="video-wrap">
+                    <div class="video-wrapper" @click="toggleVideoPlay">
+                        <video ref="videoRef" class="video-iframe" :src="videoSrc" autoplay muted loop playsinline></video>
+                        <button class="video-play-btn">
+                            <svg v-if="videoPlaying" width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="1.5" y="1" width="3" height="9" rx="0.5" fill="currentColor"/>
+                                <rect x="6.5" y="1" width="3" height="9" rx="0.5" fill="currentColor"/>
+                            </svg>
+                            <svg v-else width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 1.5l8 4L2 9.5V1.5z" fill="currentColor"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </template>
+
+            <!-- 2. Description -->
+            <button class="process-toggle icon-left" :class="{ open: descVisible }" @click="descVisible = !descVisible">
+                <svg width="7" height="9" viewBox="0 0 7 9" xmlns="http://www.w3.org/2000/svg">
+                <path 
+                    d="M1.4 1.8C1.4 1.2 2 0.9 2.5 1.3L5.6 3.5C6.1 3.9 6.1 4.7 5.6 5.1L2.5 7.3C2 7.7 1.4 7.4 1.4 6.8Z" 
+                    fill="currentColor"
+                />
+                </svg>
+                description
+            </button>
+            <div class="expand-wrap" :class="{ collapsed: !descVisible }">
+                <div class="expand-inner">
+                    <div class="info-block">
+                        <h1 class="Title">{{ project.title }}</h1>
+                        <h2 class="Subtitle">{{ project.subtitle }}</h2>
+                        <main class="textebox-container">
+                            <p v-if="project.dimensions" class="texte">{{ project.dimensions }}</p>
+                            <p class="texte">{{ project.description }}</p>
+                        </main>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 3D models (si modèles, configurateur ou téléchargement) -->
+            <template v-if="hasModelsSection">
+                <button class="process-toggle icon-left" :class="{ open: modelsVisible }" @click="modelsVisible = !modelsVisible">
+                <svg width="7" height="9" viewBox="0 0 7 9" xmlns="http://www.w3.org/2000/svg">
+                <path 
+                    d="M1.4 1.8C1.4 1.2 2 0.9 2.5 1.3L5.6 3.5C6.1 3.9 6.1 4.7 5.6 5.1L2.5 7.3C2 7.7 1.4 7.4 1.4 6.8Z" 
+                    fill="currentColor"
+                />
+                </svg>
+                    3D models
+                </button>
+                <div class="expand-wrap" :class="{ collapsed: !modelsVisible }">
+                    <div class="expand-inner">
+                        <div class="info-block" style="padding-top: 20px; padding-bottom: 20px;">
+                            <div class="sousmenu-wrapper" style="margin-top: 0;">
+                                <div v-for="model in models" :key="model.src" class="icon-container">
+                                    <a href="#" class="icon-link" @click.prevent.stop="openModel(model.src)">
+                                        <img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
+                                        <div class="texte texte-icon">{{ model.label }}</div>
+                                    </a>
+                                </div>
+                                <div v-if="project.configurator" class="icon-container">
+                                    <a :href="project.configurator" class="icon-link">
+                                        <img src="config.svg" alt="Configurator" class="icon-item">
+                                        <div class="texte texte-icon">3D configurator</div>
+                                    </a>
+                                </div>
+                                <div v-if="project.download" class="icon-container">
+                                    <a :href="project.download" class="icon-link" download>
+                                        <img src="DL.svg" alt="Download" class="icon-item">
+                                        <div class="texte texte-icon">HD images</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- 4. Process (si dossier process détecté) -->
+            <template v-if="processExists">
+                <button class="process-toggle icon-left" :class="{ open: processVisible }" @click="toggleProcess">
+                <svg width="7" height="9" viewBox="0 0 7 9" xmlns="http://www.w3.org/2000/svg">
+                <path 
+                    d="M1.4 1.8C1.4 1.2 2 0.9 2.5 1.3L5.6 3.5C6.1 3.9 6.1 4.7 5.6 5.1L2.5 7.3C2 7.7 1.4 7.4 1.4 6.8Z" 
+                    fill="currentColor"
+                />
+                </svg>
+                    more details about the process
+                </button>
+                <div class="expand-wrap" :class="{ collapsed: !processVisible }">
+                    <div class="expand-inner">
+                        <div class="process-inline-grid">
+                            <img v-for="(src, i) in processImages" :key="i" :src="src" :alt="`${project.title} process — Hugo Charlet`" />
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+        </div>
+
+        <!-- ── Colonne droite : galerie ── -->
+        <div class="right-col" ref="rightCol">
+            <button class="gallery-col-header" :class="{ open: photosVisible }" @click="photosVisible = !photosVisible">
+                photos
+
+            </button>
+            <div class="expand-wrap" :class="{ collapsed: !photosVisible }">
+                <div class="expand-inner">
+                    <img
+                        v-for="(img, i) in images"
+                        :key="i"
+                        :src="img.src"
+                        class="gallery-img"
+                        :class="{ visible: img.visible }"
+                        :alt="`${project.title} — Hugo Charlet`"
+                    />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ── Model viewer overlay ── -->
+    <div id="modelContainer" ref="modelContainer" :class="{ show: modelVisible }" @click.self="closeModel">
+        <button class="close-button" @click="closeModel">
+            <img src="crosss.svg" alt="Close">
+        </button>
+        <model-viewer
+            ref="modelViewer"
+            :src="currentModelSrc"
+            autoplay loading="eager"
+            ar ar-modes="webxr scene-viewer quick-look" ar-status="not-presenting"
+            auto-rotate bounds="tight" rotation-per-second="1deg"
+            environment-image="glb/studio.hdr" exposure="0.7"
+            camera-controls interpolation-decay="200" shadow-intensity="1"
+            interaction-prompt="none" camera-orbit="-40deg 82deg 12m"
+            min-camera-orbit="auto 40deg a">
+        </model-viewer>
+    </div>
+
+    <div id="loader" v-show="loading">
+        <div class="spinner"></div>
+    </div>
+</div>
+
+<script>
+// PROJECTS and PROJECT_ORDER are loaded from projects-data.js
+
+// ── Résolution du projet depuis l'URL (?p=tomeo) ─────────────────────────────
+const urlParams  = new URLSearchParams(window.location.search);
+const projectKey = urlParams.get('p') || 'tomeo';
+const project    = PROJECTS[projectKey] || {
+    title: projectKey.toUpperCase(), subtitle: '', description: 'Project coming soon.',
+    dimensions: null, pageTitle: projectKey, ogDescription: '', ogImage: '',
+    models: [], configurator: null, download: null
+};
+
+// ── Mise à jour des meta tags ────────────────────────────────────────────────
+document.title = project.pageTitle;
+document.querySelector('meta[property="og:description"]').setAttribute('content', project.ogDescription);
+document.querySelector('meta[property="og:image"]').setAttribute('content', project.ogImage);
+
+const canonical = document.createElement('link');
+canonical.rel = 'canonical';
+canonical.href = `https://hugocharlet.com/${projectKey}`;
+document.head.appendChild(canonical);
+
+// ── Navigation précédent / suivant ──────────────────────────────────────────
+const navsvg = document.getElementById("svgmenupages-placeholder");
+(function () {
+    const idx     = PROJECT_ORDER.indexOf(projectKey);
+    const prevKey = idx > 0 ? PROJECT_ORDER[idx - 1] : PROJECT_ORDER[PROJECT_ORDER.length - 1];
+    const nextKey = idx < PROJECT_ORDER.length - 1 ? PROJECT_ORDER[idx + 1] : PROJECT_ORDER[0];
+    const prevTitle = (PROJECTS[prevKey] || {}).title || prevKey.toUpperCase();
+    const nextTitle = (PROJECTS[nextKey] || {}).title || nextKey.toUpperCase();
+    navsvg.innerHTML = `
+        <nav class="proj-nav">
+            <a href="/${prevKey}">
+                <svg width="23" height="9" viewBox="0 0 23 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 4.5H3M5.5 2l-3 2.5 3 2.5" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span style="text-transform:uppercase">${prevTitle}</span>
+            </a>
+            <a href="/${nextKey}">
+                <span style="text-transform:uppercase">${nextTitle}</span>
+                <svg width="23" height="9" viewBox="0 0 23 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 4.5H20M17.5 2l3 2.5-3 2.5" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+        </nav>`;
+})();
+
+// ── Vue app ──────────────────────────────────────────────────────────────────
+const { createApp, ref, reactive, onMounted, nextTick, watch } = Vue;
+
+const app = createApp({
+    setup() {
+        const newUrl  = `pages/${projectKey}/`;
+        const videoSrc = `${newUrl}main-video.mp4`;
+
+        const models          = project.models;
+        const hasModelsSection = models.length > 0 || !!project.configurator || !!project.download;
+
+        const modelVisible    = ref(false);
+        const currentModelSrc = ref(models.length > 0 ? models[0].src : '');
+        const loading         = ref(true);
+        const images          = reactive([]);
+        const processImages   = reactive([]);
+        const processVisible  = ref(false);
+        const processLoaded   = ref(false);
+        const videoExists     = ref(false);
+        const processExists   = ref(false);
+        const videoVisible    = ref(false);
+        const descVisible     = ref(true);
+        const modelsVisible   = ref(true);
+        const photosVisible   = ref(true);
+        const rightCol        = ref(null);
+        const leftCol         = ref(null);
+        const videoWrapRef    = ref(null);
+        const videoRef        = ref(null);
+        const videoPlaying    = ref(true);
+        const modelContainer  = ref(null);
+
+        function snapToInfoBlock() {
+            if (!leftCol.value) return;
+            const rect = leftCol.value.getBoundingClientRect();
+            Object.assign(modelContainer.value.style, {
+                position : "fixed",
+                left     : rect.left   + "px",
+                top      : rect.top    + "px",
+                width    : rect.width  + "px",
+                height   : rect.height + "px",
+                right    : "auto",
+                transform: "none",
+                maxWidth : "none",
+                padding  : "0",
+            });
+        }
+
+        function openModel(src) {
+            currentModelSrc.value = src;
+            snapToInfoBlock();
+            modelVisible.value = !modelVisible.value;
+        }
+
+        function closeModel() {
+            modelVisible.value = false;
+        }
+
+        function toggleVideoPlay() {
+            const v = videoRef.value;
+            if (!v) return;
+            if (videoPlaying.value) { v.pause(); videoPlaying.value = false; }
+            else { v.play(); videoPlaying.value = true; }
+        }
+
+        async function toggleProcess() {
+            if (!processVisible.value) {
+                if (!processLoaded.value) {
+                    processLoaded.value = true;
+                    const base = `${newUrl}process/`;
+                    const srcs = await Promise.all(
+                        Array.from({ length: 30 }, (_, i) => new Promise(resolve => {
+                            const img = new Image();
+                            img.src = `${base}${i + 1}.jpg`;
+                            img.onload  = () => resolve(img.src);
+                            img.onerror = () => resolve(null);
+                        }))
+                    );
+                    srcs.forEach(src => { if (src) processImages.push(src); });
+                }
+                processVisible.value = true;
+                await nextTick();
+                setTimeout(() => {
+                    if (leftCol.value) {
+                        const btns = leftCol.value.querySelectorAll('.process-toggle');
+                        const processBtn = btns[btns.length - 1];
+                        if (processBtn) {
+                            leftCol.value.scrollTo({ top: processBtn.offsetTop, behavior: 'smooth' });
+                        }
+                    }
+                }, 460);
+            } else {
+                processVisible.value = false;
+            }
+        }
+
+        watch(videoVisible, (show) => {
+            const el = videoWrapRef.value;
+            if (!el) return;
+            if (show) {
+                el.style.height = 'auto';
+                const h = el.getBoundingClientRect().height;
+                el.style.height = '0';
+                el.style.opacity = '0';
+                el.offsetHeight;
+                el.style.transition = 'height 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.35s ease';
+                el.style.height = h + 'px';
+                el.style.opacity = '1';
+                const onEnd = () => { el.style.height = 'auto'; el.style.transition = ''; el.removeEventListener('transitionend', onEnd); };
+                el.addEventListener('transitionend', onEnd);
+            } else {
+                const h = el.getBoundingClientRect().height;
+                el.style.height = h + 'px';
+                el.offsetHeight;
+                el.style.transition = 'height 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.35s ease';
+                el.style.height = '0';
+                el.style.opacity = '0';
+            }
+        });
+
+        onMounted(async () => {
+            window.addEventListener("resize", () => {
+                if (modelVisible.value) snapToInfoBlock();
+            });
+
+            document.addEventListener('click', (e) => {
+                if (modelVisible.value && modelContainer.value && !modelContainer.value.contains(e.target)) {
+                    modelVisible.value = false;
+                }
+            });
+
+            // ── Détection vidéo ──
+            fetch(`${newUrl}main-video.mp4`, { method: 'HEAD' })
+                .then(async r => {
+                    if (r.ok) {
+                        videoExists.value = true;
+                        await nextTick();
+                        videoVisible.value = true;
+                    }
+                })
+                .catch(() => {});
+
+            // ── Détection dossier process ──
+            new Promise(resolve => {
+                const img = new Image();
+                img.onload  = () => resolve(true);
+                img.onerror = () => resolve(false);
+                img.src = `${newUrl}process/1.jpg`;
+            }).then(exists => { processExists.value = exists; });
+
+            // ── Chargement galerie (jusqu'à 30 images) ──
+            const mediaFiles = Array.from({ length: 30 }, (_, i) => `${newUrl}${i + 1}.jpg`);
+            const srcs = await Promise.all(mediaFiles.map(url => new Promise(resolve => {
+                const img   = new Image();
+                img.src     = url;
+                img.onload  = () => resolve(url);
+                img.onerror = () => resolve(null);
+            })));
+            srcs.forEach(src => { if (src) images.push({ src, visible: false }); });
+            loading.value = false;
+
+            await nextTick();
+
+            // ── Fade-in images entrant par le bas ──
+            const galleryObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const idx = parseInt(entry.target.dataset.idx);
+                    if (entry.isIntersecting) {
+                        images[idx].visible = true;
+                    } else if (entry.rootBounds && entry.boundingClientRect.top >= entry.rootBounds.bottom) {
+                        images[idx].visible = false;
+                    }
+                });
+            }, { root: null, threshold: 0.05 });
+
+            rightCol.value.querySelectorAll('.gallery-img').forEach((el, i) => {
+                el.dataset.idx = i;
+                galleryObserver.observe(el);
+            });
+
+            // ── Auto-scroll initial ──
+            let autoScrollActive = true;
+            const stopAuto = () => { autoScrollActive = false; };
+            window.addEventListener('wheel',       stopAuto, { once: true });
+            window.addEventListener('touchstart',  stopAuto, { once: true });
+            window.addEventListener('pointerdown', stopAuto, { once: true });
+
+            let last = null;
+            const SPEED = 35;
+            function step(ts) {
+                if (!autoScrollActive) return;
+                if (last === null) last = ts;
+                window.scrollBy(0, SPEED * (ts - last) / 1000);
+                last = ts;
+                if (window.scrollY < document.body.scrollHeight - window.innerHeight) {
+                    requestAnimationFrame(step);
+                }
+            }
+            setTimeout(() => requestAnimationFrame(step), 1000);
+        });
+
+        return {
+            project, models, hasModelsSection, videoSrc,
+            modelVisible, currentModelSrc, loading,
+            images, processImages, processVisible, processExists,
+            videoVisible, videoExists, descVisible, modelsVisible, photosVisible,
+            rightCol, leftCol, videoWrapRef, videoRef, videoPlaying, modelContainer,
+            openModel, closeModel, toggleProcess, toggleVideoPlay,
+        };
+    }
+});
+
+app.config.compilerOptions.isCustomElement = tag => tag === "model-viewer";
+app.mount("#app");
+</script>
+<script src="navbar.js"></script>
+</body>
+</html>

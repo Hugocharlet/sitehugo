@@ -194,6 +194,41 @@
             opacity: 1;
         }
 
+        /* ── Arrow on the left for toggle buttons ── */
+        .process-toggle.icon-left {
+            justify-content: flex-start;
+            position: relative;
+        }
+        .process-toggle.icon-left svg {
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .process-toggle.icon-left.open svg {
+            transform: translateY(-50%) rotate(90deg);
+        }
+
+        /* ── Full-width model rows ── */
+        .model-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 10px var(--margin-general);
+            border: none;
+            border-bottom: 1px solid #e8e8e8;
+            background: none;
+            cursor: pointer;
+            color: #aaa;
+            box-sizing: border-box;
+            transition: color 0.2s, background 0.2s;
+            text-align: left;
+        }
+        .model-row:hover { color: #303030; background: #f5f5f5; }
+        .model-row .icon-item { width: 14px; height: 14px; flex-shrink: 0; opacity: 0.5; transition: opacity 0.2s; }
+        .model-row:hover .icon-item { opacity: 1; }
+
         /* ── Model container : override csspages.css ── */
         #modelContainer {
             padding: 0 !important;
@@ -226,24 +261,24 @@
             <div class="left-col" ref="leftCol">
 
                 <!-- 1. Vidéo -->
-                <button class="process-toggle" :class="{ open: videoVisible }" @click="videoVisible = !videoVisible">
-                    vidéo
+                <button v-if="videoExists" class="process-toggle icon-left" :class="{ open: videoVisible }" @click="videoVisible = !videoVisible">
                     <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1 4.5H8M5 1l3.5 3.5L5 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
+                    vidéo
                 </button>
-                <div ref="videoWrapRef" class="video-wrap">
+                <div v-if="videoExists" ref="videoWrapRef" class="video-wrap">
                     <div class="video-wrapper">
                         <video class="video-iframe" src="pages/tomeo/main-video.mp4" autoplay muted loop playsinline></video>
                     </div>
                 </div>
 
                 <!-- 2. Description -->
-                <button class="process-toggle" :class="{ open: descVisible }" @click="descVisible = !descVisible">
-                    description
+                <button class="process-toggle icon-left" :class="{ open: descVisible }" @click="descVisible = !descVisible">
                     <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1 4.5H8M5 1l3.5 3.5L5 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
+                    description
                 </button>
                 <div class="expand-wrap" :class="{ collapsed: !descVisible }">
                     <div class="expand-inner">
@@ -259,18 +294,18 @@
                 </div>
 
                 <!-- 3. 3D models -->
-                <button class="process-toggle" :class="{ open: modelsVisible }" @click="modelsVisible = !modelsVisible">
-                    3D models
+                <button class="process-toggle icon-left" :class="{ open: modelsVisible }" @click="modelsVisible = !modelsVisible">
                     <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1 4.5H8M5 1l3.5 3.5L5 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
+                    3D models
                 </button>
                 <div class="expand-wrap" :class="{ collapsed: !modelsVisible }">
                     <div class="expand-inner">
                         <div class="info-block" style="padding-top: 20px; padding-bottom: 20px;">
                             <div class="sousmenu-wrapper" style="margin-top: 0;">
                                 <div v-for="model in models" :key="model.src" class="icon-container">
-                                    <a href="#" class="icon-link" @click.prevent="openModel(model.src)">
+                                    <a href="#" class="icon-link" @click.prevent.stop="openModel(model.src)">
                                         <img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
                                         <div class="texte texte-icon">{{ model.label }}</div>
                                     </a>
@@ -281,13 +316,13 @@
                 </div>
 
                 <!-- 4. More details about the process -->
-                <button class="process-toggle" :class="{ open: processVisible }" @click="toggleProcess">
-                    more details about the process
+                <button v-if="processExists" class="process-toggle icon-left" :class="{ open: processVisible }" @click="toggleProcess">
                     <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1 4.5H8M5 1l3.5 3.5L5 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
+                    more details about the process
                 </button>
-                <div class="expand-wrap" :class="{ collapsed: !processVisible }">
+                <div v-if="processExists" class="expand-wrap" :class="{ collapsed: !processVisible }">
                     <div class="expand-inner">
                         <div class="process-inline-grid">
                             <img
@@ -325,7 +360,7 @@
         </div>
 
         <!-- ── Model viewer overlay ── -->
-        <div id="modelContainer" ref="modelContainer" :class="{ show: modelVisible }">
+        <div id="modelContainer" ref="modelContainer" :class="{ show: modelVisible }" @click.self="closeModel">
             <button class="close-button" @click="closeModel">
                 <img src="crosss.svg" alt="Close">
             </button>
@@ -362,6 +397,10 @@
 
         const app = createApp({
             setup() {
+                // Derive page folder from URL (works for any page, e.g. tomeo.html → pages/tomeo/)
+                const pageName = window.location.pathname.split('/').pop().replace('.html', '') || 'index';
+                const newUrl   = `pages/${pageName}/`;
+
                 const modelVisible     = ref(false);
                 const currentModelSrc  = ref("glb/tomeochair.glb");
                 const loading          = ref(true);
@@ -369,7 +408,9 @@
                 const processImages    = reactive([]);
                 const processVisible   = ref(false);
                 const processLoaded    = ref(false);
-                const videoVisible     = ref(true);
+                const videoExists      = ref(false);
+                const processExists    = ref(false);
+                const videoVisible     = ref(false);
                 const descVisible      = ref(true);
                 const modelsVisible    = ref(true);
                 const photosVisible    = ref(true);
@@ -415,7 +456,7 @@
                     if (!processVisible.value) {
                         if (!processLoaded.value) {
                             processLoaded.value = true;
-                            const base = "pages/tomeo/process/";
+                            const base = `${newUrl}process/`;
                             const srcs = await Promise.all(
                                 Array.from({ length: 30 }, (_, i) => new Promise(resolve => {
                                     const img = new Image();
@@ -427,6 +468,16 @@
                             srcs.forEach(src => { if (src) processImages.push(src); });
                         }
                         processVisible.value = true;
+                        await nextTick();
+                        setTimeout(() => {
+                            if (leftCol.value) {
+                                const btns = leftCol.value.querySelectorAll('.process-toggle');
+                                const processBtn = btns[btns.length - 1];
+                                if (processBtn) {
+                                    leftCol.value.scrollTo({ top: processBtn.offsetTop, behavior: 'smooth' });
+                                }
+                            }
+                        }, 460);
                     } else {
                         processVisible.value = false;
                     }
@@ -461,7 +512,31 @@
                         if (modelVisible.value) snapToInfoBlock();
                     });
 
-                    const newUrl     = "pages/tomeo/";
+                    document.addEventListener('click', (e) => {
+                        if (modelVisible.value && modelContainer.value && !modelContainer.value.contains(e.target)) {
+                            modelVisible.value = false;
+                        }
+                    });
+
+                    // ── Détection vidéo ──
+                    fetch(`${newUrl}main-video.mp4`, { method: 'HEAD' })
+                        .then(async r => {
+                            if (r.ok) {
+                                videoExists.value = true;
+                                await nextTick();
+                                videoVisible.value = true;
+                            }
+                        })
+                        .catch(() => {});
+
+                    // ── Détection dossier process ──
+                    new Promise(resolve => {
+                        const img = new Image();
+                        img.onload  = () => resolve(true);
+                        img.onerror = () => resolve(false);
+                        img.src = `${newUrl}process/1.jpg`;
+                    }).then(exists => { processExists.value = exists; });
+
                     const mediaFiles = Array.from({ length: 17 }, (_, i) => `${newUrl}${i + 1}.jpg`);
 
                     const srcs = await Promise.all(mediaFiles.map(url => new Promise(resolve => {
@@ -516,8 +591,8 @@
                 return {
                     modelVisible, currentModelSrc, loading,
                     images, models,
-                    processImages, processVisible,
-                    videoVisible, descVisible, modelsVisible, photosVisible,
+                    processImages, processVisible, processExists,
+                    videoVisible, videoExists, descVisible, modelsVisible, photosVisible,
                     rightCol, leftCol, videoWrapRef, infoBlock, modelContainer,
                     openModel, closeModel, toggleProcess,
                 };
