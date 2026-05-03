@@ -733,7 +733,7 @@
       <!-- CAROUSEL -->
       <div class="carousel-container">
         <div class="image-container">
-          <img :src="currentImage" alt="Gallery Image" @click="nextImage" />
+          <img :src="currentImage" alt="Gallery Image" @click="handleCarouselClick" />
         </div>
       </div>
 
@@ -1021,6 +1021,10 @@
         const nextImage = () => {
           currentIndex.value = currentIndex.value < images.length - 1 ? currentIndex.value + 1 : 0;
         };
+        const handleCarouselClick = (e) => {
+          if (e.clientX < window.innerWidth / 2) previousImage();
+          else nextImage();
+        };
 
         /* ─── GALERIE ─── */
         const rawGridData = [
@@ -1277,6 +1281,7 @@
           currentImage,
           previousImage,
           nextImage,
+          handleCarouselClick,
           // Gallery
           sortedGridData,
           sortKey,
