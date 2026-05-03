@@ -27,20 +27,18 @@
     <style>
         .proj-nav-arrow {
             position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
+            top: 0;
+            height: 100vh;
             z-index: 2100;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 12px;
+            justify-content: center;
             text-decoration: none;
             color: #c0c0c0;
             transition: color 0.22s;
-            padding: 20px 12px;
         }
-        .proj-nav-arrow.prev { left: 0; width: var(--margin-general); align-items: center; }
-        .proj-nav-arrow.next { right: 0; width: var(--margin-general); align-items: center; }
+        .proj-nav-arrow.prev { left: 0; width: var(--margin-general); }
+        .proj-nav-arrow.next { right: 0; width: var(--margin-general); }
         .proj-nav-arrow:hover { color: #282828; }
         .proj-nav-arrow svg { transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1); }
         .proj-nav-arrow.prev:hover svg { transform: translateX(-5px); }
