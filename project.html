@@ -428,9 +428,11 @@
 <script>
 // PROJECTS and PROJECT_ORDER are loaded from projects-data.js
 
-// ── Résolution du projet depuis l'URL (?p=tomeo) ─────────────────────────────
+// ── Résolution du projet depuis l'URL (/orion ou ?p=orion) ───────────────────
 const urlParams  = new URLSearchParams(window.location.search);
-const projectKey = urlParams.get('p') || 'tomeo';
+const lastSegment = window.location.pathname.split('/').filter(Boolean).pop() || '';
+const fromPath    = lastSegment.endsWith('.html') ? null : lastSegment;
+const projectKey  = urlParams.get('p') || fromPath || 'tomeo';
 const project    = PROJECTS[projectKey] || {
     title: projectKey.toUpperCase(), subtitle: '', description: 'Project coming soon.',
     dimensions: null, pageTitle: projectKey, ogDescription: '', ogImage: '',
