@@ -448,8 +448,6 @@
                         class="gallery-img"
                         :class="{ visible: img.visible }"
                         :alt="`${project.title} — Hugo Charlet`"
-                        :width="img.w"
-                        :height="img.h"
                         :loading="i === 0 ? 'eager' : 'lazy'"
                     />
                 </div>
@@ -692,10 +690,16 @@ const app = createApp({
                 img.src = `${newUrl}process/1.jpg`;
             }).then(exists => { processExists.value = exists; });
 
-            // ── Chargement galerie ──
-            (project.gallery || []).forEach(({ w, h }, i) => {
-                images.push({ src: `${newUrl}${i + 1}.jpg`, w, h, visible: false });
-            });
+            // ── Chargement galerie (probe jusqu'à 30 images) ──
+            const mediaSrcs = await Promise.all(
+                Array.from({ length: 30 }, (_, i) => new Promise(resolve => {
+                    const img = new Image();
+                    img.src = `${newUrl}${i + 1}.jpg`;
+                    img.onload  = () => resolve(img.src);
+                    img.onerror = () => resolve(null);
+                }))
+            );
+            mediaSrcs.forEach(src => { if (src) images.push({ src, visible: false }); });
             loading.value = false;
 
             await nextTick();
