@@ -188,9 +188,14 @@
       align-items: center;
       gap: 8px;
     }
-    .hdr-year     { flex: 0 0 80px; box-sizing: border-box; }
-    .hdr-name     { flex: 2; }
-    .hdr-typology { flex: 3; }
+    .hdr-year     { flex: 0 0 auto; }
+    .hdr-typology { flex: 0 0 auto; margin-left: 24px; }
+    .hdr-name {
+      position: absolute;
+      left: calc(var(--margin-general) + 0.16 * (100% - 2 * var(--margin-general)) + 32px);
+      top: 50%;
+      transform: translateY(-50%);
+    }
 
     .hdr-label {
       font-size: 11px;
@@ -553,16 +558,23 @@
       box-sizing: border-box;
       margin-bottom: 60px;
       min-height: calc(100vh - 128px);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding-top: 14px;
     }
 
     .list-row {
       position: relative;
       display: flex;
-      align-items: center;
-      padding: 9px 0;
+      align-items: flex-start;
+      padding: 0;
       text-decoration: none;
       color: #b0b0b0;
+      border: none;
       border-bottom: 1px solid #ebebeb;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
       transition: color 0.2s, background-color 0.15s;
     }
 
@@ -571,13 +583,11 @@
         font-family: "IBM Plex Mono", monospace;
         font-style: italic;
         font-weight: 500;
-        background-color: rgba(0, 0, 120, 0.04);
         color: #303030;
       }
 
       .list-row:hover .tag {
-        border-color: #a0a0a0;
-        color: #444;
+        font-style: italic;
       }
     }
 
@@ -610,10 +620,58 @@
       transition: border-color 0.2s, color 0.2s;
     }
 
-    /* Desktop: thumbnail caché, wrappers transparents dans le flex */
-    .list-row-thumb { display: none; }
-    .list-row-content { display: contents; }
-    .list-row-top { display: contents; }
+    /* Desktop: même layout que tablette — vignette à gauche */
+    .list-row-thumb {
+      display: block;
+      flex: 0 0 16%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+    }
+
+    .list-row-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .list-row-content {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 8px;
+      padding: 28px 32px;
+      min-width: 0;
+    }
+
+    .list-row-top {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .list-col.col-year {
+      flex: none;
+      font-size: 11px;
+      color: #b0b0b0;
+      font-family: "IBM Plex Mono", monospace;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .list-col.col-name {
+      flex: none;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: #1a1a1a;
+    }
+
+    .list-col.col-typology {
+      flex: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
 
     #list-hover-image {
       position: fixed;
@@ -769,11 +827,10 @@
       <div id="main-header" :class="{ visible: filtersVisible }">
 
         <!-- YEAR : label + bouton filtre séparé -->
-        <div class="hdr-col hdr-year">
+        <div class="hdr-col hdr-year" @click.stop="toggleYearPanel" style="cursor:pointer">
           <span class="hdr-label">YEAR</span>
           <span class="hdr-filter-btn"
             :class="{ active: activeYears.length > 0, open: yearPanelOpen }"
-            @click.stop="toggleYearPanel"
           >
             <span class="hdr-arrow">↓</span>
             <span v-if="activeYears.length > 0" class="filter-count">{{ activeYears.length }}</span>
@@ -808,17 +865,11 @@
           </div>
         </div>
 
-        <!-- NAME : label seul, visible uniquement en liste -->
-        <div class="hdr-col hdr-name" v-show="viewMode === 'list'">
-          <span class="hdr-label">NAME</span>
-        </div>
-
-        <!-- TYPOLOGY : label + bouton filtre séparé -->
-        <div class="hdr-col hdr-typology">
+        <!-- TYPOLOGY : label + bouton filtre séparé (juste après YEAR) -->
+        <div class="hdr-col hdr-typology" @click.stop="toggleFilterPanel" style="cursor:pointer">
           <span class="hdr-label">TYPOLOGY</span>
           <span class="hdr-filter-btn"
             :class="{ active: activeFilters.length > 0, open: filterPanelOpen }"
-            @click.stop="toggleFilterPanel"
           >
             <span class="hdr-arrow">↓</span>
             <span v-if="activeFilters.length > 0" class="filter-count">{{ activeFilters.length }}</span>
@@ -848,6 +899,11 @@
             </div>
             <div v-if="activeFilters.length > 0" class="filter-option filter-clear-inline" @click="clearFilters">clear all</div>
           </div>
+        </div>
+
+        <!-- NAME : label aligné au-dessus des noms de projets -->
+        <div class="hdr-col hdr-name" v-show="viewMode === 'list'">
+          <span class="hdr-label">NAME</span>
         </div>
 
         <!-- Toggle galerie / liste — droite -->
@@ -884,9 +940,6 @@
             v-show="isVisible(item)"
             :href="item.name"
             class="list-row"
-            @mouseenter="onListRowEnter(item, $event)"
-            @mousemove="onListRowMove($event)"
-            @mouseleave="onListRowLeave"
           >
             <!-- vignette : cachée sur desktop, visible sur mobile -->
             <div class="list-row-thumb">
@@ -928,10 +981,10 @@
 
       </div>
 
-      <!-- HOVER IMAGE (list view) -->
-      <div v-if="hoverImage && viewMode === 'list'" id="list-hover-image" :style="{ left: hoverPos.x + 'px', top: hoverPos.y + 'px' }">
+      <!-- HOVER IMAGE (list view) — désactivé, réactiver si besoin -->
+      <!-- <div v-if="hoverImage && viewMode === 'list'" id="list-hover-image" :style="{ left: hoverPos.x + 'px', top: hoverPos.y + 'px' }">
         <img :src="hoverImage" />
-      </div>
+      </div> -->
 
     </main>
   </div>
@@ -1117,7 +1170,7 @@
         ];
 
         const activeFilters = ref([]);
-        const filterPanelOpen = ref(false);
+        const filterPanelOpen = ref(true);
         const filterPanelEl = ref(null);
 
         const activeYears = ref([]);
@@ -1182,22 +1235,22 @@
         });
 
         /* ─── VIEW MODE ─── */
-        const viewMode = ref("gallery");
+        const viewMode = ref("list");
 
-        /* ─── LIST HOVER IMAGE ─── */
-        const hoverImage = ref(null);
-        const hoverPos = ref({ x: 0, y: 0 });
+        /* ─── LIST HOVER IMAGE (désactivé — réactiver si besoin) ─── */
+        // const hoverImage = ref(null);
+        // const hoverPos = ref({ x: 0, y: 0 });
 
-        const onListRowEnter = (item, e) => {
-          hoverImage.value = "img/" + item.src;
-          hoverPos.value = { x: e.clientX, y: e.clientY };
-        };
-        const onListRowMove = (e) => {
-          hoverPos.value = { x: e.clientX, y: e.clientY };
-        };
-        const onListRowLeave = () => {
-          hoverImage.value = null;
-        };
+        // const onListRowEnter = (item, e) => {
+        //   hoverImage.value = "img/" + item.src;
+        //   hoverPos.value = { x: e.clientX, y: e.clientY };
+        // };
+        // const onListRowMove = (e) => {
+        //   hoverPos.value = { x: e.clientX, y: e.clientY };
+        // };
+        // const onListRowLeave = () => {
+        //   hoverImage.value = null;
+        // };
 
         /* ─── INTERSECTION OBSERVER (barre filtres) ─── */
         const filtersVisible = ref(false);
@@ -1257,7 +1310,7 @@
           }
         };
 
-        onMounted(() => {
+        onMounted(async () => {
           observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
               filtersVisible.value = entry.isIntersecting;
@@ -1268,6 +1321,11 @@
 
           window.addEventListener("mousemove", onMouseMove);
           document.addEventListener("click", onDocClick);
+
+          await nextTick();
+          if (filterPanelOpen.value && filterPanelEl.value) {
+            panelOffset.value = filterPanelEl.value.offsetHeight;
+          }
         });
 
         onUnmounted(() => {
@@ -1309,12 +1367,12 @@
           isVisible,
           // View mode
           viewMode,
-          // List hover
-          hoverImage,
-          hoverPos,
-          onListRowEnter,
-          onListRowMove,
-          onListRowLeave,
+          // List hover (désactivé)
+          // hoverImage,
+          // hoverPos,
+          // onListRowEnter,
+          // onListRowMove,
+          // onListRowLeave,
           // Cursor & refs
           filtersVisible,
           contentArea,
