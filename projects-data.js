@@ -2,10 +2,10 @@
 // Used by project.html (and any future pages) to drive content and navigation.
 
 const PROJECT_ORDER = [
-    'anton', 'belvedere', 'bureauk', 'dieter', 'enzo', 'helena',
-    'kaktus', 'loop', 'louise', 'malorie', 'melodie', 'mistral',
-    'nocta', 'orion', 'pixa', 'remo', 'spyder',
-    'taurus', 'teo', 'tomeo', 'tropical', 'uni'
+    'bureauk', 'teo', 'kaktus', 'tomeo', 'enzo', 'pixa',
+    'loop', 'mistral', 'tropical', 'louise', 'melodie', 'taurus',
+    'anton', 'remo', 'belvedere', 'dieter',
+    'malorie', 'helena', 'spyder', 'nocta', 'uni', 'orion'
 ];
 
 const PROJECTS = {
