@@ -202,7 +202,7 @@ const PROJECTS = {
         title: "MALORIE",
         subtitle: "Outdoor chair 2022",
         dimensions: "500 × 515 × 805 mm",
-        description: "MALORIE pays tribute to Jean Prouvé’s all-wood designs through a refined balance between craftsmanship and contemporary simplicity. Its exposed joinery and distinctive armrest reveal a design where structure, material efficiency, and timeless identity come together.",
+        description: "This dining chair pays homage to Jean Prouvé’s all-wood designs from the 1940s and 1950s. Its design is understated, almost rustic, but the armrest makes a bold statement and gives it a unique, timeless identity. Its construction is based on traditional cabinetmaking principles: the joints, deliberately left exposed, showcase the craftsman’s expertise and play a key role in the chair’s aesthetic expression. Every detail highlights the precision of the woodworking rather than seeking to conceal it. Designed with material efficiency in mind, this chair prioritizes a streamlined structure, where each element serves a structural purpose. Straddling the line between artisanal heritage and contemporary design, it asserts a strong identity without ever resorting to showiness, making simplicity its primary language.",
         pageTitle: "MALORIE | Contemporary Solid Wood Dining Chair",
         ogDescription: "A timeless dining chair inspired by Jean Prouvé's all-wood designs, blending traditional cabinetmaking, exposed joinery, and a refined contemporary language shaped by material efficiency.",
         ogImage: "https://www.hugocharlet.com/pages/malorie/1.jpg",
