@@ -129,8 +129,8 @@
         .video-play-btn:hover { background: rgba(0,0,0,0.6); }
         .main-image {
             width: 100%;
-            aspect-ratio: 16 / 9;
-            object-fit: cover;
+            max-width: 100%;
+            height: auto;
             display: block;
         }
         .info-block {
@@ -344,7 +344,6 @@
                     <template v-else>
                         <img :src="mainImageSrc" class="main-image"
                              :width="project.mainImage ? project.mainImage.w : undefined"
-                             :height="project.mainImage ? project.mainImage.h : undefined"
                         />
                     </template>
                 </div>
