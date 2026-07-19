@@ -20,25 +20,23 @@ if (navbar) {
     grid: "grid",
     about: "about",
     contact: "contact",
+    work: "work",
     article: "article",
   };
   let activePage = "";
 
   if (url.includes(pages.details)) {
     activePage = pages.details;
-    console.log("nous sommes sur la page details");
   } else if (url.includes(pages.grid)) {
     activePage = pages.grid;
-    console.log("nous sommes sur la page grid");
   } else if (url.includes(pages.about)) {
     activePage = pages.about;
-    console.log("nous sommes sur la page about");
   } else if (url.includes(pages.contact)) {
     activePage = pages.contact;
-    console.log("nous sommes sur la page contact");
+  } else if (url.includes(pages.work)) {
+    activePage = pages.work;
   } else {
     activePage = pages.article;
-    console.log("nous sommes sur la page index ou sur une page article");
   }
 
   // Insérer les éléments de navigation dans la navbar
@@ -47,8 +45,8 @@ if (navbar) {
         <a href="https://www.hugocharlet.com/" class="nav-header" aria-label="homepage" > Hugo Charlet </a>
         <div class="navlinks-container ${activePage ? activePage : ""}">
             <a class="${
-              activePage === pages.details ? "active" : ""
-            }" href="https://www.hugocharlet.com/" >WORK</a>
+              activePage === pages.work || activePage === pages.article ? "active" : ""
+            }" href="work.html">WORK</a>
             <a class="${
               activePage === pages.about ? "active" : ""
             }" href="about">ABOUT</a>

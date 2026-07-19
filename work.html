@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E5KFLGR0PL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag("js", new Date());
+    gtag("config", "G-E5KFLGR0PL");
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Work — Hugo Charlet Design</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="variables.css" />
+  <link rel="stylesheet" href="navbarstyle.css" />
+
+  <meta property="og:description" content="Specializing in contemporary furniture and industrial product design, our studio creates aesthetic, iconic, and functional pieces." />
+  <meta property="og:image" content="https://www.hugocharlet.com/pages/pixa/3.jpg" />
+  <meta property="og:url" content="https://www.hugocharlet.com/work" />
+  <meta property="og:type" content="website" />
+  <meta name="description" content="Specializing in contemporary furniture and industrial product design, our studio creates aesthetic, iconic, and functional pieces." />
+
+  <!-- Vue 3 CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+
+  <style>
+    body {
+      font-family: "Hanken Grotesk", sans-serif;
+      color: #303030;
+    }
+
+    /* ─── HEADER PRINCIPAL ─── */
+    #main-header {
+      position: sticky;
+      top: 90px;
+      width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      z-index: 2500;
+      background: #fff;
+      border: none;
+      box-shadow: none;
+      height: 38px;
+      padding: 0 var(--margin-general);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #main-header::before {
+      content: '';
+      position: absolute;
+      top: -90px;
+      left: 0;
+      right: 0;
+      height: 90px;
+      background: #fff;
+      z-index: 1;
+    }
+
+    /* Toggle — centré dans le header */
+    #view-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 auto;
+    }
+
+    .toggle-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #ccc;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: color 0.2s;
+    }
+    .toggle-item.active { color: #303030; }
+    .toggle-item:hover  { color: #606060; }
+
+    .toggle-item svg {
+      width: 14px;
+      height: 14px;
+      display: block;
+      stroke: currentColor;
+      pointer-events: none;
+    }
+
+    /* ─── COLONNES HEADER ─── */
+    .hdr-col {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hdr-year     { flex: 0 0 auto; }
+    .hdr-typology { flex: 0 0 auto; margin-left: 24px; }
+    .hdr-name {
+      position: absolute;
+      left: calc(var(--margin-general) + 0.16 * (100% - 2 * var(--margin-general)) + 32px);
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .hdr-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #505050;
+      white-space: nowrap;
+    }
+
+    .hdr-filter-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #c8c8c8;
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .hdr-filter-btn:hover  { color: #303030; }
+    .hdr-filter-btn.active { color: #888; }
+    .hdr-filter-btn.open   { color: #303030; }
+
+    .hdr-arrow {
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+    .hdr-filter-btn.open .hdr-arrow { transform: rotate(180deg); }
+
+    .filter-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 15px;
+      height: 15px;
+      padding: 0 4px;
+      border-radius: 8px;
+      background: #303030;
+      color: #fff;
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    /* ─── PANELS FILTRES ─── */
+    #filter-panel,
+    #year-panel {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-top: 1px solid #d0d0d0;
+      border-bottom: 1px solid #d0d0d0;
+      padding: 20px var(--margin-general);
+      z-index: 9998;
+      box-shadow: none;
+    }
+
+    .filter-panel-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .filter-panel-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .filter-close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      color: #bbb;
+      transition: color 0.2s;
+      flex-shrink: 0;
+    }
+
+    .filter-close svg {
+      width: 14px;
+      height: 14px;
+      display: block;
+    }
+
+    .filter-close:hover { color: #303030; }
+
+    .filter-panel-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #aaa;
+    }
+
+    .filter-clear {
+      font-size: 10px;
+      color: #aaa;
+      cursor: pointer;
+      font-family: "IBM Plex Mono", monospace;
+      font-style: italic;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .filter-clear:hover { color: #303030; }
+
+    .filter-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 36px;
+    }
+
+    .filter-option {
+      cursor: pointer;
+      user-select: none;
+      font-family: "IBM Plex Mono", monospace;
+      font-style: italic;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: #c8c8c8;
+      transition: color 0.2s;
+    }
+
+    .filter-option.checked {
+      color: #303030;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .filter-option:hover { color: #505050; }
+
+    .filter-clear-inline {
+      font-family: "IBM Plex Mono", monospace;
+      font-style: italic;
+      font-size: 10px;
+      color: #aaa;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+    .filter-clear-inline:hover { color: #303030; }
+
+    .year-sort-toggle {
+      font-family: "IBM Plex Mono", monospace;
+      font-style: italic;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0;
+      color: #aaa;
+      white-space: nowrap;
+    }
+    .year-sort-toggle:hover { color: #303030; }
+
+    /* ─── GALERIE ─── */
+    #gallery {
+      padding: 0 !important;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: start;
+      align-items: flex-start;
+      width: 100%;
+      padding-bottom: 40px !important;
+      margin-bottom: 200px;
+      min-height: calc(100vh - 128px);
+    }
+
+    .gallery-item {
+      position: relative;
+      width: 25%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      padding: 0 !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      transition: width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
+    }
+
+    .gallery-item.inactive {
+      width: 0% !important;
+      height: 0% !important;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      filter: grayscale(100%);
+      opacity: 0.15;
+      transform: scale(1);
+      will-change: filter, opacity;
+      transition: transform 0.5s ease-out, filter 0.5s ease-out, opacity 0.5s ease-out;
+    }
+
+    #gallery,
+    .gallery-item,
+    .gallery-item a,
+    .gallery-item img {
+      cursor: none;
+    }
+
+    #custom-cursor {
+      position: fixed;
+      width: 36px;
+      height: 36px;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    @media (max-width: 1200px) {
+      .gallery-item { width: 33.33%; }
+
+      #gallery .gallery-item img {
+        filter: grayscale(0%) !important;
+        -webkit-filter: grayscale(0%) !important;
+        opacity: 1 !important;
+      }
+
+      #gallery .gallery-item {
+        aspect-ratio: 1 / 1;
+        cursor: default;
+      }
+    }
+
+    @media (max-width: 600px) {
+      #gallery .gallery-item img {
+        filter: grayscale(0%);
+        -webkit-filter: grayscale(0%);
+        opacity: 1;
+      }
+
+      #gallery .gallery-item {
+        width: 50%;
+        aspect-ratio: 1 / 1;
+        cursor: default;
+      }
+    }
+
+    /* ─── HEADER MOBILE ─── */
+    @media (max-width: 768px) {
+      #main-header {
+        top: 90px;
+        height: auto;
+        min-height: 50px;
+        padding: 0 16px;
+      }
+
+      #view-toggle {
+        margin: 0 auto;
+      }
+
+      .hdr-filter-btn {
+        min-height: 50px;
+        font-size: 13px;
+        gap: 5px;
+      }
+
+      .hdr-label { font-size: 13px; }
+
+      .toggle-item {
+        min-height: 50px;
+        font-size: 12px;
+      }
+
+      #filter-panel,
+      #year-panel {
+        padding: 16px 16px 20px;
+      }
+
+      .filter-options { gap: 10px; }
+
+      .filter-option {
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        font-size: 13px;
+      }
+
+      .filter-close svg { width: 18px; height: 18px; }
+      .filter-close { padding: 10px; margin: -10px; }
+    }
+
+    /* ─── LIST VIEW ─── */
+    #list-view {
+      width: 100%;
+      padding: 0 var(--margin-general);
+      box-sizing: border-box;
+      margin-bottom: 60px;
+      min-height: calc(100vh - 128px);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding-top: 14px;
+    }
+
+    .list-row {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      padding: 0;
+      text-decoration: none;
+      color: #b0b0b0;
+      border: none;
+      border-bottom: 1px solid #ebebeb;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      transition: color 0.2s, background-color 0.15s;
+    }
+
+    .list-col { flex: 1; font-size: 12px; }
+    .list-col.col-year { flex: 0 0 80px; font-variant-numeric: tabular-nums; }
+    .list-col.col-name { flex: 2; }
+    .list-col.col-typology { flex: 3; display: flex; flex-wrap: wrap; gap: 4px; }
+
+    .tag {
+      display: inline-block;
+      font-size: 9px;
+      padding: 2px 7px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      color: #999;
+      font-family: "IBM Plex Mono", monospace;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .list-row-thumb {
+      display: block;
+      flex: 0 0 16%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+    }
+
+    .list-row-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .list-row-content {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 8px;
+      padding: 28px 32px;
+      min-width: 0;
+    }
+
+    .list-row-top {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .list-col.col-year {
+      flex: none;
+      font-size: 11px;
+      color: #b0b0b0;
+      font-family: "IBM Plex Mono", monospace;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .list-col.col-name {
+      flex: none;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: #1a1a1a;
+    }
+
+    .list-col.col-typology {
+      flex: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    #list-hover-image {
+      position: fixed;
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate(24px, -50%);
+      width: 400px;
+      height: 400px;
+    }
+
+    #list-hover-image img { width: 100%; height: 100%; object-fit: cover; }
+
+    @media (max-width: 1200px) {
+      #list-hover-image { display: none; }
+    }
+
+    /* ─── LIST VIEW MOBILE ─── */
+    @media (max-width: 768px) {
+      .list-header { display: none; }
+
+      #list-view { padding: 0 16px; margin-bottom: 80px; }
+
+      .list-row {
+        align-items: flex-start;
+        gap: 13px;
+        padding: 13px 0;
+        color: #505050;
+      }
+
+      .list-row-thumb { display: block; flex: 0 0 42vw; height: 42vw; overflow: hidden; }
+      .list-row-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+      .list-row-content { display: flex; flex-direction: column; flex: 1; gap: 6px; min-width: 0; }
+      .list-row-top { display: flex; flex-direction: column; gap: 2px; }
+
+      .list-col.col-name {
+        flex: none; order: 1; font-size: 13px; font-weight: 600;
+        letter-spacing: 0.04em; color: #1a1a1a;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      }
+
+      .list-col.col-year {
+        flex: none; order: 2; font-size: 10px; color: #b0b0b0;
+        font-family: "IBM Plex Mono", monospace; font-variant-numeric: tabular-nums;
+      }
+
+      .list-col.col-typology { flex: none; gap: 3px; }
+      .tag { font-size: 8px; padding: 2px 6px; }
+    }
+
+    @media (max-width: 380px) {
+      .list-row-thumb { flex: 0 0 38vw; height: 38vw; }
+      .list-col.col-name { font-size: 12px; }
+    }
+
+    /* ─── LIST VIEW — YEAR SECTIONS ─── */
+    .year-section { margin-bottom: 90px; }
+
+    .year-header {
+      font-family: "IBM Plex Mono", monospace;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 12px;
+      color: #ccc;
+      border-bottom: 1px solid #d0d0d0;
+      padding-bottom: 12px;
+      margin-bottom: 0;
+    }
+
+    .year-projects {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px 0;
+    }
+
+    .year-projects .list-row { border-bottom: none; padding-bottom: 0; margin-bottom: 0; padding-top: 24px; }
+    .year-projects .list-row-thumb { flex: 0 0 58%; aspect-ratio: 1 / 1; height: auto; }
+    .year-projects .list-row-content { padding: 14px 16px; gap: 8px; }
+    .year-projects .list-col.col-name { font-size: 13px; }
+
+    .col-status {
+      margin-top: 18px;
+      font-family: "Hanken Grotesk", sans-serif;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 9px;
+      letter-spacing: 0.06em;
+      color: #c8c8c8;
+    }
+
+    .see-project {
+      display: block;
+      margin-top: 6px;
+      font-family: inherit;
+      font-style: inherit;
+      font-weight: inherit;
+      font-size: inherit;
+      color: #c8c8c8;
+      transition: color 0.2s;
+    }
+
+    .list-row:hover .see-project { color: #303030; }
+
+    .desc-en, .desc-fr { display: block; }
+    .desc-fr { color: #c8c8c8; }
+    .desc-en { margin-top: 1em; color: #c8c8c8; transition: color 0.2s; }
+    .list-row:hover .desc-en { color: #303030; }
+
+    .col-description {
+      font-family: "Hanken Grotesk", sans-serif;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 1100px) {
+      .year-projects { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .year-projects .list-row { color: #505050; }
+      .year-projects .list-row-thumb { flex: 0 0 55%; height: auto; }
+      .year-projects .list-row-content { padding: 10px 10px; }
+      .year-section { margin-bottom: 56px; }
+      .year-projects { gap: 20px 0; }
+    }
+
+    @media (max-width: 480px) {
+      .year-projects { grid-template-columns: 1fr; }
+      .year-projects .list-row-thumb { flex: 0 0 50%; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div id="menu-placeholder"></div>
+  </header>
+
+  <div id="app">
+    <main>
+
+      <!-- CURSEUR CUSTOM -->
+      <div id="custom-cursor" ref="cursor">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#EC623D">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+      </div>
+
+      <!-- HEADER PRINCIPAL -->
+      <div id="main-header">
+        <div id="view-toggle">
+          <span class="toggle-item" :class="{ active: viewMode === 'gallery' }" @click="viewMode = 'gallery'">
+            GALLERY
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7" rx="0.5"/>
+              <rect x="14" y="3" width="7" height="7" rx="0.5"/>
+              <rect x="3" y="14" width="7" height="7" rx="0.5"/>
+              <rect x="14" y="14" width="7" height="7" rx="0.5"/>
+            </svg>
+          </span>
+          <span class="toggle-item" :class="{ active: viewMode === 'list' }" @click="viewMode = 'list'">
+            LIST
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2">
+              <line x1="3" y1="6" x2="21" y2="6" stroke-linecap="round"/>
+              <line x1="3" y1="12" x2="21" y2="12" stroke-linecap="round"/>
+              <line x1="3" y1="18" x2="21" y2="18" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+
+      <!-- CONTENT AREA -->
+      <div :style="{ marginTop: (90 + panelOffset) + 'px', transition: 'margin-top 0.2s ease' }">
+
+        <!-- LIST VIEW -->
+        <div id="list-view" v-show="viewMode === 'list'">
+          <div v-for="group in projectsByYear" :key="group.year" class="year-section">
+            <div class="year-header">{{ group.year }}</div>
+            <div class="year-projects">
+              <a
+                v-for="(item, index) in group.projects"
+                :key="'list-' + item.src + index"
+                :href="item.name"
+                class="list-row"
+              >
+                <div class="list-row-thumb">
+                  <img :src="'img/' + item.src" :alt="item.name" loading="lazy" />
+                </div>
+                <div class="list-row-content">
+                  <div class="list-row-top">
+                    <div class="list-col col-name">{{ item.name.toUpperCase() }}</div>
+                  </div>
+                  <div class="col-description">
+                    <span class="desc-en">{{ item.descriptionEn }}</span>
+                    <span class="see-project">More...</span>
+                  </div>
+                  <div class="col-status">- {{ item.status }} -</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- GALLERY VIEW -->
+        <div id="gallery" v-show="viewMode === 'gallery'" ref="gallery">
+          <section
+            v-for="(item, index) in sortedGridData"
+            :key="item.src + index"
+            class="gallery-item"
+            :class="{ inactive: !isVisible(item) }"
+            :ref="el => { if (el) galleryItemRefs[index] = el }"
+          >
+            <a :href="item.name">
+              <img
+                :src="'img/' + item.src"
+                :alt="item.name"
+                loading="lazy"
+                data-pin-nopin="true"
+                :ref="el => { if (el) imgRefs[index] = el }"
+              />
+            </a>
+          </section>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    const { createApp, ref, computed, onMounted, onUnmounted, nextTick, watch } = Vue;
+
+    createApp({
+      setup() {
+        /* ─── GALERIE ─── */
+        const rawGridData = [
+          { src: "ANTON.jpg",     name: "anton",     status: "Seeking partner", descriptionEn: "An executive armchair series built on molded injected foam shells, with a delicate, modern and timeless look designed for high-end residential and contract spaces.",              data: ["armchair"],                        date: "2024-01-10" },
+          { src: "BELVEDERE.jpg", name: "belvedere", status: "Seeking partner", descriptionEn: "A simple outdoor chair with a highly original structure: the back legs rise all the way to the top of the high back, creating a distinctive and immediately recognizable identity.",       data: ["chair", "outdoor"],                date: "2024-04-12" },
+          { src: "BUREAUK.jpg",   name: "bureauk",   status: "Seeking partner", descriptionEn: "A power-free height-adjustable desk where two sliding metal triangles and springs compensate the weight of the upper part, offering an elegant and affordable alternative to electric solutions.",               data: ["desk"],                            date: "2016-04-01" },
+          { src: "DIETER17.jpg",  name: "dieter",    status: "Seeking partner", descriptionEn: "A Bauhaus-inspired waiting chair paying homage to Dieter Rams, elegant and minimalist with a modern touch, easy to manufacture and recognizable at first glance.",                        data: ["armchair", "fabric", "indoor"],    date: "2024-04-12" },
+          { src: "ENZO.jpg",      name: "enzo",      status: "Seeking partner", descriptionEn: "A home office desk designed for the teleworking era, functional yet elegant enough to be showcased in a living room rather than hidden in a bedroom.",                              data: ["desk"],                            date: "2021-04-09" },
+          { src: "HELENA.jpg",    name: "helena",    status: "In production",   descriptionEn: "A dining chair collection where the backrest turns on itself like a ribbon to gradually form the armrests, an innovative junction made industrially possible with state-of-the-art tools.",  data: ["chair", "indoor", "fabric"],       date: "2025-04-12" },
+          { src: "MALORIE.jpg",   name: "malorie",   status: "Seeking partner", descriptionEn: "An outdoor chair made from bent square tubing with a playful yet elegant design, fun and sophisticated, suited for restaurant terraces and private customers alike.",                              data: ["chair", "indoor", "fabric"],       date: "2025-04-10" },
+          { src: "ORION.jpg",     name: "orion",     status: "Seeking partner", descriptionEn: "A chair built around a distinctive triangular armrest from which the entire structure naturally unfolds, combining industrial rigor with handcrafted warmth, suited for modern spaces and mountain chalets alike.", data: ["chair", "indoor", "fabric"],  date: "2026-05-04" },
+          { src: "UNI.jpg",       name: "uni",       status: "Seeking partner", descriptionEn: "Inspired by the University Chair, with radical faceted lines at 0, 45, and 90 degrees in solid beech, where cool elegance meets deliberate and striking geometry.",           data: ["armchair", "indoor", "fabric"],    date: "2026-05-01" },
+          { src: "NOCTA.jpg",     name: "nocta",     status: "Seeking partner", descriptionEn: "A modern reinterpretation of the Scandinavian mid-back bridge chair, with square legs whose sharp exterior edges soften inside, creating a contrast between taut assertive lines and enveloping interior contours.",  data: ["chair", "indoor", "fabric"],       date: "2026-04-04" },
+          { src: "PIXA2.jpg",     name: "pixa",      status: "Seeking partner", descriptionEn: "A family of robust outdoor furniture made exclusively from pressure-treated pine planks, with bulky legs and oversized proportions that trigger surprise and astonishment, unlike anything else on the market.", data: ["chair", "indoor"],               date: "2021-04-12" },
+          { src: "TEO2.jpg",      name: "teo",       status: "Seeking partner", descriptionEn: "An outdoor solid wood armchair designed in collaboration with a skilled cabinet maker, with geometry carefully calculated to withstand wood movement while achieving an original and contemporary result.",         data: ["chair", "armchair", "outdoor", "indoor"], date: "2016-04-04" },
+          { src: "LOOP.jpg",      name: "loop",      status: "Seeking partner", descriptionEn: "An outdoor furniture series where seat and back are made from stretched fabric wrapped around a welded metal body, the fabric crossing itself at the base of the backrest to create a unique identity.",                 data: ["chair", "armchair", "outdoor"],    date: "2022-04-12" },
+          { src: "LOUISE5.jpg",   name: "louise",    status: "Seeking partner", descriptionEn: "Inspired by the Louis XVI medallion chair, with a simple and robust structure aimed at the mass market, giving everyone the opportunity to bring a piece of French design history into their home.",           data: ["chair", "outdoor"],                date: "2023-04-12" },
+          { src: "SPYDER.jpg",    name: "spyder",    status: "Seeking partner", descriptionEn: "A light and stackable outdoor metal chair made from bent pipes, designed as a contemporary alternative to plastic chairs for restaurant terraces, simple, original, and easy to manufacture.",          data: ["chair", "outdoor"],                date: "2026-02-02" },
+          { src: "MELODIE1.jpg",  name: "melodie",   status: "Seeking partner", descriptionEn: "An outdoor chair made from bent square tubing with a playful yet elegant design, fun and sophisticated in equal measure, designed for restaurateurs and private customers alike.",            data: ["chair", "outdoor"],                date: "2023-04-12" },
+          { src: "MISTRAL1.jpg",  name: "mistral",   status: "Seeking partner", descriptionEn: "A modern pendant lamp reinterpreting the storm lantern, which suspended above a table instantly creates a warm Scandinavian atmosphere through an ingenious arch-and-slot assembly.",                                 data: ["lighting"],                        date: "2022-04-12" },
+          { src: "DENTELLE.jpg",  name: "dentelle",  status: "Seeking partner", descriptionEn: "A ceramic pendant with an openwork pattern inspired by traditional lace, casting a filtered light with quiet formal poetry.",             data: ["lighting"],                        date: "2025-01-22" },
+          { src: "demilune.jpg",  name: "demilune",  status: "Seeking partner", descriptionEn: "A hemispherical pendant with a refined design, offering carefully controlled light diffusion for contemporary interiors.",  data: ["lighting"],                        date: "2025-01-19" },
+          { src: "clochette.jpg", name: "clochette", status: "Seeking partner", descriptionEn: "A minimalist enamelled metal pendant whose simple curve reveals a soft and enveloping light.",                      data: ["lighting"],                        date: "2025-01-20" },
+          { src: "KAKTUS.jpg",    name: "kaktus",    status: "Seeking partner", descriptionEn: "A funny and ironic teapot inspired by Richard Hutten's mug, with a bold cactus silhouette in porcelain, also producible in plastic.",        data: ["object"],                          date: "2017-04-12" },
+          { src: "TABLE.jpg",     name: "table",     status: "Seeking partner", descriptionEn: "A low table with slender legs and a restrained top, a statement piece for the contemporary living room.",          data: ["table", "indoor"],                 date: "2024-04-12" },
+          { src: "TOMEO.jpg",     name: "tomeo",     status: "Seeking partner", descriptionEn: "A stackable outdoor metal chair made from bent pipes for restaurant terraces, whose structure genuinely questions traditional chair construction, distinct from any 20th-century reference.",                         data: ["chair", "outdoor"],                date: "2019-04-12" },
+          { src: "REMO5.jpg",     name: "remo",      status: "Seeking partner", descriptionEn: "Inspired by Le Corbusier and Mies Van der Rohe's functionalism, tall, austere and rational, exploring the aesthetic possibilities of bent, welded and punched metal with finesse and creativity.",                  data: ["chair", "outdoor"],                date: "2024-04-04" },
+          { src: "TAURUS1.jpg",   name: "taurus",    status: "Seeking partner", descriptionEn: "A light and stackable chair made from bent welded metal pipes, fun and minimalist at once, readable and go-anywhere, with the potential to become a new iconic chair.",                              data: ["chair", "outdoor"],                date: "2023-10-10" },
+          { src: "TROPICAL.jpg",  name: "tropical",  status: "Seeking partner", descriptionEn: "Inspired by 60s/70s furniture and wrapped in tubular foam for unrivaled comfort and warmth, this pop and youthful armchair carries a strong identity with the potential to become a new design icon.",               data: ["armchair", "indoor"],              date: "2023-04-10" },
+        ];
+
+        const yearSortDir = ref("desc");
+        const allYears = [...new Set(rawGridData.map(d => d.date.split("-")[0]))];
+        const availableYears = computed(() =>
+          [...allYears].sort((a, b) => yearSortDir.value === "desc" ? b - a : a - b)
+        );
+
+        const sortedGridData = computed(() =>
+          [...rawGridData].sort((a, b) => {
+            const da = new Date(a.date), db = new Date(b.date);
+            return yearSortDir.value === "asc" ? da - db : db - da;
+          })
+        );
+
+        const projectsByYear = computed(() => {
+          const groups = [];
+          const yearMap = {};
+          sortedGridData.value.forEach(item => {
+            if (!isVisible(item)) return;
+            const year = item.date.split('-')[0];
+            if (!yearMap[year]) {
+              yearMap[year] = { year, projects: [] };
+              groups.push(yearMap[year]);
+            }
+            yearMap[year].projects.push(item);
+          });
+          return groups;
+        });
+
+        /* ─── FILTRES ─── */
+        const filterOptions = [
+          { id: "indoor",   label: "Indoor" },
+          { id: "outdoor",  label: "Outdoor" },
+          { id: "armchair", label: "Armchair" },
+          { id: "chair",    label: "Chair" },
+          { id: "table",    label: "Table" },
+          { id: "desk",     label: "Desk" },
+          { id: "lighting", label: "Lightings" },
+          { id: "object",   label: "Objects" },
+        ];
+
+        const activeFilters = ref([]);
+        const filterPanelOpen = ref(false);
+        const filterPanelEl = ref(null);
+
+        const activeYears = ref([]);
+        const yearPanelOpen = ref(false);
+        const yearPanelEl = ref(null);
+
+        const panelOffset = ref(0);
+
+        const isVisible = (item) => {
+          const itemYear = item.date.split("-")[0];
+          const yearOk = activeYears.value.length === 0 || activeYears.value.includes(itemYear);
+          const typeOk = activeFilters.value.length === 0 || activeFilters.value.some(tag => item.data.includes(tag));
+          return yearOk && typeOk;
+        };
+
+        const toggleFilter = (tag) => {
+          const idx = activeFilters.value.indexOf(tag);
+          if (idx === -1) activeFilters.value = [...activeFilters.value, tag];
+          else activeFilters.value = activeFilters.value.filter(t => t !== tag);
+        };
+
+        const clearFilters = () => { activeFilters.value = []; };
+
+        const toggleYear = (year) => {
+          const idx = activeYears.value.indexOf(year);
+          if (idx === -1) activeYears.value = [...activeYears.value, year];
+          else activeYears.value = activeYears.value.filter(y => y !== year);
+        };
+
+        const clearYears = () => { activeYears.value = []; };
+
+        const toggleFilterPanel = () => {
+          filterPanelOpen.value = !filterPanelOpen.value;
+          if (filterPanelOpen.value) yearPanelOpen.value = false;
+        };
+
+        const toggleYearPanel = () => {
+          yearPanelOpen.value = !yearPanelOpen.value;
+          if (yearPanelOpen.value) filterPanelOpen.value = false;
+        };
+
+        const onDocClick = () => {
+          filterPanelOpen.value = false;
+          yearPanelOpen.value = false;
+        };
+
+        watch([filterPanelOpen, yearPanelOpen], async () => {
+          await nextTick();
+          if (filterPanelOpen.value && filterPanelEl.value) {
+            panelOffset.value = filterPanelEl.value.offsetHeight;
+          } else if (yearPanelOpen.value && yearPanelEl.value) {
+            panelOffset.value = yearPanelEl.value.offsetHeight;
+          } else {
+            panelOffset.value = 0;
+          }
+        });
+
+        /* ─── VIEW MODE ─── */
+        const viewMode = ref("list");
+
+        /* ─── CUSTOM CURSOR ─── */
+        const gallery = ref(null);
+        const cursor = ref(null);
+        const galleryItemRefs = ref([]);
+        const imgRefs = ref([]);
+
+        const onMouseMove = (e) => {
+          const cursorEl = cursor.value;
+          if (!cursorEl) return;
+
+          if (window.innerWidth <= 1200 || viewMode.value !== "gallery") {
+            cursorEl.style.opacity = "0";
+            return;
+          }
+
+          cursorEl.style.left = e.clientX + "px";
+          cursorEl.style.top = e.clientY + "px";
+
+          const galleryEl = gallery.value;
+          if (!galleryEl) return;
+
+          if (galleryEl.matches(':hover')) {
+            cursorEl.style.opacity = "1";
+            const radius = window.innerWidth * 0.44;
+
+            galleryItemRefs.value.forEach((itemEl, i) => {
+              if (!itemEl) return;
+              if (itemEl.classList.contains("inactive")) return;
+              const imgEl = imgRefs.value[i];
+              if (!imgEl) return;
+
+              const rect = itemEl.getBoundingClientRect();
+              const centerX = rect.left + rect.width / 2;
+              const centerY = rect.top + rect.height / 2;
+              const distance = Math.sqrt((e.clientX - centerX) ** 2 + (e.clientY - centerY) ** 2);
+
+              if (distance < radius) {
+                const strength = 1 - distance / radius;
+                imgEl.style.opacity = 0.15 + 0.85 * strength;
+                imgEl.style.filter = `grayscale(${(1 - strength) * 100}%)`;
+                imgEl.style.transition = "none";
+              } else {
+                imgEl.style.opacity = "0.15";
+                imgEl.style.filter = "grayscale(100%)";
+                imgEl.style.transition = "all 0.5s ease-out";
+              }
+            });
+          } else {
+            cursorEl.style.opacity = "0";
+          }
+        };
+
+        onMounted(async () => {
+          window.addEventListener("mousemove", onMouseMove);
+          document.addEventListener("click", onDocClick);
+        });
+
+        onUnmounted(() => {
+          window.removeEventListener("mousemove", onMouseMove);
+          document.removeEventListener("click", onDocClick);
+        });
+
+        return {
+          sortedGridData,
+          projectsByYear,
+          filterOptions,
+          activeFilters,
+          filterPanelOpen,
+          filterPanelEl,
+          toggleFilter,
+          clearFilters,
+          toggleFilterPanel,
+          availableYears,
+          yearSortDir,
+          activeYears,
+          yearPanelOpen,
+          yearPanelEl,
+          toggleYear,
+          clearYears,
+          toggleYearPanel,
+          panelOffset,
+          isVisible,
+          viewMode,
+          gallery,
+          cursor,
+          galleryItemRefs,
+          imgRefs,
+        };
+      }
+    }).mount("#app");
+  </script>
+
+  <script src="navbar.js"></script>
+</body>
+
+</html>
