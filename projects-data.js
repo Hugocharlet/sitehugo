@@ -26,13 +26,13 @@ const PROJECTS = {
             { w: 1200, h: 1222 },
             { w: 3648, h: 5472 },
             { w: 3918, h: 3648 },
-            { w: 911,  h: 911  }
+            { w: 911, h: 911 }
         ],
         mainImage: { w: 4648, h: 2614 },
         models: [
-            { src: "glb/antonchair.glb",   label: "3D Model chair" },
-            { src: "glb/antonlounge.glb",  label: "3D Model armchair" },
-            { src: "glb/antonswivel.glb",  label: "3D Model loungechair" }
+            { src: "glb/antonchair.glb", label: "3D Model chair" },
+            { src: "glb/antonlounge.glb", label: "3D Model armchair" },
+            { src: "glb/antonswivel.glb", label: "3D Model loungechair" }
         ],
         configurator: null,
         download: null
@@ -54,7 +54,7 @@ const PROJECTS = {
         ],
         mainImage: { w: 2099, h: 1320 },
         models: [
-            { src: "glb/belvederechair.glb",    label: "3D Model chair" },
+            { src: "glb/belvederechair.glb", label: "3D Model chair" },
             { src: "glb/belvederearmchair.glb", label: "3D Model armchair" }
         ],
         configurator: null,
@@ -71,9 +71,9 @@ const PROJECTS = {
         gallery: [
             { w: 2433, h: 1812 },
             { w: 1894, h: 1323 },
-            { w: 979,  h: 979  },
+            { w: 979, h: 979 },
             { w: 1894, h: 1323 },
-            { w: 1011, h: 675  },
+            { w: 1011, h: 675 },
             { w: 1894, h: 1323 },
             { w: 1280, h: 1023 },
             { w: 1894, h: 1323 }
@@ -115,20 +115,20 @@ const PROJECTS = {
         gallery: [
             { w: 1080, h: 1080 },
             { w: 1080, h: 1080 },
-            { w: 972,  h: 972  },
+            { w: 972, h: 972 },
             { w: 1751, h: 1751 },
             { w: 1559, h: 1559 },
             { w: 2433, h: 2433 },
-            { w: 683,  h: 1025 },
+            { w: 683, h: 1025 },
             { w: 1003, h: 1003 },
             { w: 2537, h: 2537 },
             { w: 3648, h: 3648 }
         ],
         mainImage: { w: 1642, h: 923 },
         models: [
-            { src: "glb/helenachair.glb",    label: "3D Model chair" },
+            { src: "glb/helenachair.glb", label: "3D Model chair" },
             { src: "glb/helenaarmchair.glb", label: "3D Model armchair" },
-            { src: "glb/helenalounge.glb",   label: "3D Model loungechair" }
+            { src: "glb/helenalounge.glb", label: "3D Model loungechair" }
         ],
         configurator: "https://www.hugocharlet.com/configurator/helena/",
         download: "pages/helena/HDimages.zip"
@@ -142,7 +142,7 @@ const PROJECTS = {
         ogDescription: "The Kaktus teapot is a funny and ironic object inspired from Richard Hutten's mug. This porcelain teapot with a bold cactus silhouette could also be produced in plastic.",
         ogImage: "https://www.hugocharlet.com/pages/kaktus/3.jpg",
         gallery: [
-            { w: 712,  h: 713  },
+            { w: 712, h: 713 },
             { w: 1000, h: 1000 },
             { w: 1000, h: 1000 }
         ],
@@ -170,8 +170,8 @@ const PROJECTS = {
         ],
         mainImage: { w: 5472, h: 3078 },
         models: [
-            { src: "glb/loopchair.glb",       label: "3D Model chair" },
-            { src: "glb/looparmchair.glb",    label: "3D Model armchair" },
+            { src: "glb/loopchair.glb", label: "3D Model chair" },
+            { src: "glb/looparmchair.glb", label: "3D Model armchair" },
             { src: "glb/looploungechair.glb", label: "3D Model loungechair" }
         ],
         configurator: null,
@@ -192,7 +192,7 @@ const PROJECTS = {
         ],
         mainImage: { w: 2596, h: 1460 },
         models: [
-            { src: "glb/louisechair.glb",    label: "3D Model chair" },
+            { src: "glb/louisechair.glb", label: "3D Model chair" },
             { src: "glb/louisearmchair.glb", label: "3D Model armchair" }
         ],
         configurator: null,
@@ -202,15 +202,15 @@ const PROJECTS = {
         title: "MALORIE",
         subtitle: "Outdoor chair 2022",
         dimensions: "500 × 515 × 805 mm",
-        description: "Malorie is a new outdoor chair that is both fun and sophisticated. It's made from square tubing that's been bent into a cool and unique design, which gives it a playful look. But even with its funky appearance, it still manages to look elegant and classy.",
-        pageTitle: "MALORIE original outdoor chair made with square tubes",
-        ogDescription: "Malorie is a new outdoor chair that is both fun and sophisticated. It's made from square tubing that's been bent into a cool and unique design, which gives it a playful look.",
+        description: "This dining chair pays homage to Jean Prouvé’s all-wood designs from the 1940s and 1950s. Its design is understated, almost rustic, but the armrest makes a bold statement and gives it a unique, timeless identity. Its construction is based on traditional cabinetmaking principles: the joints, deliberately left exposed, showcase the craftsman’s expertise and play a key role in the chair’s aesthetic expression. Every detail highlights the precision of the woodworking rather than seeking to conceal it. Designed with material efficiency in mind, this chair prioritizes a streamlined structure, where each element serves a structural purpose. Straddling the line between artisanal heritage and contemporary design, it asserts a strong identity without ever resorting to showiness, making simplicity its primary language.",
+        pageTitle: "MALORIE | Contemporary Solid Wood Dining Chair",
+        ogDescription: "A timeless dining chair inspired by Jean Prouvé's all-wood designs, blending traditional cabinetmaking, exposed joinery, and a refined contemporary language shaped by material efficiency.",
         ogImage: "https://www.hugocharlet.com/pages/malorie/1.jpg",
         gallery: [
             { w: 1444, h: 1445 },
             { w: 2648, h: 2648 },
             { w: 2304, h: 1424 },
-            { w: 768,  h: 768  }
+            { w: 768, h: 768 }
         ],
         mainImage: { w: 3436, h: 1255 },
         models: [],
@@ -275,13 +275,13 @@ const PROJECTS = {
             { w: 1800, h: 1800 },
             { w: 1537, h: 1537 },
             { w: 1024, h: 1024 },
-            { w: 1748, h: 984  },
-            { w: 1578, h: 888  },
+            { w: 1748, h: 984 },
+            { w: 1578, h: 888 },
             { w: 1401, h: 1336 }
         ],
         mainImage: { w: 3528, h: 1353 },
         models: [
-            { src: "glb/orionchair.glb",    label: "3D Model chair" },
+            { src: "glb/orionchair.glb", label: "3D Model chair" },
             { src: "glb/orionarmchair.glb", label: "3D Model armchair" }
         ],
         configurator: null,
@@ -297,16 +297,16 @@ const PROJECTS = {
         ogImage: "https://www.hugocharlet.com/pages/pixa/3.jpg",
         gallery: [
             { w: 1033, h: 1033 },
-            { w: 867,  h: 1056 },
+            { w: 867, h: 1056 },
             { w: 1252, h: 1568 },
-            { w: 964,  h: 1094 },
-            { w: 983,  h: 983  },
+            { w: 964, h: 1094 },
+            { w: 983, h: 983 },
             { w: 1616, h: 1212 },
-            { w: 1210, h: 806  }
+            { w: 1210, h: 806 }
         ],
         mainImage: { w: 2399, h: 1006 },
         models: [
-            { src: "glb/pixachair.glb",  label: "3D Model chair" },
+            { src: "glb/pixachair.glb", label: "3D Model chair" },
             { src: "glb/pixalounge.glb", label: "3D Model armchair" }
         ],
         configurator: "https://www.hugocharlet.com/configurator/pixa/",
@@ -330,7 +330,7 @@ const PROJECTS = {
         ],
         mainImage: { w: 2651, h: 1492 },
         models: [
-            { src: "glb/remo.glb",         label: "3D Model chair" },
+            { src: "glb/remo.glb", label: "3D Model chair" },
             { src: "glb/remoarmrests.glb", label: "3D Model armchair" }
         ],
         configurator: null,
@@ -348,9 +348,9 @@ const PROJECTS = {
             { w: 2048, h: 2048 },
             { w: 2048, h: 2048 },
             { w: 2048, h: 2048 },
-            { w: 973,  h: 688  },
-            { w: 1024, h: 724  },
-            { w: 973,  h: 688  },
+            { w: 973, h: 688 },
+            { w: 1024, h: 724 },
+            { w: 973, h: 688 },
             { w: 2048, h: 2048 },
             { w: 2048, h: 1285 }
         ],
@@ -411,24 +411,24 @@ const PROJECTS = {
         ogDescription: "Tomeo is an outdoor metal chair made from bent metal pipes. It is a light and stackable chair initially designed for restaurant terraces as an alternative to plastic chairs.",
         ogImage: "https://www.hugocharlet.com/pages/tomeo/1.jpg",
         gallery: [
-            { w: 987,  h: 987  },
-            { w: 900,  h: 900  },
+            { w: 987, h: 987 },
+            { w: 900, h: 900 },
             { w: 1188, h: 1029 },
             { w: 1300, h: 1300 },
             { w: 1040, h: 1040 },
             { w: 1300, h: 1300 },
-            { w: 900,  h: 900  },
+            { w: 900, h: 900 },
             { w: 1080, h: 1080 },
-            { w: 844,  h: 1252 },
-            { w: 860,  h: 860  },
+            { w: 844, h: 1252 },
+            { w: 860, h: 860 },
             { w: 1081, h: 1081 },
             { w: 1081, h: 1352 }
         ],
         mainImage: { w: 3289, h: 3289 },
         models: [
-            { src: "glb/tomeochair.glb",    label: "3D Model chair" },
+            { src: "glb/tomeochair.glb", label: "3D Model chair" },
             { src: "glb/tomeoarmchair.glb", label: "3D Model armchair" },
-            { src: "glb/tomeolounge.glb",   label: "3D Model loungechair" }
+            { src: "glb/tomeolounge.glb", label: "3D Model loungechair" }
         ],
         configurator: null,
         download: null
@@ -444,10 +444,10 @@ const PROJECTS = {
         gallery: [
             { w: 2416, h: 2416 },
             { w: 2320, h: 1460 },
-            { w: 745,  h: 745  },
-            { w: 1200, h: 800  },
+            { w: 745, h: 745 },
+            { w: 1200, h: 800 },
             { w: 2465, h: 1627 },
-            { w: 1541, h: 972  }
+            { w: 1541, h: 972 }
         ],
         mainImage: { w: 2320, h: 1561 },
         models: [],
@@ -467,8 +467,8 @@ const PROJECTS = {
             { w: 1800, h: 1800 },
             { w: 1800, h: 1800 },
             { w: 1800, h: 1800 },
-            { w: 1064, h: 708  },
-            { w: 1064, h: 708  }
+            { w: 1064, h: 708 },
+            { w: 1064, h: 708 }
         ],
         mainImage: { w: 1948, h: 1096 },
         models: [
