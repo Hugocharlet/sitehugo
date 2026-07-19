@@ -26,86 +26,83 @@
         })();
     </script>
     <style>
-        /* ── Barre de navigation projet (haut) ── */
+        /* ── Barre de navigation projet ── */
         .proj-top-nav {
-            position: fixed;
-            top: 90px;
-            left: 0;
-            width: 100%;
-            height: 35px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            /* hero-section left edge = 19vw depuis viewport left */
+            left: calc(var(--margin-general) + 10px - 19vw);
+            width: calc(100vw - 2 * (var(--margin-general) + 10px));
             z-index: 2100;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 2vw;
-            box-sizing: border-box;
-            background: #fff;
+            pointer-events: none;
         }
 
         .proj-top-nav-link {
-            display: flex;
+            pointer-events: all;
+        }
+
+        .proj-top-nav-link {
+            display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 4px;
             font-family: "IBM Plex Mono", monospace;
             font-style: italic;
-            font-weight: 300;
-            font-size: 10px;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: #aaa;
+            font-weight: 400;
+            font-size: 11px;
+            text-transform: lowercase;
+            color: #afafaf;
             text-decoration: none;
-            transition: color 0.22s;
+            transition: transform 0.3s ease, color 0.3s ease;
             cursor: pointer;
         }
 
-        .proj-top-nav-link:hover { color: #282828; }
+        .proj-top-nav-link:hover { color: #303030; }
 
         .proj-top-nav-link svg {
             flex-shrink: 0;
-            transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+            stroke: currentColor;
+            fill: currentColor;
         }
 
-        .proj-top-nav-link.prev:hover svg { transform: translateX(-4px); }
-        .proj-top-nav-link.next:hover svg { transform: translateX(4px); }
+        .proj-top-nav-link.prev:hover { transform: translateX(-3px); }
+        .proj-top-nav-link.next:hover { transform: translateX(3px); }
     </style>
     <style>
-        .page-layout {
+        /* ── Layout éditorial ── */
+        .editorial-layout {
             margin-top: 125px;
-            margin-left: 2vw;
-            margin-right: 2vw;
-            display: flex;
-            align-items: flex-start;
         }
-        .left-col {
-            width: 52%;
-            flex-shrink: 0;
-            position: sticky;
-            top: 125px;
-            height: calc(100vh - 125px);
-            overflow-y: auto;
-            overflow-x: hidden;
-            scrollbar-width: none;
-            box-sizing: border-box;
-            border-left: 1px solid #e8e8e8;
-            border-right: 1px solid #e8e8e8;
+
+        /* ── Conteneur commun centré ── */
+        .page-container {
+            width: 62vw;
+            margin: 0 auto;
         }
-        .left-col::-webkit-scrollbar { display: none; }
-        .video-wrapper {
+
+        /* ── Hero ── */
+        .hero-image {
             width: 100%;
-            aspect-ratio: 16 / 9;
+            height: auto;
+            display: block;
+        }
+
+        .hero-video-wrap {
+            width: 100%;
             position: relative;
-            overflow: hidden;
-            background: #000;
             cursor: pointer;
+            background: #000;
         }
-        .video-iframe {
-            position: absolute;
-            inset: 0;
+
+        .hero-video {
             width: 100%;
-            height: 100%;
-            border: none;
-            pointer-events: none;
+            height: auto;
+            display: block;
         }
+
         .video-play-btn {
             position: absolute;
             top: 50%;
@@ -125,20 +122,33 @@
             opacity: 0;
             transition: opacity 0.2s, background 0.2s;
         }
-        .video-wrapper:hover .video-play-btn { opacity: 1; }
+        .hero-video-wrap:hover .video-play-btn { opacity: 1; }
         .video-play-btn:hover { background: rgba(0,0,0,0.6); }
-        .main-image {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            display: block;
+
+        /* ── Section éditoriale (texte + modèles) ── */
+        .editorial-row {
+            display: flex;
+            flex-direction: column;
+            padding: 52px 0 30px;
+            padding-right: 25%;
         }
-        .info-block {
-            padding: 30px calc(var(--margin-general) * 3) 30px var(--margin-general);
+
+        .editorial-col-left {
+            margin-bottom: 28px;
         }
-        .info-block h1 { margin: 0 0 4px; }
-        .info-block h2 { margin: 0 0 20px; }
-        .info-block p  { margin: 0 0 10px; }
+
+        .editorial-col-left h1 { margin: 0 0 8px; }
+        .editorial-col-left h2 { margin: 0; }
+
+        .editorial-col-right p {
+            margin: 0 0 10px;
+        }
+
+        .editorial-models {
+            margin-top: 40px;
+        }
+
+        /* ── Barre process toggle ── */
         .process-toggle {
             display: flex;
             align-items: center;
@@ -150,14 +160,13 @@
             letter-spacing: 0.08em;
             padding: 10px var(--margin-general);
             border: none;
-            border-top: 1px solid #e8e8e8;
-            border-bottom: 1px solid #e8e8e8;
             background: none;
             cursor: pointer;
             text-align: left;
             width: 100%;
             box-sizing: border-box;
             transition: color 0.2s;
+            margin-top: -1px;
         }
         .process-toggle:hover { color: #303030; background: #f5f5f5; }
         .process-toggle svg {
@@ -170,16 +179,18 @@
         .process-toggle.icon-left {
             justify-content: flex-start;
             position: relative;
+            padding-left: 20px;
         }
         .process-toggle.icon-left svg {
             position: absolute;
-            left: 8px;
+            left: 4px;
             top: 50%;
             transform: translateY(-50%);
         }
         .process-toggle.icon-left.open svg {
             transform: translateY(-50%) rotate(90deg);
         }
+
         .expand-wrap {
             display: grid;
             grid-template-rows: 1fr;
@@ -196,6 +207,7 @@
             overflow: hidden;
             min-height: 0;
         }
+
         .process-inline-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -205,100 +217,100 @@
             display: block;
             width: 100%;
             height: auto;
-            border-bottom: 1px solid #e8e8e8;
         }
-        .process-inline-grid img:not(:nth-child(3n)) { border-right: 1px solid #e8e8e8; }
-        .video-wrap {
-            overflow: hidden;
-            margin-top: -1px;
-        }
-        .right-col {
-            flex: 1;
-            position: sticky;
-            top: 125px;
-            height: calc(100vh - 125px);
-            overflow-y: auto;
-            overflow-x: hidden;
-            scrollbar-width: none;
-            box-sizing: border-box;
-            border-right: 1px solid #e8e8e8;
-            isolation: isolate;
-        }
-        .right-col::-webkit-scrollbar { display: none; }
 
-        /* ── Scrollbar custom (bord droit fenêtre) ── */
-        #custom-scrollbar-track {
-            position: fixed;
-            right: 0;
-            top: 125px;
-            width: 6px;
-            height: calc(100vh - 125px);
-            z-index: 3000;
+        /* ── Galerie ── */
+        .gallery-section {
+            margin: 0 auto 80px;
         }
-        #custom-scrollbar-thumb {
-            position: absolute;
-            right: 0;
-            width: 6px;
-            background: #d0d0d0;
-            border-radius: 3px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        #custom-scrollbar-thumb:hover { background: #999; }
-        .gallery-col-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+
+        .gallery-section-header {
             font-family: "IBM Plex Mono", monospace;
             font-style: italic;
             font-size: 10px;
             color: #aaa;
             letter-spacing: 0.08em;
-            padding: 10px var(--margin-general);
-            border-top: 1px solid #e8e8e8;
-            border-bottom: 1px solid #e8e8e8;
-            box-sizing: border-box;
-            width: 100%;
-            position: sticky;
-            top: 0;
-            background: #fff;
-            z-index: 2200;
-            cursor: pointer;
-            border-left: none;
-            border-right: none;
-            transition: color 0.2s;
+            padding: 10px 0;
+            align-self: flex-start;
         }
-        .gallery-col-header:hover { color: #303030; background: #f5f5f5; }
-        .gallery-col-header svg {
-            flex-shrink: 0;
-            opacity: 0.5;
-            transition: opacity 0.2s, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        .editorial-gallery-grid {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 38vw;
+            margin: 0 auto;
         }
-        .gallery-col-header:hover svg { opacity: 1; }
-        .gallery-col-header.open svg { transform: rotate(90deg); opacity: 0.5; }
+
+        .gallery-img + .gallery-img {
+            margin-top: 80px;
+        }
+
         .gallery-img {
             display: block;
             width: 100%;
             height: auto;
-            border-bottom: 1px solid #e8e8e8;
-            margin-bottom: 20px;
             opacity: 0;
             transition: opacity 2s ease;
         }
         .gallery-img.visible { opacity: 1; }
+
+        /* ── Model viewer overlay ── */
         #modelContainer {
-            padding: 0 !important;
-            box-sizing: border-box !important;
+            display: none;
+            position: fixed;
+            top: 125px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60vw;
+            height: calc(100vh - 125px);
+            background: rgba(255, 255, 255, 0.96);
+            z-index: 3000;
+            padding: 0;
+            box-sizing: border-box;
         }
+        #modelContainer.show { display: block; }
         #modelContainer model-viewer {
-            width: 100% !important;
-            height: 100% !important;
+            width: 100%;
+            height: 100%;
             display: block;
         }
+
+        /* ── Responsive ── */
         @media (max-width: 768px) {
-            .page-layout { flex-direction: column; }
-            .left-col { width: 100%; position: static; height: auto; overflow: visible; }
-            .right-col { width: 100%; position: static; height: auto; overflow: visible; border-top: 1px solid #e8e8e8; }
+            .page-container {
+                width: 92vw;
+            }
+
+            .editorial-row {
+                padding: 36px 0 40px;
+                padding-right: 0;
+            }
+
+            .gallery-img + .gallery-img {
+                margin-top: 5px;
+            }
+
+            .editorial-gallery-grid {
+                width: 100%;
+            }
+
+            #modelContainer {
+                width: 100vw !important;
+                max-width: 100vw !important;
+                height: 100vh !important;
+                left: 0 !important;
+                right: auto !important;
+                top: 0 !important;
+                transform: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            #modelContainer model-viewer {
+                width: 100vw !important;
+                height: 100vh !important;
+            }
         }
     </style>
 </head>
@@ -306,120 +318,84 @@
 
 <header>
     <div id="menu-placeholder"></div>
-    <div id="svgmenupages-placeholder"></div>
 </header>
 
 <div id="app">
-    <div class="page-layout">
+    <div class="editorial-layout">
+    <div class="page-container">
 
-        <!-- ── Colonne gauche ── -->
-        <div class="left-col" ref="leftCol">
-
-            <!-- 1. Vidéo ou image principale -->
-            <template v-if="videoExists || mainImageExists">
-                <button class="process-toggle icon-left" :class="{ open: videoVisible }" @click="videoVisible = !videoVisible">
-                <svg width="7" height="9" viewBox="0 0 7 9" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M1.4 1.8C1.4 1.2 2 0.9 2.5 1.3L5.6 3.5C6.1 3.9 6.1 4.7 5.6 5.1L2.5 7.3C2 7.7 1.4 7.4 1.4 6.8Z"
-                    fill="currentColor"
-                />
-                </svg>
-                    cover
-                </button>
-                <div ref="videoWrapRef" class="video-wrap">
-                    <template v-if="videoExists">
-                        <div class="video-wrapper" @click="toggleVideoPlay">
-                            <video ref="videoRef" class="video-iframe" :src="videoSrc" autoplay muted loop playsinline></video>
-                            <button class="video-play-btn">
-                                <svg v-if="videoPlaying" width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="1.5" y="1" width="3" height="9" rx="0.5" fill="currentColor"/>
-                                    <rect x="6.5" y="1" width="3" height="9" rx="0.5" fill="currentColor"/>
-                                </svg>
-                                <svg v-else width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M2 1.5l8 4L2 9.5V1.5z" fill="currentColor"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </template>
-                    <template v-else>
-                        <img :src="mainImageSrc" class="main-image"
-                             :width="project.mainImage ? project.mainImage.w : undefined"
-                        />
-                    </template>
+        <!-- ── 1. Hero image / vidéo ── -->
+        <section class="hero-section" style="position: relative;">
+            <div id="svgmenupages-placeholder"></div>
+            <template v-if="videoExists">
+                <div class="hero-video-wrap" @click="toggleVideoPlay">
+                    <video ref="videoRef" class="hero-video" :src="videoSrc" autoplay muted loop playsinline></video>
+                    <button class="video-play-btn">
+                        <svg v-if="videoPlaying" width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1.5" y="1" width="3" height="9" rx="0.5" fill="currentColor"/>
+                            <rect x="6.5" y="1" width="3" height="9" rx="0.5" fill="currentColor"/>
+                        </svg>
+                        <svg v-else width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 1.5l8 4L2 9.5V1.5z" fill="currentColor"/>
+                        </svg>
+                    </button>
                 </div>
             </template>
+            <template v-else-if="mainImageExists">
+                <img :src="mainImageSrc" class="hero-image"
+                     :alt="`${project.title} — Hugo Charlet`" />
+            </template>
+        </section>
 
-            <!-- 2. Description -->
-            <button class="process-toggle icon-left" :class="{ open: descVisible }" @click="descVisible = !descVisible">
-                <svg width="7" height="9" viewBox="0 0 7 9" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M1.4 1.8C1.4 1.2 2 0.9 2.5 1.3L5.6 3.5C6.1 3.9 6.1 4.7 5.6 5.1L2.5 7.3C2 7.7 1.4 7.4 1.4 6.8Z"
-                    fill="currentColor"
-                />
-                </svg>
-                description
-            </button>
-            <div class="expand-wrap" :class="{ collapsed: !descVisible }">
-                <div class="expand-inner">
-                    <div class="info-block">
-                        <h1 class="Title">{{ project.title }}</h1>
-                        <h2 class="Subtitle">{{ project.subtitle }}</h2>
-                        <main class="textebox-container">
-                            <p v-if="project.dimensions" class="texte">{{ project.dimensions }}</p>
-                            <p class="texte">{{ project.description }}</p>
-                        </main>
-                    </div>
+        <!-- ── 2. Section éditoriale : texte + modèles 3D ── -->
+        <section class="editorial-section">
+            <div class="editorial-row">
+
+                <!-- Colonne gauche : titre ── -->
+                <div class="editorial-col-left">
+                    <h1 class="Title">{{ project.title }}</h1>
+                    <h2 class="Subtitle">{{ project.subtitle }}</h2>
                 </div>
-            </div>
 
-            <!-- 3. 3D models -->
-            <template v-if="hasModelsSection">
-                <button class="process-toggle icon-left" :class="{ open: modelsVisible }" @click="modelsVisible = !modelsVisible">
-                <svg width="7" height="9" viewBox="0 0 7 9" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M1.4 1.8C1.4 1.2 2 0.9 2.5 1.3L5.6 3.5C6.1 3.9 6.1 4.7 5.6 5.1L2.5 7.3C2 7.7 1.4 7.4 1.4 6.8Z"
-                    fill="currentColor"
-                />
-                </svg>
-                    3D models
-                </button>
-                <div class="expand-wrap" :class="{ collapsed: !modelsVisible }">
-                    <div class="expand-inner">
-                        <div class="info-block" style="padding-top: 20px; padding-bottom: 20px;">
-                            <div class="sousmenu-wrapper" style="margin-top: 0;">
-                                <div v-for="model in models" :key="model.src" class="icon-container">
-                                    <a href="#" class="icon-link" @click.prevent.stop="openModel(model.src)">
-                                        <img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
-                                        <div class="texte texte-icon">{{ model.label }}</div>
-                                    </a>
-                                </div>
-                                <div v-if="project.configurator" class="icon-container">
-                                    <a :href="project.configurator" class="icon-link">
-                                        <img src="config.svg" alt="Configurator" class="icon-item">
-                                        <div class="texte texte-icon">3D configurator</div>
-                                    </a>
-                                </div>
-                                <div v-if="project.download" class="icon-container">
-                                    <a :href="project.download" class="icon-link" download>
-                                        <img src="DL.svg" alt="Download" class="icon-item">
-                                        <div class="texte texte-icon">HD images</div>
-                                    </a>
-                                </div>
+                <!-- Colonne droite : description + modèles ── -->
+                <div class="editorial-col-right">
+                    <main class="textebox-container">
+                        <p v-if="project.dimensions" class="texte">{{ project.dimensions }}</p>
+                        <p class="texte">{{ project.description }}</p>
+                    </main>
+
+                    <div v-if="hasModelsSection" class="editorial-models">
+                        <div class="sousmenu-wrapper" style="margin-top: 0;">
+                            <div v-for="model in models" :key="model.src" class="icon-container">
+                                <a href="#" class="icon-link" @click.prevent.stop="openModel(model.src)">
+                                    <img src="3DICON.svg" alt="Open Model Viewer" class="icon-item">
+                                    <div class="texte texte-icon">{{ model.label }}</div>
+                                </a>
+                            </div>
+                            <div v-if="project.configurator" class="icon-container">
+                                <a :href="project.configurator" class="icon-link">
+                                    <img src="config.svg" alt="Configurator" class="icon-item">
+                                    <div class="texte texte-icon">3D configurator</div>
+                                </a>
+                            </div>
+                            <div v-if="project.download" class="icon-container">
+                                <a :href="project.download" class="icon-link" download>
+                                    <img src="DL.svg" alt="Download" class="icon-item">
+                                    <div class="texte texte-icon">HD images</div>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </template>
 
-            <!-- 4. Process -->
+            </div>
+
+            <!-- Process (dépliable) ── -->
             <template v-if="processExists">
                 <button class="process-toggle icon-left" :class="{ open: processVisible }" @click="toggleProcess">
-                <svg width="7" height="9" viewBox="0 0 7 9" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M1.4 1.8C1.4 1.2 2 0.9 2.5 1.3L5.6 3.5C6.1 3.9 6.1 4.7 5.6 5.1L2.5 7.3C2 7.7 1.4 7.4 1.4 6.8Z"
-                    fill="currentColor"
-                />
-                </svg>
+                    <svg width="7" height="9" viewBox="0 0 7 9" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.4 1.8C1.4 1.2 2 0.9 2.5 1.3L5.6 3.5C6.1 3.9 6.1 4.7 5.6 5.1L2.5 7.3C2 7.7 1.4 7.4 1.4 6.8Z" fill="currentColor"/>
+                    </svg>
                     more details about the process
                 </button>
                 <div class="expand-wrap" :class="{ collapsed: !processVisible }">
@@ -430,30 +406,27 @@
                     </div>
                 </div>
             </template>
+        </section>
+        <div style="height: 30px;"></div>
 
-        </div>
-
-        <!-- ── Colonne droite : galerie ── -->
-        <div class="right-col" ref="rightCol">
-            <button class="gallery-col-header" :class="{ open: photosVisible }" @click="photosVisible = !photosVisible">
-                photos
-            </button>
-            <div class="expand-wrap" :class="{ collapsed: !photosVisible }">
-                <div class="expand-inner">
-                    <img
-                        v-for="(img, i) in images"
-                        :key="i"
-                        :src="img.src"
-                        class="gallery-img"
-                        :class="{ visible: img.visible }"
-                        :alt="`${project.title} — Hugo Charlet`"
-                        :loading="i === 0 ? 'eager' : 'lazy'"
-                    />
-                </div>
+        <!-- ── 3. Galerie photos ── -->
+        <section class="gallery-section">
+            <div class="editorial-gallery-grid" ref="galleryRef">
+                <div class="gallery-section-header">photos</div>
+                <img
+                    v-for="(img, i) in images"
+                    :key="i"
+                    :src="img.src"
+                    class="gallery-img"
+                    :class="{ visible: img.visible }"
+                    :alt="`${project.title} — Hugo Charlet`"
+                    :loading="i === 0 ? 'eager' : 'lazy'"
+                />
             </div>
-        </div>
+        </section>
 
-    </div>
+    </div><!-- /page-container -->
+    </div><!-- /editorial-layout -->
 
     <!-- ── Model viewer overlay ── -->
     <div id="modelContainer" ref="modelContainer" :class="{ show: modelVisible }" @click.self="closeModel">
@@ -479,7 +452,7 @@
 </div>
 
 <script>
-// PROJECTS and PROJECT_ORDER are loaded from projects-data.js
+// PROJECTS and PROJECT_ORDER sont chargés depuis projects-data.js
 
 // ── Résolution du projet depuis l'URL ───────────────────────────────────────
 const urlParams   = new URLSearchParams(window.location.search);
@@ -503,7 +476,7 @@ canonical.rel = 'canonical';
 canonical.href = `https://hugocharlet.com/${projectKey}`;
 document.head.appendChild(canonical);
 
-// ── Navigation précédent / suivant (barre du haut) ──────────────────────────
+// ── Navigation précédent / suivant ──────────────────────────────────────────
 const navsvg = document.getElementById("svgmenupages-placeholder");
 (function () {
     const idx      = PROJECT_ORDER.indexOf(projectKey);
@@ -514,22 +487,22 @@ const navsvg = document.getElementById("svgmenupages-placeholder");
     navsvg.innerHTML = `
         <nav class="proj-top-nav">
             <a class="proj-top-nav-link prev" href="/${prevKey}">
-                <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M13 5H2M5 1L1 5L5 9" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" width="16" height="16">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 8.25 3 12m0 0 3.75 3.75M3 12H12" />
                 </svg>
                 <span>${prevTitle}</span>
             </a>
             <a class="proj-top-nav-link next" href="/${nextKey}">
                 <span>${nextTitle}</span>
-                <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 5H12M9 1L13 5L9 9" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" width="16" height="16">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H12" />
                 </svg>
             </a>
         </nav>`;
 })();
 
 // ── Vue app ──────────────────────────────────────────────────────────────────
-const { createApp, ref, reactive, onMounted, nextTick, watch } = Vue;
+const { createApp, ref, reactive, onMounted, nextTick } = Vue;
 
 const app = createApp({
     setup() {
@@ -550,36 +523,13 @@ const app = createApp({
         const videoExists     = ref(false);
         const mainImageExists = ref(false);
         const processExists   = ref(false);
-        const videoVisible    = ref(false);
-        const descVisible     = ref(true);
-        const modelsVisible   = ref(true);
-        const photosVisible   = ref(true);
-        const rightCol        = ref(null);
-        const leftCol         = ref(null);
-        const videoWrapRef    = ref(null);
         const videoRef        = ref(null);
         const videoPlaying    = ref(true);
         const modelContainer  = ref(null);
-
-        function snapToInfoBlock() {
-            if (!leftCol.value) return;
-            const rect = leftCol.value.getBoundingClientRect();
-            Object.assign(modelContainer.value.style, {
-                position : "fixed",
-                left     : rect.left   + "px",
-                top      : rect.top    + "px",
-                width    : rect.width  + "px",
-                height   : rect.height + "px",
-                right    : "auto",
-                transform: "none",
-                maxWidth : "none",
-                padding  : "0",
-            });
-        }
+        const galleryRef      = ref(null);
 
         function openModel(src) {
             currentModelSrc.value = src;
-            snapToInfoBlock();
             modelVisible.value = !modelVisible.value;
         }
 
@@ -610,72 +560,26 @@ const app = createApp({
                     srcs.forEach(src => { if (src) processImages.push(src); });
                 }
                 processVisible.value = true;
-                await nextTick();
-                setTimeout(() => {
-                    if (leftCol.value) {
-                        const btns = leftCol.value.querySelectorAll('.process-toggle');
-                        const processBtn = btns[btns.length - 1];
-                        if (processBtn) {
-                            leftCol.value.scrollTo({ top: processBtn.offsetTop, behavior: 'smooth' });
-                        }
-                    }
-                }, 460);
             } else {
                 processVisible.value = false;
             }
         }
 
-        watch(videoVisible, (show) => {
-            const el = videoWrapRef.value;
-            if (!el) return;
-            if (show) {
-                el.style.height = 'auto';
-                const h = el.getBoundingClientRect().height;
-                el.style.height = '0';
-                el.style.opacity = '0';
-                el.offsetHeight;
-                el.style.transition = 'height 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.35s ease';
-                el.style.height = h + 'px';
-                el.style.opacity = '1';
-                const onEnd = () => { el.style.height = 'auto'; el.style.transition = ''; el.removeEventListener('transitionend', onEnd); };
-                el.addEventListener('transitionend', onEnd);
-            } else {
-                const h = el.getBoundingClientRect().height;
-                el.style.height = h + 'px';
-                el.offsetHeight;
-                el.style.transition = 'height 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.35s ease';
-                el.style.height = '0';
-                el.style.opacity = '0';
-            }
-        });
-
         onMounted(async () => {
-            window.addEventListener("resize", () => {
-                if (modelVisible.value) snapToInfoBlock();
-            });
-
             document.addEventListener('click', (e) => {
                 if (modelVisible.value && modelContainer.value && !modelContainer.value.contains(e.target)) {
                     modelVisible.value = false;
                 }
             });
 
-            // ── Détection vidéo ──
+            // ── Détection vidéo / image principale ──
             fetch(`${newUrl}main-video.mp4`, { method: 'HEAD' })
                 .then(async r => {
                     if (r.ok) {
                         videoExists.value = true;
-                        await nextTick();
-                        videoVisible.value = true;
                     } else {
                         fetch(`${newUrl}main.jpg`, { method: 'HEAD' })
-                            .then(async r2 => {
-                                if (r2.ok) {
-                                    mainImageExists.value = true;
-                                    await nextTick();
-                                    videoVisible.value = true;
-                                }
-                            })
+                            .then(r2 => { if (r2.ok) mainImageExists.value = true; })
                             .catch(() => {});
                     }
                 })
@@ -689,7 +593,7 @@ const app = createApp({
                 img.src = `${newUrl}process/1.jpg`;
             }).then(exists => { processExists.value = exists; });
 
-            // ── Chargement galerie (probe jusqu'à 30 images) ──
+            // ── Chargement galerie ──
             const mediaSrcs = await Promise.all(
                 Array.from({ length: 30 }, (_, i) => new Promise(resolve => {
                     const img = new Image();
@@ -703,7 +607,7 @@ const app = createApp({
 
             await nextTick();
 
-            // ── Fade-in images ──
+            // ── Fade-in images (viewport comme root) ──
             const galleryObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     const idx = parseInt(entry.target.dataset.idx);
@@ -713,41 +617,21 @@ const app = createApp({
                         images[idx].visible = false;
                     }
                 });
-            }, { root: rightCol.value, threshold: 0.05 });
+            }, { root: null, threshold: 0.05 });
 
-            rightCol.value.querySelectorAll('.gallery-img').forEach((el, i) => {
-                el.dataset.idx = i;
-                galleryObserver.observe(el);
-            });
-
-            // ── Auto-scroll initial ──
-            let autoScrollActive = true;
-            const stopAuto = () => { autoScrollActive = false; };
-            window.addEventListener('wheel',       stopAuto, { once: true });
-            window.addEventListener('touchstart',  stopAuto, { once: true });
-            window.addEventListener('pointerdown', stopAuto, { once: true });
-
-            let last = null;
-            const SPEED = 35;
-            function step(ts) {
-                if (!autoScrollActive) return;
-                if (last === null) last = ts;
-                const rc = rightCol.value;
-                rc.scrollBy(0, SPEED * (ts - last) / 1000);
-                last = ts;
-                if (rc.scrollTop < rc.scrollHeight - rc.clientHeight) {
-                    requestAnimationFrame(step);
-                }
+            if (galleryRef.value) {
+                galleryRef.value.querySelectorAll('.gallery-img').forEach((el, i) => {
+                    el.dataset.idx = i;
+                    galleryObserver.observe(el);
+                });
             }
-            setTimeout(() => requestAnimationFrame(step), 1000);
         });
 
         return {
             project, models, hasModelsSection, videoSrc, mainImageSrc, mainImageExists,
             modelVisible, currentModelSrc, loading,
             images, processImages, processVisible, processExists,
-            videoVisible, videoExists, descVisible, modelsVisible, photosVisible,
-            rightCol, leftCol, videoWrapRef, videoRef, videoPlaying, modelContainer,
+            videoExists, videoRef, videoPlaying, modelContainer, galleryRef,
             openModel, closeModel, toggleProcess, toggleVideoPlay,
         };
     }
@@ -757,72 +641,5 @@ app.config.compilerOptions.isCustomElement = tag => tag === "model-viewer";
 app.mount("#app");
 </script>
 <script src="navbar.js"></script>
-
-<div id="custom-scrollbar-track">
-    <div id="custom-scrollbar-thumb"></div>
-</div>
-
-<script>
-(function () {
-    const track = document.getElementById('custom-scrollbar-track');
-    const thumb = document.getElementById('custom-scrollbar-thumb');
-
-    function getRc() { return document.querySelector('.right-col'); }
-
-    function updateThumb() {
-        const rc = getRc();
-        if (!rc || rc.scrollHeight <= rc.clientHeight) {
-            thumb.style.display = 'none';
-            return;
-        }
-        thumb.style.display = 'block';
-        const ratio      = rc.clientHeight / rc.scrollHeight;
-        const thumbH     = Math.max(ratio * rc.clientHeight, 28);
-        const scrollable = rc.clientHeight - thumbH;
-        const scrollRatio = rc.scrollTop / (rc.scrollHeight - rc.clientHeight);
-        thumb.style.height = thumbH + 'px';
-        thumb.style.top    = (scrollRatio * scrollable) + 'px';
-    }
-
-    // Sync on scroll
-    function bindScroll() {
-        const rc = getRc();
-        if (!rc) { setTimeout(bindScroll, 100); return; }
-        rc.addEventListener('scroll', updateThumb);
-        updateThumb();
-    }
-    bindScroll();
-
-    // Drag thumb
-    let dragging = false, startY = 0, startScrollTop = 0;
-    thumb.addEventListener('mousedown', (e) => {
-        dragging = true;
-        startY = e.clientY;
-        startScrollTop = getRc().scrollTop;
-        e.preventDefault();
-    });
-    document.addEventListener('mousemove', (e) => {
-        if (!dragging) return;
-        const rc = getRc();
-        const thumbH  = thumb.offsetHeight;
-        const range   = rc.clientHeight - thumbH;
-        const delta   = ((e.clientY - startY) / range) * (rc.scrollHeight - rc.clientHeight);
-        rc.scrollTop  = startScrollTop + delta;
-    });
-    document.addEventListener('mouseup', () => { dragging = false; });
-
-    // Click on track
-    track.addEventListener('click', (e) => {
-        if (e.target === thumb) return;
-        const rc   = getRc();
-        const rect = track.getBoundingClientRect();
-        const ratio = (e.clientY - rect.top) / rect.height;
-        rc.scrollTop = ratio * (rc.scrollHeight - rc.clientHeight);
-    });
-
-    // Update on resize
-    window.addEventListener('resize', updateThumb);
-})();
-</script>
 </body>
 </html>
