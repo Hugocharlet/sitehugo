@@ -134,8 +134,7 @@
       align-items: center;
       z-index: 2500;
       background: #fff;
-      border: none;
-      box-shadow: none;
+      box-shadow: 0 1px 0 0 #d0d0d0;
       height: 38px;
       padding: 0 var(--margin-general);
       opacity: 0;
@@ -148,12 +147,15 @@
       visibility: visible;
     }
 
-    /* Toggle — centré dans le header */
+    /* Toggle — absolument à droite, hors du flux flex */
     #view-toggle {
+      position: absolute;
+      right: var(--margin-general);
+      top: 50%;
+      transform: translateY(-50%);
       display: flex;
       align-items: center;
       gap: 10px;
-      margin: 0 auto;
     }
 
     .toggle-item {
@@ -480,9 +482,28 @@
         padding: 0 16px;
       }
 
-      /* Toggle — centré sur mobile */
+      /* Toggle revient dans le flux, poussé à gauche */
       #view-toggle {
-        margin: 0 auto;
+        position: static;
+        transform: none;
+        margin-right: auto;
+        order: 0;
+      }
+
+      /* YEAR : juste le bouton filtre, sans largeur fixe */
+      .hdr-col.hdr-year {
+        flex: none;
+        order: 1;
+      }
+
+      /* NAME : inutile sur mobile (vue carte) */
+      .hdr-col.hdr-name { display: none; }
+
+      /* TYPOLOGY : bouton filtre à droite */
+      .hdr-col.hdr-typology {
+        flex: none;
+        order: 2;
+        margin-left: 16px;
       }
 
       /* Grandes zones tactiles (min 44px recommandé Apple/Google) */
@@ -557,6 +578,18 @@
       transition: color 0.2s, background-color 0.15s;
     }
 
+    @media (hover: hover) {
+      .list-row:hover {
+        font-family: "IBM Plex Mono", monospace;
+        font-style: italic;
+        font-weight: 500;
+        color: #303030;
+      }
+
+      .list-row:hover .tag {
+        font-style: italic;
+      }
+    }
 
     .list-col { flex: 1; font-size: 12px; }
 
@@ -743,141 +776,6 @@
 
       .list-col.col-name { font-size: 12px; }
     }
-
-    /* ─── LIST VIEW — YEAR SECTIONS ─── */
-    .year-section {
-      margin-bottom: 90px;
-    }
-
-    .year-header {
-      font-family: "IBM Plex Mono", monospace;
-      font-style: italic;
-      font-weight: 500;
-      font-size: 12px;
-      color: #ccc;
-      border-bottom: 1px solid #d0d0d0;
-      padding-bottom: 12px;
-      margin-bottom: 0;
-    }
-
-    .year-projects {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px 0;
-    }
-
-    .year-projects .list-row {
-      border-bottom: none;
-      padding-bottom: 0;
-      margin-bottom: 0;
-      padding-top: 24px;
-    }
-
-    .year-projects .list-row-thumb {
-      flex: 0 0 58%;
-      aspect-ratio: 1 / 1;
-      height: auto;
-    }
-
-    .year-projects .list-row-content {
-      padding: 14px 16px;
-      gap: 8px;
-    }
-
-    .year-projects .list-col.col-name {
-      font-size: 13px;
-    }
-
-    .col-status {
-      margin-top: 18px;
-      font-family: "Hanken Grotesk", sans-serif;
-      font-style: normal;
-      font-weight: 300;
-      font-size: 9px;
-      letter-spacing: 0.06em;
-      color: #c8c8c8;
-    }
-
-    .see-project {
-      display: block;
-      margin-top: 6px;
-      font-family: inherit;
-      font-style: inherit;
-      font-weight: inherit;
-      font-size: inherit;
-      color: #c8c8c8;
-      transition: color 0.2s;
-    }
-
-    .list-row:hover .see-project {
-      color: #303030;
-    }
-
-    .desc-en,
-    .desc-fr {
-      display: block;
-    }
-
-    .desc-fr {
-      color: #c8c8c8;
-    }
-
-    .desc-en {
-      margin-top: 1em;
-      color: #c8c8c8;
-      transition: color 0.2s;
-    }
-
-    .list-row:hover .desc-en {
-      color: #303030;
-    }
-
-    .col-description {
-      font-family: "Hanken Grotesk", sans-serif;
-      font-style: normal;
-      font-weight: 300;
-      font-size: 11px;
-      line-height: 1.5;
-    }
-
-    @media (max-width: 1100px) {
-      .year-projects {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .year-projects .list-row {
-        color: #505050;
-      }
-
-      .year-projects .list-row-thumb {
-        flex: 0 0 55%;
-        height: auto;
-      }
-
-      .year-projects .list-row-content {
-        padding: 10px 10px;
-      }
-
-      .year-section {
-        margin-bottom: 56px;
-      }
-
-      .year-projects {
-        gap: 20px 0;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .year-projects {
-        grid-template-columns: 1fr;
-      }
-
-      .year-projects .list-row-thumb {
-        flex: 0 0 50%;
-      }
-    }
   </style>
 </head>
 
@@ -928,6 +826,86 @@
       <!-- HEADER PRINCIPAL (toggle vue + colonnes triables + filtres typology) -->
       <div id="main-header" :class="{ visible: filtersVisible }">
 
+        <!-- YEAR : label + bouton filtre séparé -->
+        <div class="hdr-col hdr-year" @click.stop="toggleYearPanel" style="cursor:pointer">
+          <span class="hdr-label">YEAR</span>
+          <span class="hdr-filter-btn"
+            :class="{ active: activeYears.length > 0, open: yearPanelOpen }"
+          >
+            <span class="hdr-arrow">↓</span>
+            <span v-if="activeYears.length > 0" class="filter-count">{{ activeYears.length }}</span>
+          </span>
+        </div>
+
+        <div id="year-panel" v-show="yearPanelOpen" ref="yearPanelEl" @click.stop>
+          <div class="filter-panel-row">
+            <span class="filter-panel-label">FILTER BY YEAR</span>
+            <div class="filter-panel-actions">
+              <button class="filter-close" @click="yearPanelOpen = false">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="filter-options">
+            <div class="filter-option year-sort-toggle" @click="toggleYearSortDir">
+              {{ yearSortDir === 'desc' ? 'oldest first' : 'newest first' }} {{ yearSortDir === 'desc' ? '↑' : '↓' }}
+            </div>
+            <div
+              v-for="year in availableYears"
+              :key="year"
+              class="filter-option"
+              :class="{ checked: activeYears.includes(year) }"
+              @click="toggleYear(year)"
+            >
+              {{ year }}
+            </div>
+            <div v-if="activeYears.length > 0" class="filter-option filter-clear-inline" @click="clearYears">clear all</div>
+          </div>
+        </div>
+
+        <!-- TYPOLOGY : label + bouton filtre séparé (juste après YEAR) -->
+        <div class="hdr-col hdr-typology" @click.stop="toggleFilterPanel" style="cursor:pointer">
+          <span class="hdr-label">TYPOLOGY</span>
+          <span class="hdr-filter-btn"
+            :class="{ active: activeFilters.length > 0, open: filterPanelOpen }"
+          >
+            <span class="hdr-arrow">↓</span>
+            <span v-if="activeFilters.length > 0" class="filter-count">{{ activeFilters.length }}</span>
+          </span>
+        </div>
+
+        <div id="filter-panel" v-show="filterPanelOpen" ref="filterPanelEl" @click.stop>
+          <div class="filter-panel-row">
+            <span class="filter-panel-label">FILTER BY TYPOLOGY</span>
+            <div class="filter-panel-actions">
+              <button class="filter-close" @click="filterPanelOpen = false">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="filter-options">
+            <div
+              v-for="opt in filterOptions"
+              :key="opt.id"
+              class="filter-option"
+              :class="{ checked: activeFilters.includes(opt.id) }"
+              @click="toggleFilter(opt.id)"
+            >
+              {{ opt.label }}
+            </div>
+            <div v-if="activeFilters.length > 0" class="filter-option filter-clear-inline" @click="clearFilters">clear all</div>
+          </div>
+        </div>
+
+        <!-- NAME : label aligné au-dessus des noms de projets -->
+        <div class="hdr-col hdr-name" v-show="viewMode === 'list'">
+          <span class="hdr-label">NAME</span>
+        </div>
+
         <!-- Toggle galerie / liste — droite -->
         <div id="view-toggle">
           <span class="toggle-item" :class="{ active: viewMode === 'gallery' }" @click="viewMode = 'gallery'">
@@ -956,31 +934,28 @@
 
         <!-- LIST VIEW -->
         <div id="list-view" v-show="viewMode === 'list'">
-          <div v-for="group in projectsByYear" :key="group.year" class="year-section">
-            <div class="year-header">{{ group.year }}</div>
-            <div class="year-projects">
-              <a
-                v-for="(item, index) in group.projects"
-                :key="'list-' + item.src + index"
-                :href="item.name"
-                class="list-row"
-              >
-                <div class="list-row-thumb">
-                  <img :src="'img/' + item.src" :alt="item.name" loading="lazy" />
-                </div>
-                <div class="list-row-content">
-                  <div class="list-row-top">
-                    <div class="list-col col-name">{{ item.name.toUpperCase() }}</div>
-                  </div>
-                  <div class="col-description">
-                    <span class="desc-en">{{ item.descriptionEn }}</span>
-                    <span class="see-project">More...</span>
-                  </div>
-                  <div class="col-status">- {{ item.status }} -</div>
-                </div>
-              </a>
+          <a
+            v-for="(item, index) in sortedGridData"
+            :key="'list-' + item.src + index"
+            v-show="isVisible(item)"
+            :href="item.name"
+            class="list-row"
+          >
+            <!-- vignette : cachée sur desktop, visible sur mobile -->
+            <div class="list-row-thumb">
+              <img :src="'img/' + item.src" :alt="item.name" loading="lazy" />
             </div>
-          </div>
+            <!-- wrapper transparent sur desktop (display:contents), colonne sur mobile -->
+            <div class="list-row-content">
+              <div class="list-row-top">
+                <div class="list-col col-year">{{ item.date.split('-')[0] }}</div>
+                <div class="list-col col-name">{{ item.name.toUpperCase() }}</div>
+              </div>
+              <div class="list-col col-typology">
+                <span v-for="tag in item.data" :key="tag" class="tag">{{ tag }}</span>
+              </div>
+            </div>
+          </a>
         </div>
 
         <!-- GALLERY VIEW -->
@@ -1106,32 +1081,34 @@
 
         /* ─── GALERIE ─── */
         const rawGridData = [
-          { src: "ANTON.jpg",     name: "anton",     status: "Seeking partner", descriptionEn: "An executive armchair series built on molded injected foam shells, with a delicate, modern and timeless look designed for high-end residential and contract spaces.",              description: "Fauteuil sculptural en bois massif — assise généreuse conjuguant ergonomie et élégance formelle.",              data: ["armchair"],                        date: "2024-01-10" },
-          { src: "BELVEDERE.jpg", name: "belvedere", status: "Seeking partner", descriptionEn: "A simple outdoor chair with a highly original structure: the back legs rise all the way to the top of the high back, creating a distinctive and immediately recognizable identity.",       description: "Chaise de terrasse empilable, légère et colorée, pensée pour les espaces de restauration extérieurs.",          data: ["chair", "outdoor"],                date: "2024-04-12" },
-          { src: "BUREAUK.jpg",   name: "bureauk",   status: "Seeking partner", descriptionEn: "A power-free height-adjustable desk where two sliding metal triangles and springs compensate the weight of the upper part, offering an elegant and affordable alternative to electric solutions.",               description: "Bureau en contreplaqué cintré — économie de matière et élégance structurelle pour le home office.",             data: ["desk"],                            date: "2016-04-01" },
-          { src: "DIETER17.jpg",  name: "dieter",    status: "Seeking partner", descriptionEn: "A Bauhaus-inspired waiting chair paying homage to Dieter Rams, elegant and minimalist with a modern touch, easy to manufacture and recognizable at first glance.",                        description: "Fauteuil bas aux lignes géométriques sobres, hommage discret au fonctionnalisme des années 70.",                data: ["armchair", "fabric", "indoor"],    date: "2024-04-12" },
-          { src: "ENZO.jpg",      name: "enzo",      status: "Seeking partner", descriptionEn: "A home office desk designed for the teleworking era, functional yet elegant enough to be showcased in a living room rather than hidden in a bedroom.",                              description: "Bureau compact aux lignes orthogonales — fonctionnalité maximale dans un encombrement minimal.",                data: ["desk"],                            date: "2021-04-09" },
-          { src: "HELENA.jpg",    name: "helena",    status: "In production",           descriptionEn: "A dining chair collection where the backrest turns on itself like a ribbon to gradually form the armrests, an innovative junction made industrially possible with state-of-the-art tools.",                         description: "Chaise en métal laqué aux couleurs vives — légèreté affirmée pour les intérieurs contemporains.",               data: ["chair", "indoor", "fabric"],       date: "2025-04-12" },
-          { src: "MALORIE.jpg",   name: "malorie",   status: "Seeking partner", descriptionEn: "An outdoor chair made from bent square tubing with a playful yet elegant design, fun and sophisticated, suited for restaurant terraces and private customers alike.",                              description: "Structure en bois massif et assise rembourrée — chaleur artisanale et confort prolongé.",                       data: ["chair", "indoor", "fabric"],       date: "2025-04-10" },
-          { src: "ORION.jpg",     name: "orion",     status: "Seeking partner", descriptionEn: "A chair built around a distinctive triangular armrest from which the entire structure naturally unfolds, combining industrial rigor with handcrafted warmth, suited for modern spaces and mountain chalets alike.", description: "Chaise articulée autour d'un accoudoir triangulaire — structure épurée associant rigueur industrielle et artisanat.", data: ["chair", "indoor", "fabric"],  date: "2026-05-04" },
-          { src: "UNI.jpg",       name: "uni",       status: "Seeking partner", descriptionEn: "Inspired by the University Chair, with radical faceted lines at 0, 45, and 90 degrees in solid beech, where cool elegance meets deliberate and striking geometry.",           description: "Fauteuil aux proportions généreuses et à la géométrie douce, conçu pour un usage résidentiel ou contract.",    data: ["armchair", "indoor", "fabric"],    date: "2026-05-01" },
-          { src: "NOCTA.jpg",     name: "nocta",     status: "Seeking partner", descriptionEn: "A modern reinterpretation of the Scandinavian mid-back bridge chair, with square legs whose sharp exterior edges soften inside, creating a contrast between taut assertive lines and enveloping interior contours.",              description: "Chaise empilable au profil mat et discret — silhouette sobre qui se fond dans tout intérieur.",                 data: ["chair", "indoor", "fabric"],       date: "2026-04-04" },
-          { src: "PIXA2.jpg",     name: "pixa",      status: "Seeking partner", descriptionEn: "A family of robust outdoor furniture made exclusively from pressure-treated pine planks, with bulky legs and oversized proportions that trigger surprise and astonishment, unlike anything else on the market.", description: "Chaise de bureau à l'esthétique pixel — jeu de plans et surfaces planes pour un design ludique et fonctionnel.", data: ["chair", "indoor"],               date: "2021-04-12" },
-          { src: "TEO2.jpg",      name: "teo",       status: "Seeking partner", descriptionEn: "An outdoor solid wood armchair designed in collaboration with a skilled cabinet maker, with geometry carefully calculated to withstand wood movement while achieving an original and contemporary result.",         description: "Chaise polyvalente indoor/outdoor à structure filaire — légèreté et transparence visuelle.",                    data: ["chair", "armchair", "outdoor", "indoor"], date: "2016-04-04" },
-          { src: "LOOP.jpg",      name: "loop",      status: "Seeking partner", descriptionEn: "An outdoor furniture series where seat and back are made from stretched fabric wrapped around a welded metal body, the fabric crossing itself at the base of the backrest to create a unique identity.",                 description: "Chaise-fauteuil aux bras en boucle continue — une ligne unique qui structure et enveloppe le corps.",           data: ["chair", "armchair", "outdoor"],    date: "2022-04-12" },
-          { src: "LOUISE5.jpg",   name: "louise",    status: "Seeking partner", descriptionEn: "Inspired by the Louis XVI medallion chair, with a simple and robust structure aimed at the mass market, giving everyone the opportunity to bring a piece of French design history into their home.",           description: "Chaise empilable en acier galvanisé — robustesse et économie de forme pour les espaces extérieurs.",            data: ["chair", "outdoor"],                date: "2023-04-12" },
-          { src: "SPYDER.jpg",    name: "spyder",    status: "Seeking partner", descriptionEn: "A light and stackable outdoor metal chair made from bent pipes, designed as a contemporary alternative to plastic chairs for restaurant terraces, simple, original, and easy to manufacture.",          description: "Chaise extérieure aux pieds filiformes — légèreté et résistance inspirées de l'araignée.",                      data: ["chair", "outdoor"],                date: "2026-02-02" },
-          { src: "MELODIE1.jpg",  name: "melodie",   status: "Seeking partner", descriptionEn: "An outdoor chair made from bent square tubing with a playful yet elegant design, fun and sophisticated in equal measure, designed for restaurateurs and private customers alike.",            description: "Chaise de jardin à dossier enroulé — légèreté visuelle et résistance aux intempéries.",                        data: ["chair", "outdoor"],                date: "2023-04-12" },
-          { src: "MISTRAL1.jpg",  name: "mistral",   status: "Seeking partner", descriptionEn: "A modern pendant lamp reinterpreting the storm lantern, which suspended above a table instantly creates a warm Scandinavian atmosphere through an ingenious arch-and-slot assembly.",                                 description: "Suspension filiforme en métal — légèreté et poésie pour une lumière diffuse et directionnelle.",                data: ["lighting"],                        date: "2022-04-12" },
-          { src: "DENTELLE.jpg",  name: "dentelle",  status: "Seeking partner", descriptionEn: "A ceramic pendant with an openwork pattern inspired by traditional lace, casting a filtered light with quiet formal poetry.",             description: "Suspension céramique à décor ajouré — lumière filtrée et poésie formelle inspirée de la dentelle.",             data: ["lighting"],                        date: "2025-01-22" },
-          { src: "demilune.jpg",  name: "demilune",  status: "Seeking partner", descriptionEn: "A hemispherical pendant with a refined design, offering carefully controlled light diffusion for contemporary interiors.",  description: "Suspension hémisphérique au design épuré — diffusion lumineuse maîtrisée pour intérieurs contemporains.",       data: ["lighting"],                        date: "2025-01-19" },
-          { src: "clochette.jpg", name: "clochette", status: "Seeking partner", descriptionEn: "A minimalist enamelled metal pendant whose simple curve reveals a soft and enveloping light.",                      description: "Suspension minimaliste en métal émaillé — courbe simple révélant une lumière douce et enveloppante.",           data: ["lighting"],                        date: "2025-01-20" },
-          { src: "KAKTUS.jpg",    name: "kaktus",    status: "Seeking partner", descriptionEn: "A funny and ironic teapot inspired by Richard Hutten's mug, with a bold cactus silhouette in porcelain, also producible in plastic.",        description: "Objet décoratif sculpté inspiré du cactus — forme céramique pour les intérieurs contemporains.",                data: ["object"],                          date: "2017-04-12" },
-          { src: "TABLE.jpg",     name: "table",     status: "Seeking partner", descriptionEn: "A low table with slender legs and a restrained top, a statement piece for the contemporary living room.",          description: "Table basse aux pieds fins et plateau sobre — pièce de caractère pour salon contemporain.",                     data: ["table", "indoor"],                 date: "2024-04-12" },
-          { src: "TOMEO.jpg",     name: "tomeo",     status: "Seeking partner", descriptionEn: "A stackable outdoor metal chair made from bent pipes for restaurant terraces, whose structure genuinely questions traditional chair construction, distinct from any 20th-century reference.",                         description: "Chaise empilable en polypropylène — légèreté maximale et résistance aux UV pour les espaces extérieurs.",       data: ["chair", "outdoor"],                date: "2019-04-12" },
-          { src: "REMO5.jpg",     name: "remo",      status: "Seeking partner", descriptionEn: "Inspired by Le Corbusier and Mies Van der Rohe's functionalism, tall, austere and rational, exploring the aesthetic possibilities of bent, welded and punched metal with finesse and creativity.",                  description: "Chaise de jardin en acier poudré vert — structure articulée et résistante pour les extérieurs.",                data: ["chair", "outdoor"],                date: "2024-04-04" },
-          { src: "TAURUS1.jpg",   name: "taurus",    status: "Seeking partner", descriptionEn: "A light and stackable chair made from bent welded metal pipes, fun and minimalist at once, readable and go-anywhere, with the potential to become a new iconic chair.",                              description: "Chaise extérieure en fonte d'aluminium — poids et stabilité pour les terrasses les plus exposées.",             data: ["chair", "outdoor"],                date: "2023-10-10" },
-          { src: "TROPICAL.jpg",  name: "tropical",  status: "Seeking partner", descriptionEn: "Inspired by 60s/70s furniture and wrapped in tubular foam for unrivaled comfort and warmth, this pop and youthful armchair carries a strong identity with the potential to become a new design icon.",               description: "Fauteuil d'intérieur aux références tropicales — rembourrage généreux et structure tubulaire élancée.",         data: ["armchair", "indoor"],              date: "2023-04-10" },
+          { src: "ANTON.jpg",     name: "anton",     data: ["armchair"],                        date: "2024-01-10" },
+          { src: "BELVEDERE.jpg", name: "belvedere", data: ["chair", "outdoor"],                date: "2024-04-12" },
+          { src: "BUREAUK.jpg",   name: "bureauk",   data: ["desk"],                            date: "2016-04-01" },
+          { src: "DIETER17.jpg",  name: "dieter",    data: ["armchair", "fabric", "indoor"],    date: "2024-04-12" },
+          { src: "ENZO.jpg",      name: "enzo",      data: ["desk"],                            date: "2021-04-09" },
+          { src: "HELENA.jpg",    name: "helena",    data: ["chair", "indoor", "fabric"],       date: "2025-04-12" },
+          { src: "MALORIE.jpg",   name: "malorie",   data: ["chair", "indoor", "fabric"],       date: "2025-04-10" },
+          { src: "HELENA1.jpg",   name: "helena",    data: ["armchair", "indoor", "fabric"],    date: "2025-04-12" },
+          { src: "ORION.jpg",     name: "orion",     data: ["chair", "indoor", "fabric"],       date: "2026-05-04" },
+          { src: "ORION1.jpg",    name: "orion",     data: ["armchair", "indoor", "fabric"],    date: "2026-05-04" },
+          { src: "UNI.jpg",       name: "uni",       data: ["armchair", "indoor", "fabric"],    date: "2026-05-01" },
+          { src: "NOCTA.jpg",     name: "nocta",     data: ["chair", "indoor", "fabric"],       date: "2026-04-04" },
+          { src: "PIXA2.jpg",     name: "pixa",      data: ["chair", "indoor"],                 date: "2021-04-12" },
+          { src: "TEO2.jpg",      name: "teo",       data: ["chair", "armchair", "outdoor", "indoor"], date: "2016-04-04" },
+          { src: "LOOP.jpg",      name: "loop",      data: ["chair", "armchair", "outdoor"],    date: "2022-04-12" },
+          { src: "LOUISE5.jpg",   name: "louise",    data: ["chair", "outdoor"],                date: "2023-04-12" },
+          { src: "SPYDER.jpg",    name: "spyder",    data: ["chair", "outdoor"],                date: "2026-02-02" },
+          { src: "MELODIE1.jpg",  name: "melodie",   data: ["chair", "outdoor"],                date: "2023-04-12" },
+          { src: "MISTRAL1.jpg",  name: "mistral",   data: ["lighting"],                        date: "2022-04-12" },
+          { src: "DENTELLE.jpg",  name: "dentelle",   data: ["lighting"],                        date: "2025-01-22" },
+          { src: "demilune.jpg",  name: "demilune",   data: ["lighting"],                        date: "2025-01-19" },
+          { src: "clochette.jpg", name: "clochette" , data: ["lighting"],                        date: "2025-01-20" },
+          { src: "KAKTUS.jpg",    name: "kaktus",    data: ["object"],                          date: "2017-04-12" },
+          { src: "TABLE.jpg",     name: "table",     data: ["table", "indoor"],                 date: "2024-04-12" },
+          { src: "TOMEO.jpg",     name: "tomeo",     data: ["chair", "outdoor"],                date: "2019-04-12" },
+          { src: "REMO5.jpg",     name: "remo",      data: ["chair", "outdoor"],                date: "2024-04-04" },
+          { src: "TAURUS1.jpg",   name: "taurus",    data: ["chair", "outdoor"],                date: "2023-10-10" },
+          { src: "TROPICAL.jpg",  name: "tropical",  data: ["armchair", "indoor"],              date: "2023-04-10" },
         ];
 
         const yearSortDir = ref("desc");
@@ -1152,21 +1129,6 @@
             return yearSortDir.value === "asc" ? da - db : db - da;
           })
         );
-
-        const projectsByYear = computed(() => {
-          const groups = [];
-          const yearMap = {};
-          sortedGridData.value.forEach(item => {
-            if (!isVisible(item)) return;
-            const year = item.date.split('-')[0];
-            if (!yearMap[year]) {
-              yearMap[year] = { year, projects: [] };
-              groups.push(yearMap[year]);
-            }
-            yearMap[year].projects.push(item);
-          });
-          return groups;
-        });
 
         const sortArrow = (key) => {
           if (sortKey.value !== key) return "↕";
@@ -1380,7 +1342,6 @@
           handleCarouselClick,
           // Gallery
           sortedGridData,
-          projectsByYear,
           sortKey,
           sortOrder,
           sortArrow,

@@ -13,7 +13,12 @@
       "Bash(git -C c:/Users/hugo_/OneDrive/Documents/Sitehugo/sitehugo commit -m ' *)",
       "Bash(git -C \"c:/Users/hugo_/OneDrive/Documents/Sitehugo/sitehugo\" push origin main)",
       "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\hugo_\\\\OneDrive\\\\Documents\\\\Sitehugo\\\\sitehugo\" -Recurse -Force)",
-      "Bash(Select-Object FullName)"
+      "Bash(Select-Object FullName)",
+      "Bash(sips -g pixelWidth -g pixelHeight pages/anton/1.jpg pages/helena/1.jpg pages/tomeo/1.jpg pages/kaktus/1.jpg pages/enzo/1.jpg)",
+      "Bash(awk '/pixelWidth/{w=$2} /pixelHeight/{h=$2} /\\\\.jpg/{split\\($0,a,\"/\"\\); print a[length\\(a\\)]\": \"} /pixelWidth/{printf w} /pixelHeight/{print \"x\"h}')",
+      "Bash(python3 -)",
+      "Bash(sips -g pixelWidth -g pixelHeight /Users/pc/Library/CloudStorage/OneDrive-Personnel/Documents/Sitehugo/sitehugo/fond.jpg /Users/pc/Library/CloudStorage/OneDrive-Personnel/Documents/Sitehugo/sitehugo/carte.jpg)",
+      "Bash(awk '/pixelWidth/{w=$2} /pixelHeight/{h=$2; print w\"x\"h}')"
     ]
   }
 }

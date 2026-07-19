@@ -17,6 +17,18 @@ const PROJECTS = {
         pageTitle: "ANTON executive chair",
         ogDescription: "The Anton series with its delicate, modern and timeless look aims to become a collection of references to furnish the most distinguished and luxurious places.",
         ogImage: "https://www.hugocharlet.com/pages/anton/5.jpg",
+        gallery: [
+            { w: 1280, h: 1280 },
+            { w: 2526, h: 1764 },
+            { w: 2526, h: 1764 },
+            { w: 2320, h: 1460 },
+            { w: 1978, h: 1978 },
+            { w: 1200, h: 1222 },
+            { w: 3648, h: 5472 },
+            { w: 3918, h: 3648 },
+            { w: 911,  h: 911  }
+        ],
+        mainImage: { w: 4648, h: 2614 },
         models: [
             { src: "glb/antonchair.glb",   label: "3D Model chair" },
             { src: "glb/antonlounge.glb",  label: "3D Model armchair" },
@@ -33,6 +45,14 @@ const PROJECTS = {
         pageTitle: "BELVEDERE outdoor chairs",
         ogDescription: "The belvedere chair is a simple chair with a highly original structure: the back legs rise up to the level of the high back, creating an original detail that gives the chair a recognizable identity.",
         ogImage: "https://www.hugocharlet.com/pages/belvedere/4.jpg",
+        gallery: [
+            { w: 1621, h: 1621 },
+            { w: 1621, h: 1621 },
+            { w: 1621, h: 1621 },
+            { w: 2099, h: 1483 },
+            { w: 2099, h: 1483 }
+        ],
+        mainImage: { w: 2099, h: 1320 },
         models: [
             { src: "glb/belvederechair.glb",    label: "3D Model chair" },
             { src: "glb/belvederearmchair.glb", label: "3D Model armchair" }
@@ -48,6 +68,17 @@ const PROJECTS = {
         pageTitle: "DIETER waiting armchair",
         ogDescription: "This waiting chair with its Bauhaus look is inspired by some of the great designs of the master Dieter Rams. An elegant minimalist product with a modern touch — a perfect contract chair, easy to manufacture and recognizable at first glance.",
         ogImage: "https://www.hugocharlet.com/pages/dieter/1.jpg",
+        gallery: [
+            { w: 2433, h: 1812 },
+            { w: 1894, h: 1323 },
+            { w: 979,  h: 979  },
+            { w: 1894, h: 1323 },
+            { w: 1011, h: 675  },
+            { w: 1894, h: 1323 },
+            { w: 1280, h: 1023 },
+            { w: 1894, h: 1323 }
+        ],
+        mainImage: { w: 1894, h: 1020 },
         models: [],
         configurator: null,
         download: null
@@ -60,6 +91,15 @@ const PROJECTS = {
         pageTitle: "ENZO secretary desk",
         ogDescription: "The office desk is a piece of furniture that is making a comeback in our interiors due to the democratization of teleworking. More and more workers express the desire to be able to work from home several days a week.",
         ogImage: "https://www.hugocharlet.com/pages/enzo/2.jpg",
+        gallery: [
+            { w: 2048, h: 2048 },
+            { w: 1351, h: 1351 },
+            { w: 1300, h: 1300 },
+            { w: 1800, h: 1800 },
+            { w: 1800, h: 1800 },
+            { w: 1800, h: 1800 }
+        ],
+        mainImage: { w: 1670, h: 939 },
         models: [],
         configurator: null,
         download: null
@@ -72,6 +112,19 @@ const PROJECTS = {
         pageTitle: "HELENA modern and timeless dining chair collection in solid wood",
         ogDescription: "The Helena collection — chair, armchair, and lounge chair — is a seating collection with an innovative design. The backrest turns on itself like a ribbon to form the armrests, a contemporary classic with a strong, sleek identity.",
         ogImage: "https://www.hugocharlet.com/pages/helena/2.jpg",
+        gallery: [
+            { w: 1080, h: 1080 },
+            { w: 1080, h: 1080 },
+            { w: 972,  h: 972  },
+            { w: 1751, h: 1751 },
+            { w: 1559, h: 1559 },
+            { w: 2433, h: 2433 },
+            { w: 683,  h: 1025 },
+            { w: 1003, h: 1003 },
+            { w: 2537, h: 2537 },
+            { w: 3648, h: 3648 }
+        ],
+        mainImage: { w: 1642, h: 923 },
         models: [
             { src: "glb/helenachair.glb",    label: "3D Model chair" },
             { src: "glb/helenaarmchair.glb", label: "3D Model armchair" },
@@ -88,6 +141,12 @@ const PROJECTS = {
         pageTitle: "KAKTUS funny teapot",
         ogDescription: "The Kaktus teapot is a funny and ironic object inspired from Richard Hutten's mug. This porcelain teapot with a bold cactus silhouette could also be produced in plastic.",
         ogImage: "https://www.hugocharlet.com/pages/kaktus/3.jpg",
+        gallery: [
+            { w: 712,  h: 713  },
+            { w: 1000, h: 1000 },
+            { w: 1000, h: 1000 }
+        ],
+        mainImage: null,
         models: [
             { src: "glb/kaktus.glb", label: "3D Model teapot" }
         ],
@@ -102,6 +161,14 @@ const PROJECTS = {
         pageTitle: "LOOP: Metallic Frame with Wrapped Stretch Fabric",
         ogDescription: "Loop represents a series of outdoor furniture with an original usage of stretched fabric for the seating parts.",
         ogImage: "https://www.hugocharlet.com/pages/loop/1.jpg",
+        gallery: [
+            { w: 1275, h: 1275 },
+            { w: 1920, h: 1356 },
+            { w: 1920, h: 1356 },
+            { w: 1920, h: 1356 },
+            { w: 1920, h: 1356 }
+        ],
+        mainImage: { w: 5472, h: 3078 },
         models: [
             { src: "glb/loopchair.glb",       label: "3D Model chair" },
             { src: "glb/looparmchair.glb",    label: "3D Model armchair" },
@@ -118,6 +185,12 @@ const PROJECTS = {
         pageTitle: "LOUISE standard chair for contract",
         ogDescription: "Louise is inspired by the medallion chairs of the Louis XVI era. Its unique style and simple, robust structure make Louise the perfect chair for both B2B and individual customers.",
         ogImage: "https://www.hugocharlet.com/pages/louise/1.jpg",
+        gallery: [
+            { w: 2320, h: 1460 },
+            { w: 2320, h: 1460 },
+            { w: 2320, h: 1460 }
+        ],
+        mainImage: { w: 2596, h: 1460 },
         models: [
             { src: "glb/louisechair.glb",    label: "3D Model chair" },
             { src: "glb/louisearmchair.glb", label: "3D Model armchair" }
@@ -133,6 +206,13 @@ const PROJECTS = {
         pageTitle: "MALORIE original outdoor chair made with square tubes",
         ogDescription: "Malorie is a new outdoor chair that is both fun and sophisticated. It's made from square tubing that's been bent into a cool and unique design, which gives it a playful look.",
         ogImage: "https://www.hugocharlet.com/pages/malorie/1.jpg",
+        gallery: [
+            { w: 1444, h: 1445 },
+            { w: 2648, h: 2648 },
+            { w: 2304, h: 1424 },
+            { w: 768,  h: 768  }
+        ],
+        mainImage: { w: 3436, h: 1255 },
         models: [],
         configurator: null,
         download: null
@@ -145,6 +225,14 @@ const PROJECTS = {
         pageTitle: "MELODIE original outdoor chair made with square tubes",
         ogDescription: "Mélodie is a new outdoor chair that is both fun and sophisticated. It's made from square tubing that's been bent into a cool and unique design, which gives it a playful look.",
         ogImage: "https://www.hugocharlet.com/pages/melodie/1.jpg",
+        gallery: [
+            { w: 1506, h: 1506 },
+            { w: 2922, h: 2043 },
+            { w: 2922, h: 2043 },
+            { w: 1460, h: 1460 },
+            { w: 2320, h: 1460 }
+        ],
+        mainImage: { w: 2320, h: 1460 },
         models: [],
         configurator: null,
         download: null
@@ -157,6 +245,14 @@ const PROJECTS = {
         pageTitle: "NOCTA modern dining chair collection in solid wood",
         ogDescription: "The Nocta chair is a modern reinterpretation of a Scandinavian-inspired mid-back bridge chair, where taut exterior lines contrast with gentle, enveloping interior contours for a distinctive and refined identity.",
         ogImage: "https://www.hugocharlet.com/pages/nocta/2.jpg",
+        gallery: [
+            { w: 1800, h: 1800 },
+            { w: 1800, h: 1800 },
+            { w: 1800, h: 1800 },
+            { w: 1800, h: 1800 },
+            { w: 1800, h: 1800 }
+        ],
+        mainImage: { w: 1782, h: 1002 },
         models: [
             { src: "glb/noctachair.glb", label: "3D Model chair" }
         ],
@@ -171,6 +267,19 @@ const PROJECTS = {
         pageTitle: "ORION modern dining chair collection in solid wood",
         ogDescription: "The triangular armrest is the starting point of this project — a smart, functional, and robust chair with clean lines and elegant details, suitable for both modern spaces and traditional mountain chalets.",
         ogImage: "https://www.hugocharlet.com/pages/orion/6.jpg",
+        gallery: [
+            { w: 1800, h: 1800 },
+            { w: 1800, h: 1800 },
+            { w: 1800, h: 1800 },
+            { w: 1800, h: 1800 },
+            { w: 1800, h: 1800 },
+            { w: 1537, h: 1537 },
+            { w: 1024, h: 1024 },
+            { w: 1748, h: 984  },
+            { w: 1578, h: 888  },
+            { w: 1401, h: 1336 }
+        ],
+        mainImage: { w: 3528, h: 1353 },
         models: [
             { src: "glb/orionchair.glb",    label: "3D Model chair" },
             { src: "glb/orionarmchair.glb", label: "3D Model armchair" }
@@ -186,6 +295,16 @@ const PROJECTS = {
         pageTitle: "PIXA, rustic and original furniture collection",
         ogDescription: "The PIXA Collection is a family of robust and rustic furniture for the outdoors with a very original and recognizable look. With bulky legs and oversized proportions, this furniture family triggers surprise and astonishment.",
         ogImage: "https://www.hugocharlet.com/pages/pixa/3.jpg",
+        gallery: [
+            { w: 1033, h: 1033 },
+            { w: 867,  h: 1056 },
+            { w: 1252, h: 1568 },
+            { w: 964,  h: 1094 },
+            { w: 983,  h: 983  },
+            { w: 1616, h: 1212 },
+            { w: 1210, h: 806  }
+        ],
+        mainImage: { w: 2399, h: 1006 },
         models: [
             { src: "glb/pixachair.glb",  label: "3D Model chair" },
             { src: "glb/pixalounge.glb", label: "3D Model armchair" }
@@ -201,6 +320,15 @@ const PROJECTS = {
         pageTitle: "REMO minimalist metallic furniture",
         ogDescription: "In the early 1900s, architects like Le Corbusier and Mies Van Der Rohe were prominent figures of the functionalist movement. This chair collection embodies a functionalist approach — tall and austere, unadorned and rational.",
         ogImage: "https://www.hugocharlet.com/pages/remo/4.jpg",
+        gallery: [
+            { w: 1356, h: 1356 },
+            { w: 1713, h: 1713 },
+            { w: 1483, h: 1483 },
+            { w: 1447, h: 1447 },
+            { w: 2099, h: 1483 },
+            { w: 1279, h: 1279 }
+        ],
+        mainImage: { w: 2651, h: 1492 },
         models: [
             { src: "glb/remo.glb",         label: "3D Model chair" },
             { src: "glb/remoarmrests.glb", label: "3D Model armchair" }
@@ -216,6 +344,17 @@ const PROJECTS = {
         pageTitle: "SPYDER modern outdoor chairs for restaurant terraces",
         ogDescription: "Spyder is an outdoor metal chair made from bent metal pipes. It is a light and stackable chair initially designed for restaurant terraces as an alternative to plastic chairs.",
         ogImage: "https://www.hugocharlet.com/pages/spyder/1.jpg",
+        gallery: [
+            { w: 2048, h: 2048 },
+            { w: 2048, h: 2048 },
+            { w: 2048, h: 2048 },
+            { w: 973,  h: 688  },
+            { w: 1024, h: 724  },
+            { w: 973,  h: 688  },
+            { w: 2048, h: 2048 },
+            { w: 2048, h: 1285 }
+        ],
+        mainImage: { w: 2322, h: 1183 },
         models: [
             { src: "glb/tomeo-v3.glb", label: "3D Model chair" }
         ],
@@ -230,6 +369,14 @@ const PROJECTS = {
         pageTitle: "TAURUS playful contract chair for outdoor",
         ogDescription: "Taurus is a chair made out of bent welded metal pipes. This light, stackable and playful chair is dedicated to restaurateurs and individuals alike.",
         ogImage: "https://www.hugocharlet.com/pages/taurus/1.jpg",
+        gallery: [
+            { w: 2560, h: 1809 },
+            { w: 2560, h: 1809 },
+            { w: 1460, h: 1460 },
+            { w: 2099, h: 1483 },
+            { w: 2099, h: 1483 }
+        ],
+        mainImage: { w: 2099, h: 1230 },
         models: [],
         configurator: null,
         download: null
@@ -242,6 +389,13 @@ const PROJECTS = {
         pageTitle: "TEO rustic and minimalist armchair",
         ogDescription: "Teo is an outdoor wooden armchair with a simple and sophisticated look, designed in collaboration with skilled cabinet maker Mr. Delavelle.",
         ogImage: "https://www.hugocharlet.com/pages/teo/1.jpg",
+        gallery: [
+            { w: 1654, h: 1654 },
+            { w: 1654, h: 1654 },
+            { w: 1267, h: 1267 },
+            { w: 1267, h: 1267 }
+        ],
+        mainImage: { w: 1440, h: 960 },
         models: [
             { src: "glb/teo.glb", label: "3D Model chair" }
         ],
@@ -256,6 +410,21 @@ const PROJECTS = {
         pageTitle: "TOMEO modern outdoor chairs for restaurant terraces",
         ogDescription: "Tomeo is an outdoor metal chair made from bent metal pipes. It is a light and stackable chair initially designed for restaurant terraces as an alternative to plastic chairs.",
         ogImage: "https://www.hugocharlet.com/pages/tomeo/1.jpg",
+        gallery: [
+            { w: 987,  h: 987  },
+            { w: 900,  h: 900  },
+            { w: 1188, h: 1029 },
+            { w: 1300, h: 1300 },
+            { w: 1040, h: 1040 },
+            { w: 1300, h: 1300 },
+            { w: 900,  h: 900  },
+            { w: 1080, h: 1080 },
+            { w: 844,  h: 1252 },
+            { w: 860,  h: 860  },
+            { w: 1081, h: 1081 },
+            { w: 1081, h: 1352 }
+        ],
+        mainImage: { w: 3289, h: 3289 },
         models: [
             { src: "glb/tomeochair.glb",    label: "3D Model chair" },
             { src: "glb/tomeoarmchair.glb", label: "3D Model armchair" },
@@ -272,6 +441,15 @@ const PROJECTS = {
         pageTitle: "TROPICAL bulky chairs inspired by the 60's",
         ogDescription: "The TROPICAL chair is an original and fun creation inspired by furniture from the 60s/70s. With its pop and youthful look, it wraps you in tubular foam for unrivaled comfort and a strong identity.",
         ogImage: "https://www.hugocharlet.com/pages/tropical/1.jpg",
+        gallery: [
+            { w: 2416, h: 2416 },
+            { w: 2320, h: 1460 },
+            { w: 745,  h: 745  },
+            { w: 1200, h: 800  },
+            { w: 2465, h: 1627 },
+            { w: 1541, h: 972  }
+        ],
+        mainImage: { w: 2320, h: 1561 },
         models: [],
         configurator: null,
         download: null
@@ -284,6 +462,15 @@ const PROJECTS = {
         pageTitle: "BUREAUK height adjustable desk",
         ogDescription: "This furniture is a height adjustable desk for individuals. It is power free and therefore an affordable alternative to expensive electric solutions on the market.",
         ogImage: "https://www.hugocharlet.com/pages/bureauk/4.jpg",
+        gallery: [
+            { w: 1800, h: 1800 },
+            { w: 1800, h: 1800 },
+            { w: 1800, h: 1800 },
+            { w: 1800, h: 1800 },
+            { w: 1064, h: 708  },
+            { w: 1064, h: 708  }
+        ],
+        mainImage: { w: 1948, h: 1096 },
         models: [
             { src: "glb/bureauk.glb", label: "3D Model desk" }
         ],
@@ -298,6 +485,8 @@ const PROJECTS = {
         pageTitle: "MISTRAL modern storm lamp",
         ogDescription: "Mistral is a modern lamp inspired by the storm lantern. Suspended above a table, it instantly creates an atmosphere of discreet and enveloping warmth — Scandinavian minimalism meets intelligent design.",
         ogImage: "https://www.hugocharlet.com/pages/mistral/3.jpg",
+        gallery: [],
+        mainImage: { w: 2756, h: 1550 },
         models: [
             { src: "glb/mistral.glb", label: "3D Model lamp" }
         ],
@@ -312,6 +501,15 @@ const PROJECTS = {
         pageTitle: "UNI modern armchair in solid beech",
         ogDescription: "The Uni armchair draws its inspiration from the University Chair — clean, radical lines at 0, 45, or 90-degree facets in solid beech, combining cool elegance with striking geometry.",
         ogImage: "https://www.hugocharlet.com/pages/uni/6.jpg",
+        gallery: [
+            { w: 1080, h: 1080 },
+            { w: 1080, h: 1080 },
+            { w: 1080, h: 1080 },
+            { w: 1080, h: 1080 },
+            { w: 5133, h: 3410 },
+            { w: 1080, h: 1080 }
+        ],
+        mainImage: { w: 2420, h: 1361 },
         models: [
             { src: "glb/uniarmchair.glb", label: "3D Model chair" }
         ],
