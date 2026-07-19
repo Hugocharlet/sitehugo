@@ -34,11 +34,13 @@
             /* hero-section left edge = 19vw depuis viewport left */
             left: calc(var(--margin-general) + 10px - 19vw);
             width: calc(100vw - 2 * (var(--margin-general) + 10px));
+            height: auto !important;
             z-index: 2100;
             display: flex;
             align-items: center;
             justify-content: space-between;
             pointer-events: none;
+            padding: 0 !important;
         }
 
         .proj-top-nav-link {
@@ -293,6 +295,21 @@
 
             .editorial-gallery-grid {
                 width: 100%;
+            }
+
+            .proj-top-nav {
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                width: 100%;
+                margin-bottom: 8px;
+                padding: 4px 0;
+                pointer-events: all;
+            }
+
+            .proj-top-nav-link {
+                line-height: 1;
             }
 
             #modelContainer {
