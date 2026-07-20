@@ -278,6 +278,106 @@
             display: block;
         }
 
+        /* ── Lightbox carousel ── */
+        .lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 4000;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(55px) saturate(160%) brightness(0.62);
+            -webkit-backdrop-filter: blur(55px) saturate(160%) brightness(0.78);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .lightbox-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .lightbox-img {
+            max-width: 80vw;
+            max-height: 85vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            user-select: none;
+            cursor: zoom-in;
+            transition: max-width 0.35s ease, max-height 0.35s ease;
+        }
+        .lightbox-img.zoomed {
+            max-width: 96vw;
+            max-height: 120vh;
+            cursor: zoom-out;
+        }
+        .lb-fade-enter-active, .lb-fade-leave-active { transition: opacity 0.18s ease; }
+        .lb-fade-enter-from, .lb-fade-leave-to { opacity: 0; }
+        .lightbox-close {
+            position: fixed;
+            top: 22px;
+            right: 28px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #f1f1f1;
+            font-family: "IBM Plex Mono", monospace;
+            font-style: italic;
+            font-size: 11px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s;
+            padding: 0;
+            z-index: 4001;
+            text-transform: lowercase;
+        }
+        .lightbox-close:hover { color: #fff; }
+        .lightbox-nav-btn {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(185, 185, 185, 0.6);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;
+            height: 52px;
+            padding: 0;
+            z-index: 4001;
+            transition: background 0.2s, transform 0.3s ease;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+        .lightbox-nav-btn:hover { background: rgba(185, 185, 185, 0.85); }
+        .lightbox-nav-btn.prev { left: 48px; }
+        .lightbox-nav-btn.prev:hover { transform: translateY(-50%) translateX(-2px); }
+        .lightbox-nav-btn.next { right: 48px; }
+        .lightbox-nav-btn.next:hover { transform: translateY(-50%) translateX(2px); }
+        @media (max-width: 768px) {
+            .lightbox-img { max-width: 95vw; max-height: 80vh; }
+            .lightbox-nav-btn.prev { left: 4px; }
+            .lightbox-nav-btn.next { right: 4px; }
+        }
+        .lightbox-counter {
+            position: fixed;
+            top: 22px;
+            left: 28px;
+            font-family: "IBM Plex Mono", monospace;
+            font-style: italic;
+            font-size: 10px;
+            color: #f1f1f1;
+            letter-spacing: 0.08em;
+            z-index: 4001;
+            pointer-events: none;
+        }
+
         /* ── Responsive ── */
         @media (max-width: 768px) {
             .page-container {
@@ -438,6 +538,8 @@
                     :class="{ visible: img.visible }"
                     :alt="`${project.title} — Hugo Charlet`"
                     :loading="i === 0 ? 'eager' : 'lazy'"
+                    style="cursor: pointer;"
+                    @click="openLightbox(mainImageExists ? i + 1 : i)"
                 />
             </div>
         </section>
@@ -465,6 +567,41 @@
 
     <div id="loader" v-show="loading">
         <div class="spinner"></div>
+    </div>
+
+    <!-- ── Lightbox carousel ── -->
+    <div class="lightbox-overlay" :class="{ open: lightboxOpen }"
+         @click.self="closeLightbox"
+         @touchstart.passive="handleTouchStart"
+         @touchend.passive="handleTouchEnd">
+        <button class="lightbox-close" @click="closeLightbox">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" width="13" height="13">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+            <span>close</span>
+        </button>
+        <button v-if="lightboxImages.length > 1" class="lightbox-nav-btn prev" @click="lightboxPrev">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"/>
+            </svg>
+        </button>
+        <transition name="lb-fade" mode="out-in">
+            <img v-if="lightboxImages[lightboxIndex]"
+                 :key="lightboxIndex"
+                 :src="lightboxImages[lightboxIndex]"
+                 class="lightbox-img"
+                 :class="{ zoomed: lightboxZoomed }"
+                 :alt="`${project.title} — Hugo Charlet`"
+                 @click.stop="toggleZoom" />
+        </transition>
+        <button v-if="lightboxImages.length > 1" class="lightbox-nav-btn next" @click="lightboxNext">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"/>
+            </svg>
+        </button>
+        <div class="lightbox-counter" v-if="lightboxImages.length > 1">
+            {{ lightboxIndex + 1 }} / {{ lightboxImages.length }}
+        </div>
     </div>
 </div>
 
@@ -519,7 +656,7 @@ const navsvg = document.getElementById("svgmenupages-placeholder");
 })();
 
 // ── Vue app ──────────────────────────────────────────────────────────────────
-const { createApp, ref, reactive, onMounted, nextTick } = Vue;
+const { createApp, ref, reactive, computed, onMounted, nextTick } = Vue;
 
 const app = createApp({
     setup() {
@@ -537,6 +674,7 @@ const app = createApp({
         const processImages   = reactive([]);
         const processVisible  = ref(false);
         const processLoaded   = ref(false);
+        const processExt      = ref('jpg');
         const videoExists     = ref(false);
         const mainImageExists = ref(false);
         const processExists   = ref(false);
@@ -544,6 +682,43 @@ const app = createApp({
         const videoPlaying    = ref(true);
         const modelContainer  = ref(null);
         const galleryRef      = ref(null);
+
+        // ── Lightbox ──
+        const lightboxOpen   = ref(false);
+        const lightboxIndex  = ref(0);
+        const lightboxZoomed = ref(false);
+        const lightboxImages = computed(() => {
+            const imgs = [];
+            if (mainImageExists.value) imgs.push(mainImageSrc);
+            images.forEach(img => imgs.push(img.src));
+            return imgs;
+        });
+
+        function openLightbox(index) {
+            lightboxIndex.value = index;
+            lightboxZoomed.value = false;
+            lightboxOpen.value = true;
+        }
+        function closeLightbox() {
+            lightboxOpen.value = false;
+            lightboxZoomed.value = false;
+        }
+        function lightboxPrev() {
+            lightboxZoomed.value = false;
+            const len = lightboxImages.value.length;
+            lightboxIndex.value = (lightboxIndex.value - 1 + len) % len;
+        }
+        function lightboxNext() {
+            lightboxZoomed.value = false;
+            lightboxIndex.value = (lightboxIndex.value + 1) % lightboxImages.value.length;
+        }
+        function toggleZoom() { lightboxZoomed.value = !lightboxZoomed.value; }
+        let _lbTouchX = 0;
+        function handleTouchStart(e) { _lbTouchX = e.touches[0].clientX; }
+        function handleTouchEnd(e) {
+            const dx = e.changedTouches[0].clientX - _lbTouchX;
+            if (Math.abs(dx) > 40) dx < 0 ? lightboxNext() : lightboxPrev();
+        }
 
         function openModel(src) {
             currentModelSrc.value = src;
@@ -566,10 +741,11 @@ const app = createApp({
                 if (!processLoaded.value) {
                     processLoaded.value = true;
                     const base = `${newUrl}process/`;
+                    const ext  = processExt.value || 'jpg';
                     const srcs = await Promise.all(
                         Array.from({ length: 30 }, (_, i) => new Promise(resolve => {
                             const img = new Image();
-                            img.src = `${base}${i + 1}.jpg`;
+                            img.src = `${base}${i + 1}.${ext}`;
                             img.onload  = () => resolve(img.src);
                             img.onerror = () => resolve(null);
                         }))
@@ -589,6 +765,13 @@ const app = createApp({
                 }
             });
 
+            document.addEventListener('keydown', (e) => {
+                if (!lightboxOpen.value) return;
+                if (e.key === 'Escape')      closeLightbox();
+                if (e.key === 'ArrowLeft')   lightboxPrev();
+                if (e.key === 'ArrowRight')  lightboxNext();
+            });
+
             // ── Détection vidéo / image principale ──
             fetch(`${newUrl}main-video.mp4`, { method: 'HEAD' })
                 .then(async r => {
@@ -603,12 +786,16 @@ const app = createApp({
                 .catch(() => {});
 
             // ── Détection dossier process ──
-            new Promise(resolve => {
-                const img = new Image();
-                img.onload  = () => resolve(true);
-                img.onerror = () => resolve(false);
-                img.src = `${newUrl}process/1.jpg`;
-            }).then(exists => { processExists.value = exists; });
+            (function detectProcess() {
+                const tryExt = (ext) => new Promise(resolve => {
+                    const img = new Image();
+                    img.onload  = () => resolve(ext);
+                    img.onerror = () => resolve(null);
+                    img.src = `${newUrl}process/1.${ext}`;
+                });
+                tryExt('jpg').then(e => e ? (processExt.value = e, processExists.value = true)
+                    : tryExt('png').then(e2 => { if (e2) { processExt.value = e2; processExists.value = true; } }));
+            })();
 
             // ── Chargement galerie ──
             const mediaSrcs = await Promise.all(
@@ -650,6 +837,9 @@ const app = createApp({
             images, processImages, processVisible, processExists,
             videoExists, videoRef, videoPlaying, modelContainer, galleryRef,
             openModel, closeModel, toggleProcess, toggleVideoPlay,
+            lightboxOpen, lightboxIndex, lightboxImages, lightboxZoomed,
+            openLightbox, closeLightbox, lightboxPrev, lightboxNext, toggleZoom,
+            handleTouchStart, handleTouchEnd,
         };
     }
 });
