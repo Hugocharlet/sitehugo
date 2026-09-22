@@ -28,11 +28,10 @@
     <style>
         /* ── Barre de navigation projet ── */
         .proj-top-nav {
-            position: absolute;
+            position: fixed;
             top: 50%;
             transform: translateY(-50%);
-            /* hero-section left edge = 19vw depuis viewport left */
-            left: calc(var(--margin-general) + 10px - 19vw);
+            left: calc(var(--margin-general) + 10px);
             width: calc(100vw - 2 * (var(--margin-general) + 10px));
             height: auto !important;
             z-index: 2100;
@@ -356,8 +355,8 @@
             position: fixed;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(185, 185, 185, 0.6);
-            border: none;
+            background: transparent;
+            border: 2px solid rgba(185, 185, 185, 0.85);
             border-radius: 50%;
             cursor: pointer;
             color: #fff;
@@ -368,15 +367,14 @@
             height: 52px;
             padding: 0;
             z-index: 4001;
-            transition: background 0.2s, transform 0.3s ease;
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
+            transition: background 0.2s;
         }
-        .lightbox-nav-btn:hover { background: rgba(185, 185, 185, 0.85); }
+        .lightbox-nav-btn:hover { background: rgba(185, 185, 185, 0.15); }
+        .lightbox-nav-btn svg { transition: transform 0.3s ease; }
         .lightbox-nav-btn.prev { left: 48px; }
-        .lightbox-nav-btn.prev:hover { transform: translateY(-50%) translateX(-2px); }
+        .lightbox-nav-btn.prev:hover svg { transform: translateX(-2px); }
         .lightbox-nav-btn.next { right: 48px; }
-        .lightbox-nav-btn.next:hover { transform: translateY(-50%) translateX(2px); }
+        .lightbox-nav-btn.next:hover svg { transform: translateX(2px); }
         @media (max-width: 768px) {
             .lightbox-img { max-width: 95vw; max-height: 80vh; }
             .lightbox-nav-btn.prev { left: 4px; }
